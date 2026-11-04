@@ -1,0 +1,108 @@
+/* AXIA — assistant d'accueil (page d'accueil).
+   Personnage 3D pré-rendu (mascot-body.webp, mascot-wave.webp : 6 poses du bras). Yeux et bouche dessinés
+   par-dessus la visière (positions issues de mascot.json). Au repos, le robot se range dans l'en-tête (.ax-dock) :
+   il ne recouvre alors aucun contenu. Le panneau (.axbot) ne s'affiche que pendant la présentation ou sur demande. */
+.has-axbot .chat-fab{display:none!important}
+
+/* ---------- figure commune (panneau et en-tête) ---------- */
+.ax-fig{position:absolute;left:0;top:0;width:var(--w);height:calc(var(--w)*1.2)}
+.ax-fig img{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-select:none;user-select:none}
+.ax-face{position:absolute;inset:0;transform:rotate(-3deg);transform-origin:42.4% 36.3%;filter:drop-shadow(0 0 calc(var(--w)*.025) #3D8BFF);transition:transform .45s ease}
+.ax-eye{position:absolute;width:calc(var(--w)*.052);height:calc(var(--w)*.078);margin:calc(var(--w)*-.039) 0 0 calc(var(--w)*-.026);border-radius:50%;background:#C4E2FF;animation:ax-blink 5.6s infinite}
+.ax-eye.l{left:29.36%;top:34.22%}
+.ax-eye.r{left:56.55%;top:33.01%;animation-delay:.04s}
+.ax-smile,.ax-talk{position:absolute;left:43.38%;top:44.19%;width:calc(var(--w)*.078);margin-left:calc(var(--w)*-.039)}
+.ax-smile{height:calc(var(--w)*.034);margin-top:calc(var(--w)*-.022);border:calc(var(--w)*.012) solid #C4E2FF;border-top:0;border-radius:0 0 50% 50%/0 0 100% 100%;transition:opacity .12s}
+.ax-talk{height:calc(var(--w)*.052);margin-top:calc(var(--w)*-.03);border-radius:42%;background:#C4E2FF;opacity:0;transform:scaleY(var(--m,.3));transition:transform .06s linear}
+
+/* ---------- panneau : personnage + bulle ---------- */
+.axbot{--w:124px;position:fixed;z-index:57;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));opacity:0;transform:translateY(14px) scale(.96);transform-origin:100% 100%;transition:opacity .35s ease,transform .4s cubic-bezier(.2,.9,.3,1.15)}
+.axbot[hidden]{display:none}
+.axbot.is-in{opacity:1;transform:none}
+.ax-char{position:relative;width:var(--w);height:calc(var(--w)*1.2);pointer-events:none}
+.ax-float{position:absolute;inset:0;will-change:transform;animation:ax-float 3.8s ease-in-out infinite alternate}
+.ax-tilt{position:absolute;inset:0;transform-origin:50% 85%;transition:transform .35s ease}
+.ax-glow{position:absolute;left:12%;right:12%;bottom:-3%;height:14%;border-radius:50%;background:radial-gradient(closest-side,rgba(40,120,232,.42),rgba(40,120,232,0));animation:ax-shadow 3.8s ease-in-out infinite alternate}
+.ax-arm{position:absolute;left:.32%;top:49.87%;width:33.54%;height:45.91%;background:url(mascot-wave.webp) 0 0/600% 100% no-repeat}
+.axbot.is-talking .ax-smile{opacity:0}
+.axbot.is-talking .ax-talk{opacity:1}
+.axbot.is-tts.is-talking .ax-talk{animation:ax-talk .26s ease-in-out infinite alternate}
+.axbot.is-nod .ax-tilt{transform:rotate(-4deg) translateY(-1px)}
+.axbot .ax-face{transform:translate(-1.6%,-.6%) rotate(-3deg)}
+
+.ax-bubble{position:absolute;right:calc(var(--w)*.9);bottom:calc(var(--w)*.6);width:min(352px,calc(100vw - var(--w) - 36px));max-height:min(74vh,580px);overflow:auto;overscroll-behavior:contain;padding:12px 16px 14px;border-radius:18px 18px 6px 18px;background:linear-gradient(180deg,rgba(31,39,50,.98),rgba(16,21,28,.98));border:1px solid rgba(170,183,199,.3);box-shadow:0 22px 50px -14px rgba(0,0,0,.8),0 0 0 1px rgba(0,0,0,.35),0 0 34px rgba(40,120,232,.16);color:var(--ink,#F2F4F7);text-align:left}
+.ax-top{display:flex;align-items:center;gap:8px;margin:0 -8px 8px 0}
+.ax-name{display:inline-flex;align-items:center;gap:7px;font:600 .72rem/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-hi,#78B4F5)}
+.ax-name::before{content:"";width:7px;height:7px;border-radius:50%;background:#4ADE80;box-shadow:0 0 8px rgba(74,222,128,.7)}
+.ax-tools{display:flex;gap:2px;margin-left:auto}
+.ax-ic{display:grid;place-items:center;width:32px;height:32px;padding:0;border:0;border-radius:9px;background:transparent;color:var(--mut,#B8C2CF);cursor:pointer;transition:background-color .2s,color .2s}
+.ax-ic:hover{background:rgba(170,183,199,.12);color:#fff}
+.ax-ic[aria-pressed="true"]{color:#F5B97A}
+.ax-ic[hidden]{display:none}
+.ax-ic .ico{width:17px;height:17px}
+.ax-ic:focus-visible,.ax-chip:focus-visible,.ax-sc:focus-visible,.ax-send:focus-visible,.ax-dock:focus-visible{outline:2px solid var(--cyan-hi,#78B4F5);outline-offset:2px}
+
+/* texte lu : la phrase en cours est soulignée en bleu, le reste reste lisible */
+.ax-txt p{margin:0 0 .55em;font-size:.97rem;line-height:1.55;color:var(--soft,#D3DAE3)}
+.ax-txt p:last-child{margin-bottom:0}
+.ax-txt strong{color:#fff}
+.ax-s{border-radius:4px;transition:opacity .25s,color .25s,background-color .25s}
+.axbot.is-playing .ax-s{opacity:.62}
+.axbot.is-playing .ax-s.is-past{opacity:1}
+.ax-s.is-now{opacity:1!important;color:#fff;background:linear-gradient(transparent 64%,rgba(40,120,232,.38) 64%)}
+.ax-hello{margin:0 0 6px!important;font:700 1.06rem/1.25 var(--f-display)!important;color:#fff!important}
+
+/* raccourcis, proposés à la fin */
+.ax-more{margin-top:12px;padding-top:12px;border-top:1px solid rgba(170,183,199,.14);animation:ax-in .35s ease}
+.ax-more[hidden]{display:none}
+.ax-more-t{margin:0 0 8px!important;font-size:.82rem!important;color:var(--mut,#B8C2CF)!important;letter-spacing:.02em}
+.ax-short{display:grid;gap:7px}
+.ax-sc{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(170,183,199,.22);background:rgba(27,34,44,.75);color:#fff;font:600 .92rem/1.2 var(--f-body);text-align:left;cursor:pointer;transition:border-color .2s,background-color .2s}
+.ax-sc:hover{border-color:rgba(120,180,245,.65);background:rgba(40,120,232,.12)}
+.ax-sc>.ico:first-child{width:20px;height:20px;color:var(--cyan-hi,#78B4F5)}
+.ax-sc>.ico:last-child{width:16px;height:16px;margin-left:auto;color:var(--mut,#B8C2CF)}
+.ax-ask{display:flex;gap:6px;margin-top:10px}
+.ax-ask input{flex:1;min-width:0;height:40px;padding:0 12px;border-radius:10px;border:1px solid rgba(170,183,199,.3);background:rgba(10,14,19,.7);color:#fff;font:400 .92rem var(--f-body)}
+.ax-ask input::placeholder{color:#8F9BAA}
+.ax-ask input:focus{outline:none;border-color:rgba(120,180,245,.85);box-shadow:0 0 0 3px rgba(40,120,232,.25)}
+.ax-send{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:10px;border:1px solid rgba(120,180,245,.7);background:linear-gradient(180deg,#4A90F0,#1F64CC);color:#fff;cursor:pointer}
+.ax-send .ico{width:18px;height:18px}
+.ax-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;margin-top:8px}
+.ax-note{margin:0!important;font-size:.76rem!important;color:var(--mut,#B8C2CF)!important}
+.ax-chip{display:inline-flex;align-items:center;gap:6px;padding:.4em .7em;border-radius:999px;border:1px solid rgba(120,180,245,.4);background:rgba(40,120,232,.1);color:#B9D7FA;font:600 .8rem/1.1 var(--f-body);cursor:pointer;transition:background-color .2s,border-color .2s}
+.ax-chip:hover{background:rgba(40,120,232,.22);border-color:rgba(120,180,245,.8);color:#fff}
+.ax-chip .ico{width:14px;height:14px}
+
+/* ---------- au repos : rangé dans l'en-tête ---------- */
+.ax-dock{position:relative;flex:none;width:40px;height:40px;margin:0;padding:0;overflow:hidden;border-radius:50%;border:1.5px solid rgba(170,183,199,.55);background:radial-gradient(circle at 50% 30%,#223044,#0E141B 70%);box-shadow:0 0 14px rgba(40,120,232,.25);cursor:pointer;transition:box-shadow .25s,border-color .25s}
+.ax-dock:hover,.ax-dock[aria-expanded="true"]{border-color:rgba(120,180,245,.85);box-shadow:0 0 0 3px rgba(40,120,232,.22),0 0 20px rgba(40,120,232,.5)}
+.ax-dock .ax-fig{--w:46px;left:calc(19px - var(--w)*.5139);top:calc(20px - var(--w)*1.2*.3276)}
+.ax-dock .ax-face{transform:rotate(-3deg)}
+.ax-dock .ax-fig{transition:opacity .3s,transform .3s}
+.ax-dock[aria-expanded="true"] .ax-fig{opacity:.18;transform:translateY(6px)}
+.ax-dock.is-pop{animation:ax-pop 1.1s cubic-bezier(.2,.9,.3,1.2)}
+.top-in>.ax-dock{grid-row:1;grid-column:3;justify-self:end;align-self:center}
+
+/* ---------- animations ---------- */
+@keyframes ax-float{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+@keyframes ax-shadow{from{transform:scale(1);opacity:1}to{transform:scale(.86);opacity:.65}}
+@keyframes ax-blink{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.12)}}
+@keyframes ax-talk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@keyframes ax-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes ax-pop{0%{transform:scale(.6)}45%{transform:scale(1.12);box-shadow:0 0 0 6px rgba(40,120,232,.25),0 0 30px rgba(40,120,232,.7)}100%{transform:scale(1)}}
+.ax-paused,.ax-paused *{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){
+  .axbot,.axbot *,.ax-dock,.ax-dock *{animation:none!important;transition:none!important}
+  .axbot.is-talking .ax-talk{transform:scaleY(.6)}
+}
+
+/* ---------- mobile : carte au-dessus de la barre d'onglets, robot posé sur la carte ---------- */
+@media (max-width:760px){
+  .axbot{--w:68px;left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));bottom:calc(var(--m-bar,0px) + 20px + env(safe-area-inset-bottom,0px));transform-origin:50% 100%}
+  .ax-char{position:absolute;left:6px;top:calc(var(--w)*-.8);z-index:1}
+  .ax-bubble{position:relative;right:auto;bottom:auto;width:auto;max-height:calc(100dvh - var(--m-bar,0px) - 190px);padding-top:10px;border-radius:18px}
+  .ax-top{margin-left:calc(var(--w) + 2px)}
+  .ax-txt p{font-size:.95rem}
+  .ax-dock{width:38px;height:38px}
+  .ax-dock .ax-fig{--w:44px;left:calc(18px - var(--w)*.5139);top:calc(19px - var(--w)*1.2*.3276)}
+}

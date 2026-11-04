@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Créer un compte · AXIA</title>
+<meta name="description" content="Créez votre compte AXIA avec Apple, Google, votre e-mail ou votre numéro de téléphone.">
+<meta name="axia-page" content="inscription">
+<meta name="axia-nochat" content="1">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<link rel="stylesheet" href="assets/pages/auth.css">
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <section class="auth" aria-labelledby="t-auth">
+    <div class="auth-in">
+      <!-- Étape 1 : choix de la méthode -->
+      <div id="step-start" class="auth-step">
+        <header class="auth-head">
+          <span class="eyebrow">Bienvenue</span>
+          <h1 id="t-auth">Créer un compte</h1>
+          <p>Une minute suffit. Suivez ensuite votre simulation et votre abonnement.</p>
+        </header>
+        <div class="sso" id="sso"></div>
+        <div class="form-msg" id="sso-msg" aria-live="polite"></div>
+        <div class="or" aria-hidden="true">ou</div>
+        <div class="tabs seg" role="tablist" aria-label="Méthode d'inscription">
+          <button type="button" class="tab" role="tab" id="tab-email" aria-controls="pane-email" aria-selected="true">E-mail</button>
+          <button type="button" class="tab" role="tab" id="tab-phone" aria-controls="pane-phone" aria-selected="false" tabindex="-1">Téléphone</button>
+        </div>
+        <div id="pane-email" role="tabpanel" aria-labelledby="tab-email">
+          <form class="form" id="f-email" novalidate>
+            <div class="field"><label for="su-name">Nom complet</label><input class="input" id="su-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="su-email">Adresse e-mail</label><input class="input" id="su-email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+            <div class="field">
+              <label for="su-pw">Mot de passe</label>
+              <div class="pw-wrap"><input class="input" id="su-pw" name="password" type="password" autocomplete="new-password" aria-describedby="su-rules" required></div>
+              <ul class="rules" id="su-rules" aria-label="Règles du mot de passe"></ul>
+            </div>
+            <label class="check" for="su-cgu"><input type="checkbox" id="su-cgu" required><span>J'agis pour mon activité professionnelle et j'accepte les <a class="link" href="cgv.html">conditions générales</a> et la <a class="link" href="confidentialite.html">politique de confidentialité</a>.</span></label>
+            <label class="check" for="su-news"><input type="checkbox" id="su-news"><span>Recevoir les actualités AXIA (facultatif).</span></label>
+            <div class="form-msg" id="su-msg" aria-live="polite"></div>
+            <button class="btn btn-cyan btn-block" id="su-submit" type="submit">Créer mon compte</button>
+          </form>
+        </div>
+        <div id="pane-phone" role="tabpanel" aria-labelledby="tab-phone" hidden>
+          <form class="form" id="f-phone" novalidate>
+            <div class="field"><label for="ph-name">Nom complet</label><input class="input" id="ph-name" autocomplete="name" required></div>
+            <div class="field"><label for="ph-num">Numéro de mobile</label><input class="input" id="ph-num" type="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" aria-describedby="ph-help" required><small id="ph-help">Format français accepté (06…) ou international (+33…).</small></div>
+            <label class="check" for="ph-cgu"><input type="checkbox" id="ph-cgu" required><span>J'agis pour mon activité professionnelle et j'accepte les <a class="link" href="cgv.html">conditions générales</a> et la <a class="link" href="confidentialite.html">politique de confidentialité</a>.</span></label>
+            <div class="form-msg" id="ph-msg" aria-live="polite"></div>
+            <button class="btn btn-cyan btn-block" id="ph-submit" type="submit">Recevoir un code par SMS</button>
+          </form>
+        </div>
+        <p class="auth-foot">Déjà un compte ? <a class="link" id="to-login" href="connexion.html">Se connecter</a></p>
+      </div>
+      <!-- Étape 2 : code de vérification -->
+      <div id="step-code" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico" id="code-ico"></span>
+          <h1 id="code-title" tabindex="-1">Vérifiez votre e-mail</h1>
+          <p id="code-lead">Saisissez le code à 6 chiffres envoyé à <span class="target" id="code-target"></span>.</p>
+        </header>
+        <form class="form" id="f-code" novalidate>
+          <div class="field"><label for="code">Code de vérification</label><input class="input code-input" id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="\d{6}" required></div>
+          <label class="check" for="remember"><input type="checkbox" id="remember" checked><span>Rester connecté sur cet appareil</span></label>
+          <div class="form-msg" id="code-msg" aria-live="polite"></div>
+          <button class="btn btn-cyan btn-block" id="code-submit" type="submit">Valider</button>
+          <div class="row-between small"><span class="mut">Code non reçu ?</span><button type="button" class="btn-txt" id="resend">Renvoyer le code</button></div>
+        </form>
+        <p class="auth-foot"><button type="button" class="btn-txt" id="back">Modifier mes informations</button></p>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script src="assets/pages/auth.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.AXIA,X=window.AXAUTH;
+if(A.auth.current()){location.replace(X.next());return;}
+function $(id){return document.getElementById(id);}
+$("to-login").href=X.keepNext("connexion.html");
+X.sso($("sso"),$("sso-msg"));
+var tabs=X.tabs(document.querySelector('[role="tablist"]'));if(A.qs("tab")==="telephone")tabs.select("tab-phone");
+X.pwToggle($("su-pw"));X.rules($("su-pw"),$("su-rules"));
+X.codeField($("code"));
+var flow=null; /* {kind:"email",email} | {kind:"phone",phone,name} */
+/* ---- E-mail ---- */
+$("f-email").addEventListener("submit",async function(e){e.preventDefault();
+  var name=$("su-name"),email=$("su-email"),pw=$("su-pw"),cgu=$("su-cgu"),msg=$("su-msg"),errs=[];
+  [name,email,pw].forEach(function(i){X.invalid(i,false);});
+  if(!name.value.trim()){errs.push("indiquez votre nom");X.invalid(name,true);}
+  if(!X.isEmail(email.value)){errs.push("saisissez une adresse e-mail valide");X.invalid(email,true);}
+  var pe=X.pwError(pw.value);if(pe){errs.push("complétez le mot de passe ("+A.auth.strength(pw.value).join(", ")+")");X.invalid(pw,true);}
+  if(!cgu.checked)errs.push("confirmez agir pour votre activité professionnelle et acceptez les conditions générales");
+  if(errs.length){X.msg(msg,"Pour continuer, "+A.esc(errs.join(", "))+".");var f=this.querySelector('[aria-invalid="true"]')||(!cgu.checked?cgu:null);if(f)f.focus();return;}
+  var btn=$("su-submit");X.busy(btn,true);
+  var r=await A.auth.signupEmail({name:name.value,email:email.value,password:pw.value});X.busy(btn,false);
+  if(r.error){var em=encodeURIComponent(email.value.trim().toLowerCase());
+    X.msg(msg,A.esc(r.error)+'<br><a href="'+X.keepNext("connexion.html?email="+em)+'">Se connecter</a> · <a href="mot-de-passe.html?email='+em+'">Mot de passe oublié ?</a>');X.invalid(email,true);email.focus();return;}
+  if($("su-news").checked){var l=A.auth.allUsers();l.forEach(function(u){if(u.id===r.user.id)u.prefs=Object.assign({},u.prefs,{news:true});});A.auth.saveUsers(l);}
+  X.msg(msg,"");flow={kind:"email",email:r.user.email};showCode();});
+/* ---- Téléphone ---- */
+$("f-phone").addEventListener("submit",function(e){e.preventDefault();
+  var name=$("ph-name"),num=$("ph-num"),msg=$("ph-msg"),errs=[];
+  [name,num].forEach(function(i){X.invalid(i,false);});
+  if(!name.value.trim()){errs.push("indiquez votre nom");X.invalid(name,true);}
+  if(!X.isPhone(num.value)){errs.push("saisissez un numéro valide, par exemple 06 12 34 56 78");X.invalid(num,true);}
+  if(!$("ph-cgu").checked)errs.push("confirmez agir pour votre activité professionnelle et acceptez les conditions générales");
+  if(errs.length){X.msg(msg,"Pour continuer, "+A.esc(errs.join(", "))+".");var f=this.querySelector('[aria-invalid="true"]')||$("ph-cgu");f.focus();return;}
+  var r=A.auth.phoneStart(num.value);
+  if(r.error){X.msg(msg,A.esc(r.error));X.invalid(num,true);num.focus();return;}
+  X.msg(msg,"");flow={kind:"phone",phone:r.phone,name:name.value.trim(),exists:r.exists};showCode();});
+/* ---- Étape code ---- */
+function showCode(){var em=flow.kind==="email";
+  $("code-ico").innerHTML=A.icon(em?"mail":"phone");
+  $("code-title").textContent=em?"Vérifiez votre e-mail":"Vérifiez votre numéro";
+  $("code-target").textContent=em?flow.email:flow.phone;
+  $("code").value="";X.msg($("code-msg"),flow.exists?"Un compte existe déjà avec ce numéro : la validation du code vous connectera à ce compte.":"",true);
+  $("step-start").hidden=true;$("step-code").hidden=false;$("step-code").classList.add("fade-in");
+  X.cooldown($("resend"),30,"Renvoyer le code");$("code").focus();window.scrollTo(0,0);}
+$("resend").onclick=function(){if(!flow)return;
+  if(flow.kind==="email")A.auth.resendEmailCode(flow.email);else{var r=A.auth.phoneStart(flow.phone);if(r.error){X.msg($("code-msg"),A.esc(r.error));return;}}
+  X.msg($("code-msg"),"Un nouveau code vient d'être envoyé.",true);X.cooldown(this,30,"Renvoyer le code");$("code").focus();};
+$("back").onclick=function(){$("step-code").hidden=true;$("step-start").hidden=false;
+  if(flow&&flow.kind==="email")X.msg($("su-msg"),"Votre compte est créé mais pas encore vérifié. Pour recevoir un nouveau code, <a href=\""+X.keepNext("connexion.html?email="+encodeURIComponent(flow.email))+"\">connectez-vous</a>.");
+  $("su-name").focus();};
+$("f-code").addEventListener("submit",function(e){e.preventDefault();var c=$("code"),msg=$("code-msg");
+  if(!/^\d{6}$/.test(c.value)){X.msg(msg,"Saisissez les 6 chiffres du code reçu.");X.invalid(c,true);c.focus();return;}
+  var remember=$("remember").checked;
+  var r=flow.kind==="email"?A.auth.verifyEmail(flow.email,c.value,remember):A.auth.phoneVerify(flow.phone,c.value,remember,flow.name);
+  if(r.error){X.msg(msg,A.esc(r.error));X.invalid(c,true);c.select();return;}
+  X.msg(msg,"Compte vérifié. Redirection…",true);$("code-submit").disabled=true;setTimeout(X.go,500);});
+})();
+</script>
+</body></html>

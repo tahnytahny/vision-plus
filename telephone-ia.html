@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Votre secrétaire IA · AXIA</title>
+<meta name="description" content="Votre secrétaire IA, configurée pour votre entreprise : accueil des appels, rendez-vous, devis, e-mails, dossiers, commandes et colis. Vous choisissez ses fonctions, ses outils et ses autorisations.">
+<meta name="axia-page" content="telephone-ia">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<style>
+/* Votre secrétaire IA. Graphite, argent, bleu. */
+.ti-hero{position:relative;overflow:hidden;padding-block:clamp(28px,5vw,72px) clamp(28px,4vw,56px);background:radial-gradient(50% 60% at 72% 45%,rgba(40,120,232,.15),transparent 70%)}
+.ti-hero::after{content:"";position:absolute;right:0;top:0;width:min(640px,50%);height:150px;background:url(assets/3d/sav-ruban.webp) right top/contain no-repeat;opacity:.75;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
+.ti-grid{position:relative;display:grid;gap:clamp(24px,4vw,56px);align-items:center}
+@media (min-width:1000px){.ti-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.ti-txt{display:grid;gap:18px;justify-items:start;min-width:0}
+.ti-txt .h-xl{font-size:clamp(2.1rem,4.2vw,3.4rem)}
+.ti-txt .h-xl span{color:#78B4F5}
+.ti-art{margin:0;min-width:0}.ti-art img{display:block;width:100%;height:auto;-webkit-mask-image:radial-gradient(80% 78% at 55% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(80% 78% at 55% 50%,#000 62%,transparent 100%);animation:tif 9s ease-in-out infinite}
+@keyframes tif{50%{transform:translateY(-6px)}}
+.ti-cond{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;border-radius:14px;border:1px solid rgba(170,183,199,.25);background:rgba(27,34,44,.6);color:var(--soft);font-size:.92rem;max-width:60ch}
+.ti-cond .ico{color:#78B4F5;margin-top:2px;flex:none}
+.ico.hi{width:22px;height:22px;color:#78B4F5;margin-right:10px;vertical-align:-3px}
+/* légende des trois modes */
+.legend3{display:flex;flex-wrap:wrap;gap:8px}
+.legend3 span{display:inline-flex;align-items:center;gap:8px;padding:.45em .9em;border-radius:999px;font-size:.85rem;font-weight:600;border:1px solid rgba(170,183,199,.3)}
+.legend3 .ico{width:15px;height:15px}
+.legend3 .a,.m-a dt{color:#78B4F5}.legend3 .v,.m-v dt{color:#F2C26B}.legend3 .r,.m-r dt{color:#D3DAE3}
+/* blocs thématiques */
+.blocks{display:grid;gap:clamp(48px,7vw,96px)}
+.blk{display:grid;gap:clamp(20px,4vw,56px);align-items:center}
+@media (min-width:960px){.blk{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}.blk.rev .blk-txt{order:2}}
+.blk-txt{display:grid;gap:14px;min-width:0}
+.blk-n{font:400 .72rem/1 var(--f-hud,var(--f-display));letter-spacing:.24em;color:#78B4F5}
+.blk h3,.card2 h3{font-size:clamp(1.45rem,2.4vw,1.95rem);line-height:1.15}
+.modes3{display:grid;gap:10px;margin:4px 0 0}
+@media (min-width:640px){.modes3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.modes3>div{padding:12px 14px;border-radius:12px;background:rgba(27,34,44,.7);border:1px solid rgba(170,183,199,.18)}
+.modes3 dt{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.modes3 dt .ico{width:14px;height:14px}
+.modes3 dd{margin:0;font-size:.88rem;color:var(--soft)}
+.more{border-top:1px solid rgba(170,183,199,.18)}
+.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:14px 0;font-weight:600;color:#78B4F5}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:"";width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .3s}
+.more[open] summary::after{transform:rotate(225deg)}
+.fl{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:10px}
+@media (min-width:760px){.blk .fl,.card2 .fl{grid-template-columns:1fr}}
+.fl li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;color:var(--soft);font-size:.95rem}
+.fl .ico{width:18px;height:18px;color:#78B4F5;margin-top:2px}
+.blk-art{margin:0;min-width:0;position:relative}
+.blk-art img{display:block;width:100%;height:auto;border-radius:20px;-webkit-mask-image:radial-gradient(85% 85% at 50% 50%,#000 65%,transparent 100%);mask-image:radial-gradient(85% 85% at 50% 50%,#000 65%,transparent 100%);animation:tif 10s ease-in-out infinite}
+/* panneaux de verre (agenda, devis, e-mails) */
+.gl{position:relative;margin:clamp(10px,3vw,30px);padding:22px;border-radius:20px;border:1px solid rgba(170,183,199,.45);background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.02) 40%,rgba(16,20,25,.6));backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 1px rgba(40,120,232,.15),0 0 40px rgba(40,120,232,.2),0 40px 60px -30px #000;transform:perspective(1200px) rotateY(-8deg) rotateX(4deg);animation:tif 9s ease-in-out infinite}
+.blk.rev .gl{transform:perspective(1200px) rotateY(8deg) rotateX(4deg)}
+.gl::after{content:"";position:absolute;left:8%;right:8%;bottom:-18px;height:20px;background:radial-gradient(50% 50% at 50% 50%,rgba(40,120,232,.6),transparent 70%);filter:blur(6px)}
+.gl-h{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.gl-h .ico{width:22px;height:22px;color:#78B4F5}.gl-h b{font:500 1.05rem/1.2 var(--f-display)}.gl-h small{margin-left:auto;color:var(--mut);font-size:.8rem}
+.ag{display:grid;grid-template-columns:56px 1fr;gap:8px 12px;align-items:center}
+.ag .t{font-variant-numeric:tabular-nums;color:var(--mut);font-size:.86rem}
+.ag .ev{padding:10px 12px;border-radius:10px;background:rgba(40,120,232,.16);border-left:3px solid #2878E8;font-size:.9rem}
+.ag .ev.b{background:rgba(170,183,199,.08);border-left-color:#AAB7C7;color:var(--mut)}.ag .ev.ok{background:rgba(91,227,154,.1);border-left-color:#5BE39A}
+.dv{display:grid;grid-template-columns:1fr 34%;gap:10px 14px;align-items:center;font-size:.9rem;color:var(--soft)}
+.dv i{height:9px;border-radius:5px;background:rgba(170,183,199,.25)}.dv i.w{background:linear-gradient(90deg,#2878E8,#78B4F5)}.dv .tot{font-weight:700;color:#fff}
+.ml{display:grid;gap:9px}.ml i{height:9px;border-radius:5px;background:rgba(170,183,199,.25)}.ml i.s{width:60%}
+.att{display:flex;align-items:center;gap:8px;margin-top:6px;padding:10px 12px;border-radius:10px;border:1px dashed rgba(170,183,199,.35);font-size:.86rem;color:var(--soft)}.att .ico{width:16px;height:16px;color:#78B4F5}
+.cr{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:.9rem}.cr span{color:var(--mut)}.cr b{font-weight:600;color:#fff}
+.st{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+/* autres fonctions */
+.cards4{display:grid;gap:16px}@media (min-width:860px){.cards4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card2{display:grid;gap:10px;align-content:start;padding:24px;border-radius:20px;border:1px solid rgba(170,183,199,.25);background:linear-gradient(165deg,#1E2631,#141A21 60%,#101419)}
+.card2 .note{font-size:.88rem;color:var(--mut);border-left:2px solid #F2C26B;padding-left:12px}
+/* scénarios */
+.cfg{display:grid;gap:22px;padding:clamp(20px,3vw,32px);border-radius:22px;border:1px solid rgba(120,180,245,.45);background:radial-gradient(70% 90% at 0% 0%,rgba(40,120,232,.14),transparent 60%),linear-gradient(170deg,#1E2631,#141A21 60%,#101419);box-shadow:0 0 30px rgba(40,120,232,.14);margin-bottom:clamp(28px,4vw,44px)}
+.cfg-intro{display:grid;gap:10px;max-width:78ch}.cfg-intro p{color:var(--soft)}
+.cfg-grid{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.cfg-grid li{display:grid;gap:8px;align-content:start;padding:16px;border-radius:16px;border:1px solid rgba(170,183,199,.22);background:rgba(27,34,44,.75)}
+.cfg-grid .ico{width:26px;height:26px;color:#78B4F5}.cfg-grid h4{font-size:1rem;color:#fff}.cfg-grid p{color:var(--soft);font-size:.9rem;line-height:1.5}
+.cfg-auto,.cfg-setup{display:grid;gap:14px;margin-bottom:clamp(28px,4vw,44px)}
+.cfg-auto .modecards{list-style:none;margin:0;padding:0}
+.cfg-auto .mc{position:relative;padding:22px}.cfg-auto .mc h4{font-size:1.15rem;color:#fff}
+.mc-n{position:absolute;right:18px;top:16px;font:400 .8rem/1 var(--f-hud,var(--f-display));color:var(--mut);letter-spacing:.1em}
+.cfg-ex{display:grid;gap:12px;padding:18px 20px;border-radius:16px;border:1px dashed rgba(170,183,199,.4);background:rgba(16,20,25,.6)}
+.cfg-ex-t{font:400 .66rem/1 var(--f-hud,var(--f-display));letter-spacing:.22em;text-transform:uppercase;color:#78B4F5}
+.cfg-ex p{color:var(--soft)}
+.cfg-ex-rows{list-style:none;margin:0;padding:0;display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.cfg-ex-rows li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(27,34,44,.8);border:1px solid rgba(170,183,199,.16);font-size:.88rem;color:var(--soft)}
+.cfg-ex-rows b{font-size:.76rem;font-weight:700;padding:.3em .7em;border-radius:999px;white-space:nowrap}
+.cfg-ex-rows .a{color:#B9D7FA;background:rgba(40,120,232,.22)}.cfg-ex-rows .v{color:#F2C26B;background:rgba(242,194,107,.14)}.cfg-ex-rows .r{color:#D3DAE3;background:rgba(170,183,199,.16)}.cfg-ex-rows .off{color:var(--mut);background:transparent;border:1px solid rgba(170,183,199,.3)}
+.cfg-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));counter-reset:none}
+.cfg-steps li{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:16px;border:1px solid rgba(170,183,199,.22);background:linear-gradient(165deg,#1E2631,#141A21)}
+.cfg-steps span{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9rem;color:#fff;background:linear-gradient(180deg,#4A90F0,#2878E8);box-shadow:0 0 14px rgba(40,120,232,.4)}
+.cfg-steps p{color:var(--soft);font-size:.92rem;line-height:1.5}
+.cfg-ex-h{margin:0 0 14px}
+.scn-kicker{font:400 .62rem/1 var(--f-hud,var(--f-display));letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:-6px}
+.scn-note{font-size:.84rem;color:var(--mut);font-style:italic}
+.cfg-cta{display:grid;justify-items:center;text-align:center;gap:16px;margin-top:clamp(32px,4vw,48px);padding:clamp(22px,3vw,32px);border-radius:22px;border:1px solid rgba(170,183,199,.3);background:linear-gradient(180deg,rgba(27,34,44,.7),rgba(16,20,25,.7))}
+.cfg-cta .h-m{margin:0;max-width:30ch}
+@media (max-width:760px){.cfg-grid li,.cfg-auto .mc{grid-template-columns:auto minmax(0,1fr);column-gap:12px;row-gap:4px;padding:14px 16px}.cfg-grid li .ico,.cfg-auto .mc .ico{grid-row:1/3;margin-top:2px}.cfg-grid li .ico{width:22px;height:22px}.cfg-auto .mc .ico{width:24px;height:24px}.cfg-auto .mc h4{font-size:1.02rem}.mc-n{top:12px;right:14px}.cfg{gap:16px}}
+.scns{display:grid;gap:18px}@media (min-width:980px){.scns{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.scn{position:relative;display:grid;gap:14px;align-content:start;padding:24px;border-radius:22px;border:1px solid rgba(120,180,245,.4);background:linear-gradient(170deg,#1E2631,#141A21 60%,#101419);box-shadow:0 0 24px rgba(40,120,232,.12)}
+.scn-tag{justify-self:start;padding:.35em .9em;border-radius:999px;font-size:.8rem;font-weight:700;color:#fff;background:linear-gradient(180deg,#4A90F0,#2878E8)}
+.scn-step{position:relative;padding:14px 16px;border-radius:14px;background:rgba(27,34,44,.8);border:1px solid rgba(170,183,199,.18)}
+.scn-step small{display:block;font:400 .66rem/1 var(--f-hud,var(--f-display));letter-spacing:.22em;text-transform:uppercase;color:#78B4F5;margin-bottom:8px}
+.scn-step p{color:var(--soft);font-size:.94rem}.scn-step ol{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--soft);font-size:.92rem}
+.scn-step.s3{border-color:rgba(91,227,154,.4)}.scn-step.s3 small{color:#5BE39A}
+.scn-step+.scn-step::before{content:"";position:absolute;left:50%;top:-14px;width:2px;height:14px;background:linear-gradient(#2878E8,#78B4F5)}
+/* règles */
+.rules{display:grid;gap:clamp(28px,4vw,48px)}
+.params{display:flex;flex-wrap:wrap;gap:10px}
+.params span{padding:.6em 1.05em;border-radius:12px;border:1px solid rgba(170,183,199,.35);background:rgba(27,34,44,.7);font-size:.92rem}
+.modecards{display:grid;gap:16px}@media (min-width:860px){.modecards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.mc{display:grid;gap:10px;padding:26px;border-radius:20px;border:1px solid rgba(170,183,199,.28);background:linear-gradient(165deg,#1E2631,#141A21)}
+.mc .ico{width:30px;height:30px}.mc h3{font-size:1.35rem}.mc p{color:var(--soft)}
+.mc.a{border-color:rgba(120,180,245,.55)}.mc.a .ico{color:#78B4F5}.mc.v .ico{color:#F2C26B}.mc.r .ico{color:#D3DAE3}
+.guar{display:grid;gap:12px}@media (min-width:860px){.guar{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.guar li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:16px;border-radius:14px;background:rgba(27,34,44,.6);border:1px solid rgba(170,183,199,.18);color:var(--soft)}
+.guar .ico{width:20px;height:20px;color:#78B4F5}
+.ti-cta{position:relative;text-align:center;overflow:hidden}
+.ti-cta::before{content:"";position:absolute;left:50%;top:50%;width:min(1000px,130%);height:420px;translate:-50% -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(40,120,232,.18),transparent 70%);pointer-events:none}
+.ti-cta .wrap{position:relative;display:grid;gap:22px;justify-items:center}
+@media (max-width:640px){.gl{transform:none!important;margin:6px}.blk-art{order:-1}.ti-hero::after{opacity:.4}}
+@media (prefers-reduced-motion:reduce){.ti-art img,.blk-art img,.gl{animation:none}}
+
+/* ===== Votre secrétaire IA (refonte) ===== */
+.choose{padding-top:clamp(24px,3vw,40px)}
+.ch-box{display:grid;gap:clamp(20px,3vw,40px);padding:clamp(22px,3.4vw,40px);border-radius:24px;border:1px solid rgba(120,180,245,.5);background:radial-gradient(60% 90% at 0% 0%,rgba(40,120,232,.16),transparent 60%),linear-gradient(170deg,#1E2631,#141A21 60%,#101419);box-shadow:0 0 36px rgba(40,120,232,.16)}
+@media (min-width:1000px){.ch-box{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:start}}
+.ch-txt{display:grid;gap:14px}.ch-txt .h-l span{color:#78B4F5}
+.ch-rule{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1px solid rgba(170,183,199,.3);background:rgba(16,20,25,.6);color:var(--soft);font-size:.94rem}
+.ch-rule .ico{flex:none;color:#78B4F5;width:22px;height:22px;margin-top:1px}.ch-rule strong{color:#fff}
+.ch-ex{margin:0;display:grid;gap:12px;padding:18px;border-radius:18px;border:1px dashed rgba(170,183,199,.45);background:rgba(16,20,25,.55)}
+.ch-ex blockquote{margin:0;font:500 1.05rem/1.55 var(--f-display);color:var(--ink)}
+.ch-compo{display:grid;gap:10px}
+.ch-compo>div{padding:12px 14px;border-radius:14px;background:rgba(27,34,44,.8);border:1px solid rgba(170,183,199,.18)}
+.ch-compo small{display:block;font:400 .62rem/1 var(--f-hud,var(--f-display));letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
+.ch-compo p{display:flex;flex-wrap:wrap;gap:6px}
+.ch-compo span{display:inline-flex;align-items:center;gap:6px;padding:.35em .75em;border-radius:10px;font-size:.84rem;font-weight:600}
+.ch-compo .on{color:#B9D7FA;background:rgba(40,120,232,.2);border:1px solid rgba(120,180,245,.5)}.ch-compo .on .ico{width:13px;height:13px}
+.ch-compo .add{color:var(--soft);border:1px dashed rgba(170,183,199,.5)}
+.ch-note{font-size:.8rem;color:var(--mut)}
+.legend4{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.legend4 li{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;border:1px solid rgba(170,183,199,.22);background:rgba(27,34,44,.7)}
+.legend4 .ico{flex:none;width:20px;height:20px;margin-top:2px}.legend4 b{display:block;font-size:.92rem;color:#fff}.legend4 span{font-size:.84rem;color:var(--soft);line-height:1.45}
+.lg-base .ico,.tg.base{color:#78B4F5}.lg-cnx .ico,.tg.cnx{color:#9FD8C9}.lg-etu .ico,.tg.etu{color:#F2C26B}.lg-hum .ico,.tg.hum{color:#D3DAE3}
+.leg-note{margin:0 0 clamp(28px,4vw,44px)}
+.fam{display:grid;gap:18px;margin-bottom:clamp(40px,6vw,72px)}
+.fam-h{display:grid;gap:18px;align-items:center}
+@media (min-width:960px){.fam-h{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
+.fam-txt{display:grid;gap:8px}.fam-txt .h-m{font-size:clamp(1.45rem,2.6vw,2rem)}
+.fam-art{margin:0;min-width:0;display:grid;gap:4px}
+.fam-art .gl{margin:6px clamp(4px,2vw,24px);transform:perspective(1200px) rotateY(-7deg) rotateX(4deg)}
+.fam-art .gl2{margin-top:-6px;transform:perspective(1200px) rotateY(-7deg) rotateX(4deg) translateX(18px) scale(.94)}
+.trk{list-style:none;margin:0;padding:0;display:grid;gap:10px;position:relative}
+.trk li{position:relative;padding-left:26px;display:grid;gap:2px;font-size:.9rem}
+.trk li::before{content:"";position:absolute;left:4px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid #78B4F5;background:#0E1620}
+.trk li.ok::before{background:#2878E8;box-shadow:0 0 10px rgba(40,120,232,.6)}
+.trk li.wait::before{border-color:#F2C26B;border-style:dashed}
+.trk li+li::after{content:"";position:absolute;left:9px;top:-10px;width:2px;height:14px;background:rgba(120,180,245,.5)}
+.trk b{color:#fff;font-weight:600}.trk span{color:var(--mut);font-size:.8rem}.trk li.wait b{color:#F2C26B}
+.ms-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));align-items:start}
+.ms{display:grid;gap:8px;padding:18px;border-radius:18px;border:1px solid rgba(170,183,199,.25);background:linear-gradient(165deg,#1E2631,#141A21 60%,#101419);transition:border-color .3s,box-shadow .4s}
+@media (hover:hover){.ms:hover{border-color:rgba(120,180,245,.6);box-shadow:0 0 22px rgba(40,120,232,.2)}}
+.ms-h{display:flex;justify-content:space-between;align-items:center}
+.ms-ic{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#B9D7FA;background:linear-gradient(160deg,rgba(120,180,245,.3),rgba(40,120,232,.12));border:1px solid rgba(150,200,250,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 16px -6px rgba(40,120,232,.6);transform:perspective(300px) rotateX(8deg)}
+.ms-ic .ico{width:22px;height:22px}
+.ms-n{font:400 .74rem/1 var(--f-hud,var(--f-display));letter-spacing:.16em;color:var(--mut)}
+.ms h4{font-size:1.08rem;color:#fff;line-height:1.25}.ms-s{color:var(--soft);font-size:.9rem}
+.ms-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tg{display:inline-flex;align-items:center;gap:4px;padding:.25em .6em;border-radius:999px;font-size:.72rem;font-weight:700;border:1px solid currentColor;line-height:1.2;white-space:nowrap;flex:none}
+.tg .ico{width:11px;height:11px}
+.ms .more summary{padding:10px 0 4px;font-size:.9rem}
+.ms-l{list-style:none;margin:4px 0 10px;padding:0;display:grid;gap:10px}
+.ms-l li{display:grid;gap:4px;font-size:.88rem;color:var(--soft);line-height:1.45}
+.ms-l li .tg{justify-self:start}
+.ms-dl{display:grid;gap:8px;margin:0;padding-top:10px;border-top:1px solid rgba(170,183,199,.15)}
+.ms-dl dt{display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;color:#78B4F5;text-transform:uppercase;letter-spacing:.04em}
+.ms-dl dt .ico{width:13px;height:13px}.ms-dl dd{margin:0;font-size:.86rem;color:var(--soft)}
+.addt{width:100%;border-collapse:collapse;font-size:.9rem}
+.addt th,.addt td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid rgba(170,183,199,.14)}
+.addt thead th{font-size:.78rem;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.05em;border-bottom-color:rgba(170,183,199,.35)}
+.addt tbody th{color:#fff;font-weight:600;min-width:180px}.addt td{color:var(--soft)}
+.add-f{display:block;font:400 .6rem/1 var(--f-hud,var(--f-display));letter-spacing:.18em;text-transform:uppercase;color:#F2C26B;margin-bottom:6px}
+.tbl-wrap{overflow-x:auto;border-radius:18px;border:1px solid rgba(170,183,199,.22);background:rgba(20,26,33,.7)}
+@media (max-width:760px){.tbl-wrap{border:0;background:none;overflow:visible}.addt thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.addt,.addt tbody,.addt tr,.addt th,.addt td{display:block;width:100%}.addt tr{padding:14px 16px;margin-bottom:12px;border-radius:16px;border:1px solid rgba(170,183,199,.25);background:rgba(27,34,44,.75)}.addt th,.addt td{padding:4px 0;border:0}.addt td:nth-of-type(2)::before{content:"Outils : ";color:var(--mut)}.addt td:nth-of-type(3)::before{content:"Autorisation : ";color:var(--mut)}}
+.phys{margin-top:clamp(28px,4vw,44px);display:grid;gap:16px;padding:clamp(18px,3vw,28px);border-radius:20px;border:1px solid rgba(170,183,199,.3);background:linear-gradient(170deg,#1C232D,#12171E)}
+.phys-h{display:flex;gap:14px;align-items:flex-start}.phys-h>.ico{flex:none;width:30px;height:30px;color:#D3DAE3}
+.phys-l{list-style:none;margin:0;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.phys-l li{display:grid;gap:4px;padding:12px 14px;border-radius:14px;background:rgba(27,34,44,.75);border:1px solid rgba(170,183,199,.16)}
+.phys-l b{color:#fff;font-size:.92rem}.phys-l span{display:flex;gap:6px;align-items:flex-start;font-size:.86rem;color:var(--soft)}.phys-l span .ico{flex:none;width:14px;height:14px;color:#78B4F5;margin-top:3px}
+.cho{list-style:none;margin:0 0 clamp(28px,4vw,44px);padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.cho li{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;border:1px solid rgba(170,183,199,.25);background:rgba(27,34,44,.75);font-weight:600;color:var(--ink)}
+.cho .ico{flex:none;width:22px;height:22px;color:#78B4F5}
+@media (min-width:860px){.scns4{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+.guar{list-style:none;margin:22px 0 10px;padding:0}
+</style>
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <section class="ti-hero" aria-labelledby="t-ti">
+    <div class="wrap ti-grid">
+      <div class="ti-txt">
+        <span class="eyebrow">Votre secrétaire IA</span>
+        <h1 id="t-ti" class="h-xl">Votre secrétaire IA, <span>configurée pour votre entreprise.</span></h1>
+        <p class="lead">Accueillir vos clients, organiser vos rendez-vous, préparer vos devis, envoyer vos e-mails, suivre vos dossiers et vos expéditions : votre secrétaire IA vous accompagne dans les missions quotidiennes d'un secrétariat. Vous choisissez ses fonctions, ses outils et ses autorisations, selon votre activité et votre organisation.</p>
+        <div class="actions"><a class="btn btn-cyan" href="demo.html#formulaire">Personnaliser ma secrétaire IA <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="#missions">Voir les missions <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+      <figure class="ti-art"><img src="assets/3d/av-appels.webp" width="1090" height="720" alt="Casque argenté et panneaux en verre : appel entrant, rendez-vous confirmé." fetchpriority="high"></figure>
+    </div>
+  </section>
+
+  <section class="section choose" id="choix" aria-labelledby="t-choix">
+    <div class="wrap">
+      <div class="ch-box reveal">
+        <div class="ch-txt">
+          <span class="eyebrow">Message essentiel</span>
+          <h2 id="t-choix" class="h-l">Votre secrétaire IA. <span>Les fonctionnalités que vous choisissez.</span></h2>
+          <p class="lead">Vous composez votre secrétaire IA selon vos besoins. Vous choisissez les missions à lui confier, les fonctions à activer et les outils à connecter. Vous décidez aussi de ce qu'elle peut faire automatiquement, de ce qui nécessite votre accord et de ce qu'elle doit transmettre à votre équipe.</p>
+          <p class="ch-rule"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Les fonctions présentées sur cette page sont <strong>des possibilités à sélectionner</strong>, et non un ensemble imposé ou activé par défaut. Votre configuration est définie lors de la mise en place, selon les fonctions et intégrations disponibles, puis vous pouvez demander à la faire évoluer.</span></p>
+        </div>
+        <figure class="ch-ex" aria-labelledby="t-chex">
+          <figcaption id="t-chex"><span class="cfg-ex-t">Exemple</span></figcaption>
+          <blockquote>Besoin uniquement de répondre aux appels et de prendre des rendez-vous ? Choisissez ces fonctions. Vous souhaitez aussi préparer des devis, envoyer des e-mails ou suivre vos colis ? Ajoutez les options adaptées à votre activité. Vous gardez la maîtrise de ses missions et de ses autorisations.</blockquote>
+          <div class="ch-compo" aria-hidden="true">
+            <div><small>Configuration essentielle</small><p><span class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Appels</span><span class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Rendez-vous</span></p></div>
+            <div><small>Configuration étendue</small><p><span class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Appels</span><span class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Rendez-vous</span><span class="add">+ Devis</span><span class="add">+ E-mails</span><span class="add">+ Colis</span></p></div>
+          </div>
+          <p class="ch-note">Illustration : la sélection se fait avec notre équipe lors de la mise en place.</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="missions" aria-labelledby="t-missions">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Le périmètre</span><h2 id="t-missions" class="h-l">Les missions d'un secrétariat, à la carte.</h2><p class="lead">15 missions, regroupées en 4 familles. Ouvrez chaque carte pour voir le détail, les outils nécessaires et les autorisations conseillées.</p></div>
+      <ul class="legend4 reveal" aria-label="Signification des repères"><li class="lg-base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><b>Base</b><span>Fonctionne à partir des appels, de vos consignes et des informations que vous fournissez.</span></div></li><li class="lg-cnx"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg><div><b>Connexion</b><span>Nécessite de connecter un outil : agenda, messagerie, CRM, logiciel métier, transporteur…</span></div></li><li class="lg-etu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg><div><b>À étudier</b><span>Possible selon vos outils et la faisabilité technique : confirmée lors de la mise en place.</span></div></li><li class="lg-hum"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><div><b>Votre équipe</b><span>La décision ou l'intervention reste à votre équipe : la secrétaire IA prépare et transmet.</span></div></li></ul>
+      <p class="mut small leg-note">Ces repères indiquent ce dont chaque fonction a besoin. Aucune action n'est autorisée simplement parce qu'elle figure dans cette liste : la disponibilité pour votre entreprise est confirmée lors de la mise en place.</p>
+      
+      <section class="fam reveal" id="relation" aria-labelledby="t-relation">
+        <div class="fam-h">
+          <div class="fam-txt"><span class="eyebrow">Famille 1</span><h3 id="t-relation" class="h-m">Accueil et relation client</h3><p class="mut">Décrocher, comprendre, orienter et suivre chaque interlocuteur.</p></div>
+          <figure class="fam-art" aria-hidden="true"><div class="gl"><div class="gl-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><b>Compte rendu d'appel</b><small>Il y a 2 min</small></div>
+<div class="cr"><span>Motif</span><b>Demande d'intervention</b><span>Interlocuteur</span><b>Client existant · dossier retrouvé</b><span>Qualification</span><b>Commerciale</b><span>Prochaine action</span><b>Rappel par un technicien</b></div>
+<div class="st"><span class="pill info">Rappel affecté</span><span class="pill">Message transmis</span></div></div></figure>
+        </div>
+        <div class="ms-grid"><article class="ms" id="m-accueil">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span class="ms-n">01</span></div>
+          <h4>Accueil téléphonique et interlocuteurs</h4><p class="ms-s">Chaque appel décroché, compris, orienté.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Accueil personnalisé au nom de l'entreprise, avec des consignes différentes selon les horaires, les services et les situations.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Identification de l'appelant et rapprochement avec son dossier.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Compréhension et qualification de la demande, questions complémentaires.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Réponses à partir des seules informations validées par l'entreprise.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Prise de messages et compte rendu de conversation.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Orientation vers le bon service et transfert d'appel.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Organisation des rappels et signalement des demandes prioritaires.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Demandes hors consignes ou sensibles : transmises à un collaborateur.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Ligne téléphonique, informations validées (horaires, services, réponses), annuaire interne ; CRM pour retrouver un dossier.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Accueil et comptes rendus : automatiques. Transferts et cas sensibles : passage de relais.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-crm">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="ms-n">02</span></div>
+          <h4>Contacts, CRM et dossiers</h4><p class="ms-s">Toute l'histoire d'un client au même endroit.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Création et mise à jour des fiches clients, prospects, fournisseurs et partenaires.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Enregistrement des échanges, qualification des demandes et ajout de notes.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Classement des documents et vérification des pièces manquantes.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Affectation des dossiers et synthèses pour les collaborateurs.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Modification d'informations sensibles : avec validation.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>CRM ou logiciel métier connecté, espace de stockage des documents.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Notes et rattachements : automatiques. Données sensibles : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-commercial">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="ms-n">03</span></div>
+          <h4>Suivi commercial</h4><p class="ms-s">Des prospects qualifiés, suivis jusqu'au rendez-vous.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Qualification des prospects, besoins et échéances.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Transmission de la documentation autorisée.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Organisation des rendez-vous commerciaux et suivi des devis.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Relances autorisées et mise à jour du CRM.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Négociations et décisions commerciales : confiées à un collaborateur.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>CRM, agenda, documentation commerciale validée, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Qualification : automatique. Relances : selon vos règles. Négociation : votre équipe.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-sav">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/></svg></span><span class="ms-n">04</span></div>
+          <h4>SAV et réclamations</h4><p class="ms-s">Chaque demande ouverte, qualifiée et suivie.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Ouverture d'un dossier, recueil des références et justificatifs.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Qualification du problème et suivi du statut.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Organisation d'un rendez-vous d'intervention.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Transmission au bon interlocuteur, information du client et rappels de suivi.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Remboursements, gestes commerciaux et engagements : soumis à vos autorisations.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Outil de SAV ou de tickets, agenda, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Ouverture et suivi : automatiques. Gestes commerciaux : votre équipe.</dd></div></dl>
+          </details>
+        </article></div>
+      </section>
+      <section class="fam reveal" id="organisation" aria-labelledby="t-organisation">
+        <div class="fam-h">
+          <div class="fam-txt"><span class="eyebrow">Famille 2</span><h3 id="t-organisation" class="h-m">Agenda, planning et coordination</h3><p class="mut">Organiser le temps de l'équipe, les réunions et les démarches internes.</p></div>
+          <figure class="fam-art" aria-hidden="true"><div class="gl"><div class="gl-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><b>Jeudi 14</b><small>3 collaborateurs</small></div>
+<div class="ag"><span class="t">09:00</span><span class="ev">Visite technique · M. Leroy</span><span class="t">10:30</span><span class="ev b">Marge de déplacement</span><span class="t">11:15</span><span class="ev ok">Rendez-vous confirmé ✓</span><span class="t">14:00</span><span class="ev">Salle B réservée</span></div></div></figure>
+        </div>
+        <div class="ms-grid"><article class="ms" id="m-rdv">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span><span class="ms-n">05</span></div>
+          <h4>Rendez-vous et agendas</h4><p class="ms-s">Le bon créneau, avec la bonne personne, au bon endroit.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Consultation des disponibilités, prise, déplacement et annulation de rendez-vous.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Confirmations, invitations calendrier et rappels.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Listes d'attente et proposition des créneaux libérés.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Plusieurs agendas : collaborateurs, établissements, salles ou équipements.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Prise en compte des durées, pauses, congés, délais de préparation et déplacements configurés.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Rendez-vous hors règles habituelles : soumis à votre accord si vous le souhaitez.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Agenda(s) connecté(s), règles de prise de rendez-vous, outil d'envoi d'e-mails ou de SMS.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Prise de rendez-vous : automatique dans vos règles. Exceptions : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-planning">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><span class="ms-n">06</span></div>
+          <h4>Planning et coordination</h4><p class="ms-s">Un planning à jour, sans conflit ni oubli.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Création et affectation de tâches, échéances et rappels internes.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation des journées et synthèse des rendez-vous à venir.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Coordination des disponibilités et signalement des conflits.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Transmission des changements confirmés aux personnes concernées.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Arbitrages entre collaborateurs : décidés par votre équipe.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Agendas et outil de tâches ou de planning connectés.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Rappels et synthèses : automatiques. Réorganisation : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-reunions">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20a6 6 0 0 1 12 0M10 20a6 6 0 0 1 12 0"/></svg></span><span class="ms-n">07</span></div>
+          <h4>Réunions, événements et déplacements</h4><p class="ms-s">Des réunions organisées de bout en bout.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg etu" title="À étudier"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>À étudier</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Recherche de disponibilités, organisation des réunions et invitations.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Réservation de ressources connectées (salles, équipements).</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Ordre du jour, collecte de documents, comptes rendus et suivi des actions.</span></li><li><span class="tg etu" title="À étudier"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>À étudier</span><span>Préparation d'options de déplacement ou de réservation, selon les outils disponibles.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Tout engagement payant : validé avant réservation.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Agendas, outil de réservation de salles ; outils de voyage selon les intégrations réalisables.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Invitations : automatiques. Réservations payantes : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-rh">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21a7 7 0 0 0-5-6.7"/></svg></span><span class="ms-n">08</span></div>
+          <h4>Soutien aux équipes et aux ressources humaines</h4><p class="ms-s">Les démarches internes coordonnées, dans un cadre strict.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Organisation d'entretiens et échanges avec les candidats.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Collecte des pièces autorisées et préparation des parcours d'accueil.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Rendez-vous internes et transmission des demandes au bon service.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Accès aux informations des salariés limité aux autorisations nécessaires ; décisions RH réservées aux personnes habilitées.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Agendas, messagerie, espace documentaire RH avec droits d'accès restreints.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Organisation : automatique. Toute décision : votre équipe.</dd></div></dl>
+          </details>
+        </article></div>
+      </section>
+      <section class="fam reveal" id="administratif" aria-labelledby="t-administratif">
+        <div class="fam-h">
+          <div class="fam-txt"><span class="eyebrow">Famille 3</span><h3 id="t-administratif" class="h-m">Devis, e-mails et documents</h3><p class="mut">Préparer, envoyer et classer, à partir de vos modèles et de vos tarifs.</p></div>
+          <figure class="fam-art" aria-hidden="true"><div class="gl"><div class="gl-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><b>Devis D-2026-118</b><small>Brouillon</small></div>
+<div class="dv"><span>Prestation du catalogue</span><i></i><span>Quantité</span><i></i><span>TVA appliquée</span><i></i><span class="tot">Total calculé</span><i class="w"></i></div>
+<div class="st"><span class="pill info">À valider</span><span class="pill">Photos reçues</span></div></div>
+<div class="gl gl2"><div class="gl-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><b>Récapitulatif de votre appel</b><small>Modèle de l'entreprise</small></div><div class="ml"><i></i><i></i><i class="s"></i></div><div class="st"><span class="pill ok">Envoyé</span><span class="pill">Rattaché au dossier</span></div></div></figure>
+        </div>
+        <div class="ms-grid"><article class="ms" id="m-devis">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="ms-n">09</span></div>
+          <h4>Devis et propositions commerciales</h4><p class="ms-s">Du besoin exprimé au devis prêt à valider.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Recueil du besoin, demande de précisions, de photos ou de documents.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation du devis à partir des tarifs et modèles validés.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Calcul des montants selon les règles configurées.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Demande de validation, puis envoi autorisé.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Suivi des réponses, demandes de modification et relances.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Prix hors catalogue, remises et engagements : décidés par votre équipe.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Catalogue et grille tarifaire validés, modèles de devis, logiciel de devis ou de facturation, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Préparation : automatique. Envoi : avec validation conseillée. Aucun prix, remise, engagement ou délai n'est inventé.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-emails">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span class="ms-n">10</span></div>
+          <h4>E-mails et correspondance</h4><p class="ms-s">Chaque échange suivi d'un message clair, au bon ton.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Brouillons, réponses aux demandes courantes, confirmations et comptes rendus.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Demandes de pièces, transmission de documents, relances, courriers et invitations.</span></li><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Personnalisation du ton, des signatures et des modèles.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Tri, classement, repérage des demandes à traiter et rattachement aux dossiers.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Messages sensibles ou engageants : validés avant envoi.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Messagerie connectée (envoi, et lecture si vous l'autorisez), modèles, signatures.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Confirmations et récapitulatifs : automatiques. Messages engageants : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-facturation">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 7a7 7 0 1 0 0 10"/><path d="M4 10h10M4 14h10"/></svg></span><span class="ms-n">11</span></div>
+          <h4>Facturation et suivi des paiements</h4><p class="ms-s">Le suivi administratif, sans toucher aux décisions financières.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation de documents de facturation à partir des données validées.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Transmission des factures autorisées et envoi de duplicatas après vérification.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Consultation des échéances et statuts disponibles, rappels de paiement.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation des éléments destinés au service comptable.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Opérations comptables, décisions financières et mouvements de fonds : hors de son rôle.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Logiciel de facturation connecté, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Rappels : selon vos règles. Émission et envoi : avec validation.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-documents">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></span><span class="ms-n">12</span></div>
+          <h4>Documents et classement</h4><p class="ms-s">Les bons documents, au bon endroit, à jour.</p>
+          <div class="ms-tags"><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg etu" title="À étudier"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>À étudier</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg base" title="Base"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Base</span><span>Préparation de documents à partir de modèles, saisie et mise en forme.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Comptes rendus, classement, nommage et archivage selon vos règles.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Recherche de pièces, suivi des versions et des documents attendus.</span></li><li><span class="tg etu" title="À étudier"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg>À étudier</span><span>Envoi de liens de signature et suivi de leur statut, si l'outil le permet.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Espace de stockage connecté, modèles validés, outil de signature électronique éventuel.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Préparation et classement : automatiques. Envoi pour signature : avec validation.</dd></div></dl>
+          </details>
+        </article></div>
+      </section>
+      <section class="fam reveal" id="logistique" aria-labelledby="t-logistique">
+        <div class="fam-h">
+          <div class="fam-txt"><span class="eyebrow">Famille 4</span><h3 id="t-logistique" class="h-m">Commandes, colis et suivi d'activité</h3><p class="mut">Suivre les achats, les expéditions et la journée de travail.</p></div>
+          <figure class="fam-art" aria-hidden="true"><div class="gl"><div class="gl-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg><b>Colis · commande 4821</b><small>Transporteur connecté</small></div>
+<ol class="trk"><li class="ok"><b>Pris en charge</b><span>Information du transporteur</span></li><li class="ok"><b>En cours d'acheminement</b><span>Dernière étape connue</span></li><li class="ok"><b>Livré selon le transporteur</b><span>Preuve de livraison disponible</span></li><li class="wait"><b>Réception confirmée par le destinataire</b><span>Demande de confirmation envoyée</span></li></ol>
+<div class="st"><span class="pill info">Suivi automatique</span><span class="pill">Alerte si retard</span></div></div></figure>
+        </div>
+        <div class="ms-grid"><article class="ms" id="m-commandes">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.5 11h11L21 7H7"/></svg></span><span class="ms-n">13</span></div>
+          <h4>Commandes et fournisseurs</h4><p class="ms-s">Des commandes préparées et suivies, dans vos seuils.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Recueil et saisie des demandes de commande.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation de bons de commande et demande de confirmation.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Suivi des délais annoncés et collecte des documents fournisseurs.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Rapprochement des références et signalement des anomalies.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Toute commande engageant une dépense : soumise à vos autorisations et seuils de validation.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Logiciel de gestion ou d'achats, catalogue fournisseurs, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Préparation : automatique. Passage de commande : avec validation selon vos seuils.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-colis">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span><span class="ms-n">14</span></div>
+          <h4>Colis, expéditions et retours</h4><p class="ms-s">Chaque envoi suivi, chaque retard signalé.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Enregistrement du transporteur, du numéro de suivi, du destinataire et de la commande associée.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Consultation de l'acheminement : dernière étape connue et date estimée, si le transporteur la fournit.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Suivi des points relais, retards, incidents, retours et échanges.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Rappels sur les colis envoyés et les livraisons attendues ; alertes en cas de retard ou d'absence de mise à jour.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Recherche d'une preuve de livraison accessible et demande de confirmation de réception au destinataire.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Préparation de demandes d'information ou de réclamations au transporteur.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Récapitulatif des expéditions et des actions restant à traiter.</span></li><li><span class="tg hum" title="Votre équipe"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Votre équipe</span><span>Réclamations engageantes et décisions de geste commercial : votre équipe.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Outil d'expédition ou suivi du transporteur connecté (selon les intégrations disponibles), commandes, messagerie.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Suivi et alertes : automatiques. Réclamations : avec validation. Les statuts et délais proviennent des outils connectés, jamais inventés.</dd></div></dl>
+          </details>
+        </article><article class="ms" id="m-pilotage">
+          <div class="ms-h"><span class="ms-ic"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="ms-n">15</span></div>
+          <h4>Tableaux de bord et suivi quotidien</h4><p class="ms-s">Une vue claire de ce qui est fait et de ce qui reste.</p>
+          <div class="ms-tags"><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span></div>
+          <details class="more"><summary>Voir le détail</summary>
+            <ul class="ms-l"><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Synthèses des appels, rendez-vous, devis, e-mails, commandes, colis et dossiers.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Liste des actions en attente et rappels d'échéances.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Alertes sur les blocages.</span></li><li><span class="tg cnx" title="Connexion"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg>Connexion</span><span>Récapitulatif quotidien ou hebdomadaire à partir des données disponibles.</span></li></ul>
+            <dl class="ms-dl"><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg>Outils nécessaires</dt><dd>Les outils connectés aux autres missions.</dd></div><div><dt><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Autorisations conseillées</dt><dd>Synthèses et alertes : automatiques.</dd></div></dl>
+          </details>
+        </article></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section" id="complements" aria-labelledby="t-add">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Fonctions complémentaires</span><h2 id="t-add" class="h-l">D'autres tâches de secrétariat, à étudier avec vous.</h2><p class="lead">Ces fonctions complètent les missions ci-dessus. Elles ne sont pas disponibles d'office : leur faisabilité est étudiée selon vos outils lors de la mise en place.</p></div>
+      <div class="tbl-wrap reveal"><table class="addt">
+        <thead><tr><th scope="col">Fonction</th><th scope="col">Utilité</th><th scope="col">Outils nécessaires</th><th scope="col">Niveau d'autorisation</th></tr></thead>
+        <tbody><tr><th scope="row"><span class="add-f">Accueil</span>Messages vocaux hors horaires</th><td>Transcrire et résumer les messages laissés en dehors des heures d'ouverture, puis organiser le rappel.</td><td>Ligne téléphonique connectée</td><td>Automatique (résumé), rappel selon vos règles</td></tr><tr><th scope="row"><span class="add-f">Accueil</span>Filtrage du démarchage</th><td>Reconnaître les sollicitations commerciales non désirées et y répondre poliment selon vos consignes.</td><td>Aucun outil : vos consignes</td><td>Automatique</td></tr><tr><th scope="row"><span class="add-f">Accueil</span>Accueil en plusieurs langues</th><td>Accueillir un interlocuteur dans une autre langue, parmi celles que vous retenez.</td><td>Aucun outil : langues à configurer</td><td>Automatique, à valider lors des tests</td></tr><tr><th scope="row"><span class="add-f">Rendez-vous</span>Confirmation de présence et absences</th><td>Demander une confirmation la veille, libérer le créneau en cas d'annulation et proposer la liste d'attente.</td><td>Agenda, envoi d'e-mails ou de SMS</td><td>Automatique dans vos règles</td></tr><tr><th scope="row"><span class="add-f">Direction</span>Agenda de direction</th><td>Filtrer les sollicitations et préparer une fiche de synthèse avant chaque rendez-vous du dirigeant.</td><td>Agenda, CRM, documents</td><td>Avec validation</td></tr><tr><th scope="row"><span class="add-f">Documents</span>Contrats et échéances</th><td>Alerter avant le renouvellement, la révision ou la fin d'un contrat (maintenance, assurance, abonnement).</td><td>Base documentaire ou tableau de suivi</td><td>Alertes automatiques, décisions par votre équipe</td></tr><tr><th scope="row"><span class="add-f">Devis</span>Suite d'un devis accepté</th><td>Préparer le bon de commande, la facture ou la planification de l'intervention à partir du devis signé.</td><td>Logiciel de devis et de facturation, agenda</td><td>Avec validation</td></tr><tr><th scope="row"><span class="add-f">Facturation</span>Justificatifs de notes de frais</th><td>Demander, collecter et classer les justificatifs pour le service comptable.</td><td>Messagerie, espace de stockage</td><td>Collecte automatique, contrôle par la comptabilité</td></tr><tr><th scope="row"><span class="add-f">Contacts</span>Qualité des fiches</th><td>Signaler les doublons, les fiches incomplètes et les coordonnées à vérifier.</td><td>CRM</td><td>Signalement automatique, fusion avec validation</td></tr><tr><th scope="row"><span class="add-f">SAV</span>Enquête de satisfaction</th><td>Envoyer un questionnaire après une intervention et synthétiser les retours.</td><td>Messagerie, modèles validés</td><td>Automatique, modèles validés par vous</td></tr><tr><th scope="row"><span class="add-f">Réunions</span>Compte rendu à partir d'un enregistrement</th><td>Rédiger le compte rendu et la liste des actions d'une réunion enregistrée avec l'accord des participants.</td><td>Outil d'enregistrement ou de visioconférence</td><td>Avec validation avant diffusion</td></tr></tbody>
+      </table></div>
+      <div class="phys reveal">
+        <div class="phys-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V5a2 2 0 1 1 4 0v6M12 10V4a2 2 0 1 1 4 0v7M16 9a2 2 0 1 1 4 0v5a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5L3 13a2 2 0 0 1 3-2.5l2 2"/></svg><div><h3 class="h-m">Ce qu'une IA ne fait pas physiquement</h3><p class="mut">Ces interventions restent à votre équipe. Votre secrétaire IA prépare et facilite ce qui les entoure.</p></div></div>
+        <ul class="phys-l"><li><b>Accueillir physiquement un visiteur</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Prévenir la bonne personne de l'arrivée d'un visiteur annoncé.</span></li><li><b>Réceptionner un colis ou le courrier, signer un bon de livraison</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Enregistrer la livraison attendue et rappeler sa réception.</span></li><li><b>Déposer ou affranchir un courrier</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Préparer le courrier, l'adresse et la liste des envois.</span></li><li><b>Classer des documents papier</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Classer les documents numérisés que vous lui transmettez.</span></li><li><b>Préparer une salle ou du matériel</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Réserver la salle et envoyer la liste de préparation.</span></li><li><b>Effectuer un achat ou un paiement</b><span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Préparer la demande et la soumettre à votre validation.</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="regles" aria-labelledby="t-rg">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Personnalisation</span><h2 id="t-rg" class="h-l">Vous définissez ce qu'elle peut faire.</h2><p class="lead">Chaque entreprise choisit :</p></div>
+      <ul class="cho reveal"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><circle cx="16" cy="12" r="3"/></svg><span>Les missions activées ou désactivées</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></svg><span>Les outils et données accessibles</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21a7 7 0 0 0-5-6.7"/></svg><span>Les interlocuteurs et services concernés</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Les consignes, horaires, modèles et scénarios</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Les actions automatiques</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><span>Les actions nécessitant une validation</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 11V5a2 2 0 1 1 4 0v6M12 10V4a2 2 0 1 1 4 0v7M16 9a2 2 0 1 1 4 0v5a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5L3 13a2 2 0 0 1 3-2.5l2 2"/></svg><span>Les situations à transmettre à un collaborateur</span></li></ul>
+      <div class="cfg-auto reveal" aria-labelledby="t-auto">
+        <h3 id="t-auto" class="h-m">Son niveau d'autonomie, action par action</h3>
+        <ol class="modecards"><li class="mc a"><span class="mc-n">1</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><h4>Automatique</h4><p>Elle réalise l'action dans les limites que vous avez définies.</p></li><li class="mc v"><span class="mc-n">2</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><h4>Avec votre validation</h4><p>Elle prépare l'action et attend votre accord avant de l'exécuter.</p></li><li class="mc r"><span class="mc-n">3</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21a7 7 0 0 0-5-6.7"/></svg><h4>Transmis à votre équipe</h4><p>Elle recueille les informations et confie la suite à un collaborateur.</p></li></ol>
+        <div class="cfg-ex"><span class="cfg-ex-t">Exemple</span><p>Autorisez la prise de rendez-vous automatique, gardez la validation des devis et demandez une alerte pour les colis en retard. Votre configuration évolue avec votre entreprise.</p>
+          <ul class="cfg-ex-rows" aria-hidden="true"><li><span>Prise de rendez-vous</span><b class="a">Automatique</b></li><li><span>Envoi d'un devis</span><b class="v">Avec validation</b></li><li><span>Colis en retard</span><b class="r">Alerte à l'équipe</b></li><li><span>Fonction inutile</span><b class="off">Désactivée</b></li></ul></div>
+      </div>
+      <div class="cfg-setup reveal" aria-labelledby="t-setup">
+        <h3 id="t-setup" class="h-m">La mise en place, en quatre étapes</h3>
+        <ol class="cfg-steps"><li><span>1</span><p>Nous définissons ensemble vos besoins et votre organisation.</p></li><li><span>2</span><p>Nous sélectionnons les fonctions et les outils à connecter.</p></li><li><span>3</span><p>Nous configurons les consignes, les autorisations et les validations.</p></li><li><span>4</span><p>Nous testons les scénarios avec vous avant la mise en service.</p></li></ol>
+        <p class="mut small">La configuration évolue avec votre entreprise. Les demandes spécifiques sont étudiées selon leur faisabilité technique et les outils disponibles : certaines intégrations existent déjà, d'autres doivent être étudiées au cas par cas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="scenarios" aria-labelledby="t-scn">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Scénarios métier</span><h2 id="t-scn" class="h-l">Un appel. Des actions. Un résultat.</h2><p class="lead">Quatre exemples de configuration, parmi d'autres.</p></div>
+      <div class="scns scns4"><article class="scn reveal"><span class="scn-kicker">Exemple de configuration</span><span class="scn-tag">Artisan</span>
+        <div class="scn-step s1"><small>Un appel</small><p>Un client demande une intervention.</p></div>
+        <div class="scn-step s2"><small>Des actions</small><ol><li>Votre secrétaire IA recueille les informations sur l'intervention.</li><li>Elle demande des photos par e-mail.</li><li>Elle prépare un devis selon les tarifs disponibles et le soumet à votre validation.</li><li>Elle propose un rendez-vous.</li></ol></div>
+        <div class="scn-step s3"><small>Un résultat</small><p>Le devis est prêt et le rendez-vous proposé, sans ressaisie.</p></div>
+        <p class="scn-note">Les étapes et le niveau d'autonomie sont adaptés à chaque entreprise.</p>
+      </article><article class="scn reveal"><span class="scn-kicker">Exemple de configuration</span><span class="scn-tag">Cabinet ou société de services</span>
+        <div class="scn-step s1"><small>Un appel</small><p>Un client appelle pour déplacer un rendez-vous.</p></div>
+        <div class="scn-step s2"><small>Des actions</small><ol><li>Elle consulte l'agenda.</li><li>Elle propose un nouveau créneau.</li><li>Elle actualise le planning.</li><li>Elle envoie la confirmation.</li></ol></div>
+        <div class="scn-step s3"><small>Un résultat</small><p>Le planning est à jour et le client a reçu sa confirmation.</p></div>
+        <p class="scn-note">Les étapes et le niveau d'autonomie sont adaptés à chaque entreprise.</p>
+      </article><article class="scn reveal"><span class="scn-kicker">Exemple de configuration</span><span class="scn-tag">Entreprise B2B</span>
+        <div class="scn-step s1"><small>Un appel</small><p>Un prospect demande une prestation.</p></div>
+        <div class="scn-step s2"><small>Des actions</small><ol><li>Elle qualifie son besoin.</li><li>Elle complète sa fiche.</li><li>Elle transmet la documentation autorisée.</li><li>Elle organise un échange commercial.</li></ol></div>
+        <div class="scn-step s3"><small>Un résultat</small><p>Le commercial reçoit un prospect qualifié, avec un rendez-vous fixé.</p></div>
+        <p class="scn-note">Les étapes et le niveau d'autonomie sont adaptés à chaque entreprise.</p>
+      </article><article class="scn reveal"><span class="scn-kicker">Exemple de configuration</span><span class="scn-tag">Commerce ou distribution</span>
+        <div class="scn-step s1"><small>Un appel</small><p>Un client demande où en est sa livraison.</p></div>
+        <div class="scn-step s2"><small>Des actions</small><ol><li>Elle retrouve la commande et le numéro de suivi.</li><li>Elle consulte le transporteur connecté.</li><li>Elle indique la dernière étape connue et la date estimée, si elle est disponible.</li><li>Colis livré selon le transporteur : elle demande au client de confirmer la réception.</li></ol></div>
+        <div class="scn-step s3"><small>Un résultat</small><p>Le client est informé, et un retard déclenche une alerte à votre équipe.</p></div>
+        <p class="scn-note">Les étapes et le niveau d'autonomie sont adaptés à chaque entreprise.</p>
+      </article></div>
+      <p class="note mut small" style="margin-top:18px">Exemples illustratifs. Les actions réalisées dépendent des fonctions choisies, de vos règles et des outils connectés.</p>
+      <ul class="guar reveal">
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Elle s'identifie comme une intelligence artificielle auprès de vos interlocuteurs.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Elle vérifie l'identité avant de communiquer une information de dossier.</span></li>
+        <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Elle accède uniquement aux données nécessaires aux missions que vous lui confiez.</span></li>
+      </ul>
+      <p class="mut small">Votre secrétaire IA n'invente jamais un prix, une remise, une condition contractuelle, un statut de livraison ou un délai : elle utilise uniquement les informations validées par votre entreprise et celles des outils connectés.</p>
+    </div>
+  </section>
+
+  <section class="section alt ti-cta" aria-labelledby="t-cta">
+    <div class="wrap">
+      <h2 id="t-cta" class="h-l reveal">Construisons le secrétariat IA adapté à votre entreprise.</h2>
+      <a class="btn btn-cyan reveal" href="demo.html#formulaire">Personnaliser ma secrétaire IA <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SAV / Assistance · AXIA</title>
+<meta name="description" content="Ouvrez une demande d'assistance AXIA et suivez son traitement avec votre numéro de dossier.">
+<meta name="axia-page" content="sav">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<style>
+.view-hero{padding-block:clamp(40px,6vw,80px) clamp(20px,3vw,32px)}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--mut);text-decoration:none;font-size:.92rem;justify-self:start}
+.back .ico{transform:rotate(180deg);transition:transform .25s var(--ease)}
+.back:hover{color:var(--cyan)}
+.back:hover .ico{transform:rotate(180deg) translateX(3px)}
+[tabindex="-1"]:focus{outline:none}
+/* accueil */
+.tiles{display:grid;gap:16px;padding-bottom:clamp(56px,8vw,96px)}
+@media (min-width:760px){.tiles{grid-template-columns:1fr 1fr;gap:20px}}
+.tile{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding:clamp(22px,3vw,30px);border-radius:16px;border:1px solid var(--edge);background:var(--glass);text-decoration:none;transition:border-color .25s,box-shadow .3s var(--ease),transform .25s var(--ease)}
+.tile:hover{border-color:var(--edge-strong);box-shadow:0 0 0 1px rgba(25,116,232,.12),0 30px 60px -36px var(--glow);transform:translateY(-2px)}
+.tile .ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:var(--cyan);background:rgba(25,116,232,.08);border:1px solid rgba(25,116,232,.25)}
+.tile .ic .ico{width:24px;height:24px}
+.tile b{display:block;font:600 1.25rem/1.2 var(--f-display);letter-spacing:-.015em}
+.tile small{display:block;color:var(--mut);font-size:.92rem;margin-top:4px}
+.tile>.ico{width:22px;height:22px;color:var(--cyan);transition:transform .25s var(--ease)}
+.tile:hover>.ico{transform:translateX(4px)}
+.tile.main{background:linear-gradient(135deg,rgba(25,116,232,.1),rgba(25,116,232,.02));border-color:rgba(25,116,232,.35)}
+.quick{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--mut);font-size:.94rem;margin-top:-28px;padding-bottom:clamp(56px,8vw,96px)}
+.contact-grid{display:grid;gap:28px}
+@media (min-width:860px){.contact-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:start;gap:64px}}
+.coords{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.coords li{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(170,183,199,.1);min-width:0}
+.coords li:first-child{border-top:1px solid rgba(170,183,199,.1)}
+.coords .ico{width:20px;height:20px;color:var(--cyan)}
+.coords span{min-width:0;overflow-wrap:anywhere}
+.coords a{text-decoration:none}.coords a:hover{color:var(--cyan)}
+.soon{display:grid;gap:14px;justify-items:start}
+.soon p{color:var(--mut)}
+/* nouvelle demande */
+.flow{padding-bottom:clamp(64px,9vw,120px)}
+.steps{list-style:none;margin:0 0 30px;padding:0;display:flex;gap:10px;align-items:center;font-size:.88rem;color:var(--mut);flex-wrap:wrap}
+.steps li{display:inline-flex;align-items:center;gap:10px}
+.steps li+li::before{content:"";width:28px;height:1px;background:var(--edge-strong)}
+.steps .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge);font:600 .8rem/1 var(--f-display)}
+.steps [aria-current="step"]{color:var(--ink)}
+.steps [aria-current="step"] .n{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 18px -4px var(--glow)}
+.steps .done .n{background:var(--cyan);border-color:var(--cyan);color:var(--cyan-ink)}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{padding:0;margin-bottom:10px}
+.req{color:var(--cyan)}
+.ai-box{display:grid;gap:18px}
+.ai-ans{display:flex;gap:14px;padding:20px;border-radius:14px;background:rgba(25,116,232,.06);border:1px solid rgba(25,116,232,.25)}
+.ai-ans .av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(25,116,232,.12);color:var(--cyan)}
+.ai-ans .av .ico{width:16px;height:16px}
+.ai-ans .txt{white-space:pre-line;overflow-wrap:anywhere;min-width:0}
+.ai-ans .txt a{color:var(--cyan);font-weight:600;text-decoration:none}
+.drop{position:relative}
+.drop:focus-within{border-color:var(--cyan);outline:2px solid var(--cyan);outline-offset:2px}
+.drop .ico{width:26px;height:26px;color:var(--cyan)}
+.drop b{color:var(--ink);font-weight:600}
+.files li{align-items:center}
+.files li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.files li small{color:var(--mut);flex:none}
+.files button{background:none;border:0;color:var(--mut);cursor:pointer;width:30px;height:30px;display:grid;place-items:center;border-radius:6px;flex:none}
+.files button:hover{color:var(--bad)}
+.files .grow{flex:1;min-width:0;display:flex;gap:10px;align-items:baseline}
+.done-box{display:grid;justify-items:center;text-align:center;gap:16px;padding:clamp(24px,5vw,48px) 0}
+.done-box .big{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:var(--ok);background:rgba(91,227,154,.08);border:1px solid rgba(91,227,154,.4)}
+.done-box .big .ico{width:28px;height:28px}
+.done-box p{color:var(--mut);max-width:46ch}
+.refbox{display:inline-flex;align-items:center;gap:12px;padding:12px 14px 12px 20px;border-radius:12px;border:1px solid var(--edge-strong);background:var(--raise)}
+.refbox b{font:600 1.5rem/1 var(--f-display);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+/* suivi */
+.mine{display:grid;gap:12px;margin-bottom:44px}
+.mine-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.mine-h h2{font-size:1.2rem}
+.tlist{list-style:none;margin:0;padding:0;border-top:1px solid rgba(170,183,199,.1)}
+.tlist button{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;text-align:left;padding:16px 4px;background:none;border:0;border-bottom:1px solid rgba(170,183,199,.1);cursor:pointer;transition:background-color .2s}
+.tlist button:hover{background:var(--glass)}
+.tlist b{font:600 1rem/1.3 var(--f-display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tlist small{color:var(--mut);font-size:.84rem;grid-column:1}
+.tlist .pill{grid-row:1/3;grid-column:2}
+.ticket{display:grid;gap:26px}
+.t-head{display:grid;gap:10px}
+.t-head .row{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.t-head .ref{font:600 .9rem/1 var(--f-display);letter-spacing:.08em;color:var(--cyan)}
+.t-head h2{font-size:clamp(1.4rem,2.6vw,1.8rem);overflow-wrap:anywhere}
+.t-head .mut{font-size:.9rem}
+.thread{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.thread li{display:grid;gap:6px;padding:16px 18px;border-radius:14px;background:var(--glass);border:1px solid rgba(170,183,199,.1);min-width:0}
+.thread li.client{background:#1B222C;border-color:rgba(170,183,199,.14)}
+.thread li.ia{border-color:rgba(25,116,232,.28);background:rgba(25,116,232,.05)}
+.thread li.agent{border-color:rgba(91,227,154,.3)}
+.thread .who{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--mut);flex-wrap:wrap}
+.thread .who b{color:var(--ink);font-weight:600}
+.thread p{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--soft)}
+.att{display:flex;flex-wrap:wrap;gap:8px}
+.att span{display:inline-flex;align-items:center;gap:6px;font-size:.84rem;color:var(--mut);padding:.3em .7em;border-radius:999px;border:1px solid var(--edge);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* SAV : deux grands blocs illustrés (maquette) */
+#v-home>.page-hero{position:relative;overflow:hidden}
+#v-home>.page-hero>.wrap::after{content:"";position:absolute;right:0;top:-40px;width:min(700px,52%);height:calc(100% + 60px);z-index:-1;background:url(assets/3d/sav-ruban.webp) right top/contain no-repeat;opacity:.9;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 80%,transparent),linear-gradient(180deg,transparent,#000 25%,#000 70%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 30%,#000 80%,transparent),linear-gradient(180deg,transparent,#000 25%,#000 70%,transparent);mask-composite:intersect}
+#v-home>.page-hero>.wrap{position:relative}
+.sav2{display:grid;gap:20px;margin-top:8px}
+@media (min-width:900px){.sav2{grid-template-columns:1fr 1fr}}
+.sav-card{display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(120,180,245,.45);background:linear-gradient(170deg,#1E2631,#141A21 60%,#101419);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 24px rgba(40,120,232,.12),0 30px 60px -34px rgba(0,0,0,.9);transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
+@media (hover:hover){.sav-card:hover{transform:translateY(-5px);border-color:rgba(120,180,245,.8);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(120,180,245,.35),0 0 34px rgba(40,120,232,.28),0 36px 70px -34px rgba(0,0,0,.95)}.sav-card:hover .sav-art img{transform:scale(1.035)}}
+.sav-art{margin:0;aspect-ratio:1326/554;max-width:100%;overflow:hidden;border-bottom:1px solid rgba(120,180,245,.25)}
+.sav-art img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.sav-body{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;padding:26px clamp(20px,3vw,40px) 30px}
+.sav-ic{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;color:#78B4F5;border:1px solid rgba(170,183,199,.45);background:linear-gradient(160deg,#22303F,#151B23);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 18px rgba(40,120,232,.25)}
+.sav-ic .ico{width:26px;height:26px}
+.sav-body>div{display:grid;gap:8px;justify-items:start;padding-left:22px;border-left:1px solid rgba(170,183,199,.2)}
+.sav-body h2{font-size:clamp(1.3rem,2vw,1.6rem)}
+.sav-body p{color:var(--mut)}
+.sav-body .btn{margin-top:8px}
+.sav-quick{display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;margin-top:20px;padding:16px 24px;border-radius:16px;border:1px solid rgba(170,183,199,.22);background:rgba(27,34,44,.6)}
+.sav-quick a{display:inline-flex;align-items:center;gap:8px}
+.sav-quick .ico{width:18px;height:18px}
+@media (max-width:560px){.sav-body{grid-template-columns:1fr;gap:14px}.sav-ic{display:none}.sav-body>div{padding-left:0;border-left:0}}
+</style>
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <!-- ============ Accueil ============ -->
+  <div id="v-home" data-view="home">
+    <section class="page-hero" aria-labelledby="t-home">
+      <div class="wrap">
+        <span class="eyebrow">Assistance</span>
+        <h1 id="t-home" class="h-xl" tabindex="-1">SAV / Assistance</h1>
+        <p class="lead">Un problème, une question ? Notre équipe prend le relais.</p>
+      </div>
+    </section>
+    <div class="wrap">
+      <div class="sav2">
+        <article class="sav-card">
+          <figure class="sav-art"><img src="assets/3d/sav-ouvrir.webp" width="1326" height="554" alt="Une conseillère avec un casque, devant un panneau en verre montrant un dossier validé."></figure>
+          <div class="sav-body"><span class="sav-ic" data-i="file"></span><div><h2>Ouvrir une demande</h2><p>Décrivez votre problème, recevez un numéro de dossier.</p><a class="btn btn-cyan" href="#nouvelle" id="go-new">Ouvrir une demande <span data-i="arrow"></span></a></div></div>
+        </article>
+        <article class="sav-card">
+          <figure class="sav-art"><img src="assets/3d/sav-suivre.webp" width="1328" height="554" alt="Un restaurateur consulte le suivi de son dossier : demande reçue, en cours de traitement, échange avec l'équipe."></figure>
+          <div class="sav-body"><span class="sav-ic" data-i="chat"></span><div><h2>Suivre une demande</h2><p>Consultez le statut et échangez avec l'équipe.</p><a class="btn btn-cyan" href="#suivi" id="go-track">Suivre une demande <span data-i="arrow"></span></a></div></div>
+        </article>
+      </div>
+      <p class="quick sav-quick">Besoin d'une réponse immédiate ? <a class="link" href="faq.html#question"><span data-i="chat"></span>Poser une question</a><a class="link" href="faq.html"><span data-i="help"></span>FAQ</a></p>
+    </div>
+    <section class="section alt tight" id="contact" aria-labelledby="t-contact">
+      <div class="wrap contact-grid">
+        <div class="section-head" style="margin:0"><span class="eyebrow">Contact</span><h2 id="t-contact" class="h-l">Nous contacter</h2></div>
+        <div id="coords"></div>
+      </div>
+    </section>
+  </div>
+  <!-- ============ Nouvelle demande ============ -->
+  <div id="v-new" data-view="new" hidden>
+    <section class="page-hero view-hero" aria-labelledby="t-new">
+      <div class="wrap narrow">
+        <a class="back" href="#accueil"><span data-i="arrow"></span>Assistance</a>
+        <h1 id="t-new" class="h-l" tabindex="-1">Ouvrir une demande</h1>
+      </div>
+    </section>
+    <div class="wrap narrow flow">
+      <ol class="steps" id="steps" aria-label="Étapes">
+        <li id="st1" aria-current="step"><span class="n">1</span>Votre demande</li>
+        <li id="st2"><span class="n">2</span>Vos coordonnées</li>
+      </ol>
+      <form class="form" id="f1" novalidate>
+        <p class="notice info" id="from-ai" hidden></p>
+        <fieldset class="field" aria-describedby="e-type">
+          <legend class="legend">Type de problème <span class="req" aria-hidden="true">*</span></legend>
+          <div class="chips" id="types"></div>
+          <span class="msg-err" id="e-type" aria-live="polite"></span>
+        </fieldset>
+        <div class="field">
+          <label for="sav-subject">Sujet <span class="req" aria-hidden="true">*</span></label>
+          <input class="input" id="sav-subject" maxlength="120" autocomplete="off" placeholder="En quelques mots" aria-describedby="e-subject" required>
+          <span class="msg-err" id="e-subject" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="sav-desc">Description <span class="req" aria-hidden="true">*</span></label>
+          <textarea class="input" id="sav-desc" rows="6" maxlength="4000" placeholder="Que se passe-t-il ? Depuis quand ? Qu'avez-vous déjà essayé ?" aria-describedby="e-desc" required></textarea>
+          <span class="msg-err" id="e-desc" aria-live="polite"></span>
+        </div>
+        <div class="actions"><button class="btn btn-cyan" type="submit" id="f1-next">Continuer</button></div>
+      </form>
+      <section class="ai-box" id="ai" hidden aria-labelledby="t-ai">
+        <div><span class="eyebrow">Assistance automatique</span></div>
+        <h2 class="h-m" id="t-ai" tabindex="-1">Une réponse existe peut-être déjà</h2>
+        <div class="ai-ans"><span class="av" data-i="spark" aria-hidden="true"></span><div class="txt" id="ai-txt"></div></div>
+        <div class="actions">
+          <button class="btn btn-cyan" type="button" id="ai-yes">Ça résout mon problème</button>
+          <button class="btn btn-line" type="button" id="ai-no">Non, transmettre à l'équipe</button>
+        </div>
+      </section>
+      <form class="form" id="f2" novalidate hidden>
+        <h2 class="sr" id="t-f2" tabindex="-1">Vos coordonnées</h2>
+        <div class="row2">
+          <div class="field">
+            <label for="sav-name">Nom <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="sav-name" autocomplete="name" maxlength="80" aria-describedby="e-name" required>
+            <span class="msg-err" id="e-name" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="sav-email">E-mail <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="sav-email" type="email" autocomplete="email" maxlength="120" aria-describedby="e-email" required>
+            <span class="msg-err" id="e-email" aria-live="polite"></span>
+          </div>
+        </div>
+        <div class="field">
+          <span id="l-files">Fichiers et captures <span class="mut small">(facultatif)</span></span>
+          <label class="drop" for="sav-files" id="drop">
+            <input class="sr" type="file" id="sav-files" multiple aria-labelledby="l-files" aria-describedby="h-files e-files">
+            <span data-i="clip"></span>
+            <span><b>Ajouter des fichiers</b> ou glissez-les ici</span>
+            <small id="h-files">5 fichiers maximum, 10 Mo chacun.</small>
+          </label>
+          <ul class="files" id="file-list" aria-live="polite"></ul>
+          <span class="msg-err" id="e-files" aria-live="polite"></span>
+          <small id="proto-files" hidden>Mode présentation : seuls le nom, la taille et le type des fichiers sont enregistrés, pas leur contenu.</small>
+        </div>
+        <div class="field">
+          <label class="check" for="sav-consent"><input type="checkbox" id="sav-consent" aria-describedby="e-consent"><span>J'ai pris connaissance de la manière dont ces informations sont utilisées pour traiter ma demande. <a class="link" href="confidentialite.html">Confidentialité</a></span></label>
+          <span class="msg-err" id="e-consent" aria-live="polite"></span>
+        </div>
+        <div class="actions">
+          <button class="btn btn-cyan" type="submit" id="f2-send">Envoyer ma demande</button>
+          <button class="btn btn-ghost" type="button" id="f2-back">Retour</button>
+        </div>
+      </form>
+      <section class="done-box" id="solved" hidden aria-labelledby="t-solved">
+        <span class="big" data-i="check"></span>
+        <h2 class="h-m" id="t-solved" tabindex="-1">Parfait, c'est réglé.</h2>
+        <p>Aucune demande n'a été créée. Merci pour votre retour.</p>
+        <div class="actions center"><a class="btn btn-line" href="#accueil">Retour à l'assistance</a></div>
+      </section>
+      <section class="done-box" id="done" hidden aria-labelledby="t-done">
+        <span class="big" data-i="check"></span>
+        <h2 class="h-m" id="t-done" tabindex="-1">Demande envoyée</h2>
+        <p class="small mut">Votre numéro de dossier</p>
+        <div class="refbox"><b id="done-ref"></b><button class="btn btn-ghost btn-sm" type="button" id="copy-ref">Copier</button></div>
+        <p id="done-mail"></p>
+        <div class="actions center" id="done-actions"></div>
+      </section>
+    </div>
+  </div>
+  <!-- ============ Suivi ============ -->
+  <div id="v-track" data-view="track" hidden>
+    <section class="page-hero view-hero" aria-labelledby="t-track">
+      <div class="wrap narrow">
+        <a class="back" href="#accueil"><span data-i="arrow"></span>Assistance</a>
+        <h1 id="t-track" class="h-l" tabindex="-1">Suivre une demande</h1>
+      </div>
+    </section>
+    <div class="wrap narrow flow">
+      <div id="track-home">
+        <div class="mine" id="mine" hidden></div>
+        <form class="form" id="f3" novalidate>
+          <div class="row2">
+            <div class="field">
+              <label for="trk-ref">Numéro de dossier</label>
+              <input class="input" id="trk-ref" placeholder="SAV-000000" autocomplete="off" spellcheck="false" maxlength="20" aria-describedby="e-trk">
+            </div>
+            <div class="field">
+              <label for="trk-email">E-mail de la demande</label>
+              <input class="input" id="trk-email" type="email" autocomplete="email" maxlength="120" aria-describedby="e-trk">
+            </div>
+          </div>
+          <span class="msg-err" id="e-trk" aria-live="polite"></span>
+          <div class="actions"><button class="btn btn-cyan" type="submit" id="trk-go">Afficher ma demande</button></div>
+        </form>
+      </div>
+      <div id="track-detail" hidden></div>
+    </div>
+  </div>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.AXIA,esc=A.esc;
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return [].slice.call((r||document).querySelectorAll(s));}
+/* icônes déclaratives : <span class="x" data-i="nom"> garde son conteneur, <span data-i="nom"> est remplacé par l'icône */
+$$("[data-i]").forEach(function(el){var n=el.dataset.i;if(el.className){el.innerHTML=A.icon(n);el.removeAttribute("data-i");}else el.outerHTML=A.icon(n,n==="arrow"?"arrow":"");});
+var MAX_FILES=5,MAX_SIZE=10*1024*1024;
+var EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+var STATUS_CLASS={"Ouverte":"info","En cours":"info","En attente de votre réponse":"warn","Résolue":"ok","Fermée":""};
+var WHO={client:"Vous",agent:"Équipe AXIA",ia:"Assistant IA"};
+function user(){return A.auth.current();}
+function pill(s){return '<span class="pill '+(STATUS_CLASS[s]||"")+'">'+esc(s)+'</span>';}
+function size(n){return n<1024?n+" o":n<1048576?Math.round(n/1024)+" Ko":(n/1048576).toFixed(1).replace(".",",")+" Mo";}
+function setErr(id,msg,input){$("#"+id).textContent=msg||"";if(input)input.setAttribute("aria-invalid",msg?"true":"false");}
+/* ================= vues ================= */
+var views={home:$("#v-home"),new:$("#v-new"),track:$("#v-track")};
+var fromAssistant=A.qs("from")==="assistant";
+var initial=true;
+function route(){var h=location.hash.slice(1);
+  var v=h==="nouvelle"?"new":h==="suivi"?"track":"home";
+  if(initial&&!h&&fromAssistant)v="new";
+  var prev=Object.keys(views).filter(function(k){return !views[k].hidden;})[0];
+  Object.keys(views).forEach(function(k){views[k].hidden=k!==v;});
+  if(v==="new"&&state.finished)resetNew();
+  var opened=false;
+  if(v==="track"){if(pendingOpen){openTicket(pendingOpen);pendingOpen=null;opened=true;}else if(prev!=="track"){detail.hidden=true;thome.hidden=false;renderMine();}}
+  if(h==="contact"){var c=$("#contact");requestAnimationFrame(function(){c.scrollIntoView({block:"start"});});}
+  else if(!opened&&(!initial||h)){scrollTo(0,0);var t=views[v].querySelector("h1");if(t&&!initial)t.focus({preventScroll:true});}
+  initial=false;}
+var pendingOpen=null;
+addEventListener("hashchange",route);
+/* ================= accueil : coordonnées ================= */
+(function(){var co=A.config.company||{},sv=A.config.sav||{},c={name:co.name,email:sv.email||co.email,phone:sv.phone||co.phone,address:co.address},rows=[];
+  if(c.email)rows.push('<li>'+A.icon("mail")+'<span><a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a></span></li>');
+  if(c.phone)rows.push('<li>'+A.icon("phone")+'<span><a href="tel:'+esc(String(c.phone).replace(/\s/g,""))+'">'+esc(c.phone)+'</a></span></li>');
+  if(c.address)rows.push('<li>'+A.icon("home")+'<span>'+esc(c.address)+'</span></li>');
+  var name=c.name&&!/^\[/.test(c.name)?'<p class="mut" style="margin-bottom:12px">'+esc(c.name)+'</p>':"";
+  $("#coords").innerHTML=rows.length?name+'<ul class="coords">'+rows.join("")+'</ul>'
+    :'<div class="soon"><p>Coordonnées publiées prochainement.</p><p>En attendant, ouvrez une demande : vous recevrez un numéro de dossier.</p><a class="btn btn-line btn-sm" href="#nouvelle" id="contact-new">Ouvrir une demande</a></div>';})();
+/* ================= nouvelle demande ================= */
+var state={};
+var f1=$("#f1"),f2=$("#f2"),ai=$("#ai");
+var inType=null,inSubj=$("#sav-subject"),inDesc=$("#sav-desc"),inName=$("#sav-name"),inMail=$("#sav-email"),inFiles=$("#sav-files"),inConsent=$("#sav-consent");
+$("#types").innerHTML=(A.data.savTypes||[]).map(function(t,i){return '<label class="chip" for="sav-type-'+i+'"><input type="radio" name="sav-type" id="sav-type-'+i+'" value="'+esc(t)+'">'+esc(t)+'</label>';}).join("");
+if(A.proto)$("#proto-files").hidden=false;
+function show(step){f1.hidden=step!==1;ai.hidden=step!=="ai";f2.hidden=step!==2;$("#done").hidden=step!=="done";$("#solved").hidden=step!=="solved";
+  $("#steps").hidden=step==="done"||step==="solved";
+  var s1=$("#st1"),s2=$("#st2");s1.classList.toggle("done",step===2);
+  if(step===2){s1.removeAttribute("aria-current");s2.setAttribute("aria-current","step");}else{s2.removeAttribute("aria-current");s1.setAttribute("aria-current","step");}
+  state.finished=step==="done"||step==="solved";}
+function focusTop(el){var h=views.new.querySelector(".view-hero");h.scrollIntoView({block:"start"});if(el)el.focus({preventScroll:true});}
+function resetNew(){f1.reset();f2.reset();state={files:[],aiTried:false,aiText:"",finished:false};renderFiles();
+  $$(".msg-err",views.new).forEach(function(e){e.textContent="";});$$("[aria-invalid]",views.new).forEach(function(e){e.setAttribute("aria-invalid","false");});
+  var u=user();if(u){inName.value=u.name||"";inMail.value=u.email||"";}
+  if(fromAssistant&&A.qs("q")){inDesc.value=A.qs("q");var n=$("#from-ai");n.innerHTML=A.icon("info")+"<span>Votre question posée dans la FAQ est reprise ci-dessous. Précisez-la si besoin.</span>";n.hidden=false;}
+  show(1);}
+f1.addEventListener("submit",function(e){e.preventDefault();var ok=true,first=null;
+  var t=$('input[name="sav-type"]:checked');setErr("e-type",t?"":"Choisissez un type de problème.");if(!t){ok=false;first=first||$("#sav-type-0");}
+  var s=inSubj.value.trim();var es=s.length<3?"Indiquez un sujet (3 caractères minimum).":"";setErr("e-subject",es,inSubj);if(es){ok=false;first=first||inSubj;}
+  var d=inDesc.value.trim();var ed=d.length<10?"Décrivez votre demande (10 caractères minimum).":"";setErr("e-desc",ed,inDesc);if(ed){ok=false;first=first||inDesc;}
+  if(!ok){first.focus();return;}
+  state.type=t.value;state.subject=s;state.description=d;
+  if(fromAssistant&&d===String(A.qs("q")||"").trim()){state.aiTried=true;state.aiText="Question posée dans la FAQ, sans réponse validée disponible. Demande transmise à l'équipe.";show(2);focusTop($("#sav-name"));return;}
+  var res=A.assistant.answer(s+" "+d);
+  if(res.found&&!res.pending){state.aiRes=res;$("#ai-txt").innerHTML=A.renderAnswer(res);show("ai");focusTop($("#t-ai"));}
+  else{state.aiTried=false;state.aiText="";show(2);focusTop(inName.value?inMail.value?$("#sav-files"):inMail:inName);}});
+$("#ai-yes").onclick=function(){A.records.add("feedback",{q:state.subject+" "+state.description,helpful:true});A.audit("SAV résolu par l'assistant",state.subject);show("solved");focusTop($("#t-solved"));};
+$("#ai-no").onclick=function(){A.records.add("feedback",{q:state.subject+" "+state.description,helpful:false});state.aiTried=true;state.aiText=state.aiRes.text;show(2);focusTop(inName.value?inMail:inName);};
+$("#f2-back").onclick=function(){show(1);focusTop($("#sav-subject"));};
+/* fichiers */
+function renderFiles(){var l=$("#file-list");l.innerHTML=(state.files||[]).map(function(f,i){return '<li><span class="grow"><span>'+esc(f.name)+'</span><small>'+size(f.size)+'</small></span><button type="button" data-rm="'+i+'" id="rm-file-'+i+'" aria-label="Retirer '+esc(f.name)+'">'+A.icon("x")+'</button></li>';}).join("");}
+function addFiles(list){var errs=[];[].slice.call(list||[]).forEach(function(f){
+    if(state.files.some(function(x){return x.name===f.name&&x.size===f.size;}))return;
+    if(state.files.length>=MAX_FILES){errs.push("Limite de "+MAX_FILES+" fichiers atteinte : « "+f.name+" » n'a pas été ajouté.");return;}
+    if(f.size>MAX_SIZE){errs.push("« "+f.name+" » dépasse 10 Mo.");return;}
+    state.files.push({name:f.name,size:f.size,type:f.type||"inconnu"});});
+  $("#e-files").textContent=errs.join(" ");renderFiles();}
+inFiles.addEventListener("change",function(){addFiles(inFiles.files);inFiles.value="";});
+$("#file-list").addEventListener("click",function(e){var b=e.target.closest("[data-rm]");if(!b)return;state.files.splice(+b.dataset.rm,1);$("#e-files").textContent="";renderFiles();inFiles.focus();});
+var drop=$("#drop");
+["dragenter","dragover"].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.add("over");});});
+["dragleave","drop"].forEach(function(t){drop.addEventListener(t,function(e){e.preventDefault();drop.classList.remove("over");});});
+drop.addEventListener("drop",function(e){if(e.dataTransfer)addFiles(e.dataTransfer.files);});
+function newRef(){var refs=A.records.list("tickets").map(function(t){return t.ref;}),r;do{r="SAV-"+String(Math.floor(Math.random()*1e6)).padStart(6,"0");}while(refs.indexOf(r)>=0);return r;}
+f2.addEventListener("submit",function(e){e.preventDefault();var ok=true,first=null;
+  var n=inName.value.trim(),m=inMail.value.trim().toLowerCase();
+  var en=n.length<2?"Indiquez votre nom.":"";setErr("e-name",en,inName);if(en){ok=false;first=inName;}
+  var em=!m?"Indiquez votre adresse e-mail pour recevoir le suivi.":!EMAIL.test(m)?"Adresse e-mail invalide (ex. nom@domaine.fr).":"";setErr("e-email",em,inMail);if(em){ok=false;first=first||inMail;}
+  var ec=inConsent.checked?"":"Cochez cette case pour envoyer votre demande.";setErr("e-consent",ec,inConsent);if(ec){ok=false;first=first||inConsent;}
+  if(!ok){first.focus();return;}
+  var u=user(),now=A.now(),ref=newRef();
+  var msgs=[{from:"client",body:state.description,at:now}];
+  if(state.aiTried&&state.aiText)msgs.push({from:"ia",body:state.aiText,at:now});
+  var t=A.records.add("tickets",{ref:ref,userId:u?u.id:null,name:n,email:m,type:state.type,subject:state.subject,description:state.description,files:state.files.slice(),status:"Ouverte",messages:msgs,aiTried:!!state.aiTried});
+  A.send("email",m,"Demande "+ref+" bien reçue","Bonjour "+n+",\n\nNous avons bien reçu votre demande « "+state.subject+" ». Votre numéro de dossier : "+ref+".\nVous pouvez suivre son traitement sur la page SAV / Assistance (sav.html#suivi) avec ce numéro et votre adresse e-mail.\n\nL'équipe AXIA");
+  if(u)A.notify(u.id,"Demande "+ref+" enregistrée",state.subject,"espace-client.html#assistance");
+  A.audit("Demande SAV créée",ref);
+  state.last={ref:ref,email:m,id:t.id};
+  $("#done-ref").textContent=ref;
+  $("#done-mail").textContent="Un accusé de réception a été envoyé à "+m+".";
+  $("#done-actions").innerHTML='<button class="btn btn-cyan" type="button" id="done-track">Suivre ma demande</button>'+(u?'<a class="btn btn-line" href="espace-client.html#assistance">Mon espace client</a>':'<a class="btn btn-line" href="#accueil">Retour à l\'assistance</a>');
+  $("#done-track").onclick=function(){pendingOpen=state.last.id;location.hash="suivi";};
+  show("done");focusTop($("#t-done"));});
+$("#copy-ref").onclick=function(){var r=$("#done-ref").textContent;var b=this;
+  (navigator.clipboard?navigator.clipboard.writeText(r):Promise.reject()).then(function(){b.textContent="Copié";},function(){b.textContent="Sélectionnez le numéro";});
+  setTimeout(function(){b.textContent="Copier";},2200);};
+/* ================= suivi ================= */
+var detail=$("#track-detail"),thome=$("#track-home");
+function myTickets(){var u=user();if(!u)return [];return A.records.list("tickets",function(t){return t.userId===u.id||(u.email&&t.email===u.email);});}
+function renderMine(){var u=user(),el=$("#mine");if(!u){el.hidden=true;return;}var l=myTickets();el.hidden=false;
+  el.innerHTML='<div class="mine-h"><h2>Vos demandes</h2><a class="link small" href="espace-client.html#assistance">Mon espace client →</a></div>'+
+    (l.length?'<ul class="tlist">'+l.map(function(t){return '<li><button type="button" data-open="'+esc(t.id)+'" id="open-'+esc(t.id)+'"><b>'+esc(t.subject)+'</b><small>'+esc(t.ref)+' · '+A.date(t.createdAt)+'</small>'+pill(t.status)+'</button></li>';}).join("")+'</ul>'
+      :'<p class="mut">Aucune demande pour le moment. <a class="link" href="#nouvelle">Ouvrir une demande</a></p>')+
+    '<p class="mut small" style="margin-top:12px">Une autre demande ? Saisissez son numéro ci-dessous.</p>';}
+$("#mine").addEventListener("click",function(e){var b=e.target.closest("[data-open]");if(b)openTicket(b.dataset.open);});
+$("#f3").addEventListener("submit",function(e){e.preventDefault();
+  var r=$("#trk-ref").value.trim().toUpperCase().replace(/\s/g,""),m=$("#trk-email").value.trim().toLowerCase();
+  if(/^\d{6}$/.test(r))r="SAV-"+r;if(/^SAV\d{6}$/.test(r))r="SAV-"+r.slice(3);
+  var miss=[];if(!r)miss.push("le numéro de dossier");if(!m)miss.push("l'adresse e-mail");
+  if(miss.length){setErr("e-trk","Indiquez "+miss.join(" et ")+".");$(!r?"#trk-ref":"#trk-email").focus();return;}
+  var t=A.records.list("tickets").find(function(x){return x.ref===r&&String(x.email).toLowerCase()===m;});
+  if(!t){setErr("e-trk","Aucune demande ne correspond à ce numéro et cette adresse. Vérifiez les deux champs.");return;}
+  setErr("e-trk","");openTicket(t.id);});
+function openTicket(id){var t=A.records.get("tickets",id);if(!t)return;
+  thome.hidden=true;detail.hidden=false;
+  var closed=t.status==="Fermée";
+  detail.innerHTML='<div class="ticket"><button type="button" class="back" id="trk-back" style="background:none;border:0;padding:0;cursor:pointer">'+A.icon("arrow")+'Retour</button>'+
+    '<header class="t-head"><div class="row"><span class="ref">'+esc(t.ref)+'</span>'+pill(t.status)+'</div><h2 id="t-ticket" tabindex="-1">'+esc(t.subject)+'</h2><p class="mut">'+esc(t.type)+' · ouverte le '+A.date(t.createdAt,true)+'</p></header>'+
+    ((t.files||[]).length?'<div class="att" aria-label="Fichiers joints">'+t.files.map(function(f){return '<span>'+A.icon("clip")+esc(f.name)+'</span>';}).join("")+'</div>':"")+
+    '<ol class="thread" aria-label="Échanges">'+(t.messages||[]).map(function(m){return '<li class="'+esc(m.from)+'"><div class="who"><b>'+esc(WHO[m.from]||m.from)+'</b><span>'+A.date(m.at,true)+'</span></div><p>'+esc(m.body)+'</p></li>';}).join("")+'</ol>'+
+    (closed?'<p class="notice info">'+A.icon("info")+'<span>Cette demande est fermée. Pour un nouveau problème, <a class="link" href="#nouvelle">ouvrez une demande</a>.</span></p>'
+    :'<form class="form" id="f4" novalidate><div class="field"><label for="trk-reply">Répondre</label><textarea class="input" id="trk-reply" rows="4" maxlength="4000" placeholder="Votre message" aria-describedby="e-reply"></textarea><span class="msg-err" id="e-reply" aria-live="polite"></span></div><div class="actions"><button class="btn btn-cyan" type="submit" id="trk-send">Envoyer</button></div></form>')+'</div>';
+  $("#trk-back").onclick=function(){detail.hidden=true;thome.hidden=false;renderMine();$("#t-track").focus();};
+  var f4=$("#f4");if(f4)f4.addEventListener("submit",function(e){e.preventDefault();var ta=$("#trk-reply"),v=ta.value.trim();
+    if(v.length<2){setErr("e-reply","Écrivez votre message avant d'envoyer.",ta);ta.focus();return;}
+    var cur=A.records.get("tickets",id);var msgs=(cur.messages||[]).concat([{from:"client",body:v,at:A.now()}]);
+    A.records.update("tickets",id,{messages:msgs,status:"En cours"});A.audit("Réponse client SAV",cur.ref);
+    openTicket(id);A.toast("Message envoyé.");var last=detail.querySelector(".thread li:last-child");if(last)last.scrollIntoView({block:"nearest"});});
+  requestAnimationFrame(function(){views.track.querySelector(".view-hero").scrollIntoView({block:"start"});$("#t-ticket").focus({preventScroll:true});});}
+/* démarrage */
+state={files:[]};resetNew();
+route();
+})();
+</script>
+</body></html>

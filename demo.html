@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Simulation · AXIA</title>
+<meta name="description" content="Décrivez votre projet et recevez une simulation vidéo personnalisée d'AXIA, préparée par notre équipe.">
+<meta name="axia-page" content="demo">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<style>
+/* ---------- vue présentation ---------- */
+.d-hero .wrap{grid-template-columns:minmax(0,1fr);align-items:center;gap:clamp(36px,5vw,64px)}
+@media (min-width:1000px){.d-hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.d-hero-txt{display:grid;gap:22px;justify-items:start;min-width:0}
+.d-hero-txt .actions{margin-top:6px;max-width:100%}
+@media (max-width:520px){.d-hero-txt .actions,#open-form{width:100%}#open-form{white-space:normal;line-height:1.25;text-align:center}}
+.honest{display:flex;gap:10px;align-items:flex-start;color:var(--mut);font-size:.9rem;max-width:46ch}
+.honest .ico{color:var(--cyan);margin-top:.25em}
+.resume{font-size:.92rem}
+.screen{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--edge);aspect-ratio:16/10;background:#11161D;box-shadow:0 50px 90px -40px rgba(0,0,0,.95);min-width:0}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:saturate(.8)}
+.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,20,25,.05),rgba(16,20,25,.88))}
+.screen .play{position:absolute;left:50%;top:44%;translate:-50% -50%;z-index:1;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(25,116,232,.14);border:1px solid rgba(25,116,232,.6);color:var(--cyan);box-shadow:0 0 40px -6px var(--glow);animation:ring 3s ease-in-out infinite}
+.screen .play svg{width:28px;height:28px;fill:currentColor}
+.screen-meta{position:absolute;left:22px;right:22px;bottom:18px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.screen-meta b{display:block;font:600 1.1rem/1.2 var(--f-display)}
+.screen-meta small{color:var(--soft);font-size:.84rem}
+.screen-bar{position:absolute;left:22px;right:22px;bottom:8px;height:2px;border-radius:2px;background:rgba(242,244,247,.15);z-index:1;overflow:hidden}
+.screen-bar i{display:block;height:100%;width:38%;background:var(--cyan);box-shadow:0 0 10px var(--glow);animation:load 6s var(--ease) infinite}
+@keyframes ring{50%{box-shadow:0 0 60px 4px var(--glow)}}
+@keyframes load{0%{width:0}80%,100%{width:100%}}
+.path{list-style:none;margin:0;padding:0;display:grid;gap:36px;position:relative}
+@media (min-width:820px){.path{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
+  .path::before{content:"";position:absolute;top:31px;left:calc(16.66% + 32px);right:calc(16.66% + 32px);height:1px;background:linear-gradient(90deg,transparent,var(--edge-strong) 10%,var(--edge-strong) 90%,transparent)}
+  .path::after{content:"";position:absolute;top:28px;left:calc(16.66% + 32px);width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px 3px var(--cyan);animation:travel 5s cubic-bezier(.5,0,.5,1) infinite}}
+@keyframes travel{0%{left:calc(16.66% + 32px);opacity:0}10%{opacity:1}90%{opacity:1}100%{left:calc(83.33% - 38px);opacity:0}}
+.path li{display:grid;gap:12px;justify-items:center;text-align:center;position:relative;min-width:0}
+.path .ic{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge-strong);background:var(--deep);color:var(--cyan);box-shadow:0 0 30px -8px var(--glow);position:relative;z-index:1}
+.path .ic .ico{width:26px;height:26px;stroke-width:1.5}
+.path h3{font-size:1.25rem}
+.path p{color:var(--mut);max-width:28ch}
+.track-box{display:grid;gap:22px;max-width:640px}
+.track-form{display:grid;gap:14px}
+@media (min-width:720px){.track-form{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) auto;align-items:end}}
+/* ---------- formulaire ---------- */
+.f-head{display:grid;gap:14px;margin-bottom:28px}
+.back{justify-self:start}
+.prog{list-style:none;margin:0 0 10px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.prog li{display:grid;gap:8px;font-size:.82rem;color:var(--mut);min-width:0}
+.prog li::before{content:"";height:3px;border-radius:3px;background:rgba(170,183,199,.16);transition:background-color .4s var(--ease),box-shadow .4s}
+.prog li.done::before{background:rgba(25,116,232,.55)}
+.prog li[aria-current="step"]::before{background:var(--cyan);box-shadow:0 0 12px var(--glow)}
+.prog li[aria-current="step"],.prog li.done{color:var(--ink)}
+.prog b{font-family:var(--f-display);font-weight:600;color:var(--cyan);margin-right:6px}
+.prog span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:560px){.prog li:not([aria-current="step"]) span{display:none}.prog li[aria-current="step"]{grid-column:span 1}}
+.steplbl{font-size:.86rem;color:var(--mut)}
+.wizard{padding:clamp(22px,4vw,40px)}
+.step{border:0;margin:0;padding:0;min-width:0;display:grid;gap:20px}
+.step>legend{padding:0;margin-bottom:20px;font:600 clamp(1.4rem,2.4vw,1.8rem)/1.15 var(--f-display);letter-spacing:-.02em}
+.step>legend:focus{outline:none}
+.step .hint{color:var(--mut);font-size:.92rem;margin-top:-10px}
+.group{border:0;margin:0;padding:0;min-width:0;display:grid;gap:10px}
+.group>legend{padding:0;margin-bottom:10px;font-weight:600;font-size:.92rem}
+.opt-l{font-weight:400;color:var(--mut)}
+.req-m{color:var(--cyan)}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+.drop{position:relative}
+.drop:has(input:focus-visible){outline:2px solid var(--cyan);outline-offset:3px}
+.drop .ico{width:26px;height:26px;color:var(--cyan)}
+.drop b{color:var(--ink);font-weight:600}
+.files li{align-items:center}
+.files li span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.files li small{color:var(--mut);white-space:nowrap}
+.files .x{width:30px;height:30px}
+.files .x .ico{width:14px;height:14px}
+.plans-pick{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--edge);border-radius:12px;cursor:pointer;transition:border-color .2s,background-color .2s}
+.opt:hover{border-color:var(--edge-strong)}
+.opt:has(input:checked){border-color:var(--cyan);background:rgba(25,116,232,.07)}
+.opt:has(input:focus-visible){outline:2px solid var(--cyan);outline-offset:2px}
+.opt input{margin:.25em 0 0;accent-color:var(--cyan);width:18px;height:18px;flex:none}
+.opt b{display:block;font-family:var(--f-display);font-weight:600}
+.opt small{color:var(--mut);font-size:.88rem}
+.recap{display:grid;gap:0;border-top:1px solid var(--edge)}
+.recap section{display:grid;gap:8px;padding:16px 0;border-bottom:1px solid var(--edge)}
+.recap header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.recap h3{font-size:1rem;color:var(--cyan);letter-spacing:0}
+.recap dl{margin:0;display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr);gap:6px 16px;font-size:.92rem}
+.recap dt{color:var(--mut)}
+.recap dd{margin:0;overflow-wrap:anywhere}
+@media (max-width:480px){.recap dl{grid-template-columns:1fr;gap:0}.recap dd{margin-bottom:8px}}
+.f-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(170,183,199,.12)}
+.f-nav .btn-cyan{margin-left:auto}
+@media (max-width:520px){.wizard{padding:22px 18px}.f-nav .btn{flex:1 1 0;min-width:0;padding-inline:.8em;white-space:normal;text-align:center;line-height:1.2}.f-nav .btn[hidden]+.btn{flex:1 1 100%}}
+.f-err-sum{margin-top:16px}
+.draft-note{justify-content:space-between;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.draft-note>span{display:flex;gap:10px;align-items:center}
+.btn-txt{background:none;border:0;padding:0;cursor:pointer;color:var(--cyan);font-weight:600;font-size:inherit}
+.btn-txt:hover{text-decoration:underline;text-underline-offset:4px}
+/* ---------- suivi ---------- */
+.t-head{display:grid;gap:16px;justify-items:start}
+.t-head h1:focus{outline:none}
+.refbox{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding:14px 20px;border-radius:12px;border:1px solid var(--edge-strong);background:rgba(25,116,232,.05)}
+.refbox small{color:var(--mut);font-size:.84rem}
+.refbox b{font:600 clamp(1.4rem,3vw,1.9rem)/1 var(--f-display);letter-spacing:.06em;color:var(--cyan);font-variant-numeric:tabular-nums}
+.t-meta{color:var(--mut);font-size:.94rem}
+.frise{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.frise li{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;padding-bottom:26px}
+.frise li:last-child{padding-bottom:0}
+.frise li::after{content:"";position:absolute;left:16px;top:34px;bottom:0;width:1px;background:var(--edge)}
+.frise li:last-child::after{display:none}
+.frise li.done::after{background:var(--cyan)}
+.frise .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge-strong);background:var(--night);color:var(--mut);font:600 .9rem/1 var(--f-display);position:relative;z-index:1}
+.frise .dot .ico{width:16px;height:16px}
+.frise li.done .dot{background:var(--cyan);border-color:var(--cyan);color:var(--cyan-ink)}
+.frise li.current .dot{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 0 5px rgba(25,116,232,.12),0 0 24px var(--glow);animation:ping 2.4s ease-in-out infinite}
+@keyframes ping{50%{box-shadow:0 0 0 9px rgba(25,116,232,.04),0 0 30px var(--glow)}}
+.frise b{display:block;font:600 1.02rem/1.3 var(--f-display);padding-top:6px}
+.frise li:not(.done):not(.current) b{color:var(--mut);font-weight:500}
+.frise small{color:var(--mut);font-size:.84rem}
+@media (min-width:820px){
+  .frise{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .frise li{grid-template-columns:1fr;gap:12px;padding-bottom:0;padding-right:16px}
+  .frise li::after{left:42px;right:8px;top:16px;bottom:auto;width:auto;height:1px}
+  .frise b{padding-top:0}
+}
+.t-grid{display:grid;gap:clamp(32px,5vw,56px)}
+.t-block{display:grid;gap:16px;justify-items:start}
+.t-block h2{font-size:clamp(1.3rem,2.2vw,1.6rem)}
+.t-block p{color:var(--soft);max-width:58ch}
+.feat-list{display:flex;flex-wrap:wrap;gap:8px}
+.feat-list span{padding:.45em .9em;border-radius:999px;border:1px solid var(--edge);font-size:.88rem;color:var(--soft)}
+.vplayer{width:100%;display:grid;gap:14px}
+.vframe{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--edge);background:radial-gradient(60% 80% at 75% 20%,rgba(25,116,232,.16),transparent 70%),linear-gradient(160deg,#1A212B,#101419);display:grid;align-content:end;padding:clamp(18px,4vw,36px);gap:10px}
+.vframe video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+.vframe .num{font:600 .78rem/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+.vframe h3{font-size:clamp(1.3rem,3vw,2.1rem)}
+.vframe p{color:var(--soft);max-width:56ch;font-size:clamp(.92rem,1.4vw,1.05rem)}
+.vframe .fade{animation:vfade .5s var(--ease)}
+@keyframes vfade{from{opacity:0;transform:translateY(8px)}}
+.vbar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(242,244,247,.1)}
+.vbar i{display:block;height:100%;width:0;background:var(--cyan);box-shadow:0 0 10px var(--glow)}
+.vctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.chaps{display:flex;flex-wrap:wrap;gap:6px}
+.chaps button{padding:.5em .9em;border-radius:999px;border:1px solid var(--edge);background:transparent;cursor:pointer;font-size:.86rem;color:var(--soft);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chaps button[aria-current="true"]{border-color:var(--cyan);color:var(--ink);background:rgba(25,116,232,.1)}
+.icon-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge-strong);background:transparent;color:var(--cyan);cursor:pointer;flex:none}
+.icon-btn:hover{border-color:var(--cyan)}
+.icon-btn svg{width:18px;height:18px}
+.acct{padding:clamp(22px,3vw,30px);display:grid;gap:14px;justify-items:start;width:100%}
+.acct h2{font-size:1.25rem}
+.acct p{color:var(--soft);font-size:.96rem}
+.ico.flip{transform:scaleX(-1)}
+@media (prefers-reduced-motion:reduce){.path::after{display:none}}
+</style>
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <!-- ===== Vue présentation ===== -->
+  <div id="v-intro">
+    <section class="page-hero d-hero" aria-labelledby="t-intro">
+      <div class="wrap">
+        <div class="d-hero-txt">
+          <span class="eyebrow">Simulation</span>
+          <h1 id="t-intro" class="h-xl" tabindex="-1">Découvrez ce qu'AXIA peut réaliser pour votre projet</h1>
+          <p class="lead">Présentez votre activité. Recevez une vidéo qui montre AXIA appliqué à votre projet.</p>
+          <div class="actions">
+            <button class="btn btn-cyan" type="button" id="open-form" aria-controls="v-form">Demander ma simulation personnalisée <i data-ico="arrow" data-cls="arrow"></i></button>
+          </div>
+          <p class="resume" id="resume" hidden>Une demande est en cours de saisie. <button class="btn-txt" type="button" id="resume-btn">Reprendre mon brouillon</button></p>
+          <p class="honest"><i data-ico="info"></i><span>La vidéo est préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles.</span></p>
+        </div>
+        <div class="screen" aria-hidden="true">
+          <img src="assets/hero-scene.webp" alt="" width="1048" height="618">
+          <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="screen-meta"><span><b>Votre simulation</b><small>Préparée à partir de votre projet</small></span><span class="pill info">Personnalisée</span></span>
+          <span class="screen-bar"><i></i></span>
+        </div>
+      </div>
+    </section>
+    <section class="section tight" aria-labelledby="t-path">
+      <div class="wrap">
+        <h2 id="t-path" class="sr">Le parcours</h2>
+        <ol class="path">
+          <li class="reveal"><span class="ic"><i data-ico="file"></i></span><h3>Décrivez</h3><p>Votre activité, votre projet et vos besoins.</p></li>
+          <li class="reveal"><span class="ic"><i data-ico="spark"></i></span><h3>Nous analysons</h3><p>L'équipe retient les fonctionnalités utiles pour vous.</p></li>
+          <li class="reveal"><span class="ic"><i data-ico="play"></i></span><h3>Recevez votre vidéo</h3><p>Une simulation à revoir quand vous le souhaitez.</p></li>
+        </ol>
+      </div>
+    </section>
+    <section class="section alt tight" id="suivi" aria-labelledby="t-track">
+      <div class="wrap">
+        <div class="track-box">
+          <div>
+            <h2 id="t-track" class="h-m">Suivre ma demande</h2>
+            <p class="mut small" style="margin-top:8px">Saisissez le numéro reçu par e-mail et l'adresse utilisée.</p>
+          </div>
+          <form class="track-form" id="track-form" novalidate>
+            <div class="field"><label for="tr-ref">Numéro de demande</label><input class="input" id="tr-ref" name="ref" autocomplete="off" placeholder="DEMO-000000" aria-describedby="tr-err"></div>
+            <div class="field"><label for="tr-email">E-mail</label><input class="input" id="tr-email" name="email" type="email" autocomplete="email" aria-describedby="tr-err"></div>
+            <button class="btn btn-line" type="submit" id="tr-go">Suivre</button>
+          </form>
+          <p class="msg-err" id="tr-err" role="alert"></p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- ===== Vue formulaire ===== -->
+  <section class="section tight" id="v-form" aria-labelledby="t-form" hidden>
+    <div class="wrap narrow">
+      <div class="f-head">
+        <button class="btn btn-ghost btn-sm back" type="button" id="form-back"><i data-ico="arrow" data-cls="flip"></i> Retour</button>
+        <h1 id="t-form" class="h-l" tabindex="-1">Votre simulation personnalisée</h1>
+      </div>
+      <div class="notice info draft-note" id="draft-note" hidden>
+        <span><i data-ico="info"></i> Votre brouillon a été restauré.</span>
+        <button class="btn-txt" type="button" id="draft-clear">Recommencer</button>
+      </div>
+      <ol class="prog" id="prog" aria-label="Progression"></ol>
+      <p class="steplbl" id="steplbl" aria-live="polite"></p>
+      <form class="surface wizard" id="demo-form" novalidate style="margin-top:18px">
+        <!-- Étape 1 -->
+        <fieldset class="step" data-step="1">
+          <legend tabindex="-1">Vous</legend>
+          <div class="row2">
+            <div class="field"><label for="d-name">Nom et prénom <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-name" autocomplete="name" required aria-describedby="e-name"><p class="msg-err" id="e-name"></p></div>
+            <div class="field"><label for="d-company">Entreprise <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-company" autocomplete="organization" required aria-describedby="e-company"><p class="msg-err" id="e-company"></p></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="d-email">E-mail <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-email" type="email" autocomplete="email" required aria-describedby="e-email"><p class="msg-err" id="e-email"></p></div>
+            <div class="field"><label for="d-phone">Téléphone <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-phone" type="tel" autocomplete="tel" required aria-describedby="e-phone" placeholder="06 12 34 56 78"><p class="msg-err" id="e-phone"></p></div>
+          </div>
+          <div class="field"><label for="d-sector">Secteur d'activité <span class="req-m" aria-hidden="true">*</span></label><select class="input" id="d-sector" required aria-describedby="e-sector"><option value="">Choisissez…</option></select><p class="msg-err" id="e-sector"></p></div>
+        </fieldset>
+        <!-- Étape 2 -->
+        <fieldset class="step" data-step="2" hidden>
+          <legend tabindex="-1">Votre projet</legend>
+          <div class="field"><label for="d-pname">Nom du projet <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-pname" required aria-describedby="e-pname" placeholder="Ex. : Site et réservations du salon"><p class="msg-err" id="e-pname"></p></div>
+          <fieldset class="group" id="g-ptype" aria-describedby="e-ptype"><legend>Type de projet <span class="req-m" aria-hidden="true">*</span></legend><div class="chips" id="ptypes"></div><p class="msg-err" id="e-ptype"></p></fieldset>
+          <div class="field"><label for="d-desc">Description détaillée <span class="req-m" aria-hidden="true">*</span></label><textarea class="input" id="d-desc" required aria-describedby="d-desc-h e-desc" rows="6"></textarea><small id="d-desc-h">Votre activité, vos clients, ce que vous souhaitez améliorer.</small><p class="msg-err" id="e-desc"></p></div>
+        </fieldset>
+        <!-- Étape 3 -->
+        <fieldset class="step" data-step="3" hidden>
+          <legend tabindex="-1">Vos besoins</legend>
+          <div class="field"><label for="d-goals">Vos objectifs <span class="req-m" aria-hidden="true">*</span></label><textarea class="input" id="d-goals" rows="3" required aria-describedby="e-goals" placeholder="Ex. : ne plus manquer d'appels, gagner en visibilité…"></textarea><p class="msg-err" id="e-goals"></p></div>
+          <fieldset class="group" id="g-feat" aria-describedby="e-feat"><legend>Fonctionnalités souhaitées <span class="req-m" aria-hidden="true">*</span></legend><div class="chips" id="feats"></div><p class="msg-err" id="e-feat"></p></fieldset>
+          <div class="field"><label for="d-needs">Besoins spécifiques <span class="opt-l">(facultatif)</span></label><textarea class="input" id="d-needs" rows="3"></textarea></div>
+          <div class="field">
+            <span id="files-l">Fichiers utiles <span class="opt-l">(facultatif)</span></span>
+            <label class="drop" id="drop" for="d-files">
+              <input type="file" id="d-files" multiple aria-describedby="files-h files-l">
+              <i data-ico="clip"></i>
+              <span><b>Ajoutez des fichiers</b> ou déposez-les ici</span>
+              <small id="files-h">Logo, photos, menu, cahier des charges…</small>
+            </label>
+            <ul class="files" id="files-list" aria-live="polite"></ul>
+            <p class="notice info small" id="files-proto" hidden><i data-ico="info"></i><span>Mode présentation : seuls le nom, la taille et le type des fichiers sont enregistrés. Leur contenu n'est pas transmis.</span></p>
+            <p class="msg-err" id="e-files"></p>
+          </div>
+        </fieldset>
+        <!-- Étape 4 -->
+        <fieldset class="step" data-step="4" hidden>
+          <legend tabindex="-1">Abonnement et envoi</legend>
+          <fieldset class="group" id="g-plan" aria-describedby="e-plan"><legend>Abonnement envisagé <span class="req-m" aria-hidden="true">*</span></legend><div class="plans-pick" id="plans"></div><p class="msg-err" id="e-plan"></p></fieldset>
+          <p class="notice info small" id="plans-soon" hidden><i data-ico="info"></i><span>Nos formules seront publiées prochainement. Vous pourrez choisir après votre simulation.</span></p>
+          <div>
+            <h2 class="legend" style="margin-bottom:6px">Récapitulatif</h2>
+            <div class="recap" id="recap"></div>
+          </div>
+          <div class="field">
+            <label class="check" for="d-consent"><input type="checkbox" id="d-consent" aria-describedby="e-consent"><span>J'ai pris connaissance de la manière dont mes informations sont utilisées pour préparer ma simulation, décrite dans la <a class="link" href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>. <span class="req-m" aria-hidden="true">*</span></span></label>
+            <p class="msg-err" id="e-consent"></p>
+          </div>
+        </fieldset>
+        <p class="msg-err f-err-sum" id="f-sum" role="alert"></p>
+        <div class="f-nav">
+          <button class="btn btn-line" type="button" id="f-prev">Précédent</button>
+          <button class="btn btn-cyan" type="submit" id="f-next">Suivant <i data-ico="arrow" data-cls="arrow"></i></button>
+        </div>
+      </form>
+      <p class="mut small" style="margin-top:14px">Les champs marqués <span class="req-m">*</span> sont obligatoires. Votre saisie est conservée sur cet appareil si vous quittez la page.</p>
+    </div>
+  </section>
+  <!-- ===== Vue suivi / confirmation ===== -->
+  <section class="section tight" id="v-track" aria-labelledby="t-res" hidden>
+    <div class="wrap" id="track-out"></div>
+  </section>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.AXIA,esc=A.esc,D=A.data;
+var $=function(id){return document.getElementById(id);};
+function icons(root){(root||document).querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});}
+icons();
+var EMAIL=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+var STATUSES=D.demoStatuses||["Demande reçue","Analyse en cours","Simulation en préparation","Simulation disponible"];
+var DRAFT="demoDraft";
+function plans(){return (A.content.plans()||[]).filter(function(p){return p&&p.active!==false;});}
+/* ================= vues ================= */
+var views={intro:$("v-intro"),form:$("v-form"),track:$("v-track")};
+var booted=false;
+function show(name,focusEl){
+  Object.keys(views).forEach(function(k){views[k].hidden=k!==name;});
+  if(booted){window.scrollTo(0,0);if(focusEl)focusEl.focus();}
+}
+function route(){
+  var ref=A.qs("ref");
+  if(ref){renderTrack(ref,A.qs("email")||"",false);}
+  else if(location.hash==="#formulaire"){openForm();}
+  else{showIntro();if(location.hash==="#suivi"&&booted)$("tr-ref").focus();}
+}
+window.addEventListener("popstate",route);
+/* ================= présentation ================= */
+function showIntro(){
+  $("resume").hidden=!A.store.get(DRAFT,null);
+  show("intro",$("t-intro"));
+}
+function goForm(){if(location.hash!=="#formulaire"||A.qs("ref"))history.pushState({v:"form"},"",location.pathname+"#formulaire");openForm();}
+$("open-form").addEventListener("click",goForm);
+$("resume-btn").addEventListener("click",goForm);
+$("form-back").addEventListener("click",function(){
+  saveDraft();
+  if(history.state&&history.state.v==="form")history.back();
+  else{history.replaceState(null,"",location.pathname);showIntro();}
+});
+/* suivi depuis la présentation */
+$("track-form").addEventListener("submit",function(e){e.preventDefault();
+  var r=$("tr-ref").value.trim().toUpperCase().replace(/\s+/g,""),m=$("tr-email").value.trim(),err=$("tr-err"),miss=[];
+  if(/^\d{6}$/.test(r))r="DEMO-"+r;
+  $("tr-ref").removeAttribute("aria-invalid");$("tr-email").removeAttribute("aria-invalid");
+  if(!/^DEMO-\d{6}$/.test(r)){miss.push("un numéro au format DEMO-000000");$("tr-ref").setAttribute("aria-invalid","true");}
+  if(!EMAIL.test(m)){miss.push("une adresse e-mail valide");$("tr-email").setAttribute("aria-invalid","true");}
+  if(miss.length){err.textContent="Indiquez "+miss.join(" et ")+".";return;}
+  err.textContent="";
+  history.pushState({v:"track"},"",location.pathname+"?ref="+encodeURIComponent(r)+"&email="+encodeURIComponent(m));
+  renderTrack(r,m,false);
+});
+/* ================= formulaire ================= */
+var form=$("demo-form"),step=1,files=[],formReady=false;
+var LABELS=["Vous","Votre projet","Vos besoins","Envoi"];
+function buildForm(){
+  if(formReady)return;formReady=true;
+  $("d-sector").insertAdjacentHTML("beforeend",(D.sectors||[]).map(function(s){return '<option>'+esc(s)+"</option>";}).join(""));
+  $("ptypes").innerHTML=(D.projectTypes||[]).map(function(t,i){return '<label class="chip" for="pt-'+i+'"><input type="radio" name="ptype" id="pt-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
+  $("feats").innerHTML=(D.features||[]).map(function(t,i){return '<label class="chip" for="ft-'+i+'"><input type="checkbox" name="feat" id="ft-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
+  var pl=plans();
+  $("plans").innerHTML=pl.map(function(p){return '<label class="opt" for="pl-'+esc(p.id)+'"><input type="radio" name="plan" id="pl-'+esc(p.id)+'" value="'+esc(p.id)+'"><span><b>'+esc(p.name)+"</b>"+(p.tagline?"<small>"+esc(p.tagline)+"</small>":"")+"</span></label>";}).join("")+
+    '<label class="opt" for="pl-unknown"><input type="radio" name="plan" id="pl-unknown" value="unknown"'+(pl.length?"":" checked")+'><span><b>Je ne sais pas encore</b><small>Nous en parlerons après votre simulation.</small></span></label>';
+  $("plans-soon").hidden=pl.length>0;
+  $("prog").innerHTML=LABELS.map(function(l,i){return '<li data-i="'+(i+1)+'"><span><b>'+(i+1)+"</b>"+l+"</span></li>";}).join("");
+  if(A.proto)$("files-proto").hidden=false;
+  form.addEventListener("input",draftSoon);form.addEventListener("change",draftSoon);
+}
+function openForm(){
+  buildForm();
+  var d=A.store.get(DRAFT,null);
+  if(d&&!form.dataset.loaded){restoreDraft(d);$("draft-note").hidden=false;}
+  form.dataset.loaded="1";
+  prefill();
+  setStep(step,false);
+  show("form",$("t-form"));
+}
+function prefill(){var u=A.auth.current();if(!u)return;
+  if(!$("d-name").value&&u.name&&u.name!=="Client AXIA")$("d-name").value=u.name;
+  if(!$("d-email").value&&u.email)$("d-email").value=u.email;
+  if(!$("d-phone").value&&u.phone)$("d-phone").value=u.phone;
+  if(!$("d-company").value&&u.company)$("d-company").value=u.company;}
+function setStep(n,focus){
+  step=n;
+  form.querySelectorAll(".step").forEach(function(f){f.hidden=+f.dataset.step!==n;});
+  $("prog").querySelectorAll("li").forEach(function(li){var i=+li.dataset.i;li.classList.toggle("done",i<n);if(i===n)li.setAttribute("aria-current","step");else li.removeAttribute("aria-current");});
+  $("steplbl").textContent="Étape "+n+" sur 4 · "+LABELS[n-1];
+  $("f-prev").hidden=n===1;
+  $("f-next").innerHTML=n===4?"Envoyer ma demande "+A.icon("send"):"Suivant "+A.icon("arrow","arrow");
+  $("f-sum").textContent="";
+  if(n===4)renderRecap();
+  if(focus){var lg=form.querySelector('.step[data-step="'+n+'"]>legend');var top=$("t-form").getBoundingClientRect().top+scrollY-90;window.scrollTo(0,Math.max(0,top));lg.focus();}
+  saveDraft();
+}
+$("f-prev").addEventListener("click",function(){if(step>1)setStep(step-1,true);});
+form.addEventListener("submit",function(e){e.preventDefault();
+  if(!validate(step))return;
+  if(step<4)setStep(step+1,true);else submit();
+});
+/* valeurs */
+function val(id){return $(id).value.trim();}
+function radio(name){var r=form.querySelector('input[name="'+name+'"]:checked');return r?r.value:"";}
+function checks(name){return [].map.call(form.querySelectorAll('input[name="'+name+'"]:checked'),function(x){return x.value;});}
+function data(){return {name:val("d-name"),company:val("d-company"),email:val("d-email").toLowerCase(),phone:val("d-phone"),sector:$("d-sector").value,
+  pname:val("d-pname"),ptype:radio("ptype"),desc:val("d-desc"),goals:val("d-goals"),features:checks("feat"),needs:val("d-needs"),plan:radio("plan"),files:files.slice()};}
+/* validation */
+function setErr(key,ctl,msg){var e=$("e-"+key);e.textContent=msg||"";if(ctl){if(msg)ctl.setAttribute("aria-invalid","true");else ctl.removeAttribute("aria-invalid");}return msg?1:0;}
+function validate(n){
+  var d=data(),bad=[],first=null;
+  function chk(key,ctlId,cond,msg,focusSel){var ctl=ctlId?$(ctlId):null;var ko=!cond;setErr(key,ctl,ko?msg:"");if(ko){bad.push(msg);if(!first)first=focusSel?form.querySelector(focusSel):ctl;}}
+  if(n===1){
+    chk("name","d-name",d.name.length>=2,"Indiquez votre nom et prénom.");
+    chk("company","d-company",d.company.length>=2,"Indiquez le nom de votre entreprise : AXIA est réservé aux professionnels.");
+    chk("email","d-email",EMAIL.test(d.email),"Indiquez une adresse e-mail valide, par exemple nom@domaine.fr.");
+    chk("phone","d-phone",/^\+\d{8,15}$/.test(A.auth.normPhone(d.phone)),"Indiquez un numéro de téléphone valide, par exemple 06 12 34 56 78.");
+    chk("sector","d-sector",!!d.sector,"Choisissez votre secteur d'activité.");
+  }else if(n===2){
+    chk("pname","d-pname",d.pname.length>=2,"Donnez un nom à votre projet.");
+    chk("ptype",null,!!d.ptype,"Choisissez le type de projet.",'input[name="ptype"]');
+    chk("desc","d-desc",d.desc.length>=30,"Décrivez votre projet en quelques phrases (30 caractères minimum, "+d.desc.length+" actuellement).");
+  }else if(n===3){
+    chk("goals","d-goals",d.goals.length>=5,"Indiquez au moins un objectif.");
+    chk("feat",null,d.features.length>0,"Choisissez au moins une fonctionnalité.",'input[name="feat"]');
+  }else if(n===4){
+    chk("plan",null,!!d.plan,"Choisissez une formule ou « Je ne sais pas encore ».",'input[name="plan"]');
+    chk("consent","d-consent",$("d-consent").checked,"Cochez la case pour confirmer que vous avez pris connaissance de l'utilisation de vos informations.");
+  }
+  if(bad.length){$("f-sum").textContent=bad.length===1?"Un point à corriger avant de continuer.":bad.length+" points à corriger avant de continuer.";if(first)first.focus();return false;}
+  $("f-sum").textContent="";return true;
+}
+/* effacer l'erreur dès correction */
+form.addEventListener("input",function(e){var t=e.target;if(t.getAttribute("aria-invalid")==="true"){t.removeAttribute("aria-invalid");var k=(t.getAttribute("aria-describedby")||"").split(" ").filter(function(x){return x.indexOf("e-")===0;})[0];if(k)$(k).textContent="";}});
+form.addEventListener("change",function(e){var t=e.target;if(t.name==="ptype")$("e-ptype").textContent="";if(t.name==="feat")$("e-feat").textContent="";if(t.name==="plan")$("e-plan").textContent="";if(t.id==="d-consent"&&t.checked){$("e-consent").textContent="";t.removeAttribute("aria-invalid");}});
+/* fichiers (prototype : métadonnées seulement) */
+var MAXF=10;
+function fsize(b){return b<1024?b+" o":b<1048576?Math.round(b/1024)+" Ko":(b/1048576).toFixed(1).replace(".",",")+" Mo";}
+function addFiles(list){var over=false;[].forEach.call(list,function(f){if(files.length>=MAXF){over=true;return;}
+  if(!files.some(function(x){return x.name===f.name&&x.size===f.size;}))files.push({name:f.name,size:f.size,type:f.type||""});});
+  $("e-files").textContent=over?"Vous pouvez joindre "+MAXF+" fichiers au maximum.":"";renderFiles();saveDraft();}
+function renderFiles(){$("files-list").innerHTML=files.map(function(f,i){return '<li><span>'+esc(f.name)+'</span><small>'+fsize(f.size)+'</small><button class="x" type="button" data-rm="'+i+'" aria-label="Retirer '+esc(f.name)+'">'+A.icon("x")+"</button></li>";}).join("");}
+$("d-files").addEventListener("change",function(){addFiles(this.files);this.value="";});
+$("files-list").addEventListener("click",function(e){var b=e.target.closest("[data-rm]");if(!b)return;files.splice(+b.dataset.rm,1);renderFiles();saveDraft();$("d-files").focus();});
+var drop=$("drop");
+["dragenter","dragover"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add("over");});});
+["dragleave","drop"].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove("over");});});
+drop.addEventListener("drop",function(e){if(e.dataTransfer&&e.dataTransfer.files)addFiles(e.dataTransfer.files);});
+/* récapitulatif */
+function renderRecap(){var d=data();
+  var pl=plans().find(function(p){return p.id===d.plan;});
+  function row(k,v){return "<dt>"+k+"</dt><dd>"+(v?esc(v):'<span class="mut">—</span>')+"</dd>";}
+  function sec(title,n,rows){return '<section><header><h3>'+title+'</h3><button class="btn-txt small" type="button" data-goto="'+n+'">Modifier<span class="sr"> : '+title+"</span></button></header><dl>"+rows+"</dl></section>";}
+  $("recap").innerHTML=
+    sec("Vous",1,row("Nom",d.name)+row("Entreprise",d.company)+row("E-mail",d.email)+row("Téléphone",d.phone)+row("Secteur",d.sector))+
+    sec("Projet",2,row("Nom",d.pname)+row("Type",d.ptype)+row("Description",d.desc.length>160?d.desc.slice(0,160)+"…":d.desc))+
+    sec("Besoins",3,row("Objectifs",d.goals)+row("Fonctionnalités",d.features.join(", "))+row("Besoins",d.needs)+row("Fichiers",files.length?files.length+" fichier"+(files.length>1?"s":"")+" : "+files.map(function(f){return f.name;}).join(", "):""));
+}
+$("recap").addEventListener("click",function(e){var b=e.target.closest("[data-goto]");if(b)setStep(+b.dataset.goto,true);});
+/* brouillon */
+var dt=null;
+function draftSoon(){clearTimeout(dt);dt=setTimeout(saveDraft,250);}
+function saveDraft(){if(!formReady||!form.dataset.loaded)return;var d=data();
+  var empty=!d.name&&!d.company&&!d.pname&&!d.desc&&!d.goals&&!d.needs&&!d.features.length&&!d.ptype&&!files.length&&!d.sector&&step===1;
+  if(empty){A.store.del(DRAFT);return;}
+  d.step=step;A.store.set(DRAFT,d);}
+function restoreDraft(d){
+  ["name","company","email","phone","pname","desc","goals","needs"].forEach(function(k){if(d[k]!=null)$("d-"+k).value=d[k];});
+  if(d.sector)$("d-sector").value=d.sector;
+  form.querySelectorAll('input[name="ptype"]').forEach(function(x){x.checked=x.value===d.ptype;});
+  form.querySelectorAll('input[name="feat"]').forEach(function(x){x.checked=(d.features||[]).indexOf(x.value)>=0;});
+  if(d.plan)form.querySelectorAll('input[name="plan"]').forEach(function(x){x.checked=x.value===d.plan;});
+  files=(d.files||[]).slice();renderFiles();
+  step=Math.min(4,Math.max(1,+d.step||1));
+}
+function resetForm(){form.reset();files=[];renderFiles();A.store.del(DRAFT);$("draft-note").hidden=true;
+  form.querySelectorAll("[aria-invalid]").forEach(function(x){x.removeAttribute("aria-invalid");});form.querySelectorAll(".msg-err").forEach(function(x){x.textContent="";});
+  var unk=$("pl-unknown");if(unk&&!plans().length)unk.checked=true;step=1;}
+$("draft-clear").addEventListener("click",function(){resetForm();prefill();setStep(1,true);});
+window.addEventListener("pagehide",saveDraft);
+/* envoi */
+function newRef(){var ref,tries=0;do{ref="DEMO-"+String(Math.floor(Math.random()*1e6)).padStart(6,"0");tries++;}
+  while(tries<50&&A.records.list("demos",function(x){return x.ref===ref;}).length);return ref;}
+function submit(){
+  var d=data(),u=A.auth.current(),btn=$("f-next");btn.disabled=true;
+  var project=A.records.add("projects",{userId:u?u.id:null,name:d.pname,type:d.ptype,sector:d.sector,description:d.desc,goals:d.goals,features:d.features,needs:d.needs,plan:d.plan==="unknown"?"":d.plan,files:d.files});
+  var ref=newRef(),now=A.now();
+  A.records.add("demos",{ref:ref,userId:u?u.id:null,name:d.name,email:d.email,phone:A.auth.normPhone(d.phone),company:d.company,projectId:project.id,status:0,history:[{status:0,at:now,note:"Demande envoyée depuis le site"}],analysis:null,video:null});
+  var link="demo.html?ref="+ref+"&email="+encodeURIComponent(d.email);
+  A.send("email",d.email,"Votre demande de simulation "+ref,"Bonjour "+d.name.split(" ")[0]+",\nNous avons bien reçu votre demande pour le projet « "+d.pname+" ».\nNuméro de suivi : "+ref+"\nSuivre votre demande : "+link+"\nVotre vidéo sera préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles.");
+  if(u)A.notify(u.id,"Demande de simulation reçue","Votre demande "+ref+" ("+d.pname+") est enregistrée.","espace-client.html#demos");
+  A.audit("Demande de simulation",ref+" · "+d.email);
+  resetForm();form.dataset.loaded="";btn.disabled=false;
+  history.replaceState({v:"track"},"",location.pathname+"?ref="+ref+"&email="+encodeURIComponent(d.email));
+  renderTrack(ref,d.email,true);
+}
+/* ================= suivi ================= */
+var playTimer=null;
+function renderTrack(ref,email,fresh){
+  clearInterval(playTimer);
+  ref=String(ref||"").trim().toUpperCase();email=String(email||"").trim().toLowerCase();
+  var u=A.auth.current(),out=$("track-out");
+  var demo=A.records.list("demos",function(x){return String(x.ref).toUpperCase()===ref;})[0]||null;
+  var ok=demo&&((email&&String(demo.email||"").toLowerCase()===email)||(u&&(demo.userId===u.id||(u.email&&u.email===String(demo.email||"").toLowerCase()))));
+  if(!ok){
+    out.innerHTML='<div class="t-head narrow"><span class="eyebrow">Suivi</span><h1 class="h-l" id="t-res" tabindex="-1">Demande introuvable</h1>'+
+      '<p class="lead">Aucune demande ne correspond à ce numéro et à cette adresse e-mail. Vérifiez les informations reçues par e-mail.</p>'+
+      '<div class="actions"><button class="btn btn-cyan" type="button" id="t-retry">Vérifier mes informations</button><button class="btn btn-ghost" type="button" id="t-new">Nouvelle demande</button></div></div>';
+    $("t-retry").onclick=function(){history.pushState(null,"",location.pathname+"#suivi");showIntro();$("tr-ref").value=ref;$("tr-email").value=email;$("tr-ref").focus();};
+    $("t-new").onclick=goForm;
+    show("track",$("t-res"));return;
+  }
+  var project=demo.projectId?A.records.get("projects",demo.projectId):null;
+  var st=Math.max(0,Math.min(3,+demo.status||0));
+  var hist=demo.history||[];
+  function when(i){var h=hist.filter(function(x){return +x.status===i;}).pop();return h?A.date(h.at,true):"";}
+  var frise='<ol class="frise" aria-label="Avancement de la demande">'+STATUSES.map(function(s,i){var cls=i<st||(i===3&&st===3)?"done":i===st?"current":"";
+    return '<li class="'+cls+'"'+(i===st?' aria-current="step"':"")+'><span class="dot">'+(cls==="done"?A.icon("check"):(i+1))+'</span><div><b>'+esc(s)+"</b>"+(when(i)?"<small>"+esc(when(i))+"</small>":(i>st?'<small>À venir</small>':""))+"</div></li>";}).join("")+"</ol>";
+  var video=st===3&&demo.video&&(demo.video.url||(demo.video.chapters||[]).length)?demo.video:null;
+  var h='<div class="t-grid"><div class="t-head">'+
+    '<span class="eyebrow">'+(fresh?"Demande envoyée":"Suivi de votre demande")+'</span>'+
+    '<h1 class="h-l" id="t-res" tabindex="-1">'+(fresh?"Merci, votre demande est enregistrée.":video?"Votre simulation est prête.":esc(STATUSES[st])+".")+"</h1>"+
+    '<div class="refbox"><small>Numéro de demande</small><b>'+esc(demo.ref)+"</b></div>"+
+    '<p class="t-meta">'+(project?"Projet « "+esc(project.name)+" » · ":"")+"Envoyée le "+esc(A.date(demo.createdAt,true))+"</p></div>"+frise;
+  if(video){
+    h+='<div class="t-block"><h2>'+esc(video.title||"Votre simulation")+"</h2>"+player(video)+
+      '<div class="actions"><a class="btn btn-cyan" href="abonnements.html?project='+encodeURIComponent(demo.projectId||"")+'">Choisir mon abonnement AXIA '+A.icon("arrow","arrow")+"</a></div></div>";
+  }else{
+    h+='<div class="t-block"><p>'+(fresh?"Conservez ce numéro : il vous permet de suivre votre demande à tout moment. ":"")+
+      "Votre vidéo sera préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles. Elle apparaîtra ici dès qu'elle sera prête.</p>"+
+      (fresh?'<p class="mut small">Un e-mail de confirmation a été '+(A.proto?"simulé (mode présentation)":"envoyé")+" à "+esc(demo.email)+".</p>":"")+"</div>";
+  }
+  if(demo.analysis&&((demo.analysis.features||[]).length||demo.analysis.notes)){
+    h+='<div class="t-block"><h2>Ce que nous avons retenu</h2>'+((demo.analysis.features||[]).length?'<div class="feat-list">'+demo.analysis.features.map(function(f){return "<span>"+esc(f)+"</span>";}).join("")+"</div>":"")+
+      (demo.analysis.notes?"<p>"+esc(demo.analysis.notes)+"</p>":"")+"</div>";
+  }
+  var nxt=encodeURIComponent("espace-client.html#demos");
+  if(u){
+    h+='<div class="t-block"><a class="btn btn-line" href="espace-client.html#demos">Voir dans mon espace client '+A.icon("arrow","arrow")+"</a></div>";
+  }else{
+    h+='<div class="surface acct"><h2>Suivez tout depuis votre compte</h2><p>Créez un compte avec l\'adresse <b>'+esc(demo.email)+"</b> : cette demande y sera rattachée automatiquement et vous y retrouverez votre vidéo.</p>"+
+      '<div class="actions"><a class="btn btn-cyan" href="inscription.html?next='+nxt+'">Créer mon compte</a><a class="btn btn-ghost" href="connexion.html?next='+nxt+'">J\'ai déjà un compte</a></div></div>';
+  }
+  h+="</div>";
+  out.innerHTML=h;
+  if(video&&$("vp"))bindChapters(video);
+  show("track",$("t-res"));
+}
+function safeUrl(u){u=String(u||"").trim();return /^(https?:\/\/|\.{0,2}\/|[\w-]+\.[a-z0-9]{2,5}(\?|$)|[\w-]+\/)/i.test(u)&&!/^\s*javascript:/i.test(u)?u:"";}
+function isVideoFile(u){return /\.(mp4|webm|ogg|ogv|mov|m4v)(\?|#|$)/i.test(u);}
+function player(v){var url=safeUrl(v.url),ch=v.chapters||[];
+  if(url&&isVideoFile(url))return '<div class="vplayer"><div class="vframe"><video controls preload="metadata" src="'+esc(url)+'"></video></div>'+
+    (ch.length?'<ol class="mut small" style="margin:0;padding-left:1.2em">'+ch.map(function(c){return "<li>"+esc(c.title)+"</li>";}).join("")+"</ol>":"")+"</div>";
+  var linkBtn=url?'<a class="btn btn-line btn-sm" href="'+esc(url)+'" target="_blank" rel="noopener">Ouvrir la vidéo '+A.icon("play")+"</a>":"";
+  if(!ch.length)return '<div class="actions">'+linkBtn+"</div>";
+  return '<div class="vplayer" id="vp"><div class="vframe" aria-live="polite"><div id="vp-c"></div><span class="vbar"><i id="vp-bar"></i></span></div>'+
+    '<div class="vctl"><button class="icon-btn" type="button" id="vp-prev" aria-label="Chapitre précédent">'+A.icon("arrow","flip")+'</button><button class="icon-btn" type="button" id="vp-play" aria-label="Lecture automatique" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button><button class="icon-btn" type="button" id="vp-next" aria-label="Chapitre suivant">'+A.icon("arrow")+"</button>"+linkBtn+"</div>"+
+    '<div class="chaps" role="group" aria-label="Chapitres">'+ch.map(function(c,i){return '<button type="button" data-ch="'+i+'">'+(i+1)+". "+esc(c.title)+"</button>";}).join("")+"</div></div>";
+}
+function bindChapters(v){var ch=v.chapters,i=0,el=$("vp-c"),bar=$("vp-bar"),pl=$("vp-play"),t0=0,DUR=7000;
+  var PLAY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>',PAUSE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>';
+  function go(n){i=(n+ch.length)%ch.length;var c=ch[i];
+    el.innerHTML='<div class="fade" style="display:grid;gap:10px"><span class="num">Chapitre '+(i+1)+" / "+ch.length+"</span><h3>"+esc(c.title)+"</h3>"+(c.text?"<p>"+esc(c.text)+"</p>":"")+"</div>";
+    document.querySelectorAll("#vp [data-ch]").forEach(function(b){b.setAttribute("aria-current",+b.dataset.ch===i?"true":"false");});
+    t0=Date.now();bar.style.width=playTimer?"0%":((i+1)/ch.length*100)+"%";}
+  function stop(){clearInterval(playTimer);playTimer=null;pl.setAttribute("aria-pressed","false");pl.setAttribute("aria-label","Lecture automatique");pl.innerHTML=PLAY;bar.style.width=((i+1)/ch.length*100)+"%";}
+  function start(){pl.setAttribute("aria-pressed","true");pl.setAttribute("aria-label","Mettre en pause");pl.innerHTML=PAUSE;t0=Date.now();
+    playTimer=setInterval(function(){var p=(Date.now()-t0)/DUR;bar.style.width=Math.min(100,p*100)+"%";if(p>=1){if(i===ch.length-1){stop();return;}go(i+1);}},100);bar.style.width="0%";}
+  pl.onclick=function(){if(playTimer)stop();else{if(i===ch.length-1)go(0);start();}};
+  $("vp-prev").onclick=function(){go(i-1);};$("vp-next").onclick=function(){go(i+1);};
+  document.querySelectorAll("#vp [data-ch]").forEach(function(b){b.onclick=function(){go(+b.dataset.ch);};});
+  go(0);}
+route();booted=true;
+})();
+</script>
+</body>
+</html>

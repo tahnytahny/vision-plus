@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cookies · AXIA</title>
+<meta name="description" content="Politique cookies d'AXIA : traceurs utilisés, catégories soumises à consentement, durée de votre choix et gestion de vos préférences.">
+<meta name="axia-page" content="legal">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<link rel="stylesheet" href="assets/pages/legal.css">
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu" data-legal="cookies">
+  <section class="page-hero legal-hero">
+    <div class="wrap">
+      <span class="eyebrow">Informations légales</span>
+      <h1 class="h-xl">Politique cookies</h1>
+      <p class="legal-meta"><span>Dernière mise à jour : <mark class="todo" id="legal-maj">[À compléter]</mark></span><span>Dernière vérification légale : novembre 2026</span></p>
+      <p class="notice" role="note"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20zM12 10v4M12 17h.01"/></svg><span>Document modèle à faire valider par un avocat avant publication. La revue de novembre 2026 ne vaut pas consultation juridique.</span></p>
+    </div>
+  </section>
+  <div class="legal-body">
+    <div class="wrap legal-grid">
+      <nav class="toc" aria-label="Sommaire">
+        <details id="toc-d">
+          <summary>Sommaire <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <p class="toc-label" aria-hidden="true">Sommaire</p>
+          <ol id="toc-list"></ol>
+        </details>
+      </nav>
+      <article class="legal-doc">
+        <section class="consent-panel" aria-labelledby="etat-titre">
+          <h2 class="no-num" id="etat-titre">Vos préférences sur ce navigateur</h2>
+          <ul class="consent-state" id="consent-state" aria-live="polite"></ul>
+          <div class="actions"><button type="button" class="btn btn-cyan btn-sm" id="btn-prefs" data-open-consent>Gérer mes préférences</button></div>
+        </section>
+        <p class="intro">Cette page explique quels traceurs le site AXIA utilise et comment vous gardez la main sur eux. Le responsable de ces traceurs est l'éditeur du site, identifié dans les <a href="mentions-legales.html">mentions légales</a>. Les services AXIA sont réservés aux professionnels, mais ces règles protègent tous les visiteurs, y compris lorsque vous consultez le site dans le cadre de votre activité.</p>
+        <h2 id="definition">Qu'est-ce qu'un traceur ?</h2>
+        <p>Un traceur est une information enregistrée ou lue sur votre appareil lorsque vous consultez un site : cookie, stockage local du navigateur (localStorage, sessionStorage), pixel ou identifiant technique. Les règles ci-dessous s'appliquent à tous, et pas seulement aux cookies.</p>
+        <p>L'article 82 de la loi « Informatique et Libertés » impose de recueillir votre consentement avant d'utiliser un traceur, sauf s'il est strictement nécessaire au service que vous demandez ou s'il a pour seule finalité de permettre la communication électronique.</p>
+        <h2 id="necessaires">Traceurs strictement nécessaires</h2>
+        <p>Le site n'utilise à ce jour que des traceurs strictement nécessaires. Ils sont stockés dans votre navigateur, ne servent ni à la publicité ni au suivi de votre navigation, et sont exemptés de consentement : conservation de votre choix sur les traceurs, authentification et sécurité de la connexion figurent parmi les exemples d'exemption retenus par la CNIL.</p>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th scope="col">Nom</th><th scope="col">Finalité</th><th scope="col">Stockage</th><th scope="col">Durée</th></tr></thead>
+            <tbody>
+              <tr><td data-label="Nom">axia.consent</td><td data-label="Finalité">Mémoriser vos choix de consentement (catégories acceptées ou refusées et date)</td><td data-label="Stockage">Stockage local</td><td data-label="Durée">Votre choix est redemandé au bout de 6 mois ; la donnée reste sur l'appareil jusqu'à un nouveau choix ou à l'effacement des données du navigateur</td></tr>
+              <tr><td data-label="Nom">axia.session</td><td data-label="Finalité">Maintenir votre connexion à votre compte</td><td data-label="Stockage">Stockage de session ; stockage local si vous cochez « Rester connecté »</td><td data-label="Durée">Fermeture de l'onglet (12 h au plus) ; <span data-config="sessionDays">30</span> jours avec « Rester connecté »</td></tr>
+              <tr><td data-label="Nom">axia.lock.*</td><td data-label="Finalité">Sécurité : bloquer temporairement la connexion après plusieurs échecs</td><td data-label="Stockage">Stockage local</td><td data-label="Durée"><span data-config="lockMinutes">15</span> minutes après le blocage</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ref">Version de présentation : le site conserve aussi dans votre navigateur les données de simulation (comptes, projets, demandes, codes de vérification et historique des choix de consentement). En production, ces données sont stockées sur les serveurs d'AXIA et cette liste sera mise à jour.</p>
+        <h2 id="consentement">Traceurs soumis à votre consentement</h2>
+        <p>Deux catégories sont prévues. <strong>Aucun outil n'est activé à ce jour</strong> dans l'une ou l'autre : accepter ces catégories ne dépose actuellement aucun traceur supplémentaire.</p>
+        <ul>
+          <li><strong>Mesure d'audience</strong> : statistiques de fréquentation pour améliorer le site.</li>
+          <li><strong>Personnalisation et marketing</strong> : contenus et messages adaptés à vos centres d'intérêt.</li>
+        </ul>
+        <p>Si un outil est ajouté, cette page sera mise à jour avec son nom, son éditeur, sa finalité, sa durée et les éventuels transferts hors de l'Union européenne ; il ne sera chargé qu'après votre accord, et votre consentement sera redemandé pour cette nouvelle finalité. Refuser n'a aucune conséquence sur votre accès au site.</p>
+        <h2 id="duree">Durée de votre choix</h2>
+        <p>Votre choix, acceptation comme refus, est conservé pendant 6 mois, durée recommandée par la CNIL. Il vous est ensuite redemandé. Pendant cette période, la fenêtre de choix n'est pas réaffichée à chaque page.</p>
+        <p class="ref">Lignes directrices et recommandation de la CNIL du 17 septembre 2020 relatives aux cookies et autres traceurs (délibérations n° 2020-091 et n° 2020-092) ; questions-réponses de la CNIL sur ces textes.</p>
+        <p>Une trace de votre choix (catégories acceptées et date) est conservée afin de pouvoir prouver votre consentement <span class="ref">(art. 7.1 du RGPD)</span>. Durée de conservation de cette preuve : <mark class="todo">[À compléter : durée côté serveur en production]</mark>.</p>
+        <h2 id="preferences">Gérer mes préférences</h2>
+        <p>Vous pouvez modifier votre choix à tout moment, aussi simplement que vous l'avez donné :</p>
+        <ul>
+          <li>avec le bouton ci-dessous ;</li>
+          <li>avec le lien « Gestion du consentement » en bas de chaque page.</li>
+        </ul>
+        <div class="actions"><button type="button" class="btn btn-line btn-sm" id="btn-prefs-2" data-open-consent>Gérer mes préférences</button></div>
+        <p>Dans la fenêtre d'information, « Tout refuser » et « Tout accepter » sont présentés au même niveau et avec la même apparence. Retirer votre consentement entraîne l'arrêt des traceurs concernés pour l'avenir.</p>
+        <h2 id="navigateur">Paramétrer votre navigateur</h2>
+        <p>Votre navigateur permet aussi de supprimer les traceurs déjà enregistrés et de bloquer les cookies, depuis ses réglages de confidentialité. Bloquer les traceurs strictement nécessaires peut empêcher la connexion à votre compte.</p>
+        <h2 id="tiers">Contenus de tiers</h2>
+        <p>Les polices de caractères sont hébergées sur le serveur du site : leur affichage ne dépose aucun traceur et ne transmet aucune donnée à un tiers.</p>
+        <p>Les vidéos de simulation sont lues avec le lecteur intégré de votre navigateur, sans lecteur tiers : aucun traceur n'est déposé pour les lire. Le fichier vidéo est servi par <mark class="todo">[À compléter : serveur du site ou prestataire d'hébergement vidéo]</mark>, qui reçoit à cette occasion l'adresse IP de votre appareil.</p>
+        <p>Cartes, réseaux sociaux ou autres contenus intégrés : <mark class="todo">[À compléter : aucun à ce jour, ou liste des services et traceurs déposés]</mark>.</p>
+        <h2 id="contact">Contact</h2>
+        <p>Pour toute question sur les traceurs : <mark class="todo" data-field="email">[À compléter : adresse e-mail]</mark>. Pour vos autres droits, dont celui d'introduire une réclamation auprès de la CNIL, consultez la <a href="confidentialite.html#exercer">politique de confidentialité</a>.</p>
+        <section class="validate" aria-labelledby="points-a-valider">
+          <h2 id="points-a-valider" class="no-num"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20zM12 10v4M12 17h.01"/></svg>Points à valider avant publication</h2>
+          <p id="todo-count" aria-live="polite"></p>
+          <ul>
+            <li>Liste définitive des traceurs en production (noms, durées, éventuel cookie de session côté serveur) ; preuve du consentement conservée côté serveur et sa durée.</li>
+            <li>Outils de mesure d'audience ou de marketing envisagés ; si un outil de mesure est présenté comme exempté de consentement, vérifier les conditions de la CNIL (finalité strictement limitée, données anonymes, pas de recoupement).</li>
+            <li>Hébergement des fichiers vidéo et autres contenus tiers.</li>
+            <li>Adresse de contact.</li>
+            <li>Réforme européenne des règles cookies (proposition « Digital Omnibus ») : non adoptée à la date de vérification ; à surveiller.</li>
+          </ul>
+        </section>
+        <nav class="others" aria-label="Autres documents légaux">
+          <h2 class="no-num">Autres documents</h2>
+          <ul id="others-list"></ul>
+        </nav>
+      </article>
+    </div>
+  </div>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script src="assets/pages/legal.js"></script>
+</body></html>

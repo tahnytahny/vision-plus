@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mot de passe oublié · AXIA</title>
+<meta name="description" content="Réinitialisez le mot de passe de votre compte AXIA par e-mail ou par SMS.">
+<meta name="axia-page" content="mot-de-passe">
+<meta name="axia-nochat" content="1">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<link rel="stylesheet" href="assets/pages/auth.css">
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <section class="auth" aria-labelledby="t-auth">
+    <div class="auth-in">
+      <!-- Demande -->
+      <div id="step-request" class="auth-step">
+        <header class="auth-head">
+          <span class="eyebrow">Accès au compte</span>
+          <h1 id="t-auth" tabindex="-1">Mot de passe oublié</h1>
+          <p>Choisissez comment recevoir de quoi le réinitialiser.</p>
+        </header>
+        <div class="tabs seg" role="tablist" aria-label="Moyen de réinitialisation">
+          <button type="button" class="tab" role="tab" id="tab-email" aria-controls="pane-email" aria-selected="true">Par e-mail</button>
+          <button type="button" class="tab" role="tab" id="tab-sms" aria-controls="pane-sms" aria-selected="false" tabindex="-1">Par SMS</button>
+        </div>
+        <div id="pane-email" role="tabpanel" aria-labelledby="tab-email">
+          <form class="form" id="f-email" novalidate>
+            <div class="field"><label for="rq-email">Adresse e-mail du compte</label><input class="input" id="rq-email" type="email" autocomplete="email" inputmode="email" required></div>
+            <div class="form-msg" id="rq-email-msg" aria-live="polite"></div>
+            <button class="btn btn-cyan btn-block" type="submit" id="rq-email-btn">Recevoir le lien</button>
+          </form>
+        </div>
+        <div id="pane-sms" role="tabpanel" aria-labelledby="tab-sms" hidden>
+          <form class="form" id="f-sms" novalidate>
+            <div class="field"><label for="rq-phone">Numéro de mobile du compte</label><input class="input" id="rq-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" required></div>
+            <div class="form-msg" id="rq-sms-msg" aria-live="polite"></div>
+            <button class="btn btn-cyan btn-block" type="submit">Recevoir un code</button>
+          </form>
+        </div>
+        <p class="auth-foot"><a class="link" href="connexion.html">Retour à la connexion</a></p>
+      </div>
+      <!-- E-mail envoyé (message neutre) -->
+      <div id="step-sent" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico">%%mail%%</span>
+          <h1 id="t-sent" tabindex="-1">Vérifiez votre boîte mail</h1>
+          <p>Si un compte est associé à <span class="target" id="sent-target"></span>, vous allez recevoir un lien de réinitialisation valable <span data-min="link"></span> minutes.</p>
+        </header>
+        <div id="proto-link"></div>
+        <p class="auth-foot small">Rien reçu ? Vérifiez vos courriers indésirables ou <button type="button" class="btn-txt" id="again">faites une nouvelle demande</button>.</p>
+      </div>
+      <!-- SMS : code + nouveau mot de passe -->
+      <div id="step-sms" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico">%%phone%%</span>
+          <h1 id="t-sms" tabindex="-1">Nouveau mot de passe</h1>
+          <p>Si un compte est associé à <span class="target" id="sms-target"></span>, un code valable <span data-min="code"></span> minutes vient de lui être envoyé.</p>
+        </header>
+        <form class="form" id="f-sms-confirm" novalidate>
+          <div class="field"><label for="sms-code">Code reçu par SMS</label><input class="input code-input" id="sms-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required></div>
+          <div class="field"><label for="sms-pw">Nouveau mot de passe</label><div class="pw-wrap"><input class="input" id="sms-pw" type="password" autocomplete="new-password" aria-describedby="sms-rules" required></div><ul class="rules" id="sms-rules" aria-label="Règles du mot de passe"></ul></div>
+          <div class="field"><label for="sms-pw2">Confirmation</label><div class="pw-wrap"><input class="input" id="sms-pw2" type="password" autocomplete="new-password" required></div></div>
+          <div class="form-msg" id="sms-msg" aria-live="polite"></div>
+          <button class="btn btn-cyan btn-block" type="submit" id="sms-btn">Enregistrer</button>
+          <div class="row-between small"><span class="mut">Code non reçu ?</span><button type="button" class="btn-txt" id="sms-resend">Renvoyer le code</button></div>
+        </form>
+        <p class="auth-foot"><button type="button" class="btn-txt" id="sms-back">Retour</button></p>
+      </div>
+      <!-- Lien reçu : ?token= -->
+      <div id="step-token" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico">%%lock%%</span>
+          <h1 id="t-token" tabindex="-1">Nouveau mot de passe</h1>
+          <p>Choisissez un mot de passe que vous n'utilisez pas ailleurs.</p>
+        </header>
+        <form class="form" id="f-token" novalidate>
+          <div class="field"><label for="tk-pw">Nouveau mot de passe</label><div class="pw-wrap"><input class="input" id="tk-pw" type="password" autocomplete="new-password" aria-describedby="tk-rules" required></div><ul class="rules" id="tk-rules" aria-label="Règles du mot de passe"></ul></div>
+          <div class="field"><label for="tk-pw2">Confirmation</label><div class="pw-wrap"><input class="input" id="tk-pw2" type="password" autocomplete="new-password" required></div></div>
+          <div class="form-msg" id="tk-msg" aria-live="polite"></div>
+          <button class="btn btn-cyan btn-block" type="submit" id="tk-btn">Enregistrer</button>
+        </form>
+      </div>
+      <!-- Lien expiré -->
+      <div id="step-expired" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico">%%warn%%</span>
+          <h1 id="t-expired" tabindex="-1">Lien expiré</h1>
+          <p>Ce lien de réinitialisation n'est plus valable ou a déjà été utilisé.</p>
+        </header>
+        <a class="btn btn-cyan btn-block" href="mot-de-passe.html">Faire une nouvelle demande</a>
+      </div>
+      <!-- Succès -->
+      <div id="step-done" class="auth-step" hidden>
+        <header class="auth-head">
+          <span class="step-ico ok">%%check%%</span>
+          <h1 id="t-done" tabindex="-1">Mot de passe modifié</h1>
+          <p>Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.</p>
+        </header>
+        <a class="btn btn-cyan btn-block" id="done-login" href="connexion.html">Se connecter</a>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script src="assets/pages/auth.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.AXIA,X=window.AXAUTH,SEC=Object.assign({codeMinutes:10,resetLinkMinutes:30},(A.config||{}).security||{});
+function $(id){return document.getElementById(id);}
+document.querySelectorAll(".step-ico").forEach(function(s){s.innerHTML=s.innerHTML.replace(/%%(\w+)%%/,function(_,n){return A.icon(n);});});
+document.querySelectorAll('[data-min="link"]').forEach(function(s){s.textContent=SEC.resetLinkMinutes;});
+document.querySelectorAll('[data-min="code"]').forEach(function(s){s.textContent=SEC.codeMinutes;});
+X.tabs(document.querySelector('[role="tablist"]'));
+["sms-pw","sms-pw2","tk-pw","tk-pw2"].forEach(function(id){X.pwToggle($(id));});
+X.rules($("sms-pw"),$("sms-rules"));X.rules($("tk-pw"),$("tk-rules"));X.codeField($("sms-code"));
+if(A.qs("email"))$("rq-email").value=A.qs("email");
+var STEPS=["step-request","step-sent","step-sms","step-token","step-expired","step-done"];
+function show(id,focusId){STEPS.forEach(function(s){$(s).hidden=s!==id;});$(id).classList.add("fade-in");window.scrollTo(0,0);var f=$(focusId)||$(id).querySelector("h1");if(f)f.focus();}
+/* Vérifie les deux mots de passe ; renvoie un message d'erreur ou "" */
+function checkPw(p1,p2,msg){X.invalid(p1,false);X.invalid(p2,false);var e=X.pwError(p1.value);
+  if(e){X.msg(msg,A.esc(e));X.invalid(p1,true);p1.focus();return false;}
+  if(p1.value!==p2.value){X.msg(msg,"Les deux mots de passe ne correspondent pas.");X.invalid(p2,true);p2.focus();return false;}
+  return true;}
+var doneEmail="";
+function done(user){var em=user&&user.email?user.email:doneEmail;$("done-login").href="connexion.html"+(em?"?email="+encodeURIComponent(em):"");show("step-done");}
+/* ---- Lien reçu par e-mail ---- */
+var token=A.qs("token");
+if(token){if(A.auth.resetCheckToken(token))show("step-token","tk-pw");else show("step-expired");}
+$("f-token").addEventListener("submit",async function(e){e.preventDefault();var msg=$("tk-msg");
+  if(!checkPw($("tk-pw"),$("tk-pw2"),msg))return;
+  if(!A.auth.resetCheckToken(token)){show("step-expired");return;}
+  var b=$("tk-btn");X.busy(b,true);var r=await A.auth.resetConfirm({token:token,password:$("tk-pw").value});X.busy(b,false);
+  if(r.error){X.msg(msg,A.esc(r.error));return;}
+  history.replaceState(null,"","mot-de-passe.html");done(r.user);});
+/* ---- Demande par e-mail ---- */
+$("f-email").addEventListener("submit",function(e){e.preventDefault();var em=$("rq-email"),msg=$("rq-email-msg");X.invalid(em,false);
+  if(!X.isEmail(em.value)){X.msg(msg,"Saisissez une adresse e-mail valide.");X.invalid(em,true);em.focus();return;}
+  var target=em.value.trim().toLowerCase();var r=A.auth.resetRequest("email",target)||{};doneEmail=target;
+  X.msg(msg,"");$("sent-target").textContent=target;
+  $("proto-link").innerHTML=r.token?'<div class="notice info">'+A.icon("info")+'<span>Mode présentation : aucun e-mail réel n\'est envoyé. <a class="link" href="mot-de-passe.html?token='+encodeURIComponent(r.token)+'">Ouvrir le lien reçu (présentation)</a></span></div>':"";
+  show("step-sent");});
+$("again").onclick=function(){show("step-request","rq-email");};
+/* ---- Demande par SMS ---- */
+var smsPhone="";
+$("f-sms").addEventListener("submit",function(e){e.preventDefault();var ph=$("rq-phone"),msg=$("rq-sms-msg");X.invalid(ph,false);
+  if(!X.isPhone(ph.value)){X.msg(msg,"Saisissez un numéro valide, par exemple 06 12 34 56 78.");X.invalid(ph,true);ph.focus();return;}
+  smsPhone=A.auth.normPhone(ph.value);A.auth.resetRequest("sms",smsPhone);X.msg(msg,"");
+  $("sms-target").textContent=smsPhone;$("sms-code").value="";$("sms-pw").value="";$("sms-pw2").value="";$("sms-pw").dispatchEvent(new Event("input"));X.msg($("sms-msg"),"");
+  show("step-sms","sms-code");X.cooldown($("sms-resend"),30,"Renvoyer le code");});
+$("sms-resend").onclick=function(){A.auth.resetRequest("sms",smsPhone);X.msg($("sms-msg"),"Si un compte est associé à ce numéro, un nouveau code vient d'être envoyé.",true);X.cooldown(this,30,"Renvoyer le code");};
+$("sms-back").onclick=function(){show("step-request","rq-phone");};
+$("f-sms-confirm").addEventListener("submit",async function(e){e.preventDefault();var msg=$("sms-msg"),c=$("sms-code");X.invalid(c,false);
+  if(!/^\d{6}$/.test(c.value)){X.msg(msg,"Saisissez les 6 chiffres du code reçu.");X.invalid(c,true);c.focus();return;}
+  if(!checkPw($("sms-pw"),$("sms-pw2"),msg))return;
+  var b=$("sms-btn");X.busy(b,true);var r=await A.auth.resetConfirm({phone:smsPhone,code:c.value,password:$("sms-pw").value});X.busy(b,false);
+  if(r.error){X.msg(msg,A.esc(/Code incorrect|Aucun code/.test(r.error)?"Code incorrect ou expiré. Vérifiez le code ou demandez-en un nouveau.":r.error));X.invalid(c,true);c.focus();return;}
+  done(r.user);});
+})();
+</script>
+</body></html>

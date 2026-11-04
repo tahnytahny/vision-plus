@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FAQ — Questions et réponses · AXIA</title>
+<meta name="description" content="Consultez les réponses fréquentes sur AXIA ou posez directement votre question : réponses basées sur les informations validées par AXIA.">
+<meta name="axia-page" content="faq">
+<link rel="stylesheet" href="assets/axia.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AXIA">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<style>
+.faq-hero{padding-block:clamp(48px,7vw,96px) clamp(28px,4vw,48px)}
+.faq-hero .wrap{justify-items:center;text-align:center}
+.faq-hero .lead{margin-inline:auto}
+.search{position:relative;width:min(680px,100%);margin-top:10px}
+.search .ico.lens{position:absolute;left:20px;top:50%;translate:0 -50%;width:22px;height:22px;color:var(--cyan);pointer-events:none}
+.search input{width:100%;font:500 1.12rem/1.3 var(--f-body);color:var(--ink);background:rgba(21,27,35,.75);border:1px solid var(--edge-strong);border-radius:16px;padding:1.15em 3.4em 1.15em 3.3em;box-shadow:0 24px 60px -30px rgba(0,0,0,.9);transition:border-color .2s,box-shadow .25s var(--ease)}
+.search input::placeholder{color:#64808A}
+.search input:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(25,116,232,.14),0 0 40px -10px var(--glow)}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clear{position:absolute;right:12px;top:50%;translate:0 -50%;width:38px;height:38px;border-radius:10px;border:0;background:transparent;color:var(--mut);display:grid;place-items:center;cursor:pointer}
+.search .clear:hover{color:var(--cyan);background:var(--glass)}
+.count{min-height:1.5em;color:var(--mut);font-size:.92rem}
+.count b{color:var(--ink);font-weight:600}
+.faq-layout{display:grid;gap:0;padding-bottom:clamp(64px,9vw,120px)}
+.cats{min-width:0}
+.cats ul{list-style:none;margin:0;padding:0}
+.cats a{text-decoration:none;color:var(--soft);transition:color .2s,background-color .2s,border-color .2s}
+.cats a .n{color:var(--mut);font-size:.8rem;font-variant-numeric:tabular-nums}
+.cats a[aria-current="true"]{color:var(--cyan)}
+@media (max-width:959px){
+  .cats{position:sticky;top:calc(72px + env(safe-area-inset-top,0px));z-index:5;background:rgba(16,20,25,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);margin:0 calc(-1 * var(--gut-r)) 8px calc(-1 * var(--gut));border-bottom:1px solid rgba(170,183,199,.08)}
+  .cats ul{display:flex;gap:8px;overflow-x:auto;padding:12px var(--gut-r) 12px var(--gut);scrollbar-width:none;scroll-behavior:smooth}
+  .cats ul::-webkit-scrollbar{display:none}
+  .cats a{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:.5em .95em;border:1px solid var(--edge);border-radius:999px;font-size:.9rem}
+  .cats a[aria-current="true"]{border-color:var(--cyan);background:rgba(25,116,232,.1);color:var(--ink)}
+  .cats .cats-h{display:none}
+}
+@media (min-width:960px){
+  .faq-layout{grid-template-columns:250px minmax(0,1fr);gap:72px;align-items:start}
+  .cats{position:sticky;top:104px}
+  .cats .cats-h{font:700 .72rem/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 14px 14px}
+  .cats ul{display:grid;gap:2px;border-left:1px solid rgba(170,183,199,.12)}
+  .cats a{display:flex;justify-content:space-between;gap:12px;padding:8px 14px;margin-left:-1px;border-left:2px solid transparent;font-size:.94rem;line-height:1.35}
+  .cats a:hover{color:var(--ink)}
+  .cats a[aria-current="true"]{border-left-color:var(--cyan)}
+}
+.groups{min-width:0;display:grid;gap:clamp(44px,6vw,64px)}
+/* html a déjà scroll-padding-top:96px (en-tête) ; on ajoute la barre de catégories sur mobile */
+.group h2{font-size:clamp(1.15rem,1.8vw,1.35rem);color:var(--mut);font-weight:500;letter-spacing:-.01em;margin-bottom:4px;scroll-margin-top:52px}
+.group .acc details{scroll-margin-top:56px}
+@media (min-width:960px){.group h2{scroll-margin-top:0}.group .acc details{scroll-margin-top:8px}}
+.acc summary{padding:20px 0}
+.acc summary span{min-width:0}
+.ans .pend{display:inline-flex;align-self:start}
+.ans .link{display:inline-flex;align-items:center;gap:6px;justify-self:start}
+.ans .link .ico{transition:transform .25s var(--ease)}
+.ans .link:hover .ico{transform:translateX(3px)}
+mark{background:rgba(25,116,232,.1);color:inherit;border-radius:3px;padding:0 .06em}
+.none{display:grid;justify-items:center;text-align:center;gap:14px;padding:clamp(40px,7vw,72px) 0}
+.none .ico{width:34px;height:34px;color:var(--cyan);opacity:.85}
+.none h2{font-size:1.4rem}
+.none p{color:var(--mut);max-width:44ch}
+.approx{color:var(--mut);font-size:.92rem}
+.more{border-top:1px solid rgba(170,183,199,.1);padding-block:clamp(56px,8vw,96px)}
+.more .wrap{display:grid;gap:18px;justify-items:center;text-align:center}
+.more p{color:var(--mut)}
+
+/* FAQ unifiée : questions-réponses + FAQ */
+.qa{position:relative;padding-block:clamp(26px,4vw,52px) clamp(28px,4vw,48px)}
+.qa::before{content:"";position:absolute;inset:0 0 auto;height:420px;background:radial-gradient(40% 60% at 50% 0%,rgba(25,116,232,.10),transparent 70%);pointer-events:none}
+.qa .wrap{position:relative;display:grid;gap:clamp(20px,3vw,40px);align-items:start}
+@media (min-width:960px){.qa .wrap{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)}}
+.qa-main{display:grid;gap:16px;min-width:0}
+.qa-main .h-xl{font-size:clamp(2rem,4vw,3rem);line-height:1.08}
+.qa-main .lead{margin:0;max-width:46ch;color:var(--mut)}
+.qa-art{margin:0;justify-self:center;width:100%;max-width:400px;-webkit-mask-image:radial-gradient(80% 85% at 50% 48%,#000 62%,transparent 100%);mask-image:radial-gradient(80% 85% at 50% 48%,#000 62%,transparent 100%)}
+.qa-art img{display:block;width:100%;height:auto;animation:faqf 8s ease-in-out infinite}
+@keyframes faqf{50%{transform:translateY(-8px)}}
+.ask{scroll-margin-top:96px}
+.box{display:flex;align-items:flex-end;gap:10px;padding:8px 8px 8px 18px;border-radius:18px;border:1px solid rgba(170,183,199,.45);background:linear-gradient(180deg,rgba(27,34,44,.92),rgba(18,23,30,.92));box-shadow:0 24px 60px -30px rgba(0,0,0,.9),0 0 26px rgba(40,120,232,.12);transition:border-color .2s,box-shadow .25s}
+.box:focus-within{border-color:#78B4F5;box-shadow:0 0 0 4px rgba(25,116,232,.14),0 0 40px -10px var(--glow)}
+.box textarea{flex:1;min-width:0;border:0;background:transparent;resize:none;font:500 1.06rem/1.5 var(--f-body);color:var(--ink);padding:10px 0;max-height:180px;min-height:26px}
+.box textarea:focus{outline:none}
+.box textarea::placeholder{color:#7F94A8}
+.box .send{width:48px;height:48px;flex:none;border-radius:14px;border:1px solid rgba(150,200,250,.6);background:linear-gradient(180deg,#3B8BF0,#1F67D6);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 0 18px rgba(40,120,232,.45);transition:opacity .2s,box-shadow .2s}
+.box .send .ico{width:20px;height:20px}
+.box .send:hover:not([disabled]){box-shadow:0 0 26px rgba(40,120,232,.7)}
+.box .send[disabled]{opacity:.45;cursor:not-allowed}
+.ask-note{margin:8px 2px 0;font-size:.8rem;color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:space-between}
+.ask-note a{color:var(--cyan);text-decoration:none;font-weight:600}
+.ask-note .proto{color:#C9B48A;flex-basis:100%}
+/* zone de réponse */
+.log{display:grid;gap:18px;padding:18px;border-radius:18px;border:1px solid rgba(170,183,199,.28);background:linear-gradient(180deg,rgba(22,29,38,.85),rgba(16,20,25,.85))}
+.log[hidden]{display:none}
+.log-h{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--mut);margin-bottom:-4px}
+.log-h b{color:#B9D7FA;font-weight:600;letter-spacing:.02em}
+.log-h button{border:0;background:transparent;color:var(--soft);font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}
+.log-h button:hover{color:var(--cyan)}
+.log-h .ico{width:15px;height:15px}
+.m{display:flex;gap:12px;min-width:0;animation:msg .35s var(--ease)}
+@keyframes msg{from{opacity:0;transform:translateY(6px)}}
+.m.me{justify-content:flex-end}
+.m.me .txt{background:#272E38;border:1px solid rgba(170,183,199,.18);border-radius:16px 16px 4px 16px;padding:.65em 1em;max-width:min(85%,560px);white-space:pre-wrap;overflow-wrap:anywhere}
+.m.bot .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(25,116,232,.12);border:1px solid rgba(25,116,232,.35);color:var(--cyan);margin-top:2px}
+.m.bot .av .ico{width:15px;height:15px}
+.m.bot .body{min-width:0;display:grid;gap:10px;flex:1}
+.m.bot .txt{white-space:pre-line;overflow-wrap:anywhere;color:var(--ink);line-height:1.6}
+.m.bot .txt a{color:var(--cyan);font-weight:600;text-decoration:none}
+.m.bot .txt a:hover{text-decoration:underline;text-underline-offset:4px}
+.m.bot.pending .txt,.m.bot.miss .txt{color:var(--soft)}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:.84rem;color:var(--mut)}
+.fb{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fb button{display:inline-flex;align-items:center;gap:6px;padding:.38em .8em;border-radius:999px;border:1px solid var(--edge);background:transparent;color:var(--soft);cursor:pointer;font-size:.82rem;transition:border-color .2s,color .2s}
+.fb button:hover{border-color:var(--cyan);color:var(--cyan)}
+.fb .ok{color:var(--ok)}
+.typing{display:inline-flex;gap:5px;align-items:center;height:1.6em}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--cyan);opacity:.35;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{30%{opacity:1;transform:translateY(-2px)}}
+/* suggestions */
+.sugg-t{margin:4px 0 -4px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.sugg2{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.sugg2 button{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:10px 16px;border-radius:14px;border:1px solid rgba(170,183,199,.3);background:linear-gradient(180deg,rgba(27,34,44,.9),rgba(20,26,33,.9));text-align:left;font:inherit;font-size:.94rem;color:var(--ink);cursor:pointer;transition:border-color .3s,box-shadow .4s,transform .3s}
+.sugg2 button .ico{color:#78B4F5;flex:none;width:16px;height:16px}
+@media (hover:hover){.sugg2 button:hover{border-color:rgba(120,180,245,.8);box-shadow:0 0 22px rgba(40,120,232,.25);transform:translateY(-2px)}}
+/* FAQ */
+.faq-layout{padding-top:0}
+.faq-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px;margin-bottom:4px}
+.faq-head h2{font-size:clamp(1.35rem,2.4vw,1.75rem)}
+.faq-main{min-width:0;display:grid;gap:14px;align-content:start}
+.count{min-height:0}
+.count:empty{display:none}
+.count a{color:var(--cyan);text-decoration:none;font-weight:600;margin-left:6px}
+@media (min-width:960px){
+  .faq-layout{grid-template-columns:1fr!important;gap:0!important}
+  .faq-main .cats{position:static}
+  .faq-main .cats .cats-h{display:none}
+  .faq-main .cats ul{display:flex!important;flex-wrap:wrap;gap:10px;border-left:0!important}
+  .faq-main .cats a{display:inline-flex!important;align-items:center;gap:8px;padding:.55em 1.05em!important;margin:0!important;border:1px solid rgba(170,183,199,.35)!important;border-radius:999px;font-size:.92rem;white-space:nowrap}
+  .faq-main .cats a[aria-current="true"]{border-color:#78B4F5!important;background:rgba(40,120,232,.14);color:#fff;box-shadow:0 0 16px rgba(40,120,232,.25)}
+  .groups{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px;align-items:start}
+  .groups>.approx,.groups>.none{grid-column:1/-1}
+}
+@media (max-width:959px){.qa-main>.eyebrow{display:none}.qa-art{order:-1;max-width:110px;margin-bottom:-14px}.ask-note{font-size:.76rem}.qa-main{text-align:center;justify-items:center}.qa-main .lead{margin-inline:auto}.ask,.log,.sugg2,.sugg-t{width:100%;text-align:left}.sugg-t{text-align:center}.box textarea{font-size:1rem}}
+.more{padding-block:clamp(40px,6vw,72px)}
+.chat-fab.is-off{opacity:0;pointer-events:none;transform:scale(.8)!important}
+@media (prefers-reduced-motion:reduce){.qa-art img{animation:none}.m{animation:none}}
+</style>
+</head>
+<body>
+<div data-axia="header"></div>
+<main id="contenu">
+  <section class="qa" aria-labelledby="t-faq">
+    <div class="wrap">
+      <div class="qa-main">
+        <span class="eyebrow">FAQ — Questions et réponses</span>
+        <h1 id="t-faq" class="h-xl">Une question sur AXIA&nbsp;?</h1>
+        <p class="lead">Consultez les réponses fréquentes ou posez directement votre question.</p>
+        <form class="ask" id="question" novalidate>
+          <div class="box">
+            <label class="sr" for="faq-q">Votre question</label>
+            <textarea id="faq-q" rows="1" maxlength="1000" placeholder="Posez votre question…" aria-describedby="as-hint faq-count"></textarea>
+            <button class="send" type="submit" id="as-send" aria-label="Envoyer la question" disabled></button>
+          </div>
+          <span class="sr" id="as-hint">Entrée pour envoyer, Maj + Entrée pour aller à la ligne.</span>
+          <p class="ask-note" id="as-note"><span>Réponses basées uniquement sur les informations validées par AXIA.</span><span>Pas de réponse ? <a href="sav.html#nouvelle">Contacter le SAV</a></span></p>
+        </form>
+        <div class="log" id="as-log" role="log" aria-live="polite" aria-relevant="additions" aria-label="Réponses à vos questions" hidden></div>
+        <p class="sugg-t" id="sugg-t">Questions fréquentes</p>
+        <div class="sugg2" id="as-sugg"></div>
+      </div>
+      <figure class="qa-art" aria-hidden="true"><img src="assets/3d/faq-visuel.webp" width="1040" height="1170" alt=""></figure>
+    </div>
+  </section>
+  <div class="wrap faq-layout">
+    <div class="faq-main">
+      <div class="faq-head"><h2 id="t-all">Toutes les réponses</h2></div>
+      <p class="count" id="faq-count" aria-live="polite"></p>
+
+      <nav class="cats" aria-label="Catégories de la FAQ">
+      <p class="cats-h">Catégories</p>
+      <ul id="faq-cats"></ul>
+    </nav>
+      <div class="groups" id="faq-groups"></div>
+    </div>
+  </div>
+  <section class="more" aria-labelledby="t-more">
+    <div class="wrap">
+      <h2 id="t-more" class="h-m">Vous ne trouvez pas ?</h2>
+      <p>Posez votre question en haut de page : la réponse s'affiche aussitôt. L'équipe prend le relais si besoin.</p>
+      <div class="actions center">
+        <a class="btn btn-cyan" href="#question" id="faq-more-ai">Poser ma question</a>
+        <a class="btn btn-line" href="sav.html#nouvelle" id="faq-more-sav">Contacter le SAV</a>
+      </div>
+    </div>
+  </section>
+</main>
+<div data-axia="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<script>
+(function(){
+"use strict";
+var A=window.AXIA,esc=A.esc;
+var $=function(s){return document.querySelector(s);};
+var qIn=$("#faq-q"),countEl=$("#faq-count"),catsEl=$("#faq-cats"),groupsEl=$("#faq-groups");
+/* --- normalisation insensible aux accents et à la casse, avec correspondance des positions --- */
+function fold(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’`]/g,"'");}
+function foldMap(s){var out="",map=[];s=String(s||"");for(var i=0;i<s.length;i++){var f=fold(s[i]);for(var k=0;k<f.length;k++){out+=f[k];map.push(i);}}return {s:out,map:map};}
+var STOP="le la les un une des de du d l a au aux et ou en est ce que qui quoi je j me mon ma mes vous votre vos pour sur dans avec il y on pas ne se sa son ses peut faut comment quel quels quelle quelles".split(" ");
+function tokens(q){var t=fold(q).split(/[^a-z0-9œæ]+/).filter(function(w){return w.length>1;});var s=t.filter(function(w){return STOP.indexOf(w)<0;});return s.length?s:t;}
+function variants(t){var v=[t];if(t.length>3&&/s$/.test(t))v.push(t.slice(0,-1));if(t.length>4&&/x$/.test(t))v.push(t.slice(0,-1));return v;}
+function has(hay,t){return variants(t).some(function(v){return hay.indexOf(v)>=0;});}
+function highlight(text,toks){text=String(text||"");if(!toks.length)return esc(text);
+  var fm=foldMap(text),marks=new Array(text.length).fill(false);
+  toks.forEach(function(t){variants(t).forEach(function(v){var i=fm.s.indexOf(v);while(i>=0){for(var j=i;j<i+v.length;j++)marks[fm.map[j]]=true;i=fm.s.indexOf(v,i+v.length);}});});
+  var out="",open=false;for(var i=0;i<text.length;i++){if(marks[i]&&!open){out+="<mark>";open=true;}else if(!marks[i]&&open){out+="</mark>";open=false;}out+=esc(text[i]);}
+  return out+(open?"</mark>":"");}
+/* --- données --- */
+var faq=(A.content.faq()||[]).filter(function(f){return f&&f.q;});
+var cats=(A.data.faqCategories||[]).slice();
+faq.forEach(function(f){if(cats.indexOf(f.cat)<0)cats.push(f.cat||"Autres questions");if(!f.cat)f.cat="Autres questions";});
+cats=cats.filter(function(c){return faq.some(function(f){return f.cat===c;});});
+function slug(s){return "cat-"+fold(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");}
+faq.forEach(function(f,i){if(!f.id)f.id="q"+(i+1);
+  f._q=fold(f.q);f._a=fold(f.status==="ok"?f.a:"");f._t=fold(f.tags)+" "+fold(f.cat);});
+/* --- rendu --- */
+function item(f,toks){var pending=f.status!=="ok";
+  var body=pending?'<p>'+esc(A.data.pendingAnswer)+'</p><span class="pill warn pend">En cours de validation</span>':'<p>'+highlight(f.a,toks)+'</p>';
+  if(f.link)body+='<a class="link" href="'+esc(f.link)+'">En savoir plus '+A.icon("arrow")+'</a>';
+  return '<details name="faq" id="'+esc(f.id)+'"><summary><span>'+highlight(f.q,toks)+'</span></summary><div class="ans">'+body+'</div></details>';}
+var current={toks:[],approx:false};
+function search(q){var toks=tokens(q);if(!toks.length)return {list:faq,toks:[],approx:false};
+  function score(f,all){var n=0,s=0;toks.forEach(function(t){var hq=has(f._q,t),ha=has(f._a,t),ht=has(f._t,t);if(hq||ha||ht){n++;s+=(hq?3:0)+(ht?2:0)+(ha?1:0);}});return all?(n===toks.length?s:0):(n?n*10+s:0);}
+  var list=faq.filter(function(f){return (f._s=score(f,true))>0;});
+  if(!list.length&&toks.length>1){list=faq.filter(function(f){return (f._s=score(f,false))>0;});if(list.length)return {list:list,toks:toks,approx:true};}
+  return {list:list,toks:toks,approx:false};}
+function render(){var q=qIn.value.trim();var r=search(q);
+  var nomatch=!!q&&!r.list.length;if(nomatch)r={list:faq,toks:[],approx:false};current=r;
+  var byCat={};r.list.forEach(function(f){(byCat[f.cat]=byCat[f.cat]||[]).push(f);});
+  if(r.toks.length)Object.keys(byCat).forEach(function(c){byCat[c].sort(function(a,b){return b._s-a._s;});});
+  var shown=cats.filter(function(c){return byCat[c];});
+  groupsEl.innerHTML=(r.approx?'<p class="approx">Aucune question ne contient tous ces mots. Voici les plus proches.</p>':"")+shown.map(function(c){
+    return '<section class="group" aria-labelledby="'+slug(c)+'"><h2 id="'+slug(c)+'">'+esc(c)+'</h2><div class="acc">'+byCat[c].map(function(f){return item(f,r.toks);}).join("")+'</div></section>';}).join("");
+  catsEl.innerHTML=shown.map(function(c){return '<li><a href="#'+slug(c)+'" data-cat="'+slug(c)+'"><span>'+esc(c)+'</span>'+(r.toks.length?'<span class="n">'+byCat[c].length+'</span>':"")+'</a></li>';}).join("");
+  if(nomatch)countEl.innerHTML="Aucune réponse de la FAQ ne correspond encore : envoyez votre question, elle sera analysée.";
+  else if(q){var n=r.list.length;countEl.innerHTML="<b>"+n+"</b> "+(n>1?"réponses de la FAQ correspondent":"réponse de la FAQ correspond")+(r.approx?" en partie":"")+'<a href="#t-all">Voir</a>';}else countEl.textContent="";
+  if(q&&r.list.length===1){var d=groupsEl.querySelector("details");if(d)d.open=true;}
+  spy();}
+/* --- accordéon : une seule réponse ouverte --- */
+groupsEl.addEventListener("toggle",function(e){var d=e.target;if(d.tagName!=="DETAILS"||!d.open)return;
+  groupsEl.querySelectorAll("details[open]").forEach(function(o){if(o!==d)o.open=false;});
+  try{history.replaceState(null,"","#"+d.id);}catch(_){}},true);
+/* --- navigation par catégories --- */
+function spy(){var links=catsEl.querySelectorAll("a");if(!links.length)return;var hs=groupsEl.querySelectorAll(".group h2"),cur=hs[0];
+  var lim=innerWidth<960?170:130;hs.forEach(function(h){if(h.getBoundingClientRect().top<lim)cur=h;});
+  links.forEach(function(a){var on=cur&&a.dataset.cat===cur.id;if(on!==(a.getAttribute("aria-current")==="true")){if(on){a.setAttribute("aria-current","true");
+      var ul=catsEl;if(ul.scrollWidth>ul.clientWidth){ul.scrollLeft=a.offsetLeft-(ul.clientWidth-a.offsetWidth)/2;}}else a.removeAttribute("aria-current");}});}
+var ticking=false;addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(function(){ticking=false;spy();});}},{passive:true});
+catsEl.addEventListener("click",function(e){var a=e.target.closest("a[data-cat]");if(!a)return;e.preventDefault();var h=document.getElementById(a.dataset.cat);
+  if(h){h.scrollIntoView({block:"start"});h.setAttribute("tabindex","-1");h.focus({preventScroll:true});}});
+/* --- champ unique : filtre la FAQ pendant la saisie --- */
+var tmr;qIn.addEventListener("input",function(){clearTimeout(tmr);tmr=setTimeout(render,110);});
+document.addEventListener("keydown",function(e){if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||"")){e.preventDefault();qIn.focus();}});
+/* --- ancre profonde : faq.html#<id> --- */
+function openHash(ev){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;
+  var d=document.getElementById(id);
+  if(!d&&faq.some(function(f){return f.id===id;})&&qIn.value){qIn.value="";render();d=document.getElementById(id);}
+  if(!d||d.tagName!=="DETAILS")return;
+  groupsEl.querySelectorAll("details[open]").forEach(function(o){if(o!==d)o.open=false;});
+  d.open=true;requestAnimationFrame(function(){d.scrollIntoView({block:"start"});if(ev)d.querySelector("summary").focus({preventScroll:true});});}
+addEventListener("hashchange",openHash);
+render();
+/* --- questions-réponses (même base que la FAQ : A.assistant) --- */
+var KEY="assistant.chat",log=$("#as-log"),form=$("#question"),sendBtn=$("#as-send"),suggEl=$("#as-sugg");
+sendBtn.innerHTML=A.icon("send");
+if(A.proto)$("#as-note").insertAdjacentHTML("beforeend",'<span class="proto">Mode présentation : réponses issues de la base locale. La version en ligne utilisera un modèle d\'IA côté serveur, avec la même base de connaissances.</span>');
+var EXTRA=["Comment contacter le SAV ?","Que font les trois agents IA ?","Comment créer un compte ?","Où trouver mes factures ?"];
+var SUGG=(A.assistant.suggestions||[]).concat(EXTRA).filter(function(x,i,a){return a.indexOf(x)===i;}).slice(0,8);
+suggEl.innerHTML=SUGG.map(function(x,i){return '<button type="button" id="as-sugg-'+i+'" data-q="'+esc(x)+'"><span>'+esc(x)+'</span>'+A.icon("arrow")+'</button>';}).join("");
+var hist=A.ss.get(KEY)||[];
+function save(){A.ss.set(KEY,hist);}
+function savHref(q){return "sav.html?from=assistant&q="+encodeURIComponent(q);}
+function head(){if(log.querySelector(".log-h"))return;log.insertAdjacentHTML("afterbegin",'<div class="log-h"><b>Vos questions</b><button type="button" id="as-new">'+A.icon("x")+'Effacer</button></div>');}
+function userMsg(q){var d=document.createElement("div");d.className="m me";d.innerHTML='<p class="sr">Vous :</p><div class="txt">'+esc(q)+'</div>';log.appendChild(d);return d;}
+function botMsg(e,idx){var r=e.res,miss=!r.found,pend=!!r.pending,shown=Object.assign({},r);
+  if((miss||pend)&&shown.link&&/^sav\.html/.test(shown.link))shown.link=null;
+  var d=document.createElement("div");d.className="m bot"+(miss?" miss":"")+(pend?" pending":"");
+  var meta='<div class="meta">';
+  if(miss||pend)meta+='<a class="btn btn-cyan btn-sm" id="as-sav-'+idx+'" href="'+esc(savHref(e.q))+'">'+A.icon("life")+' Ouvrir une demande SAV</a>';
+  if(!miss)meta+=e.fb==null?'<span class="fb" role="group" aria-label="Cette réponse vous a aidé ?"><span>Cette réponse vous a aidé ?</span><button type="button" data-fb="1" data-i="'+idx+'">Oui</button><button type="button" data-fb="0" data-i="'+idx+'">Non</button></span>':'<span class="fb"><span class="ok">'+A.icon("check")+'</span> Merci pour votre retour.</span>';
+  meta+='</div>';
+  d.innerHTML='<span class="av" aria-hidden="true">'+A.icon("spark")+'</span><div class="body"><p class="sr">Réponse :</p><div class="txt">'+A.renderAnswer(shown)+'</div>'+meta+'</div>';
+  log.appendChild(d);return d;}
+function setMode(){var has=hist.length>0;log.hidden=!has;qIn.placeholder=has?"Posez une question complémentaire…":"Posez votre question…";$("#sugg-t").textContent=has?"Autres questions fréquentes":"Questions fréquentes";}
+function renderAll(){log.innerHTML="";if(hist.length){head();hist.forEach(function(e,i){userMsg(e.q);botMsg(e,i);});}setMode();}
+function reveal(el){requestAnimationFrame(function(){var r=el.getBoundingClientRect();if(r.bottom>innerHeight-90||r.top<80)el.scrollIntoView({block:"nearest",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});});}
+var busy=false;
+function ask(q){q=String(q||"").trim();if(!q||busy)return;busy=true;updateSend();
+  log.hidden=false;head();userMsg(q);
+  var t=document.createElement("div");t.className="m bot";t.innerHTML='<span class="av" aria-hidden="true">'+A.icon("spark")+'</span><div class="body"><span class="typing" role="status" aria-label="Recherche de la réponse"><i></i><i></i><i></i></span></div>';
+  log.appendChild(t);reveal(t);
+  setTimeout(function(){var res=A.assistant.answer(q);t.remove();var e={q:q,res:{text:res.text,link:res.link||null,linkLabel:res.linkLabel||null,found:!!res.found,pending:!!res.pending},fb:null,at:A.now()};
+    hist.push(e);save();var d=botMsg(e,hist.length-1);busy=false;setMode();updateSend();reveal(d);},450+Math.min(q.length*5,400));}
+log.addEventListener("click",function(ev){
+  if(ev.target.closest("#as-new")){hist=[];A.ss.del(KEY);renderAll();qIn.focus();A.toast("Questions effacées.");return;}
+  var b=ev.target.closest("[data-fb]");if(!b)return;var i=+b.dataset.i,e=hist[i];if(!e||e.fb!=null)return;e.fb=b.dataset.fb==="1";save();
+  A.records.add("feedback",{q:e.q,helpful:e.fb});
+  var fb=b.closest(".fb");fb.innerHTML='<span class="ok">'+A.icon("check")+'</span> Merci pour votre retour.';fb.setAttribute("role","status");
+  if(!e.fb&&!e.res.pending&&!fb.parentNode.querySelector('a[href^="sav.html"]'))fb.insertAdjacentHTML("beforebegin",'<a class="btn btn-line btn-sm" href="'+esc(savHref(e.q))+'">'+A.icon("life")+' Ouvrir une demande SAV</a>');});
+suggEl.addEventListener("click",function(ev){var s=ev.target.closest("[data-q]");if(s)ask(s.dataset.q);});
+function updateSend(){sendBtn.disabled=busy||!qIn.value.trim();}
+function grow(){qIn.style.height="auto";qIn.style.height=Math.min(qIn.scrollHeight,180)+"px";}
+qIn.addEventListener("input",function(){grow();updateSend();});
+qIn.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();form.requestSubmit();}else if(e.key==="Escape"&&qIn.value){e.preventDefault();qIn.value="";grow();updateSend();render();}});
+form.addEventListener("submit",function(e){e.preventDefault();var q=qIn.value.trim();if(!q||busy)return;qIn.value="";grow();updateSend();render();ask(q);});
+renderAll();
+function goAsk(){var f=$("#question");f.scrollIntoView({block:"center"});qIn.focus({preventScroll:true});}
+window.AXIA_FAQ_ASK=goAsk;
+/* bouton flottant masqué tant que la zone de question est visible */
+document.addEventListener("axia:ready",function(){var fab=document.querySelector(".chat-fab");if(!fab||!("IntersectionObserver" in window))return;
+  new IntersectionObserver(function(es){fab.classList.toggle("is-off",es[0].isIntersecting);}).observe(form);});
+var q0=A.qs("q");
+if(q0){try{history.replaceState(null,"",location.pathname+"#question");}catch(_){}document.addEventListener("axia:ready",function(){ask(q0);});}
+else if(location.hash==="#question")document.addEventListener("axia:ready",function(){setTimeout(goAsk,300);});
+document.addEventListener("axia:ready",function(){openHash(null);spy();});
+})();
+</script>
+</body></html>

@@ -1,0 +1,120 @@
+/* AXIA — pages juridiques (CGV, CGU, mentions légales, confidentialité, cookies).
+   Mise en page commune : en-tête court, sommaire collant (repliable sur mobile), texte à ~68 caractères. */
+
+/* en-tête court */
+.legal-hero{padding-block:clamp(44px,7vw,88px) clamp(28px,4vw,44px)}
+.legal-hero .wrap{gap:16px}
+.legal-hero h1{font-size:clamp(2.1rem,4vw,3.1rem)}
+.legal-meta{display:flex;flex-wrap:wrap;gap:6px 22px;color:var(--mut);font-size:.92rem}
+.legal-hero .notice{max-width:68ch}
+.legal-hero .notice .ico{width:18px;height:18px}
+
+/* grille : sommaire + document */
+.legal-body{padding-block:clamp(20px,3vw,36px) clamp(72px,9vw,120px)}
+.legal-grid{display:grid;gap:28px;align-items:start}
+.legal-grid>*{min-width:0}
+@media (min-width:1024px){.legal-grid{grid-template-columns:250px minmax(0,1fr);gap:72px}}
+
+/* sommaire */
+.toc details{border:1px solid var(--edge);border-radius:var(--r);background:var(--glass)}
+.toc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;font:600 1rem/1.2 var(--f-display)}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary .ico{width:18px;height:18px;color:var(--cyan);transition:transform .25s var(--ease)}
+.toc details[open] summary .ico{transform:rotate(180deg)}
+.toc ol{list-style:none;margin:0;padding:0 8px 10px;display:grid;gap:1px}
+.toc a{display:flex;gap:10px;padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--mut);font-size:.9rem;line-height:1.35;transition:color .2s,background-color .2s}
+.toc a:hover{color:var(--ink);background:var(--glass)}
+.toc a[aria-current="true"]{color:var(--cyan);background:rgba(25,116,232,.07)}
+.toc .n{flex:none;min-width:1.6em;font:600 .82rem/1.6 var(--f-display);color:var(--cyan);opacity:.85}
+.toc a.pv .n{color:var(--warn)}
+.toc-label{display:none}
+@media (min-width:1024px){
+  .toc{position:sticky;top:96px;max-height:calc(100vh - 120px);overflow-y:auto;scrollbar-width:thin}
+  .toc details{border:0;background:none}
+  .toc summary{display:none}
+  .toc-label{display:block;font:700 .72rem/1 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);padding:0 10px 14px}
+  .toc ol{padding:0;border-left:1px solid rgba(170,183,199,.12)}
+  .toc a{border-radius:0 8px 8px 0;margin-left:-1px;border-left:1px solid transparent}
+  .toc a[aria-current="true"]{border-left-color:var(--cyan)}
+}
+
+/* texte du document */
+.legal-doc{max-width:68ch;counter-reset:art;color:var(--soft);font-size:1.02rem;line-height:1.72}
+.legal-doc>*+*{margin-top:1.05em}
+.legal-doc .intro{color:var(--ink)}
+.legal-doc h2{color:var(--ink);font-size:clamp(1.35rem,2.2vw,1.6rem);line-height:1.2;margin-top:2.6em;padding-top:1.4em;border-top:1px solid rgba(170,183,199,.1);display:flex;gap:.6em;align-items:baseline}
+.legal-doc h2:first-of-type{margin-top:1.4em}
+.legal-doc h2:not(.no-num){counter-increment:art;counter-reset:sub}
+.legal-doc h2:not(.no-num)::before{content:counter(art) ".";color:var(--cyan);font-weight:500;flex:none}
+.legal-doc h3{color:var(--ink);font-size:1.08rem;line-height:1.35;margin-top:1.8em}
+.legal-doc h3::before{counter-increment:sub;content:counter(art) "." counter(sub) " ";color:var(--cyan);font-weight:500}
+.legal-doc h2+*,.legal-doc h3+*{margin-top:.75em}
+.legal-doc strong{color:var(--ink);font-weight:600}
+.legal-doc a:not(.btn){color:var(--cyan);text-underline-offset:3px;text-decoration-thickness:1px}
+.legal-doc a:not(.btn):hover{text-decoration-thickness:2px}
+.legal-doc ul,.legal-doc ol{padding-left:1.25em;display:grid;gap:.4em}
+.legal-doc li::marker{color:var(--cyan)}
+.legal-doc .ref{font-size:.86rem;color:var(--mut)}
+.legal-doc blockquote{margin:1.2em 0 0;padding:16px 20px;border-left:2px solid var(--cyan);background:var(--glass);border-radius:0 10px 10px 0;font-size:.95rem}
+.legal-doc blockquote p+p{margin-top:.6em}
+
+/* fiches d'identité (éditeur, hébergeur…) */
+.facts{display:grid;gap:0;margin:1.2em 0 0;border-top:1px solid rgba(170,183,199,.1)}
+.facts>div{display:grid;gap:2px 20px;padding:12px 0;border-bottom:1px solid rgba(170,183,199,.1)}
+@media (min-width:560px){.facts>div{grid-template-columns:200px minmax(0,1fr)}}
+.facts dt{font-size:.86rem;color:var(--mut);font-weight:600}
+.facts dd{margin:0;color:var(--ink);min-width:0;overflow-wrap:anywhere}
+
+/* repères à compléter */
+mark.todo{background:rgba(25,116,232,.07);color:#93C1F5;border:1px dashed rgba(25,116,232,.36);border-radius:5px;padding:.02em .38em;font-size:.93em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+mark.filled{background:none;color:inherit;padding:0;border:0;white-space:pre-line}
+
+/* tableaux (empilés sur mobile) */
+.legal-doc .tbl-wrap{margin-top:1.2em}
+.legal-doc .tbl td{color:var(--soft);font-size:.92rem;line-height:1.55}
+.legal-doc .tbl td:first-child{color:var(--ink);font-weight:600}
+@media (max-width:760px){
+  .legal-doc .tbl-wrap{border:0;overflow:visible}
+  .legal-doc .tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .legal-doc .tbl,.legal-doc .tbl tbody,.legal-doc .tbl tr,.legal-doc .tbl td{display:block;width:100%}
+  .legal-doc .tbl tr{border:1px solid var(--edge);border-radius:var(--r);padding:6px 16px;margin-bottom:12px}
+  .legal-doc .tbl td{padding:9px 0;border-bottom:1px solid rgba(170,183,199,.08)}
+  .legal-doc .tbl tr td:last-child{border-bottom:0}
+  .legal-doc .tbl td[data-label]::before{content:attr(data-label);display:block;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:2px}
+  .legal-doc .tbl td:first-child{font-family:var(--f-display);font-size:1rem}
+}
+
+/* panneau d'état (cookies) */
+.consent-panel{display:grid;gap:14px;padding:clamp(18px,3vw,24px);border:1px solid var(--edge);border-radius:var(--r);background:var(--glass)}
+.consent-panel h2.no-num{border:0;padding:0;margin:0;font-size:1.1rem}
+.consent-state{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.consent-state li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding-bottom:8px;border-bottom:1px solid rgba(170,183,199,.08);font-size:.94rem}
+.consent-state li:last-child{border-bottom:0;padding-bottom:0}
+
+/* encadré « Points à valider » */
+.validate{margin-top:3em;padding:clamp(20px,3vw,28px);border:1px dashed rgba(242,194,107,.45);border-radius:var(--r);background:rgba(242,194,107,.04)}
+.legal-doc .validate h2{margin:0;padding:0;border:0;color:#EBD6A8;font-size:1.25rem;display:flex;gap:.55em;align-items:center}
+.validate h2 .ico{width:20px;height:20px;color:var(--warn)}
+.validate p{font-size:.94rem}
+.validate ul{list-style:none;padding:0;gap:.55em;font-size:.94rem}
+.validate li{position:relative;padding-left:1.5em}
+.validate li::before{content:"";position:absolute;left:0;top:.42em;width:.8em;height:.8em;border:1.5px solid rgba(242,194,107,.7);border-radius:3px}
+.validate .count{color:var(--warn);font-weight:600}
+
+/* autres documents */
+.others{margin-top:3.4em;padding-top:2em;border-top:1px solid rgba(170,183,199,.1)}
+.others h2.no-num{border:0;padding:0;margin:0 0 .9em;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-family:var(--f-body);font-weight:700}
+.others ul{list-style:none;padding:0;display:grid;gap:10px}
+@media (min-width:640px){.others ul{grid-template-columns:1fr 1fr}}
+.legal-doc .others a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--edge);border-radius:10px;text-decoration:none;color:var(--ink);transition:border-color .2s,background-color .2s}
+.legal-doc .others a:hover{border-color:var(--cyan);background:var(--glass)}
+.others a b{display:block;font:600 1rem/1.25 var(--f-display)}
+.others a small{display:block;color:var(--mut);font-size:.84rem;line-height:1.35;margin-top:2px}
+.others a .ico{color:var(--cyan);width:18px;height:18px}
+
+@media print{
+  .top,.foot,.toc,.chat-fab,.chat-win,.cookie,.others{display:none!important}
+  .legal-grid{display:block}
+  body{background:#fff;color:#000}
+}
+mark.todo.s{white-space:nowrap}

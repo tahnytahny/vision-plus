@@ -1,0 +1,55 @@
+/* AXIA — pages de compte (inscription, connexion, mot de passe oublié).
+   Une seule colonne étroite, centrée, beaucoup d'air. */
+.auth{position:relative;overflow:hidden;padding-block:clamp(44px,8vw,104px) clamp(72px,10vw,128px)}
+.auth::before{content:"";position:absolute;left:50%;top:-180px;width:min(900px,140%);height:560px;translate:-50% 0;background:radial-gradient(50% 50% at 50% 40%,rgba(25,116,232,.11),transparent 70%);pointer-events:none}
+.auth-in{position:relative;max-width:440px;margin:0 auto;padding-left:var(--gut);padding-right:var(--gut-r);display:grid;gap:28px;box-sizing:content-box}
+.auth-head{display:grid;gap:12px;justify-items:center;text-align:center}
+.auth-head h1{font-size:clamp(2rem,3.4vw,2.6rem)}
+.auth-head p{color:var(--mut);max-width:36ch}
+.auth-head .eyebrow::before{content:"";width:48px;height:1px;background:currentColor;opacity:.6}
+
+.sso{display:grid;gap:10px}
+.btn-sso{width:100%;background:rgba(242,244,247,.03);border-color:var(--edge);color:var(--ink);font-weight:600}
+.btn-sso:hover{border-color:var(--edge-strong);background:rgba(242,244,247,.06)}
+.btn-sso svg{width:19px;height:19px;flex:none}
+.or{display:flex;align-items:center;gap:14px;color:var(--mut);font-size:.84rem;letter-spacing:.04em}
+.or::before,.or::after{content:"";flex:1;height:1px;background:rgba(170,183,199,.14)}
+
+.tabs.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:1px solid var(--edge);border-radius:12px}
+.tabs.seg .tab{justify-content:center;border-color:transparent;padding:.8em 1em}
+.tabs.seg .tab[aria-selected="true"]{border-color:rgba(25,116,232,.5)}
+
+.pw-wrap{position:relative}
+.pw-wrap .input{padding-right:3.4em}
+.pw-toggle{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:8px;background:none;color:var(--mut);cursor:pointer}
+.pw-toggle:hover{color:var(--cyan)}
+.pw-toggle .ico{width:20px;height:20px}
+.rules{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.84rem;color:var(--mut)}
+.rules li{display:inline-flex;align-items:center;gap:7px;transition:color .2s}
+.rules li::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid currentColor;transition:background-color .2s}
+.rules li.ok{color:var(--ok)}
+.rules li.ok::before{background:currentColor}
+
+.code-input{font:600 1.7rem/1 var(--f-display);letter-spacing:.5em;text-indent:.5em;text-align:center;font-variant-numeric:tabular-nums;padding:.7em .5em}
+.step-ico{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--edge-strong);color:var(--cyan);box-shadow:0 0 34px -10px var(--glow);margin:0 auto}
+.step-ico .ico{width:24px;height:24px}
+.step-ico.ok{color:var(--ok);border-color:rgba(91,227,154,.45);box-shadow:0 0 34px -10px rgba(91,227,154,.5)}
+.target{color:var(--ink);font-weight:600;overflow-wrap:anywhere}
+.row-between{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px}
+.btn-txt{background:none;border:0;padding:0;cursor:pointer;color:var(--cyan);font:600 .92rem/1.4 var(--f-body)}
+.btn-txt:hover:not([disabled]){text-decoration:underline;text-underline-offset:4px}
+.btn-txt[disabled]{color:var(--mut);cursor:default}
+.form-msg:empty{display:none}
+.form-msg{padding:12px 14px;border-radius:10px;background:rgba(255,143,128,.07);border:1px solid rgba(255,143,128,.3);line-height:1.5}
+.form-msg.msg-ok{background:rgba(91,227,154,.07);border-color:rgba(91,227,154,.3)}
+.form-msg a{color:inherit;font-weight:700;text-underline-offset:3px}
+.auth-foot{text-align:center;color:var(--mut);font-size:.95rem}
+.legal{font-size:.82rem;color:var(--mut);text-align:center}
+.legal a{color:var(--soft)}
+.btn-spin{position:relative}
+.btn-spin[aria-busy="true"]{color:transparent!important}
+.btn-spin[aria-busy="true"]::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid var(--cyan-ink);border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fade-in{animation:fadeIn .35s var(--ease)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}}
+.auth-step{display:grid;gap:28px;min-width:0}
