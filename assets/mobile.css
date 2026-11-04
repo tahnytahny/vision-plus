@@ -292,28 +292,7 @@
 :root:root .fl-acts{gap:0 18px}
 }
 
-/* ===== onglet « Informations légales » : 7 entrées dans la barre (mobile uniquement) ===== */
+/* ===== écran Compte (mobile) : l'aide est dans la barre du bas, les informations légales dans le pied de page ===== */
 @media (max-width:760px){
-:root:root .m-tabbar{padding:6px 3px;left:max(6px,env(safe-area-inset-left,0px));right:max(6px,env(safe-area-inset-right,0px))}
-:root:root .m-tabbar a,:root:root .m-more{justify-content:flex-start;padding:7px 2px 0;gap:4px;font-size:.6rem}
-:root:root .m-tabbar .m-more-2l{min-width:min-content}
-:root:root .m-tabbar .m-more-2l>span:last-child{white-space:normal;overflow:visible;text-align:center;line-height:1.02}
-/* menu Informations légales : une ligne par document, avec Consulter et Télécharger en PDF */
-:root:root .m-help .m-doc{display:flex;align-items:flex-start;gap:12px;padding:8px 10px;border-radius:14px}
-:root:root .m-help .m-doc.is-cur{background:linear-gradient(180deg,rgba(31,119,233,.18),rgba(7,87,184,.10))}
-:root:root .m-doc .m-help-ic{margin-top:2px}
-:root:root .m-doc-l{min-width:0;flex:1}
-:root:root .m-doc-l b{display:block;font:500 .98rem/1.2 var(--f-display);color:#fff}
-:root:root .m-doc-acts{display:flex;flex-wrap:wrap;gap:0 16px;margin-top:2px}
-:root:root .m-help .m-doc-acts a{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0;border-radius:8px;font-size:.84rem;color:var(--soft)}
-:root:root .m-help .m-doc-acts a[aria-current="page"]{background:none;color:#BCD9FB}
-:root:root .m-doc-acts .ico{width:15px;height:15px;color:#B9D7FA;flex:none}
-:root:root .m-help .m-consent{display:flex;align-items:center;gap:12px;width:100%;min-height:54px;padding:6px 10px;border:0;border-radius:14px;background:none;color:var(--soft);font:inherit;text-align:left;cursor:pointer}
-:root:root .m-help .m-consent:active{background:rgba(31,119,233,.12);transform:scale(.98)}
-:root:root .m-help .m-consent:focus-visible{outline:2px solid #B9D7FA;outline-offset:-2px}
-:root:root .m-help .m-consent .go{margin-left:auto;flex:none;width:16px;height:16px;opacity:.6;transform:rotate(-90deg)}
-/* écran Compte : l'aide et les informations légales sont dans la barre du bas */
 :root:root .acc-card[aria-labelledby="t-help"],:root:root .acc-card[aria-labelledby="t-legal"]{display:none!important}
 }
-@media (max-width:374px){:root:root .m-tabbar a,:root:root .m-more{font-size:.56rem}}
-@media (max-width:760px){:root:root #m-legal{width:min(344px,calc(100vw - 12px))}:root:root .m-doc-acts{gap:0 14px}}

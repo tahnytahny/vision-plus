@@ -31,7 +31,7 @@ A.date=function(t,withTime){var d=new Date(t);var o={day:"numeric",month:"short"
 A.qs=function(k){return new URLSearchParams(location.search).get(k);};
 A.icon=function(name,cls){return '<svg class="ico '+(cls||"")+'" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[name]||"")+"</svg>";};
 var ICONS={
-  chev:'<path d="m6 9 6 6 6-6"/>',eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',download:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',balance:'<path d="M12 4v16M8 20h8M5 7h14M12 4l-1 3h2z"/><path d="m5 7-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  chev:'<path d="m6 9 6 6 6-6"/>',eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',download:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',
   chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/>',
   send:'<path d="M5 12h13M12 5l7 7-7 7"/>',spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
   mega:'<path d="M3 11v3a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M10 6c4 0 7-2 9-3v18c-2-1-5-3-9-3"/>',
@@ -290,7 +290,6 @@ var LEGAL_DOCS=[
   ["confidentialite.html","Politique de confidentialité","AXIA-Politique-de-confidentialite.pdf","la politique de confidentialité"],
   ["cookies.html","Politique de cookies","AXIA-Politique-cookies.pdf","la politique de cookies"]
 ];
-A.legalDocs=LEGAL_DOCS;   /* réutilisé par le menu mobile « Informations légales » (mobile.js) */
 function legalMenu(){
   return '<div class="foot-legal"><h2><button type="button" class="foot-legal-btn" id="foot-legal-btn" aria-expanded="false" aria-controls="foot-legal-panel">Informations légales'+A.icon("chev","chev")+'</button></h2>'+
     '<div class="foot-legal-panel" id="foot-legal-panel" role="region" aria-labelledby="foot-legal-btn"><div class="foot-legal-in"><ul>'+

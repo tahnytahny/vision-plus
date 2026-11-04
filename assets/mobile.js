@@ -1,5 +1,6 @@
 /* AXIA — application mobile (écrans ≤ 760 px uniquement).
-   7 onglets : Accueil · Services · Simulation · Abonnements · Aide (FAQ, SAV, service client, contact) · Infos légales (CGV, mentions, confidentialité, cookies, consentement) · Compte. Chaque onglet est un écran
+   6 onglets : Accueil · Services · Simulation · Abonnements · Aide (FAQ, SAV, service client, contact) · Compte.
+   Les informations légales sont dans la rubrique dépliable du pied de page (axia.js). Chaque onglet est un écran
    indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte).
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
 (function(){
@@ -32,8 +33,6 @@ var HELP=[
   ["sav.html#contact","Contact","E-mail et téléphone","mail"]
 ];
 var HELP_PAGES={faq:1,sav:1,assistant:1};
-/* menu de l'onglet Informations légales : [page, titre, icône] ; les PDF viennent de AXIA.legalDocs (axia.js) */
-var LEGAL=[["cgv.html","CGV","file"],["mentions-legales.html","Mentions légales","file"],["confidentialite.html","Confidentialité","lock"],["cookies.html","Cookies","info"]];
 
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
 function top0(){window.scrollTo(0,0);}
@@ -65,14 +64,11 @@ function build(){
   var bar=el("nav","m-tabbar");bar.setAttribute("aria-label","Navigation principale");
   var tabHtml=tabs.map(function(t){return '<a href="'+t[1]+'" data-tab="'+t[0]+'"'+(t[0]===cur?' aria-current="page"':"")+'><span class="m-ti">'+A.icon(t[3])+(t[0]==="compte"&&u?'<i class="m-dot" aria-hidden="true"></i>':"")+"</span><span>"+t[2]+"</span></a>";});
   /* onglet « Aide » (avant Compte) : ouvre un petit menu au-dessus de la barre */
-  /* onglets « Aide » et « Informations légales » (avant Compte) : chacun ouvre un petit menu au-dessus de la barre */
-  tabHtml.splice(4,0,
-    '<button type="button" class="m-more" id="m-help-btn" aria-haspopup="true" aria-expanded="false" aria-controls="m-help"'+(HELP_PAGES[page]?" data-active":"")+'><span class="m-ti">'+A.icon("help")+"</span><span>Aide</span></button>",
-    '<button type="button" class="m-more m-more-2l" id="m-legal-btn" aria-haspopup="true" aria-expanded="false" aria-controls="m-legal"'+(page==="legal"?" data-active":"")+'><span class="m-ti">'+A.icon("balance")+"</span><span>Infos légales</span></button>");
+  /* onglet « Aide » (avant Compte) : ouvre un petit menu au-dessus de la barre */
+  tabHtml.splice(4,0,'<button type="button" class="m-more" id="m-help-btn" aria-haspopup="true" aria-expanded="false" aria-controls="m-help"'+(HELP_PAGES[page]?" data-active":"")+'><span class="m-ti">'+A.icon("help")+"</span><span>Aide</span></button>");
   bar.innerHTML=tabHtml.join("");
   document.body.appendChild(bar);
   popMenu(bar.querySelector("#m-help-btn"),"m-help","Aide",helpItems(A));
-  popMenu(bar.querySelector("#m-legal-btn"),"m-legal","Informations légales",legalItems(A));
   /* toucher l'onglet déjà actif : retour au début de l'écran (et à la liste des services) */
   bar.addEventListener("click",function(e){var a=e.target.closest("a");if(!a||a.getAttribute("aria-current")!=="page")return;
     if(page==="decouvrir"){e.preventDefault();goSvc("",true);return;}
@@ -150,22 +146,13 @@ function build(){
   addEventListener("pageshow",function(ev){root.classList.remove("m-leaving");if(ev.persisted&&!keepAnchor())top0();});
 }
 
-/* ---------- menus des onglets Aide et Informations légales ----------
-   Ils s'ouvrent au-dessus de la barre, sans voile ni défilement bloqué ; un seul menu est ouvert à la fois. */
+/* ---------- menu de l'onglet Aide ----------
+   Il s'ouvre au-dessus de la barre, sans voile ni défilement bloqué. */
 var HERE=location.pathname.split("/").pop()||"index.html";
 function isCur(h){var p=h.split("#");return p[0]===HERE&&(p[1]||"")===(location.hash||"").slice(1);}
 function helpItems(A){
   return HELP.map(function(h){
     return '<li><a href="'+h[0]+'"'+(isCur(h[0])?' aria-current="page"':"")+'><span class="m-help-ic">'+A.icon(h[3])+'</span><span class="m-help-l"><b>'+h[1]+"</b><small>"+h[2]+"</small></span>"+A.icon("chev","go")+"</a></li>";}).join("");}
-function legalItems(A){
-  var docs=A.legalDocs||[];
-  return LEGAL.map(function(l){
-    var d=docs.filter(function(x){return x[0]===l[0];})[0];var pdf=d?d[2]:"";var nom=d?d[3]:l[1];
-    return '<li class="m-doc'+(isCur(l[0])?" is-cur":"")+'"><span class="m-help-ic">'+A.icon(l[2])+'</span><span class="m-doc-l"><b>'+l[1]+'</b><span class="m-doc-acts">'+
-      '<a href="'+l[0]+'"'+(isCur(l[0])?' aria-current="page"':"")+' aria-label="Consulter '+nom+'">'+A.icon("eye")+"Consulter</a>"+
-      (pdf?'<a href="docs/'+pdf+'" download="'+pdf+'" type="application/pdf" aria-label="Télécharger '+nom+' en PDF">'+A.icon("download")+"Télécharger en PDF</a>":"")+
-      "</span></span></li>";}).join("")+
-    '<li><button type="button" class="m-consent" data-m-consent><span class="m-help-ic">'+A.icon("gear")+'</span><span class="m-help-l"><b>Gestion du consentement</b><small>Modifier vos choix de cookies</small></span>'+A.icon("chev","go")+"</button></li>";}
 var MENUS=[];
 function popMenu(btn,id,title,items){
   if(!btn)return;
@@ -188,9 +175,7 @@ function popMenu(btn,id,title,items){
   document.addEventListener("pointerdown",function(e){if(open&&!box.contains(e.target)&&!btn.contains(e.target))hide(false);},true);
   document.addEventListener("keydown",function(e){if(open&&e.key==="Escape"){e.preventDefault();hide(true);}});
   box.addEventListener("click",function(e){
-    if(e.target.closest("[data-m-consent]")){hide(false);window.AXIA.consent.open();return;}   /* panneau des préférences cookies */
     var a=e.target.closest("a");if(!a)return;hide(false);
-    if(a.hasAttribute("download"))return;
     /* entrée déjà affichée (même page, même ancre) : on remonte simplement à la section */
     if(isCur(a.getAttribute("href"))){e.preventDefault();var t=location.hash&&document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});else window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});}});
   box.addEventListener("focusout",function(e){if(open&&e.relatedTarget&&!box.contains(e.relatedTarget)&&e.relatedTarget!==btn)hide(false);});
