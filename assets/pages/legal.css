@@ -112,9 +112,48 @@ mark.filled{background:none;color:inherit;padding:0;border:0;white-space:pre-lin
 .others a small{display:block;color:var(--mut);font-size:.84rem;line-height:1.35;margin-top:2px}
 .others a .ico{color:var(--cyan);width:18px;height:18px}
 
+/* impression et PDF : texte noir sur blanc, sans éléments de navigation ni décor */
+@page{size:A4;margin:16mm 16mm 18mm;background:#fff;
+  @bottom-left{content:"AXIA — Informations légales";font:8pt/1 Manrope,Arial,sans-serif;color:#666}
+  @bottom-right{content:"Page " counter(page) " / " counter(pages);font:8pt/1 Manrope,Arial,sans-serif;color:#666}}
 @media print{
-  .top,.foot,.toc,.chat-fab,.chat-win,.cookie,.others{display:none!important}
-  .legal-grid{display:block}
-  body{background:#fff;color:#000}
+  :root,html,html.theme-p1,html body,html.theme-p1 body{--night:#fff;background:#fff!important;background-color:#fff!important;color:#1a1a1a!important}
+  .top,.foot,.toc,.chat-fab,.chat-win,.cookie,.others,.toasts,.work-banner,.m-tabbar,.m-help,.m-back,.m-title,.axbot,.ax-dock,[data-axia="header"],[data-axia="footer"],.legal-hero img,.legal-hero video,.skip,.legal-doc .actions,.consent-panel{display:none!important}
+  *,*::before,*::after{box-shadow:none!important;text-shadow:none!important;filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transition:none!important}
+  body::before,body::after,main::before,main::after,.page-hero::before,.page-hero::after,.legal-hero::before,.legal-hero::after,.legal-body::before,.legal-body::after,.eyebrow::after,.eyebrow::before{display:none!important}
+  main,.page-hero,.legal-hero,.legal-body,.legal-grid,.wrap{background:none!important;border:0!important;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;min-height:0!important;opacity:1!important;transform:none!important}
+  .legal-grid{display:block!important}
+  .eyebrow{color:#555!important;font-size:8pt!important;letter-spacing:.14em}
+  .legal-hero h1{color:#000!important;font-size:22pt!important;line-height:1.15!important;margin:2mm 0 3mm!important;background:none!important;-webkit-text-fill-color:#000!important}
+  .legal-meta{color:#444!important;font-size:9pt!important;gap:1mm 6mm!important}
+  .notice{background:#f5f5f5!important;border:1px solid #bbb!important;color:#222!important;padding:3mm 4mm!important;margin:3mm 0 5mm!important;max-width:none!important;break-inside:avoid}
+  .notice .ico{color:#666!important}
+  .legal-doc{max-width:none!important;color:#1a1a1a!important;font-size:10.5pt!important;line-height:1.5!important}
+  .legal-doc>*+*{margin-top:2.6mm!important}
+  .legal-doc .intro,.legal-doc strong,.legal-doc b{color:#000!important}
+  .legal-doc h2{color:#000!important;font-size:13.5pt!important;margin-top:7mm!important;padding-top:3mm!important;border-top:1px solid #ccc!important;break-after:avoid;page-break-after:avoid}
+  .legal-doc h3{color:#000!important;font-size:11pt!important;margin-top:4mm!important;break-after:avoid;page-break-after:avoid}
+  .legal-doc h2::before,.legal-doc h3::before{color:#000!important}
+  .legal-doc a:not(.btn){color:#1a1a1a!important;text-decoration:underline!important}
+  .legal-doc .ref,.legal-doc small,.mut{color:#555!important}
+  .legal-doc li::marker{color:#333!important}
+  .legal-doc blockquote{background:#f5f5f5!important;border-left:2px solid #999!important;color:#1a1a1a!important;break-inside:avoid}
+  .facts{border-top-color:#ccc!important}
+  .facts>div{border-bottom-color:#ddd!important;break-inside:avoid;grid-template-columns:48mm minmax(0,1fr)!important}
+  .facts dt{color:#555!important}
+  .facts dd{color:#000!important}
+  table{border-collapse:collapse!important}
+  table,thead,tbody,tr,th,td,.tbl-wrap,.legal-doc .tbl-wrap{background:#fff!important;background-image:none!important}
+  th,td{color:#000!important;border-bottom:1px solid #ccc!important}
+  .legal-doc .tbl tr{border-color:#bbb!important;break-inside:avoid}
+  .legal-doc .tbl td[data-label]::before{color:#555!important}
+  tr,li,.facts>div{break-inside:avoid}
+  p,li{orphans:3;widows:3}
+  mark,mark.todo{background:#fff4c7!important;color:#000!important;border:1px dashed #b38f00!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .validate{background:#fafafa!important;border:1px solid #ccc!important;break-inside:avoid-page}
+  .legal-doc .validate h2{color:#000!important;border:0!important}
+  .validate h2 .ico,.validate .count{color:#7a5a00!important}
+  .validate li::before{border-color:#999!important}
+  svg.ico{color:#555!important}
 }
 mark.todo.s{white-space:nowrap}

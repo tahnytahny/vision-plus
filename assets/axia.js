@@ -31,7 +31,7 @@ A.date=function(t,withTime){var d=new Date(t);var o={day:"numeric",month:"short"
 A.qs=function(k){return new URLSearchParams(location.search).get(k);};
 A.icon=function(name,cls){return '<svg class="ico '+(cls||"")+'" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[name]||"")+"</svg>";};
 var ICONS={
-  chev:'<path d="m6 9 6 6 6-6"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',
+  chev:'<path d="m6 9 6 6 6-6"/>',eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',download:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',
   chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/>',
   send:'<path d="M5 12h13M12 5l7 7-7 7"/>',spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
   mega:'<path d="M3 11v3a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M10 6c4 0 7-2 9-3v18c-2-1-5-3-9-3"/>',
@@ -275,10 +275,44 @@ function footer(){var f=document.createElement("footer");f.className="foot";
   f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="AXIA, accueil"><span class="logo3d"><img class="logo3d-mark" src="assets/logo-mark-t.webp" alt="" width="62" height="54"><span class="logo3d-word" aria-hidden="true">AXIA</span></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
   '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="abonnements.html">Abonnements</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
   '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">Assistance</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
-  '<div><h2>Informations légales</h2><ul><li><a href="cgv.html">CGV</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li><li><a href="cookies.html">Cookies</a></li><li><button type="button" data-consent>Gestion du consentement</button></li></ul></div></div>'+
+  legalMenu()+'</div>'+
   '<div class="foot-bottom"><span>© '+new Date().getFullYear()+' AXIA. Tous droits réservés.</span>'+(PROTO?'<span class="proto-tag">'+A.icon("info")+" Version de présentation : les données restent dans votre navigateur.</span>":"")+"</div></div>";
   var slot=document.querySelector('[data-axia="footer"]');if(slot)slot.replaceWith(f);else document.body.appendChild(f);
-  f.querySelector("[data-consent]").onclick=openPrefs;}
+  f.querySelector("[data-consent]").onclick=openPrefs;
+  legalMenuInit(f);}
+/* ---------- pied de page : menu « Informations légales » ----------
+   Ordinateur : s'ouvre au survol, reste ouvert tant que la souris ou le focus y est ; un clic le garde ouvert.
+   Clavier : Entrée ou Espace ouvre et ferme, Échap ferme. Écran tactile : s'ouvre au toucher.
+   Les PDF (docs/) sont générés par outils/generer-pdf-legaux.sh à partir des pages du site. */
+var LEGAL_DOCS=[
+  ["cgv.html","CGV","AXIA-CGV.pdf","les conditions générales de vente"],
+  ["mentions-legales.html","Mentions légales","AXIA-Mentions-legales.pdf","les mentions légales"],
+  ["confidentialite.html","Politique de confidentialité","AXIA-Politique-de-confidentialite.pdf","la politique de confidentialité"],
+  ["cookies.html","Politique de cookies","AXIA-Politique-cookies.pdf","la politique de cookies"]
+];
+function legalMenu(){
+  return '<div class="foot-legal"><h2><button type="button" class="foot-legal-btn" id="foot-legal-btn" aria-expanded="false" aria-controls="foot-legal-panel">Informations légales'+A.icon("chev","chev")+'</button></h2>'+
+    '<div class="foot-legal-panel" id="foot-legal-panel" role="region" aria-labelledby="foot-legal-btn"><div class="foot-legal-in"><ul>'+
+    LEGAL_DOCS.map(function(d){return '<li class="fl-doc"><span class="fl-name">'+d[1]+'</span><span class="fl-acts">'+
+      '<a href="'+d[0]+'" aria-label="Consulter '+d[3]+'">'+A.icon("eye")+'Consulter</a>'+
+      '<a href="docs/'+d[2]+'" download="'+d[2]+'" type="application/pdf" aria-label="Télécharger '+d[3]+' en PDF">'+A.icon("download")+'Télécharger en PDF</a></span></li>';}).join("")+
+    '<li class="fl-consent"><button type="button" data-consent>'+A.icon("lock")+'Gestion du consentement</button></li></ul></div></div></div>';}
+function legalMenuInit(f){
+  var wrap=f.querySelector(".foot-legal");if(!wrap)return;
+  var btn=wrap.querySelector(".foot-legal-btn"),panel=wrap.querySelector(".foot-legal-panel");
+  var fine=matchMedia("(hover:hover) and (pointer:fine)"),pinned=false,hover=false,t=null;
+  function isOpen(){return wrap.classList.contains("is-open");}
+  function set(o){wrap.classList.toggle("is-open",o);btn.setAttribute("aria-expanded",o?"true":"false");if("inert" in panel)panel.inert=!o;}
+  function later(){clearTimeout(t);t=setTimeout(function(){if(!pinned&&!hover&&!wrap.contains(document.activeElement))set(false);},380);}
+  set(false);
+  wrap.addEventListener("mouseenter",function(){if(!fine.matches)return;hover=true;clearTimeout(t);set(true);});
+  wrap.addEventListener("mouseleave",function(){if(!fine.matches)return;hover=false;later();});
+  btn.addEventListener("click",function(){
+    if(isOpen()&&(pinned||!hover)){pinned=false;set(false);}   /* déjà ouvert par un clic : on referme */
+    else{pinned=true;clearTimeout(t);set(true);}});            /* ouvert au survol ou fermé : on le garde ouvert */
+  wrap.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.preventDefault();pinned=false;hover=false;set(false);btn.focus();}});
+  wrap.addEventListener("focusout",function(e){if(!wrap.contains(e.relatedTarget)){pinned=false;later();}});
+  document.addEventListener("pointerdown",function(e){if(isOpen()&&!wrap.contains(e.target)){pinned=false;hover=false;set(false);}},true);}
 
 /* ---------- chat flottant ---------- */
 A.renderAnswer=function(r){return A.esc(r.text)+(r.link?'\n<a href="'+A.esc(r.link)+'">'+A.esc(r.linkLabel||"En savoir plus")+" →</a>":"");};

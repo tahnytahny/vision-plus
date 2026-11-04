@@ -283,3 +283,11 @@
 @media (max-width:374px){:root:root .m-tabbar a,:root:root .m-more{font-size:.58rem}}
 @media (max-width:760px) and (prefers-reduced-motion:reduce){:root:root .m-help{transition:none;transform:none}}
 
+
+/* pied de page : menu « Informations légales » sur toute la largeur, cibles tactiles confortables */
+@media (max-width:760px){
+:root:root .foot-legal{grid-column:1 / -1}
+:root:root .foot .foot-legal-btn{display:inline-flex;min-height:44px}
+:root:root .foot .fl-acts a,:root:root .foot .fl-consent button{display:inline-flex;min-height:40px}
+:root:root .fl-acts{gap:0 18px}
+}
