@@ -1,7 +1,10 @@
 /* AXIA — assistant d'accueil de la page d'accueil.
    1. À chaque ouverture du site (pas au retour depuis une autre page du site) : le robot salue et présente AXIA à voix haute (accueil.mp4, voix naturelle
       enregistrée), le texte s'affiche en même temps dans une bulle, puis il propose les raccourcis (services, FAQ).
-   2. Si le navigateur bloque le son automatique : animation et texte tout de suite, voix à la première interaction.
+   2. Si le navigateur bloque le son automatique : animation et texte tout de suite, voix à la première interaction
+      (sur mobile : dès que le visiteur touche le robot).
+   2 bis. Mobile : toucher le robot (dans l'en-tête ou dans la carte) lance directement sa voix, sans bouton « Écouter » ;
+      jamais deux lectures en même temps.
    3. Bouche calée sur le volume de l'enregistrement (ENV) ; surlignage et gestes calés sur ses segments (SEG).
    4. Commandes discrètes : couper le son (choix mémorisé et respecté), arrêter la présentation, réduire le robot
       dans l'en-tête, où il ne recouvre aucun contenu.
@@ -50,6 +53,7 @@ root.innerHTML=
       '<button type="button" class="ax-ic" data-act="stop" aria-label="Arrêter la présentation" title="Arrêter la présentation" hidden>'+ic("stop")+"</button>"+
       '<button type="button" class="ax-ic" data-act="min" aria-label="Réduire l\'assistant dans l\'en-tête" title="Réduire">'+ic("minus")+"</button></div></div>"+
     '<div class="ax-txt" aria-live="polite"></div>'+
+    '<p class="ax-hint">'+ic("speak")+'<span>Touchez le robot pour l\'écouter</span></p>'+
     '<div class="ax-more" hidden><p class="ax-more-t">Par où commencer ?</p><div class="ax-short">'+
       SHORT.map(function(s){return '<button type="button" class="ax-sc" data-go="'+s[0]+'">'+A.icon(s[1])+"<span>"+s[2]+"</span>"+A.icon("arrow")+"</button>";}).join("")+"</div>"+
       '<form class="ax-ask" action="faq.html" method="get" role="search"><label class="sr" for="ax-q">Votre question</label>'+
@@ -67,7 +71,8 @@ var dock=document.createElement("button");dock.type="button";dock.className="ax-
 dock.setAttribute("aria-controls","ax-panel");dock.setAttribute("aria-expanded","false");
 dock.setAttribute("aria-label","Assistant AXIA : services et questions");dock.title="Assistant AXIA";dock.innerHTML=fig(false);
 function placeDock(){var top=document.querySelector(".top-in"),auth=document.querySelector(".top-auth");if(!top)return;
-  var host=MQ_M.matches||!auth?top:auth;if(dock.parentNode!==host)host.appendChild(dock);}
+  var host=MQ_M.matches||!auth?top:auth;if(dock.parentNode!==host)host.appendChild(dock);
+  dock.setAttribute("aria-label",MQ_M.matches?"Écouter l'assistant AXIA":"Assistant AXIA : services et questions");}
 
 /* ---------- affichage ---------- */
 var view="";
@@ -175,8 +180,9 @@ var EVTS=["pointerdown","keydown","touchend","click"];
 function listen(){
   waiting=true;reveal();tools();markScroll();
   if(seg<0&&!MQ_R.matches)gesture("wave");
+  if(MQ_M.matches){root.classList.add("is-waiting");return;}   /* mobile : la voix démarre dès que le visiteur touche le robot */
   if(!listen.on){listen.on=true;EVTS.forEach(function(t){document.addEventListener(t,onFirst,true);});}}
-function unlisten(){waiting=false;if(listen.on){listen.on=false;EVTS.forEach(function(t){document.removeEventListener(t,onFirst,true);});}}
+function unlisten(){waiting=false;root.classList.remove("is-waiting");if(listen.on){listen.on=false;EVTS.forEach(function(t){document.removeEventListener(t,onFirst,true);});}}
 function onFirst(e){
   if(!waiting||playing)return;
   if(!isOpen()||st.muted){unlisten();tools();return;}
@@ -193,8 +199,18 @@ function go(k){
   close();tab.click();sec.scrollIntoView({behavior:MQ_R.matches?"auto":"smooth",block:"start"});
   setTimeout(function(){tab.focus({preventScroll:true});},MQ_R.matches?0:500);}
 
+/* ---------- mobile : toucher le robot lance sa voix ---------- */
+function playFromTouch(){
+  if(playing)return;                                   /* déjà en train de parler : pas de seconde lecture */
+  if(st.muted){st.muted=false;save();}                 /* le toucher vaut demande explicite d'écoute */
+  if(!isOpen())open("welcome",false);else if(view!=="welcome")renderWelcome();
+  unlisten();speak();}
+
 /* ---------- événements ---------- */
-dock.addEventListener("click",function(){if(isOpen())close();else open("menu",true);});
+dock.addEventListener("click",function(){
+  if(MQ_M.matches){playFromTouch();return;}
+  if(isOpen())close();else open("menu",true);});
+root.querySelector(".ax-char").addEventListener("click",function(){if(MQ_M.matches)playFromTouch();});
 root.addEventListener("click",function(e){
   var g=e.target.closest("[data-go]");if(g){go(g.getAttribute("data-go"));return;}
   var b=e.target.closest("[data-act]");if(!b)return;
