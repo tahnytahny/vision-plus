@@ -1,5 +1,5 @@
 /* AXIA — interface mobile type application (≤ 760 px). Hors de ce format, rien ne change. */
-.m-tabbar,.m-sheet,.m-quick,.m-fold-btn,.m-dots,.m-back,.m-title{display:none}
+.m-tabbar,.m-sheet,.m-quick,.m-fold-btn,.m-dots,.m-back,.m-title,.m-help{display:none}
 .m-fold{display:contents}
 .m-only,.m-home-cta,.m-svc-list,.m-choose{display:none!important}
 @media (max-width:760px){
@@ -252,3 +252,34 @@
 :root:root .foot-grid>div:nth-child(2){display:none}
 :root:root .foot-grid>div:first-child p{display:none}
 }
+
+/* ===== onglet « Aide » : 6 entrées dans la barre, menu au-dessus de la barre (mobile uniquement) ===== */
+@media (max-width:760px){
+:root:root .m-tabbar{display:flex;gap:0;padding:6px 4px;left:max(8px,env(safe-area-inset-left,0px));right:max(8px,env(safe-area-inset-right,0px))}
+:root:root .m-tabbar a,:root:root .m-more{flex:1 1 0;min-width:max-content;padding:0 3px;font-size:.64rem;letter-spacing:-.01em}
+:root:root .m-tabbar a>span:last-child,:root:root .m-more>span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+:root:root .m-more[data-active]::before{content:"";position:absolute;top:-7px;left:50%;width:22px;height:3px;translate:-50% 0;border-radius:3px;background:#1F77E9;box-shadow:0 0 10px #1F77E9}
+:root:root .m-help{display:block;position:fixed;z-index:66;right:max(8px,env(safe-area-inset-right,0px));bottom:calc(var(--m-bar) + 20px + env(safe-area-inset-bottom,0px));width:min(310px,calc(100vw - 16px));
+  border-radius:22px;background:linear-gradient(180deg,rgba(31,39,52,.95),rgba(4,10,16,.97));backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  border:1px solid rgba(170,183,199,.28);box-shadow:inset 0 1px 0 rgba(188,217,251,.18),0 0 24px rgba(31,119,233,.16),0 18px 40px -12px rgba(0,0,0,.9);
+  opacity:0;transform:translateY(10px) scale(.97);transform-origin:var(--cx,85%) 100%;transition:opacity .2s,transform .28s cubic-bezier(.22,1,.36,1)}
+:root:root .m-help[hidden]{display:none}
+:root:root .m-help[data-open]{opacity:1;transform:none}
+:root:root .m-help::after{content:"";position:absolute;bottom:-7px;left:var(--cx,85%);width:12px;height:12px;translate:-50% 0;rotate:45deg;background:rgba(5,11,17,.97);border-right:1px solid rgba(170,183,199,.28);border-bottom:1px solid rgba(170,183,199,.28)}
+:root:root .m-help-in{max-height:calc(100dvh - var(--m-bar) - 120px);overflow-y:auto;overscroll-behavior:contain;padding:8px;border-radius:inherit}
+:root:root .m-help-t{margin:6px 10px 6px;font:500 .7rem/1 var(--f-hud,var(--f-display));letter-spacing:.16em;text-transform:uppercase;color:#7FB0EC}
+:root:root .m-help ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+:root:root .m-help a{display:flex;align-items:center;gap:12px;min-height:54px;padding:6px 10px;border-radius:14px;color:var(--soft);text-decoration:none;transition:background-color .2s,transform .2s}
+:root:root .m-help a:active{background:rgba(31,119,233,.12);transform:scale(.98)}
+:root:root .m-help a[aria-current="page"]{background:linear-gradient(180deg,rgba(31,119,233,.18),rgba(7,87,184,.10))}
+:root:root .m-help a:focus-visible{outline:2px solid #B9D7FA;outline-offset:-2px}
+:root:root .m-help-ic{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:rgba(31,119,233,.10);border:1px solid rgba(120,180,245,.25)}
+:root:root .m-help-ic .ico{width:19px;height:19px;color:#B9D7FA}
+:root:root .m-help-l{min-width:0}
+:root:root .m-help-l b{display:block;font:500 .98rem/1.2 var(--f-display);color:#fff}
+:root:root .m-help-l small{display:block;margin-top:2px;font-size:.8rem;line-height:1.3;color:var(--mut)}
+:root:root .m-help a .go{margin-left:auto;flex:none;width:16px;height:16px;opacity:.6;transform:rotate(-90deg)}
+}
+@media (max-width:374px){:root:root .m-tabbar a,:root:root .m-more{font-size:.58rem}}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){:root:root .m-help{transition:none;transform:none}}
+

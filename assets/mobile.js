@@ -1,5 +1,5 @@
 /* AXIA — application mobile (écrans ≤ 760 px uniquement).
-   5 onglets : Accueil · Services · Simulation · Abonnements · Compte. Chaque onglet est un écran
+   6 onglets : Accueil · Services · Simulation · Abonnements · Aide (menu FAQ, SAV, service client, contact) · Compte. Chaque onglet est un écran
    indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte).
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
 (function(){
@@ -24,6 +24,14 @@ var SVC=[
   {id:"commencer",t:"Commencer",s:"Trois étapes pour démarrer.",i:"arrow"}
 ];
 var ALIAS={agents:"telephone",service:"telephone"};
+/* menu de l'onglet Aide : [adresse, titre, précision, icône] */
+var HELP=[
+  ["faq.html","FAQ","Questions et réponses","help"],
+  ["sav.html","SAV","Ouvrir une demande d'assistance","life"],
+  ["sav.html#suivi","Service client","Suivre une demande, échanger avec l'équipe","chat"],
+  ["sav.html#contact","Contact","E-mail et téléphone","mail"]
+];
+var HELP_PAGES={faq:1,sav:1,assistant:1};
 
 function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
 function top0(){window.scrollTo(0,0);}
@@ -53,8 +61,12 @@ function build(){
   var tabs=[["home","index.html","Accueil","home"],["decouvrir","decouvrir.html","Services","layers"],["demo","demo.html","Simulation","play"],["abonnements","abonnements.html","Abonnements","card"],["compte",acctHref,"Compte","user"]];
   var cur=ACCOUNT_PAGES.indexOf(page)>=0?"compte":(page==="telephone-ia"?"decouvrir":page);
   var bar=el("nav","m-tabbar");bar.setAttribute("aria-label","Navigation principale");
-  bar.innerHTML=tabs.map(function(t){return '<a href="'+t[1]+'" data-tab="'+t[0]+'"'+(t[0]===cur?' aria-current="page"':"")+'><span class="m-ti">'+A.icon(t[3])+(t[0]==="compte"&&u?'<i class="m-dot" aria-hidden="true"></i>':"")+"</span><span>"+t[2]+"</span></a>";}).join("");
+  var tabHtml=tabs.map(function(t){return '<a href="'+t[1]+'" data-tab="'+t[0]+'"'+(t[0]===cur?' aria-current="page"':"")+'><span class="m-ti">'+A.icon(t[3])+(t[0]==="compte"&&u?'<i class="m-dot" aria-hidden="true"></i>':"")+"</span><span>"+t[2]+"</span></a>";});
+  /* onglet « Aide » (avant Compte) : ouvre un petit menu au-dessus de la barre */
+  tabHtml.splice(4,0,'<button type="button" class="m-more" id="m-help-btn" aria-haspopup="true" aria-expanded="false" aria-controls="m-help"'+(HELP_PAGES[page]?" data-active":"")+'><span class="m-ti">'+A.icon("help")+"</span><span>Aide</span></button>");
+  bar.innerHTML=tabHtml.join("");
   document.body.appendChild(bar);
+  helpMenu(bar.querySelector("#m-help-btn"),page);
   /* toucher l'onglet déjà actif : retour au début de l'écran (et à la liste des services) */
   bar.addEventListener("click",function(e){var a=e.target.closest("a");if(!a||a.getAttribute("aria-current")!=="page")return;
     if(page==="decouvrir"){e.preventDefault();goSvc("",true);return;}
@@ -130,6 +142,38 @@ function build(){
   function keepAnchor(){var h=location.hash;if(!h)return false;if(page==="decouvrir"||page==="espace-client"||page==="home"||page==="demo"||page==="abonnements")return false;return !!document.getElementById(h.slice(1));}
   if(!keepAnchor()&&page!=="decouvrir"){top0();requestAnimationFrame(top0);setTimeout(top0,120);}
   addEventListener("pageshow",function(ev){root.classList.remove("m-leaving");if(ev.persisted&&!keepAnchor())top0();});
+}
+
+/* ---------- menu Aide : s'ouvre au-dessus de la barre, sans voile ni défilement bloqué ---------- */
+function helpMenu(btn,page){
+  if(!btn)return;var A=window.AXIA;
+  var here=location.pathname.split("/").pop()||"index.html";
+  function isCur(h){var p=h.split("#");return p[0]===here&&(p[1]||"")===(location.hash||"").slice(1);}
+  var box=el("div","m-help");box.id="m-help";box.hidden=true;
+  box.innerHTML='<div class="m-help-in"><p class="m-help-t" id="m-help-t">Aide</p><ul aria-labelledby="m-help-t">'+HELP.map(function(h){
+    return '<li><a href="'+h[0]+'"'+(isCur(h[0])?' aria-current="page"':"")+'><span class="m-help-ic">'+A.icon(h[3])+'</span><span class="m-help-l"><b>'+h[1]+"</b><small>"+h[2]+"</small></span>"+A.icon("chev","go")+"</a></li>";}).join("")+"</ul></div>";
+  document.body.appendChild(box);
+  var open=false,y0=0,timer=null;
+  function place(){var r=btn.getBoundingClientRect(),b=box.getBoundingClientRect();
+    box.style.setProperty("--cx",Math.max(18,Math.min(b.width-18,r.left+r.width/2-b.left))+"px");}
+  function show(){if(open)return;open=true;clearTimeout(timer);box.hidden=false;place();y0=window.scrollY;
+    btn.setAttribute("aria-expanded","true");
+    void box.offsetWidth;box.setAttribute("data-open","");
+    var first=box.querySelector("a");if(first)first.focus({preventScroll:true});}
+  function hide(back){if(!open)return;open=false;btn.setAttribute("aria-expanded","false");box.removeAttribute("data-open");
+    timer=setTimeout(function(){if(!open)box.hidden=true;},reduced?0:240);
+    if(back)btn.focus({preventScroll:true});}
+  btn.addEventListener("click",function(){if(open)hide(false);else show();});
+  document.addEventListener("pointerdown",function(e){if(open&&!box.contains(e.target)&&!btn.contains(e.target))hide(false);},true);
+  document.addEventListener("keydown",function(e){if(open&&e.key==="Escape"){e.preventDefault();hide(true);}});
+  box.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;hide(false);
+    /* entrée déjà affichée (même page, même ancre) : on remonte simplement à la section */
+    if(isCur(a.getAttribute("href"))){e.preventDefault();var t=location.hash&&document.getElementById(location.hash.slice(1));if(t)t.scrollIntoView({block:"start",behavior:reduced?"auto":"smooth"});else window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});}});
+  box.addEventListener("focusout",function(e){if(open&&e.relatedTarget&&!box.contains(e.relatedTarget)&&e.relatedTarget!==btn)hide(false);});
+  window.addEventListener("hashchange",function(){hide(false);[].forEach.call(box.querySelectorAll("a"),function(a){if(isCur(a.getAttribute("href")))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});});
+  window.addEventListener("scroll",function(){if(open&&Math.abs(window.scrollY-y0)>40)hide(false);},{passive:true});
+  window.addEventListener("resize",function(){if(open)place();});
+  MQ.addEventListener&&MQ.addEventListener("change",function(){if(!MQ.matches)hide(false);});
 }
 
 /* PWA : enregistrement du service worker uniquement sur un vrai domaine en https, hors cadre. */
