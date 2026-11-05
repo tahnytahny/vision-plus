@@ -197,17 +197,17 @@ html.theme-p1 .p1-brand-in{position:relative;width:100%;height:100%;display:grid
 html.theme-p1 .p1-brand-in::before{content:"";position:absolute;left:14px;right:14px;top:-1px;height:2px;border-radius:2px;background:var(--tube);box-shadow:0 0 10px rgba(31,119,233,.9)}
 html.theme-p1 .p1-brand-in::after{content:"";position:absolute;left:10%;right:10%;bottom:-30px;height:20px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(40,150,255,.55),transparent 72%);filter:blur(3px);pointer-events:none}
 html.theme-p1 .p1-brand img,html.theme-p1 .p1-brand-m img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 7px rgba(31,119,233,.45)) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
-html.theme-p1 .p1-off .p1-brand-in{animation-play-state:paused!important}
+html.theme-p1 .p1-off .p1-brand-in,html.theme-p1 .p1-off .p1-brand-m{animation-play-state:paused!important}
 @media (max-width:760px){html.theme-p1 .p1-brand{display:none}}
-/* téléphone : panneau au logo sous les écrans, centré, nom entièrement lisible ; immobile comme l'image des écrans */
+/* téléphone : panneau au logo sous les écrans, centré, nom entièrement lisible ; il flotte comme les écrans de la version ordinateur */
 html.theme-p1 .p1-brand-m{display:none}
 @media (max-width:760px){
-  html.theme-p1 .p1-brand-m{display:block;position:relative;z-index:2;width:min(60%,232px);margin:4px auto 36px;perspective:900px}
+  html.theme-p1 .p1-brand-m{display:block;position:relative;z-index:2;width:min(60%,232px);margin:14px auto 36px;perspective:900px;animation:p1-float 7s ease-in-out infinite;animation-delay:-1.2s}
   html.theme-p1 .p1-brand-m .p1-brand-in{height:auto;aspect-ratio:1.24;padding:0 11%;transform:rotateX(8deg);transform-origin:50% 100%;animation:none}
 }
 /* deux colonnes très serrées (1000 à 1079 px) : pas assez de place entre les écrans, le panneau s'efface */
 @media (min-width:1000px) and (max-width:1079px){html.theme-p1 .p1-brand{display:none}}
-@media (prefers-reduced-motion:reduce){html.theme-p1 .p1-brand-in{animation:none!important}}
+@media (prefers-reduced-motion:reduce){html.theme-p1 .p1-brand-in,html.theme-p1 .p1-brand-m{animation:none!important}}
 @media (max-width:999px){html.theme-p1 .scene{max-width:720px;margin-inline:auto;width:100%}}
 @media (max-width:640px){
 html.theme-p1 .scene .stack{margin-bottom:300px}
