@@ -1,7 +1,7 @@
-/* AXIA — script commun aux pages juridiques.
+/* Vision Plus — script commun aux pages juridiques.
    1. Remplace les repères [À compléter] (data-field) par les informations saisies dans le back-office :
-      AXIA.content.legal("mentions-legales").fields sert de base commune (identité de l'entreprise),
-      AXIA.content.legal(<document>).fields la complète ou la remplace pour la page courante.
+      VISIONPLUS.content.legal("mentions-legales").fields sert de base commune (identité de l'entreprise),
+      VISIONPLUS.content.legal(<document>).fields la complète ou la remplace pour la page courante.
       Champs reconnus : raisonSociale forme capital siege rcs siren tva directeur hebergeur email telephone mediateur.
       Date de mise à jour : obj.updatedAt (horodatage ou texte) si présent.
    2. Construit le sommaire (numéroté, repliable sur mobile, suivi de la lecture).
@@ -9,7 +9,7 @@
    4. Cookies : affiche l'état du consentement et ouvre le panneau de préférences. */
 (function(){
 "use strict";
-var A=window.AXIA;if(!A)return;
+var A=window.VISIONPLUS;if(!A)return;
 var main=document.getElementById("contenu");if(!main)return;
 var docId=main.getAttribute("data-legal")||"";
 var DOCS=[
@@ -93,6 +93,6 @@ function renderConsent(){if(!st)return;var c=A.consent.get();
     "<li><span>Mesure d'audience</span>"+yesNo(c.analytics)+"</li>"+
     "<li><span>Personnalisation et marketing</span>"+yesNo(c.marketing)+"</li>";}
 renderConsent();
-document.addEventListener("axia:consent",renderConsent);
+document.addEventListener("vp:consent",renderConsent);
 document.querySelectorAll("[data-open-consent]").forEach(function(b){b.addEventListener("click",function(){A.consent.open();});});
 })();

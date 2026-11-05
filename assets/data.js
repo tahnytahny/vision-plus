@@ -1,23 +1,23 @@
-/* AXIA — contenus par défaut. Le back-office AXIA existant pourra les remplacer via l'API ;
-   ses modifications sont prioritaires (voir AXIA.content dans axia.js).
+/* Vision Plus — contenus par défaut. Le back-office Vision Plus existant pourra les remplacer via l'API ;
+   ses modifications sont prioritaires (voir VISIONPLUS.content dans site.js).
    Règle : aucune information commerciale non confirmée. Les réponses en attente ont status:"pending". */
-window.AXIA_DATA = {
+window.VISIONPLUS_DATA = {
   faqCategories: [
-    "Présentation d'AXIA","Fonctionnement de la plateforme","Création de compte","Connexion et sécurité",
+    "Présentation de Vision Plus","Fonctionnement de la plateforme","Création de compte","Connexion et sécurité",
     "Abonnements","Paiements et facturation","Utilisation des fonctionnalités","Gestion des projets",
     "Simulations personnalisées","Assistance technique","SAV","Confidentialité","Résiliation"
   ],
-  pendingAnswer: "Cette information est en cours de validation par l'équipe AXIA et sera publiée prochainement. L'assistant IA ou le SAV peut vous aider en attendant.",
+  pendingAnswer: "Cette information est en cours de validation par l'équipe Vision Plus et sera publiée prochainement. L'assistant IA ou le SAV peut vous aider en attendant.",
   faq: [
-    {id:"f1",cat:"Présentation d'AXIA",q:"Qu'est-ce qu'AXIA ?",status:"ok",tags:"axia plateforme présentation quoi",
-     a:"AXIA est une plateforme qui réunit une web app sur mesure et trois agents IA : un agent marketing, une secrétaire IA et un agent de gestion de votre web app. Toute votre activité est connectée au même endroit."},
-    {id:"f2",cat:"Présentation d'AXIA",q:"À qui s'adresse AXIA ?",status:"ok",tags:"pour qui entreprise professionnel particulier commerce restaurant",
-     a:"Aux professionnels : AXIA est réservé aux entreprises et aux indépendants qui veulent être visibles en ligne, ne plus manquer d'appels et gérer leur site sans technicien : restaurants, commerces, cabinets, artisans, hôtels et autres activités."},
+    {id:"f1",cat:"Présentation de Vision Plus",q:"Qu'est-ce que Vision Plus ?",status:"ok",tags:"vision plus plateforme présentation quoi",
+     a:"Vision Plus est une plateforme qui réunit une web app sur mesure et trois agents IA : un agent marketing, une secrétaire IA et un agent de gestion de votre web app. Toute votre activité est connectée au même endroit."},
+    {id:"f2",cat:"Présentation de Vision Plus",q:"À qui s'adresse Vision Plus ?",status:"ok",tags:"pour qui entreprise professionnel particulier commerce restaurant",
+     a:"Aux professionnels : Vision Plus est réservé aux entreprises et aux indépendants qui veulent être visibles en ligne, ne plus manquer d'appels et gérer leur site sans technicien : restaurants, commerces, cabinets, artisans, hôtels et autres activités."},
     {id:"f3",cat:"Fonctionnement de la plateforme",q:"Que font les trois agents IA ?",status:"ok",tags:"agents marketing téléphone secrétaire secrétariat gestion fonctionnalités",
      a:"L'agent marketing prépare vos publications pour les réseaux sociaux. Votre secrétaire IA répond à vos appels, organise vos rendez-vous et, selon les fonctions que vous choisissez, prépare vos devis, vos e-mails et le suivi de vos dossiers. L'agent de gestion modifie et publie votre web app à partir d'une simple demande écrite.",link:"decouvrir.html#agents"},
     {id:"f3b",cat:"Fonctionnement de la plateforme",q:"Puis-je choisir l'heure de mes publications ?",status:"ok",tags:"heure horaire publication programmation fréquence rythme marketing réseaux",
      a:"Vous choisissez les plateformes, les contenus, le nombre de publications par jour ou par semaine et les dates de la campagne. L'agent marketing répartit les publications et choisit les horaires les plus favorables pour chaque réseau, selon les données disponibles sur votre audience, dans le fuseau horaire de votre compte. Les contenus restent soumis à votre validation et vous pouvez suspendre la programmation à tout moment. Aucun nombre de vues n'est garanti.",link:"decouvrir.html#marketing"},
-    {id:"f4",cat:"Fonctionnement de la plateforme",q:"Comment démarrer avec AXIA ?",status:"ok",tags:"démarrer commencer étapes",
+    {id:"f4",cat:"Fonctionnement de la plateforme",q:"Comment démarrer avec Vision Plus ?",status:"ok",tags:"démarrer commencer étapes",
      a:"Présentez votre projet, recevez une simulation vidéo personnalisée, puis choisissez l'abonnement qui vous correspond depuis votre compte.",link:"demo.html"},
     {id:"f5",cat:"Création de compte",q:"Comment créer un compte ?",status:"ok",tags:"inscription créer compte apple google email téléphone",
      a:"Cliquez sur « Créer un compte » en haut à droite. Vous pouvez vous inscrire avec Apple, Google, une adresse e-mail et un mot de passe, ou votre numéro de téléphone avec un code SMS.",link:"inscription.html"},
@@ -38,12 +38,12 @@ window.AXIA_DATA = {
     {id:"f14",cat:"Gestion des projets",q:"Où retrouver mes projets ?",status:"ok",tags:"projets enregistrés",
      a:"Dans votre espace client, rubrique « Mes projets ». Les projets décrits lors d'une demande de simulation y sont enregistrés automatiquement.",link:"espace-client.html#projets"},
     {id:"f15",cat:"Simulations personnalisées",q:"Comment fonctionne la simulation personnalisée ?",status:"ok",tags:"démo démonstration vidéo personnalisée simulation",
-     a:"Vous décrivez votre projet dans un formulaire en quelques étapes. L'équipe AXIA analyse vos besoins et prépare une vidéo qui montre ce que vous pourrez réaliser. Vous la recevez par e-mail et dans votre espace client.",link:"demo.html"},
+     a:"Vous décrivez votre projet dans un formulaire en quelques étapes. L'équipe Vision Plus analyse vos besoins et prépare une vidéo qui montre ce que vous pourrez réaliser. Vous la recevez par e-mail et dans votre espace client.",link:"demo.html"},
     {id:"f16",cat:"Simulations personnalisées",q:"Comment suivre ma demande de simulation ?",status:"ok",tags:"suivi statut démo simulation",
      a:"Le statut est visible dans votre espace client : demande reçue, analyse en cours, simulation en préparation, simulation disponible.",link:"espace-client.html#demos"},
     {id:"f17",cat:"Simulations personnalisées",q:"Sous quel délai vais-je recevoir ma vidéo ?",status:"pending",tags:"délai combien de temps vidéo",a:""},
     {id:"f18",cat:"Assistance technique",q:"L'assistant IA peut-il répondre à toutes mes questions ?",status:"ok",tags:"assistant ia chat",
-     a:"Il répond à partir des informations validées par AXIA. S'il n'a pas la réponse, il vous propose d'ouvrir une demande auprès du SAV.",link:"faq.html#question"},
+     a:"Il répond à partir des informations validées par Vision Plus. S'il n'a pas la réponse, il vous propose d'ouvrir une demande auprès du SAV.",link:"faq.html#question"},
     {id:"f19",cat:"SAV",q:"Comment contacter le SAV ?",status:"ok",tags:"sav contact assistance problème",
      a:"Écrivez à contacts.visionplus@gmail.com, appelez le 01 59 18 04 72 ou ouvrez une demande depuis la page « SAV / Assistance ». Avec une demande en ligne, vous recevez un numéro de dossier et pouvez suivre son traitement dans votre espace client.",link:"sav.html"},
     {id:"f20",cat:"SAV",q:"Quels sont les horaires et délais du SAV ?",status:"pending",tags:"horaires délai sav",a:""},

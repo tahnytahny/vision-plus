@@ -1,11 +1,11 @@
-/* AXIA — configuration publique du site.
+/* Vision Plus — configuration publique du site.
    Ne JAMAIS placer de clé secrète ici : ce fichier est lisible par tous les visiteurs.
    Les clés (Stripe, Twilio, fournisseur IA, e-mails…) vivent côté serveur uniquement. Voir ARCHITECTURE.md. */
-window.AXIA_CONFIG = {
+window.VISIONPLUS_CONFIG = {
   /* "prototype" : tout fonctionne dans le navigateur (données locales, codes affichés à l'écran).
-     "production" : les appels passent par l'API AXIA (apiBase). */
+     "production" : les appels passent par l'API Vision Plus (apiBase). */
   mode: "prototype",
-  apiBase: "",              /* ex. "https://api.axia.example" — à renseigner au déploiement */
+  apiBase: "",              /* ex. "https://api.example" — à renseigner au déploiement */
   oauth: {
     google: false,          /* passer à true quand le client OAuth Google est configuré côté serveur */
     apple: false            /* passer à true quand « Sign in with Apple » est configuré côté serveur */

@@ -1,6 +1,6 @@
-/* AXIA — application mobile (écrans ≤ 760 px uniquement).
+/* Vision Plus — application mobile (écrans ≤ 760 px uniquement).
    6 onglets : Accueil · Services · Simulation · Abonnements · Aide (FAQ, SAV, service client, contact) · Compte.
-   Les informations légales sont dans la rubrique dépliable du pied de page (axia.js). Chaque onglet est un écran
+   Les informations légales sont dans la rubrique dépliable du pied de page (site.js). Chaque onglet est un écran
    indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte).
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
 (function(){
@@ -16,8 +16,8 @@ var SVC=[
   {href:"telephone-ia.html",t:"Secrétariat intelligent",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
   {id:"marketing",t:"Marketing IA",s:"Vos publications prêtes à valider.",i:"mega",tab:"tab-marketing",sec:"agents"},
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
-  {g:"Comprendre AXIA"},
-  {id:"axia-simple",t:"Qu'est-ce qu'AXIA ?",s:"AXIA expliqué simplement.",i:"info"},
+  {g:"Comprendre Vision Plus"},
+  {id:"vision-plus-simple",t:"Qu'est-ce que Vision Plus ?",s:"Vision Plus expliqué simplement.",i:"info"},
   {id:"technologie",t:"Notre technologie",s:"Une IA connectée à toute votre activité.",i:"spark"},
   {id:"fonctionnement",t:"Fonctionnement",s:"Une information, aucune ressaisie.",i:"chart"},
   {id:"avantages",t:"Avantages",s:"Moins de tâches, plus de clients.",i:"check"},
@@ -39,7 +39,7 @@ function top0(){window.scrollTo(0,0);}
 try{if("scrollRestoration" in history&&MQ.matches)history.scrollRestoration="manual";}catch(e){}
 
 function build(){
-  var A=window.AXIA;if(!A||document.querySelector(".m-tabbar"))return;
+  var A=window.VISIONPLUS;if(!A||document.querySelector(".m-tabbar"))return;
   var page=A.page();var root=document.documentElement;root.classList.add("m-ready");
   var u=A.auth.current();
   var title=document.createElement("span");title.className="m-title";
@@ -186,7 +186,7 @@ function popMenu(btn,id,title,items){
 }
 
 /* PWA : enregistrement du service worker uniquement sur un vrai domaine en https, hors cadre. */
-function pwa(){try{if("serviceWorker" in navigator&&location.protocol==="https:"&&window.self===window.top&&window.AXIA_CONFIG&&window.AXIA_CONFIG.pwa!==false){
+function pwa(){try{if("serviceWorker" in navigator&&location.protocol==="https:"&&window.self===window.top&&window.VISIONPLUS_CONFIG&&window.VISIONPLUS_CONFIG.pwa!==false){
   /* nouvelle version du site : quand elle prend la main, la page se recharge une fois (sauf saisie en cours) */
   var had=!!navigator.serviceWorker.controller,done=false;
   navigator.serviceWorker.addEventListener("controllerchange",function(){
@@ -195,5 +195,5 @@ function pwa(){try{if("serviceWorker" in navigator&&location.protocol==="https:"
   navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(reg){reg.update&&reg.update().catch(function(){});}).catch(function(){});}}catch(e){}}
 
 function start(){if(MQ.matches)build();pwa();}
-if(window.AXIA&&document.querySelector(".top"))start();else document.addEventListener("axia:ready",start);
+if(window.VISIONPLUS&&document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

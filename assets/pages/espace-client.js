@@ -1,8 +1,8 @@
-/* AXIA — espace client : routage par ancre (#tableau par défaut), une rubrique visible à la fois.
-   Toutes les données passent par l'API publique window.AXIA (auth, records, content, consent). */
+/* Vision Plus — espace client : routage par ancre (#tableau par défaut), une rubrique visible à la fois.
+   Toutes les données passent par l'API publique window.VISIONPLUS (auth, records, content, consent). */
 (function(){
 "use strict";
-var A=window.AXIA,D=A.data||{},esc=A.esc,ic=A.icon;
+var A=window.VISIONPLUS,D=A.data||{},esc=A.esc,ic=A.icon;
 var me=A.auth.require();if(!me)return;
 
 var NAV=[
@@ -77,9 +77,9 @@ V.tableau=function(){var u=me,demos=mineOrEmail("demos"),projects=mine("projects
   var unverified=(u.email&&!u.emailVerified)||(u.phone&&!u.phoneVerified);
   var n;
   if(wait.length)n={t:"L'équipe attend votre réponse",p:"Votre demande "+esc(wait[0].ref||"")+" est en attente de votre retour.",a:'<a class="btn btn-cyan" href="#assistance">Répondre '+ic("arrow","arrow")+"</a>"};
-  else if(ready&&!sub)n={t:"Votre simulation est disponible",p:"Découvrez ce qu'AXIA fera pour votre projet, puis choisissez votre formule.",a:'<a class="btn btn-cyan" href="#demos">Voir ma simulation '+ic("arrow","arrow")+'</a><a class="btn btn-ghost" href="abonnements.html'+(ready.projectId?"?project="+encodeURIComponent(ready.projectId):"")+'">Choisir mon abonnement</a>'};
+  else if(ready&&!sub)n={t:"Votre simulation est disponible",p:"Découvrez ce que Vision Plus fera pour votre projet, puis choisissez votre formule.",a:'<a class="btn btn-cyan" href="#demos">Voir ma simulation '+ic("arrow","arrow")+'</a><a class="btn btn-ghost" href="abonnements.html'+(ready.projectId?"?project="+encodeURIComponent(ready.projectId):"")+'">Choisir mon abonnement</a>'};
   else if(pending)n={t:"Votre simulation avance",p:"Statut actuel : "+esc((D.demoStatuses||[])[pending.status]||"")+". Vous serez notifié dès qu'elle sera disponible.",a:'<a class="btn btn-line" href="#demos">Suivre ma demande</a>'};
-  else if(!demos.length)n={t:"Découvrez AXIA avec votre projet",p:"Présentez votre activité en quelques minutes et recevez une simulation vidéo personnalisée.",a:'<a class="btn btn-cyan" href="demo.html">Demander ma simulation '+ic("arrow","arrow")+"</a>"};
+  else if(!demos.length)n={t:"Découvrez Vision Plus avec votre projet",p:"Présentez votre activité en quelques minutes et recevez une simulation vidéo personnalisée.",a:'<a class="btn btn-cyan" href="demo.html">Demander ma simulation '+ic("arrow","arrow")+"</a>"};
   else if(unverified)n={t:"Vérifiez vos coordonnées",p:"Une adresse ou un numéro vérifié protège votre compte.",a:'<a class="btn btn-line" href="#profil">Vérifier maintenant</a>'};
   else if(!sub)n={t:"Activez votre abonnement",p:"Choisissez la formule adaptée à votre activité.",a:'<a class="btn btn-cyan" href="abonnements.html">Voir les abonnements '+ic("arrow","arrow")+"</a>"};
   else n={t:"Tout est en ordre",p:"Votre abonnement est actif. Besoin d'aide ? L'assistant et le SAV sont là.",a:'<a class="btn btn-line" href="faq.html#question">Poser une question</a>'};
@@ -189,7 +189,7 @@ V.securite=function(){var u=me,hasPw=!!u.pw,oa=(A.config.oauth||{}),provs=u.prov
 V.abonnement=function(){var subs=mine("subscriptions").sort(function(a,b){return (b.start||b.createdAt||0)-(a.start||a.createdAt||0);}),cur=activeSub();
   function st(s){var x=SUB_ST[s.status]||["",s.status];return pill(x[0],x[1]);}
   var cyc={monthly:"Mensuel",yearly:"Annuel"};
-  view.innerHTML=head("Abonnement","Votre formule AXIA.",'<a class="btn btn-line btn-sm" href="abonnements.html">Voir les abonnements</a>')+
+  view.innerHTML=head("Abonnement","Votre formule Vision Plus.",'<a class="btn btn-line btn-sm" href="abonnements.html">Voir les abonnements</a>')+
     '<div class="sec">'+(cur?'<div class="next"><span class="eyebrow">Abonnement actuel</span><h2>'+esc(planName(cur.planId))+"</h2>"+st(cur)+
       '<dl class="kv"><dt>Facturation</dt><dd>'+esc(cyc[cur.cycle]||cur.cycle||"—")+"</dd><dt>Depuis le</dt><dd>"+(cur.start?esc(A.date(cur.start)):"—")+"</dd><dt>"+(cur.status==="cancelled"?"Fin le":"Prochain renouvellement")+"</dt><dd>"+(cur.renewAt?esc(A.date(cur.renewAt)):"—")+"</dd></dl></div>":
       empty("layers","Aucun abonnement","Choisissez votre formule, idéalement après avoir découvert votre simulation.",'<a class="btn btn-cyan" href="abonnements.html">Découvrir les abonnements</a>'))+"</div>"+
@@ -198,7 +198,7 @@ V.abonnement=function(){var subs=mine("subscriptions").sort(function(a,b){return
 
 /* Factures */
 V.factures=function(){var l=mine("invoices").sort(function(a,b){return (b.date||0)-(a.date||0);});
-  view.innerHTML=head("Factures","Vos factures AXIA.")+'<div class="sec">'+(l.length?'<div class="tbl-wrap"><table class="tbl"><caption class="sr">Factures</caption><thead><tr><th scope="col">Numéro</th><th scope="col">Date</th><th scope="col">Formule</th><th scope="col" style="text-align:right">Montant</th><th scope="col">Statut</th></tr></thead><tbody>'+
+  view.innerHTML=head("Factures","Vos factures Vision Plus.")+'<div class="sec">'+(l.length?'<div class="tbl-wrap"><table class="tbl"><caption class="sr">Factures</caption><thead><tr><th scope="col">Numéro</th><th scope="col">Date</th><th scope="col">Formule</th><th scope="col" style="text-align:right">Montant</th><th scope="col">Statut</th></tr></thead><tbody>'+
     l.map(function(i){return "<tr><td>"+esc(i.number||"—")+"</td><td>"+(i.date?esc(A.date(i.date)):"—")+"</td><td>"+esc(i.planName||"—")+'</td><td class="num">'+money(i.amount,i.currency)+"</td><td>"+(i.status==="paid"?pill("ok","Payée"):i.status==="open"?pill("warn","À régler"):pill("",i.status||"—"))+"</td></tr>";}).join("")+"</tbody></table></div>":
     empty("file","Aucune facture","Vos factures apparaîtront ici après l'activation de votre abonnement."))+"</div>";};
 
@@ -231,15 +231,15 @@ V.demos=function(){var l=mineOrEmail("demos"),st=D.demoStatuses||[];
     l.map(function(d){var p=d.projectId?A.records.get("projects",d.projectId):null,s=Math.max(0,Math.min(3,d.status|0)),hist=d.history||[];
       return '<article class="demo" aria-labelledby="dm-'+esc(d.id)+'"><div class="demo-h"><div><span class="ref">'+esc(d.ref||"")+'</span><h2 id="dm-'+esc(d.id)+'">'+esc((p&&p.name)||d.company||"Ma simulation")+'</h2><span class="row-s">Demandée le '+esc(A.date(d.createdAt))+"</span></div>"+pill(s===3?"ok":"info",st[s]||"")+"</div>"+
         '<ol class="steps" aria-label="Avancement">'+st.map(function(label,i){var h=hist.filter(function(x){return x.status===i;}).pop();return '<li class="'+(i<s?"done":i===s?"cur":"")+'"'+(i===s?' aria-current="step"':"")+"><span>"+esc(label)+(h&&h.at?"<small>"+esc(A.date(h.at))+"</small>":"")+"</span></li>";}).join("")+"</ol>"+
-        (s===3&&d.video?'<div class="actions"><button type="button" class="btn btn-cyan" data-play="'+esc(d.id)+'">'+ic("play")+" Voir ma simulation</button>"+'<a class="btn btn-line" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement AXIA</a></div>':
+        (s===3&&d.video?'<div class="actions"><button type="button" class="btn btn-cyan" data-play="'+esc(d.id)+'">'+ic("play")+" Voir ma simulation</button>"+'<a class="btn btn-line" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement Vision Plus</a></div>':
           s<3?'<p class="sec-p">Vous serez notifié dès que votre simulation sera disponible.</p>':"")+"</article>";}).join("")+"</div>":
-    empty("play","Aucune simulation","Présentez votre projet et recevez une vidéo qui montre ce qu'AXIA fera pour vous.",'<a class="btn btn-cyan" href="demo.html">Demander ma simulation</a>'))+"</div>";
+    empty("play","Aucune simulation","Présentez votre projet et recevez une vidéo qui montre ce que Vision Plus fera pour vous.",'<a class="btn btn-cyan" href="demo.html">Demander ma simulation</a>'))+"</div>";
   view.querySelectorAll("[data-play]").forEach(function(b){b.onclick=function(){player(b.dataset.play);};});};
 function player(id){var d=A.records.get("demos",id);if(!d||!d.video)return;var v=d.video,url=safeUrl(v.url),ch=v.chapters||[];
   var body=url?'<video class="player-v" controls playsinline preload="metadata" src="'+esc(url)+'" aria-label="'+esc(v.title||"Simulation")+'"></video>'+(ch.length?'<ol class="rows" aria-label="Chapitres">'+ch.map(function(c){return '<li style="padding:14px 4px"><b>'+esc(c.title)+'</b><p class="row-s">'+esc(c.text||"")+"</p></li>";}).join("")+"</ol>":""):
     (ch.length?'<div class="reader"><p class="mut small">'+(A.proto?"Mode présentation : la vidéo n'est pas encore en ligne. Voici le déroulé de votre simulation.":"La vidéo sera bientôt en ligne. Voici le déroulé de votre simulation.")+'</p><div class="reader-bar" aria-hidden="true"><i id="rd-bar"></i></div><div class="reader-c" id="rd-c" aria-live="polite"></div><ul class="chap-list" id="rd-list" aria-label="Chapitres"></ul><div class="actions"><button type="button" class="btn btn-line btn-sm" id="rd-prev">Précédent</button><button type="button" class="btn btn-cyan btn-sm" id="rd-next">Suivant</button></div></div>':
       empty("play","Vidéo bientôt disponible","Votre simulation sera visible ici dès sa mise en ligne."));
-  var m=modal(esc(v.title||"Ma simulation"),body+'<div class="actions"><a class="btn btn-ghost" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement AXIA '+ic("arrow","arrow")+"</a></div>",true);
+  var m=modal(esc(v.title||"Ma simulation"),body+'<div class="actions"><a class="btn btn-ghost" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement Vision Plus '+ic("arrow","arrow")+"</a></div>",true);
   if(!url&&ch.length){var i=0,c=m.querySelector("#rd-c"),list=m.querySelector("#rd-list"),pv=m.querySelector("#rd-prev"),nx=m.querySelector("#rd-next");
     list.innerHTML=ch.map(function(x,k){return '<li><button type="button" data-k="'+k+'">'+(k+1)+". "+esc(x.title)+"</button></li>";}).join("");
     function show(k){i=k;c.innerHTML='<span class="ref">Chapitre '+(k+1)+" sur "+ch.length+"</span><h3>"+esc(ch[k].title)+"</h3><p>"+esc(ch[k].text||"")+"</p>";m.querySelector("#rd-bar").style.width=((k+1)/ch.length*100)+"%";
@@ -252,12 +252,12 @@ function savContact(){var s=(A.config&&A.config.sav)||{},p=[];
   if(s.phone)p.push('<a class="link" href="tel:'+esc(String(s.phone).replace(/[^\d+]/g,"").replace(/^0/,"+33"))+'">'+esc(s.phone)+"</a>");
   return p.length?'<div class="notice info">'+ic("phone")+"<span>Joindre le SAV : "+p.join(" · ")+"</span></div>":"";}
 V.assistance=function(){var l=mineOrEmail("tickets");
-  view.innerHTML=head("Assistance","Vos demandes auprès du SAV AXIA.",'<a class="btn btn-line btn-sm" href="sav.html">Nouvelle demande</a>')+savContact()+'<div class="sec">'+(l.length?'<ul class="rows">'+
+  view.innerHTML=head("Assistance","Vos demandes auprès du SAV Vision Plus.",'<a class="btn btn-line btn-sm" href="sav.html">Nouvelle demande</a>')+savContact()+'<div class="sec">'+(l.length?'<ul class="rows">'+
     l.map(function(t){return '<li><button type="button" class="row" data-t="'+esc(t.id)+'"><span class="row-main"><span class="ref">'+esc(t.ref||"")+'</span><span class="row-t">'+esc(t.subject||t.type||"Demande")+'</span><span class="row-s">'+esc([t.type,A.date(t.updatedAt||t.createdAt)].filter(Boolean).join(" · "))+'</span></span><span class="row-side">'+pill(TICKET_CLS[t.status]||"",t.status||"")+ic("chev","chev")+"</span></button></li>";}).join("")+"</ul>":
     empty("life","Aucune demande","Une question ou un problème ? Notre équipe vous répond.",'<a class="btn btn-cyan" href="sav.html">Ouvrir une demande</a><a class="btn btn-ghost" href="faq.html#question">Poser une question</a>'))+"</div>";
   view.querySelectorAll("[data-t]").forEach(function(b){b.onclick=function(){ticketModal(b.dataset.t);};});};
 function ticketModal(id){var t=A.records.get("tickets",id);if(!t)return;
-  var WHO={client:"Vous",agent:"Équipe AXIA",ia:"Assistant IA"};
+  var WHO={client:"Vous",agent:"Équipe Vision Plus",ia:"Assistant IA"};
   function thread(t){var msgs=(t.messages||[]).slice();if(t.description&&!(msgs[0]&&msgs[0].from==="client"&&msgs[0].body===t.description))msgs.unshift({from:"client",body:t.description,at:t.createdAt});
     return msgs.map(function(x){var f=WHO[x.from]?x.from:"agent";return '<div class="msg '+f+'"><p>'+esc(x.body)+"</p><small>"+esc(WHO[f])+(x.at?" · "+esc(A.date(x.at,true)):"")+"</small></div>";}).join("")||'<p class="mut">Aucun message.</p>';}
   var closed=t.status==="Fermée";
@@ -271,11 +271,11 @@ function ticketModal(id){var t=A.records.get("tickets",id);if(!t)return;
     var cur=A.records.get("tickets",id);var msgs=(cur.messages||[]).concat({from:"client",body:body,at:A.now()});
     var up=A.records.update("tickets",id,{messages:msgs,status:"En cours"});A.audit("Réponse client SAV",cur.ref||id);
     ta.value="";th.innerHTML=thread(up);th.scrollTop=th.scrollHeight;m.querySelector("#tk-st").innerHTML=pill("info","En cours");
-    setMsg(m.querySelector("#tk-msg"),"Message envoyé à l'équipe AXIA.",true);V.assistance();renderNav("assistance");});}
+    setMsg(m.querySelector("#tk-msg"),"Message envoyé à l'équipe Vision Plus.",true);V.assistance();renderNav("assistance");});}
 
 /* Conversations IA */
 V.conversations=function(){var l=mine("conversations").slice(0,60);
-  view.innerHTML=head("Conversations IA","Vos échanges avec l'assistant AXIA.",'<a class="btn btn-line btn-sm" href="faq.html#question">Poser une question</a>')+'<div class="sec">'+(l.length?'<ul class="rows">'+
+  view.innerHTML=head("Conversations IA","Vos échanges avec l'assistant Vision Plus.",'<a class="btn btn-line btn-sm" href="faq.html#question">Poser une question</a>')+'<div class="sec">'+(l.length?'<ul class="rows">'+
     l.map(function(c){return '<li class="notif" style="display:block"><div class="row-main"><span class="row-s">'+esc(A.date(c.createdAt,true))+'</span><span class="row-t">'+esc(c.q)+'</span><p class="row-s clip3">'+esc(c.a)+'</p><div class="notif-act">'+(c.found?pill("ok","Réponse trouvée"):pill("warn","Orienté vers le SAV"))+"</div></div></li>";}).join("")+"</ul>":
     empty("chat","Aucune conversation","Posez vos questions à l'assistant : vos échanges seront conservés ici.",'<a class="btn btn-cyan" href="faq.html#question">Poser une question</a>'))+"</div>";};
 
@@ -297,21 +297,21 @@ V.parametres=function(){var u=me,p=Object.assign({news:false,notifEmail:true,not
     '<div class="sec"><div class="sec-h"><h2>Notifications</h2><p>Enregistrement automatique.</p></div><div>'+
       sw("pr-email","notifEmail","Par e-mail","Avancement de vos simulations et réponses du SAV."+(u.email?"":" Ajoutez une adresse e-mail dans votre profil."),!u.email)+
       sw("pr-sms","notifSms","Par SMS","Alertes importantes uniquement."+(u.phone?"":" Ajoutez un numéro dans votre profil."),!u.phone)+
-      sw("pr-news","news","Actualités AXIA","Nouveautés de la plateforme, sans excès.",false)+
+      sw("pr-news","news","Actualités Vision Plus","Nouveautés de la plateforme, sans excès.",false)+
     '</div><p id="pr-msg" class="small" aria-live="polite"></p></div>'+
     '<div class="sec"><div class="sec-h"><h2>Cookies</h2></div><p class="sec-p">'+(c?"Mesure d'audience : "+(c.analytics?"acceptée":"refusée")+" · Personnalisation : "+(c.marketing?"acceptée":"refusée")+" · Choix du "+esc(A.date(c.date))+".":"Vous n'avez pas encore enregistré vos préférences.")+
     '</p><div class="actions"><button type="button" class="btn btn-line" id="cookies">Gérer mes cookies</button><a class="link small" href="cookies.html">Politique cookies</a></div></div>';
   view.querySelectorAll("[data-k]").forEach(function(i){i.addEventListener("change",function(){var np=Object.assign({},p);view.querySelectorAll("[data-k]").forEach(function(x){np[x.dataset.k]=x.checked;});p=np;A.auth.update({prefs:np});me=A.auth.current();setMsg(document.getElementById("pr-msg"),"Préférences enregistrées.",true);});});
   document.getElementById("cookies").onclick=function(){A.consent.open();};};
-document.addEventListener("axia:consent",function(){if(current()==="parametres")render("parametres",true);});
+document.addEventListener("vp:consent",function(){if(current()==="parametres")render("parametres",true);});
 
 /* Mes données */
 V.donnees=function(){var u=me,reqs=mine("dataRequests"),pendingDel=reqs.some(function(r){return r.kind==="delete"&&r.status!=="Traitée";});
   view.innerHTML=head("Mes données","Exercez vos droits sur vos données personnelles.",'<a class="link small" href="confidentialite.html">Politique de confidentialité</a>')+
     '<div class="sec"><div class="sec-h"><h2>Exporter mes données</h2></div><p class="sec-p">Obtenez une copie de vos informations : profil, projets, simulations, demandes, abonnement et notifications.</p>'+
       '<div class="actions"><button type="button" class="btn btn-cyan" id="export">'+ic("db")+" Générer l'export</button></div><div id=\"export-out\"></div></div>"+
-    '<div class="sec"><div class="sec-h"><h2>Supprimer mon compte</h2></div><p class="sec-p">La suppression de votre compte et de vos données est traitée par l\'équipe AXIA. Certaines informations peuvent devoir être conservées pour des obligations légales.</p>'+
-      (pendingDel?'<div class="notice info">'+ic("info")+"<span>Votre demande de suppression a bien été reçue. Elle sera traitée par l'équipe AXIA, qui vous tiendra informé.</span></div>":
+    '<div class="sec"><div class="sec-h"><h2>Supprimer mon compte</h2></div><p class="sec-p">La suppression de votre compte et de vos données est traitée par l\'équipe Vision Plus. Certaines informations peuvent devoir être conservées pour des obligations légales.</p>'+
+      (pendingDel?'<div class="notice info">'+ic("info")+"<span>Votre demande de suppression a bien été reçue. Elle sera traitée par l'équipe Vision Plus, qui vous tiendra informé.</span></div>":
       '<div class="actions"><button type="button" class="btn btn-danger" id="del">Demander la suppression</button></div>')+"</div>"+
     (reqs.length?'<div class="sec"><div class="sec-h"><h2>Mes demandes</h2></div><div class="tbl-wrap"><table class="tbl"><caption class="sr">Demandes relatives à mes données</caption><thead><tr><th scope="col">Date</th><th scope="col">Demande</th><th scope="col">Statut</th></tr></thead><tbody>'+
       reqs.map(function(r){return "<tr><td>"+esc(A.date(r.createdAt,true))+"</td><td>"+(r.kind==="delete"?"Suppression du compte":"Export des données")+"</td><td>"+pill(r.status==="Traitée"?"ok":"info",r.status)+"</td></tr>";}).join("")+"</tbody></table></div></div>":"");
@@ -328,11 +328,11 @@ V.donnees=function(){var u=me,reqs=mine("dataRequests"),pendingDel=reqs.some(fun
       if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(ta.value).then(ok,function(){try{document.execCommand("copy");ok();}catch(e){setMsg(cm,"Sélectionnez le texte puis copiez-le (Ctrl+C).");}});
       else{try{document.execCommand("copy");ok();}catch(e){setMsg(cm,"Sélectionnez le texte puis copiez-le (Ctrl+C).");}}};};
   var del=document.getElementById("del");if(del)del.onclick=function(){
-    var m=modal("Supprimer mon compte ?",'<p class="mut">Votre demande sera transmise à l\'équipe AXIA, qui supprimera votre compte et vos données personnelles, sous réserve des informations à conserver pour des obligations légales. Cette action est définitive une fois traitée.</p>'+
-      '<label class="check" for="del-ok"><input type="checkbox" id="del-ok"><span>Je confirme vouloir supprimer mon compte AXIA.</span></label><div class="actions"><button type="button" class="btn btn-danger" id="del-go" disabled>Confirmer la demande</button><button type="button" class="btn btn-ghost" data-close>Annuler</button></div>');
+    var m=modal("Supprimer mon compte ?",'<p class="mut">Votre demande sera transmise à l\'équipe Vision Plus, qui supprimera votre compte et vos données personnelles, sous réserve des informations à conserver pour des obligations légales. Cette action est définitive une fois traitée.</p>'+
+      '<label class="check" for="del-ok"><input type="checkbox" id="del-ok"><span>Je confirme vouloir supprimer mon compte Vision Plus.</span></label><div class="actions"><button type="button" class="btn btn-danger" id="del-go" disabled>Confirmer la demande</button><button type="button" class="btn btn-ghost" data-close>Annuler</button></div>');
     var ok=m.querySelector("#del-ok"),go=m.querySelector("#del-go");ok.onchange=function(){go.disabled=!ok.checked;};
     go.onclick=function(){A.records.add("dataRequests",{userId:u.id,kind:"delete",status:"Reçue"});A.audit("Suppression de compte demandée",u.email||u.phone);
-      A.closeModal(m);A.toast("Votre demande de suppression a été transmise à l'équipe AXIA.");render("donnees",true);};};};
+      A.closeModal(m);A.toast("Votre demande de suppression a été transmise à l'équipe Vision Plus.");render("donnees",true);};};};
 
 /* ---------- données d'exemple (prototype uniquement) ---------- */
 function sampleData(){var u=me,now=A.now(),day=864e5;
@@ -341,13 +341,13 @@ function sampleData(){var u=me,now=A.now(),day=864e5;
   A.records.add("demos",{ref:"DEMO-"+six(),userId:u.id,name:u.name,email:u.email||"",phone:u.phone||"",company:"Exemple",projectId:p.id,status:3,
     history:[{status:0,at:now-6*day,note:"Exemple"},{status:1,at:now-5*day,note:"Exemple"},{status:2,at:now-3*day,note:"Exemple"},{status:3,at:now-day,note:"Exemple"}],
     analysis:{features:(D.features||[]).slice(0,4),notes:"Analyse d'exemple."},
-    video:{url:"",title:"Exemple · Votre simulation AXIA",publishedAt:now-day,chapters:[
+    video:{url:"",title:"Exemple · Votre simulation Vision Plus",publishedAt:now-day,chapters:[
       {title:"Votre web app",text:"Exemple : la page d'accueil de votre établissement, ses horaires et son menu, modifiables à tout moment."},
       {title:"Votre secrétaire IA",text:"Exemple : votre secrétaire IA répond aux appels, propose un créneau et confirme la réservation."},
       {title:"L'agent marketing",text:"Exemple : des publications préparées pour vos réseaux, que vous validez avant diffusion."},
       {title:"La gestion par IA",text:"Exemple : « Ajoute la soirée jazz de vendredi » — la modification est préparée, vous la validez."}]},createdAt:now-6*day});
   A.records.add("tickets",{ref:"SAV-"+six(),userId:u.id,name:u.name,email:u.email||"",type:(D.savTypes||[])[1]||"Mon compte",subject:"Exemple · Question sur mon compte",description:"Ceci est une demande d'exemple.",files:[],status:"En attente de votre réponse",
-    messages:[{from:"client",body:"Ceci est une demande d'exemple.",at:now-2*day},{from:"agent",body:"Exemple de réponse de l'équipe AXIA. Pouvez-vous nous en dire plus ?",at:now-day}],aiTried:false,createdAt:now-2*day});
+    messages:[{from:"client",body:"Ceci est une demande d'exemple.",at:now-2*day},{from:"agent",body:"Exemple de réponse de l'équipe Vision Plus. Pouvez-vous nous en dire plus ?",at:now-day}],aiTried:false,createdAt:now-2*day});
   A.notify(u.id,"Exemple · Votre simulation est disponible","Notification d'exemple.","espace-client.html#demos");
   A.notify(u.id,"Exemple · Réponse à votre demande SAV","Notification d'exemple.","espace-client.html#assistance");
   A.toast("Données d'exemple ajoutées.");render("tableau",true);}
@@ -356,7 +356,7 @@ function sampleData(){var u=me,now=A.now(),day=864e5;
 var TITLES={};NAV.forEach(function(n){if(n.id)TITLES[n.id]=n.l;});
 function current(){var h=location.hash.replace(/^#/,"");return V[h]?h:"tableau";}
 function render(id,keepFocus){try{user();}catch(e){return;}
-  renderNav(id);V[id]();document.title=TITLES[id]+" · Espace client · AXIA";
+  renderNav(id);V[id]();document.title=TITLES[id]+" · Espace client · Vision Plus";
   view.classList.remove("view");void view.offsetWidth;view.classList.add("view");}
 function go(focus){var id=current();render(id);if(focus){window.scrollTo(0,0);var h=document.getElementById("view-title");if(h)h.focus({preventScroll:true});}}
 window.addEventListener("hashchange",function(){go(true);});

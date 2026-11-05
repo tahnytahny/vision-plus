@@ -1,4 +1,4 @@
-/* AXIA — pages juridiques (CGV, CGU, mentions légales, confidentialité, cookies).
+/* Vision Plus — pages juridiques (CGV, CGU, mentions légales, confidentialité, cookies).
    Mise en page commune : en-tête court, sommaire collant (repliable sur mobile), texte à ~68 caractères. */
 
 /* en-tête court */
@@ -114,11 +114,11 @@ mark.filled{background:none;color:inherit;padding:0;border:0;white-space:pre-lin
 
 /* impression et PDF : texte noir sur blanc, sans éléments de navigation ni décor */
 @page{size:A4;margin:16mm 16mm 18mm;background:#fff;
-  @bottom-left{content:"AXIA — Informations légales";font:8pt/1 Manrope,Arial,sans-serif;color:#666}
+  @bottom-left{content:"Vision Plus — Informations légales";font:8pt/1 Manrope,Arial,sans-serif;color:#666}
   @bottom-right{content:"Page " counter(page) " / " counter(pages);font:8pt/1 Manrope,Arial,sans-serif;color:#666}}
 @media print{
   :root,html,html.theme-p1,html body,html.theme-p1 body{--night:#fff;background:#fff!important;background-color:#fff!important;color:#1a1a1a!important}
-  .top,.foot,.toc,.chat-fab,.chat-win,.cookie,.others,.toasts,.work-banner,.m-tabbar,.m-help,.m-back,.m-title,.axbot,.ax-dock,[data-axia="header"],[data-axia="footer"],.legal-hero img,.legal-hero video,.skip,.legal-doc .actions,.consent-panel{display:none!important}
+  .top,.foot,.toc,.chat-fab,.chat-win,.cookie,.others,.toasts,.work-banner,.m-tabbar,.m-help,.m-back,.m-title,.axbot,.ax-dock,[data-vp="header"],[data-vp="footer"],.legal-hero img,.legal-hero video,.skip,.legal-doc .actions,.consent-panel{display:none!important}
   *,*::before,*::after{box-shadow:none!important;text-shadow:none!important;filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transition:none!important}
   body::before,body::after,main::before,main::after,.page-hero::before,.page-hero::after,.legal-hero::before,.legal-hero::after,.legal-body::before,.legal-body::after,.eyebrow::after,.eyebrow::before{display:none!important}
   main,.page-hero,.legal-hero,.legal-body,.legal-grid,.wrap{background:none!important;border:0!important;margin:0!important;padding:0!important;max-width:none!important;width:auto!important;min-height:0!important;opacity:1!important;transform:none!important}

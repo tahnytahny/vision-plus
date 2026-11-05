@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>FAQ — Questions et réponses · AXIA</title>
-<meta name="description" content="Consultez les réponses fréquentes sur AXIA ou posez directement votre question : réponses basées sur les informations validées par AXIA.">
-<meta name="axia-page" content="faq">
-<link rel="stylesheet" href="assets/axia.css">
+<title>FAQ — Questions et réponses · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FAQ — Questions et réponses · Vision Plus">
+<meta property="og:description" content="Consultez les réponses fréquentes sur Vision Plus ou posez directement votre question : réponses basées sur les informations validées par Vision Plus.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Consultez les réponses fréquentes sur Vision Plus ou posez directement votre question : réponses basées sur les informations validées par Vision Plus.">
+<meta name="vp-page" content="faq">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,8 +23,8 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
 .faq-hero{padding-block:clamp(48px,7vw,96px) clamp(28px,4vw,48px)}
@@ -159,13 +167,13 @@ mark{background:rgba(25,116,232,.1);color:inherit;border-radius:3px;padding:0 .0
 </style>
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <section class="qa" aria-labelledby="t-faq">
     <div class="wrap">
       <div class="qa-main">
         <span class="eyebrow">FAQ — Questions et réponses</span>
-        <h1 id="t-faq" class="h-xl">Une question sur AXIA&nbsp;?</h1>
+        <h1 id="t-faq" class="h-xl">Une question sur Vision Plus&nbsp;?</h1>
         <p class="lead">Consultez les réponses fréquentes ou posez directement votre question.</p>
         <form class="ask" id="question" novalidate>
           <div class="box">
@@ -174,13 +182,13 @@ mark{background:rgba(25,116,232,.1);color:inherit;border-radius:3px;padding:0 .0
             <button class="send" type="submit" id="as-send" aria-label="Envoyer la question" disabled></button>
           </div>
           <span class="sr" id="as-hint">Entrée pour envoyer, Maj + Entrée pour aller à la ligne.</span>
-          <p class="ask-note" id="as-note"><span>Réponses basées uniquement sur les informations validées par AXIA.</span><span>Pas de réponse ? <a href="sav.html#nouvelle">Contacter le SAV</a></span></p>
+          <p class="ask-note" id="as-note"><span>Réponses basées uniquement sur les informations validées par Vision Plus.</span><span>Pas de réponse ? <a href="sav.html#nouvelle">Contacter le SAV</a></span></p>
         </form>
         <div class="log" id="as-log" role="log" aria-live="polite" aria-relevant="additions" aria-label="Réponses à vos questions" hidden></div>
         <p class="sugg-t" id="sugg-t">Questions fréquentes</p>
         <div class="sugg2" id="as-sugg"></div>
       </div>
-      <figure class="qa-art" aria-hidden="true"><img src="assets/3d/faq-visuel.webp" width="1040" height="1170" alt=""></figure>
+      <figure class="qa-art" aria-hidden="true"><img src="assets/3d/faq-visuel-vp.webp" width="1040" height="1170" alt=""></figure>
     </div>
   </section>
   <div class="wrap faq-layout">
@@ -206,12 +214,12 @@ mark{background:rgba(25,116,232,.1);color:inherit;border-radius:3px;padding:0 .0
     </div>
   </section>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,esc=A.esc;
+var A=window.VISIONPLUS,esc=A.esc;
 var $=function(s){return document.querySelector(s);};
 var qIn=$("#faq-q"),countEl=$("#faq-count"),catsEl=$("#faq-cats"),groupsEl=$("#faq-groups");
 /* --- normalisation insensible aux accents et à la casse, avec correspondance des positions --- */
@@ -326,14 +334,14 @@ qIn.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey&&!e.i
 form.addEventListener("submit",function(e){e.preventDefault();var q=qIn.value.trim();if(!q||busy)return;qIn.value="";grow();updateSend();render();ask(q);});
 renderAll();
 function goAsk(){var f=$("#question");f.scrollIntoView({block:"center"});qIn.focus({preventScroll:true});}
-window.AXIA_FAQ_ASK=goAsk;
+window.VISIONPLUS_FAQ_ASK=goAsk;
 /* bouton flottant masqué tant que la zone de question est visible */
-document.addEventListener("axia:ready",function(){var fab=document.querySelector(".chat-fab");if(!fab||!("IntersectionObserver" in window))return;
+document.addEventListener("vp:ready",function(){var fab=document.querySelector(".chat-fab");if(!fab||!("IntersectionObserver" in window))return;
   new IntersectionObserver(function(es){fab.classList.toggle("is-off",es[0].isIntersecting);}).observe(form);});
 var q0=A.qs("q");
-if(q0){try{history.replaceState(null,"",location.pathname+"#question");}catch(_){}document.addEventListener("axia:ready",function(){ask(q0);});}
-else if(location.hash==="#question")document.addEventListener("axia:ready",function(){setTimeout(goAsk,300);});
-document.addEventListener("axia:ready",function(){openHash(null);spy();});
+if(q0){try{history.replaceState(null,"",location.pathname+"#question");}catch(_){}document.addEventListener("vp:ready",function(){ask(q0);});}
+else if(location.hash==="#question")document.addEventListener("vp:ready",function(){setTimeout(goAsk,300);});
+document.addEventListener("vp:ready",function(){openHash(null);spy();});
 })();
 </script>
 </body></html>

@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Simulation · AXIA</title>
-<meta name="description" content="Décrivez votre projet et recevez une simulation vidéo personnalisée d'AXIA, préparée par notre équipe.">
-<meta name="axia-page" content="demo">
-<link rel="stylesheet" href="assets/axia.css">
+<title>Simulation · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Simulation · Vision Plus">
+<meta property="og:description" content="Décrivez votre projet et recevez une simulation vidéo personnalisée de Vision Plus, préparée par notre équipe.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Décrivez votre projet et recevez une simulation vidéo personnalisée de Vision Plus, préparée par notre équipe.">
+<meta name="vp-page" content="demo">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,8 +23,8 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
 /* ---------- vue présentation ---------- */
@@ -167,7 +175,7 @@
 </style>
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <!-- ===== Vue présentation ===== -->
   <div id="v-intro">
@@ -175,16 +183,16 @@
       <div class="wrap">
         <div class="d-hero-txt">
           <span class="eyebrow">Simulation</span>
-          <h1 id="t-intro" class="h-xl" tabindex="-1">Découvrez ce qu'AXIA peut réaliser pour votre projet</h1>
-          <p class="lead">Présentez votre activité. Recevez une vidéo qui montre AXIA appliqué à votre projet.</p>
+          <h1 id="t-intro" class="h-xl" tabindex="-1">Découvrez ce que Vision Plus peut réaliser pour votre projet</h1>
+          <p class="lead">Présentez votre activité. Recevez une vidéo qui montre Vision Plus appliqué à votre projet.</p>
           <div class="actions">
             <button class="btn btn-cyan" type="button" id="open-form" aria-controls="v-form">Demander ma simulation personnalisée <i data-ico="arrow" data-cls="arrow"></i></button>
           </div>
           <p class="resume" id="resume" hidden>Une demande est en cours de saisie. <button class="btn-txt" type="button" id="resume-btn">Reprendre mon brouillon</button></p>
-          <p class="honest"><i data-ico="info"></i><span>La vidéo est préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles.</span></p>
+          <p class="honest"><i data-ico="info"></i><span>La vidéo est préparée par l'équipe Vision Plus à partir des fonctionnalités réellement disponibles.</span></p>
         </div>
         <div class="screen" aria-hidden="true">
-          <img src="assets/hero-scene.webp" alt="" width="1048" height="618">
+          <img src="assets/hero-scene-vp.webp" alt="" width="1048" height="618">
           <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
           <span class="screen-meta"><span><b>Votre simulation</b><small>Préparée à partir de votre projet</small></span><span class="pill info">Personnalisée</span></span>
           <span class="screen-bar"><i></i></span>
@@ -299,12 +307,12 @@
     <div class="wrap" id="track-out"></div>
   </section>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,esc=A.esc,D=A.data;
+var A=window.VISIONPLUS,esc=A.esc,D=A.data;
 var $=function(id){return document.getElementById(id);};
 function icons(root){(root||document).querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});}
 icons();
@@ -377,7 +385,7 @@ function openForm(){
   show("form",$("t-form"));
 }
 function prefill(){var u=A.auth.current();if(!u)return;
-  if(!$("d-name").value&&u.name&&u.name!=="Client AXIA")$("d-name").value=u.name;
+  if(!$("d-name").value&&u.name&&u.name!=="Client Vision Plus")$("d-name").value=u.name;
   if(!$("d-email").value&&u.email)$("d-email").value=u.email;
   if(!$("d-phone").value&&u.phone)$("d-phone").value=u.phone;
   if(!$("d-company").value&&u.company)$("d-company").value=u.company;}
@@ -411,7 +419,7 @@ function validate(n){
   function chk(key,ctlId,cond,msg,focusSel){var ctl=ctlId?$(ctlId):null;var ko=!cond;setErr(key,ctl,ko?msg:"");if(ko){bad.push(msg);if(!first)first=focusSel?form.querySelector(focusSel):ctl;}}
   if(n===1){
     chk("name","d-name",d.name.length>=2,"Indiquez votre nom et prénom.");
-    chk("company","d-company",d.company.length>=2,"Indiquez le nom de votre entreprise : AXIA est réservé aux professionnels.");
+    chk("company","d-company",d.company.length>=2,"Indiquez le nom de votre entreprise : Vision Plus est réservé aux professionnels.");
     chk("email","d-email",EMAIL.test(d.email),"Indiquez une adresse e-mail valide, par exemple nom@domaine.fr.");
     chk("phone","d-phone",/^\+\d{8,15}$/.test(A.auth.normPhone(d.phone)),"Indiquez un numéro de téléphone valide, par exemple 06 12 34 56 78.");
     chk("sector","d-sector",!!d.sector,"Choisissez votre secteur d'activité.");
@@ -486,7 +494,7 @@ function submit(){
   var ref=newRef(),now=A.now();
   A.records.add("demos",{ref:ref,userId:u?u.id:null,name:d.name,email:d.email,phone:A.auth.normPhone(d.phone),company:d.company,projectId:project.id,status:0,history:[{status:0,at:now,note:"Demande envoyée depuis le site"}],analysis:null,video:null});
   var link="demo.html?ref="+ref+"&email="+encodeURIComponent(d.email);
-  A.send("email",d.email,"Votre demande de simulation "+ref,"Bonjour "+d.name.split(" ")[0]+",\nNous avons bien reçu votre demande pour le projet « "+d.pname+" ».\nNuméro de suivi : "+ref+"\nSuivre votre demande : "+link+"\nVotre vidéo sera préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles.");
+  A.send("email",d.email,"Votre demande de simulation "+ref,"Bonjour "+d.name.split(" ")[0]+",\nNous avons bien reçu votre demande pour le projet « "+d.pname+" ».\nNuméro de suivi : "+ref+"\nSuivre votre demande : "+link+"\nVotre vidéo sera préparée par l'équipe Vision Plus à partir des fonctionnalités réellement disponibles.");
   if(u)A.notify(u.id,"Demande de simulation reçue","Votre demande "+ref+" ("+d.pname+") est enregistrée.","espace-client.html#demos");
   A.audit("Demande de simulation",ref+" · "+d.email);
   resetForm();form.dataset.loaded="";btn.disabled=false;
@@ -523,10 +531,10 @@ function renderTrack(ref,email,fresh){
     '<p class="t-meta">'+(project?"Projet « "+esc(project.name)+" » · ":"")+"Envoyée le "+esc(A.date(demo.createdAt,true))+"</p></div>"+frise;
   if(video){
     h+='<div class="t-block"><h2>'+esc(video.title||"Votre simulation")+"</h2>"+player(video)+
-      '<div class="actions"><a class="btn btn-cyan" href="abonnements.html?project='+encodeURIComponent(demo.projectId||"")+'">Choisir mon abonnement AXIA '+A.icon("arrow","arrow")+"</a></div></div>";
+      '<div class="actions"><a class="btn btn-cyan" href="abonnements.html?project='+encodeURIComponent(demo.projectId||"")+'">Choisir mon abonnement Vision Plus '+A.icon("arrow","arrow")+"</a></div></div>";
   }else{
     h+='<div class="t-block"><p>'+(fresh?"Conservez ce numéro : il vous permet de suivre votre demande à tout moment. ":"")+
-      "Votre vidéo sera préparée par l'équipe AXIA à partir des fonctionnalités réellement disponibles. Elle apparaîtra ici dès qu'elle sera prête.</p>"+
+      "Votre vidéo sera préparée par l'équipe Vision Plus à partir des fonctionnalités réellement disponibles. Elle apparaîtra ici dès qu'elle sera prête.</p>"+
       (fresh?'<p class="mut small">Un e-mail de confirmation a été '+(A.proto?"simulé (mode présentation)":"envoyé")+" à "+esc(demo.email)+".</p>":"")+"</div>";
   }
   if(demo.analysis&&((demo.analysis.features||[]).length||demo.analysis.notes)){

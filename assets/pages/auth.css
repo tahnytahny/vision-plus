@@ -1,4 +1,4 @@
-/* AXIA — pages de compte (inscription, connexion, mot de passe oublié).
+/* Vision Plus — pages de compte (inscription, connexion, mot de passe oublié).
    Une seule colonne étroite, centrée, beaucoup d'air. */
 .auth{position:relative;overflow:hidden;padding-block:clamp(44px,8vw,104px) clamp(72px,10vw,128px)}
 .auth::before{content:"";position:absolute;left:50%;top:-180px;width:min(900px,140%);height:560px;translate:-50% 0;background:radial-gradient(50% 50% at 50% 40%,rgba(25,116,232,.11),transparent 70%);pointer-events:none}

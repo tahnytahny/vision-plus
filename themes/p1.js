@@ -1,4 +1,4 @@
-/* AXIA — PROPOSITION 1 « AXIA NEON BLUE »
+/* Vision Plus — PROPOSITION 1 « Vision Plus NEON BLUE »
    Ajoute sur l'accueil : sol en grille lumineuse et interfaces flottantes (agents en action) dans le héros,
    avec une parallaxe douce à la souris. Rien n'est retiré ni modifié dans le contenu existant. */
 (function(){
@@ -25,7 +25,7 @@ function home(){
   var bars="";for(var k=0;k<28;k++)bars+='<i style="animation-delay:-'+((k*137)%1100)/1000+'s"></i>';
   var holo=document.createElement("div");holo.className="p1-holo";
   holo.setAttribute("role","img");
-  holo.setAttribute("aria-label","Les agents AXIA en action : un appel entrant est pris par l'agent IA, qui confirme un rendez-vous à 14 h 30 ; l'agent marketing a généré 3 publications ; l'agent de gestion a mis le site à jour.");
+  holo.setAttribute("aria-label","Les agents Vision Plus en action : un appel entrant est pris par l'agent IA, qui confirme un rendez-vous à 14 h 30 ; l'agent marketing a généré 3 publications ; l'agent de gestion a mis le site à jour.");
   holo.innerHTML=
     '<div class="p1-card p1-call"><div class="p1-in">'+
       '<div class="p1-h">'+svg(I.phone)+'Secrétaire IA<span class="p1-live">En ligne</span></div>'+
@@ -63,6 +63,6 @@ function home(){
   hero.addEventListener("pointerleave",function(){tx=0;ty=0;queue();});
 }
 
-function start(){if(document.querySelector('meta[name="axia-page"][content="home"]'))home();}
-if(document.querySelector(".top"))start();else document.addEventListener("axia:ready",start);
+function start(){if(document.querySelector('meta[name="vp-page"][content="home"]'))home();}
+if(document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

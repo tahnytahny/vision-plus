@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Abonnements · AXIA</title>
-<meta name="description" content="Les formules d'abonnement AXIA : votre web app et vos agents IA réunis.">
-<meta name="axia-page" content="abonnements">
-<link rel="stylesheet" href="assets/axia.css">
+<title>Abonnements · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Abonnements · Vision Plus">
+<meta property="og:description" content="Les formules d'abonnement Vision Plus : votre web app et vos agents IA réunis.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Les formules d'abonnement Vision Plus : votre web app et vos agents IA réunis.">
+<meta name="vp-page" content="abonnements">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,8 +23,8 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
 .hero-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px}
@@ -130,7 +138,7 @@
 </style>
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <section class="page-hero" aria-labelledby="t-hero">
     <div class="wrap hero-row">
@@ -155,7 +163,7 @@
         <div class="soon-head">
           <figure class="fo-hero" aria-hidden="true"><img src="assets/3d/fo-hero.webp" width="2460" height="646" alt=""></figure>
           <h2 class="h-l" id="t-soon" tabindex="-1">Nos formules arrivent bientôt.</h2>
-          <p class="lead">Nous finalisons nos offres. Découvrez dès maintenant ce qu'AXIA peut faire pour vous.</p>
+          <p class="lead">Nous finalisons nos offres. Découvrez dès maintenant ce que Vision Plus peut faire pour vous.</p>
           <div class="actions center">
             <a class="btn btn-cyan" href="demo.html">Demander une simulation <i data-ico="arrow" data-cls="arrow"></i></a>
             <button class="btn btn-line" type="button" id="alert-open" aria-expanded="false" aria-controls="alert-box"><i data-ico="bell"></i> Être averti</button>
@@ -202,12 +210,12 @@
     </div>
   </section>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,esc=A.esc,$=function(id){return document.getElementById(id);};
+var A=window.VISIONPLUS,esc=A.esc,$=function(id){return document.getElementById(id);};
 document.querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});
 var EMAIL=/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
 var PLANS=(A.content.plans()||[]).filter(function(p){return p&&p.active!==false;});
@@ -290,7 +298,7 @@ function openCheckout(p,u){
   go.onclick=function(){
     var cg=m.querySelector("#co-cgv"),err=m.querySelector("#co-err");
     var siren=m.querySelector("#co-siren"),sv=siren.value.replace(/\s/g,"");if(!/^\d{9}$/.test(sv)){err.textContent="Indiquez le numéro SIREN de votre entreprise (9 chiffres).";siren.setAttribute("aria-invalid","true");siren.focus();return;}siren.removeAttribute("aria-invalid");try{A.auth.update({siren:sv});}catch(e){}
-    var pro=m.querySelector("#co-pro");if(!pro.checked){err.textContent="AXIA est réservé aux professionnels : cochez la case correspondante.";pro.setAttribute("aria-invalid","true");pro.focus();return;}
+    var pro=m.querySelector("#co-pro");if(!pro.checked){err.textContent="Vision Plus est réservé aux professionnels : cochez la case correspondante.";pro.setAttribute("aria-invalid","true");pro.focus();return;}
     if(!cg.checked){err.textContent="Cochez la case pour accepter les conditions générales de vente.";cg.setAttribute("aria-invalid","true");cg.focus();return;}
     go.disabled=true;
     var res=simulate(p,u,cyc,price,trial);
@@ -312,7 +320,7 @@ function simulate(p,u,cyc,price,trial){
   var invoice=A.records.add("invoices",{userId:u.id,number:"AX-"+year+"-"+String(n).padStart(5,"0"),date:now,amount:amount,currency:"EUR",status:"paid",planName:p.name+" ("+(cyc==="yearly"?"annuel":"mensuel")+(trial?", période d'essai":"")+")"});
   A.records.add("payments",{userId:u.id,invoiceId:invoice.id,amount:amount,method:trial?"Aucun (période d'essai)":"Carte (simulation)",status:"succeeded",date:now});
   A.notify(u.id,"Abonnement activé","Formule "+p.name+", facturation "+(cyc==="yearly"?"annuelle":"mensuelle")+".","espace-client.html#abonnement");
-  if(u.email)A.send("email",u.email,"Votre abonnement AXIA "+p.name+" est actif","Facture "+invoice.number+" : "+money(amount)+". Prochaine échéance le "+A.date(renew)+".");
+  if(u.email)A.send("email",u.email,"Votre abonnement Vision Plus "+p.name+" est actif","Facture "+invoice.number+" : "+money(amount)+". Prochaine échéance le "+A.date(renew)+".");
   A.audit("Souscription (simulation)",p.name+" · "+cyc+" · "+(u.email||u.phone));
   return {sub:sub,invoice:invoice};
 }

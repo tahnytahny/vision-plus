@@ -1,10 +1,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>AXIA</title>
+<title>Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vision Plus">
+<meta property="og:description" content="Vision Plus réunit une web app sur mesure et trois agents IA pour connecter toute votre activité.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="AXIA réunit une web app sur mesure et trois agents IA pour connecter toute votre activité.">
-<meta name="axia-page" content="home">
-<link rel="stylesheet" href="assets/axia.css">
+<meta name="description" content="Vision Plus réunit une web app sur mesure et trois agents IA pour connecter toute votre activité.">
+<meta name="vp-page" content="home">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -13,12 +21,12 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <link rel="stylesheet" href="assets/assistant/mascot.css">
 <style>
-/* Accueil vitrine : Présentation, Pourquoi AXIA, Le service (agents et réseaux sociaux), Notre technologie, Rejoindre AXIA. Le détail est sur decouvrir.html. */
+/* Accueil vitrine : Présentation, Pourquoi Vision Plus, Le service (agents et réseaux sociaux), Notre technologie, Rejoindre Vision Plus. Le détail est sur decouvrir.html. */
 .hero{position:relative;overflow:hidden;padding-block:clamp(40px,7vw,96px) clamp(64px,9vw,120px)}
 .hero::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:80%;background:radial-gradient(45% 55% at 62% 30%,rgba(25,116,232,.12),transparent 70%);pointer-events:none}
 .hero-grid{position:relative;display:grid;gap:clamp(36px,5vw,56px);align-items:center}
@@ -109,7 +117,7 @@
 @keyframes flash{0%{box-shadow:0 0 0 3px var(--cyan);background:#BCD9FB}100%{box-shadow:0 0 0 0 transparent}}
 
 
-/* 2. Pourquoi AXIA : quatre icônes, un mot-clé chacune */
+/* 2. Pourquoi Vision Plus : quatre icônes, un mot-clé chacune */
 .why{display:grid;gap:40px 28px;grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (min-width:960px){.why{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .why li{display:grid;justify-items:center;text-align:center;gap:16px}
@@ -166,8 +174,8 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
 @media (prefers-reduced-motion:reduce){.tv-halo,.tv-p{animation:none}.tv-p{display:none}}
 
 
-/* 3 bis. Qu'est-ce qu'AXIA ? */
-#axia-simple{background:linear-gradient(180deg,#01050D,var(--night) 30%)}
+/* 3 bis. Qu'est-ce que Vision Plus ? */
+#vision-plus-simple{background:linear-gradient(180deg,#01050D,var(--night) 30%)}
 .simple-intro{display:grid;gap:18px;justify-items:center;text-align:center;max-width:820px;margin:0 auto clamp(44px,6vw,72px)}
 .simple-intro .lead{max-width:56ch}
 .simple-p{color:var(--soft);max-width:60ch}
@@ -225,16 +233,16 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
 @media (max-width:640px){.av-art img{object-position:center bottom!important}.av-grid{gap:12px}.av-card{grid-template-columns:1fr;min-height:0;border-radius:18px}.av-txt>.ico{display:none}.av-txt{gap:6px!important;padding:0 16px 16px!important}.av-txt h3{font-size:1.12rem!important;margin-top:0!important}.av-txt p{font-size:.88rem!important;max-width:none!important}.av-txt .btn{margin-top:6px!important}.av-art{order:-1;aspect-ratio:16/8;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}.av-txt{padding:0 20px 22px}}
 @media (prefers-reduced-motion:reduce){.av-art img{animation:none}}
 
-/* 4. Rejoindre AXIA */
+/* 4. Rejoindre Vision Plus */
 .join{position:relative;overflow:hidden;text-align:center}
 .join::before{content:"";position:absolute;left:50%;top:50%;width:min(1000px,130%);height:480px;translate:-50% -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(31,119,233,.16),transparent 70%);pointer-events:none}
 .join .wrap{position:relative;display:grid;gap:24px;justify-items:center}
 @media (prefers-reduced-motion:reduce){.ai-core .pulse{display:none}}
 </style>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 
 <main id="contenu">
-  <!-- 1. À quoi sert AXIA -->
+  <!-- 1. À quoi sert Vision Plus -->
   <section class="hero" aria-labelledby="t-hero">
     <div class="wrap hero-grid">
       <div class="hero-text">
@@ -242,13 +250,13 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         <h1 id="t-hero" class="h-xl">Votre entreprise entre dans une <span class="t-blue">nouvelle dimension.</span></h1>
         <p class="lead">La plateforme d'intelligence artificielle qui travaille pour votre entreprise.</p>
         <div class="actions">
-          <a class="btn btn-cyan" href="decouvrir.html">Découvrir AXIA <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-cyan" href="decouvrir.html">Découvrir Vision Plus <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-line" href="demo.html">Demander une simulation</a>
         </div>
       </div>
       <figure class="scene">
         <div class="stack">
-          <img src="assets/hero-scene.webp" width="1048" height="618" fetchpriority="high" alt="La plateforme AXIA : une web app de restaurant reliée par des câbles lumineux aux modules Marketing IA, secrétaire IA (module téléphonique) et Gestion web app.">
+          <img src="assets/hero-scene-vp.webp" width="1048" height="618" fetchpriority="high" alt="La plateforme Vision Plus : une web app de restaurant reliée par des câbles lumineux aux modules Marketing IA, secrétaire IA (module téléphonique) et Gestion web app.">
           <svg class="fx" viewBox="0 0 1048 618" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
@@ -269,14 +277,14 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
     </div>
   </section>
 
-  <!-- 2. Pourquoi AXIA -->
+  <!-- 2. Pourquoi Vision Plus -->
   <section class="section alt" id="pourquoi" aria-labelledby="t-why">
     <div class="wrap">
       <div class="section-head reveal"><span class="eyebrow">Avantages</span><h2 id="t-why" class="h-l">Moins de tâches. Plus de clients.</h2></div>
       <div class="av-grid">
         <article class="av-card reveal w">
           <div class="av-txt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><h3>Aucun appel manqué</h3><p>Votre secrétaire IA répond, planifie et confirme.</p><a class="btn btn-line btn-sm" href="telephone-ia.html">Découvrir <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
-          <figure class="av-art"><img src="assets/3d/av-appels.webp" width="1090" height="720" alt="" loading="lazy"></figure>
+          <figure class="av-art"><img src="assets/3d/av-appels-vp.webp" width="1090" height="720" alt="" loading="lazy"></figure>
         </article>
         <article class="av-card reveal">
           <div class="av-txt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v3a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M10 6c4 0 7-2 9-3v18c-2-1-5-3-9-3"/></svg><h3>Une présence active</h3><p>Vos publications sont prêtes, vous validez.</p><a class="btn btn-line btn-sm" href="decouvrir.html#marketing">Découvrir <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
@@ -288,7 +296,7 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         </article>
         <article class="av-card reveal w">
           <div class="av-txt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><h3>Tout au même endroit</h3><p>Un seul espace pour piloter votre activité.</p><a class="btn btn-line btn-sm" href="decouvrir.html#fonctionnement">Découvrir <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
-          <figure class="av-art"><img src="assets/3d/av-tableau.webp" width="974" height="670" alt="" loading="lazy"></figure>
+          <figure class="av-art"><img src="assets/3d/av-tableau-vp.webp" width="974" height="670" alt="" loading="lazy"></figure>
         </article>
       </div>
     </div>
@@ -302,7 +310,7 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         <h2 id="t-agents" class="h-l">Trois agents IA autour de votre web app.</h2>
         <p class="lead">Essayez-les : Le Contemporain, un restaurant fictif, prépare une soirée jazz.</p>
       </div>
-      <div class="tabs agents-tabs" role="tablist" aria-label="Les trois agents AXIA">
+      <div class="tabs agents-tabs" role="tablist" aria-label="Les trois agents Vision Plus">
         <button class="tab" type="button" role="tab" id="tab-marketing" aria-controls="marketing" aria-selected="true"><i data-ico="mega"></i>Marketing IA</button>
         <button class="tab" type="button" role="tab" id="tab-telephone" aria-controls="telephone" aria-selected="false" tabindex="-1"><i data-ico="phone"></i>Votre secrétaire IA</button>
         <button class="tab" type="button" role="tab" id="tab-gestion" aria-controls="gestion" aria-selected="false" tabindex="-1"><i data-ico="layers"></i>Gestion web app</button>
@@ -325,7 +333,7 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
             <div class="mk-col you"><p class="mk-t"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Vous choisissez</p><ul><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg><div><b>Les plateformes</b><span>Une, plusieurs ou toutes : Instagram, Facebook, LinkedIn, TikTok, YouTube, X, Pinterest, Snapchat, WhatsApp, Telegram. D'autres applications peuvent être étudiées selon les intégrations disponibles.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><div><b>Les contenus</b><span>À créer : textes, images ou vidéos.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><div><b>La fréquence</b><span>Le nombre de publications par jour ou par semaine.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><div><b>La période</b><span>Les dates de début et de fin de la campagne.</span></div></li></ul></div>
             <div class="mk-col ai"><p class="mk-t"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>Votre agent IA s'occupe</p><ul><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg><div><b>Répartit les publications</b><span>Sur toute la période, plateforme par plateforme.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Choisit les horaires</b><span>Pour chaque réseau, selon l'activité de l'audience du compte, les statistiques accessibles et les performances des publications précédentes.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg><div><b>Ajuste au fil des résultats</b><span>Si les statistiques sont insuffisantes, elle part d'estimations adaptées à la plateforme, puis affine à mesure que des résultats arrivent.</span></div></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><div><b>Respecte vos réglages</b><span>Programmation dans le fuseau horaire de votre compte, avec les règles de validation de votre entreprise.</span></div></li></ul></div>
           </div>
-          <div class="mk-apps"><h5>Votre agent IA, sur les applications que vous choisissez.</h5><p>Une seule application ou toutes : vous sélectionnez les réseaux où publier, votre agent IA prépare et programme les contenus adaptés à chacun. Vous pilotez le tout depuis votre espace AXIA, sur ordinateur comme sur mobile.</p></div>
+          <div class="mk-apps"><h5>Votre agent IA, sur les applications que vous choisissez.</h5><p>Une seule application ou toutes : vous sélectionnez les réseaux où publier, votre agent IA prépare et programme les contenus adaptés à chacun. Vous pilotez le tout depuis votre espace Vision Plus, sur ordinateur comme sur mobile.</p></div>
           <div class="mk-plan" aria-hidden="true">
             <p class="mk-plan-h"><span>Exemple : vos réseaux, votre rythme</span><span class="mk-h"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horaires choisis par l'IA pour chaque réseau</span></p>
             <div class="mk-rows"><div class="mk-row"><span class="mk-net ig">IG</span><b>Instagram</b><span class="mk-f">3 par semaine</span></div><div class="mk-row"><span class="mk-net fb">f</span><b>Facebook</b><span class="mk-f">2 par semaine</span></div><div class="mk-row"><span class="mk-net li">in</span><b>LinkedIn</b><span class="mk-f">2 par semaine</span></div><div class="mk-row"><span class="mk-net tt">♪</span><b>TikTok</b><span class="mk-f">1 par jour</span></div><div class="mk-row"><span class="mk-net yt">▶</span><b>YouTube</b><span class="mk-f">1 par semaine</span></div><div class="mk-row"><span class="mk-net x">X</span><b>X</b><span class="mk-f">1 par jour</span></div><div class="mk-row"><span class="mk-net pi">P</span><b>Pinterest</b><span class="mk-f">3 par semaine</span></div><div class="mk-row"><span class="mk-net sc">SC</span><b>Snapchat</b><span class="mk-f">2 par semaine</span></div><div class="mk-row"><span class="mk-net wa">WA</span><b>WhatsApp</b><span class="mk-f">1 par semaine</span></div><div class="mk-row"><span class="mk-net tg">✈</span><b>Telegram</b><span class="mk-f">1 par semaine</span></div></div>
@@ -383,7 +391,7 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         <a class="btn btn-line" href="decouvrir.html">Explorer la technologie <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <figure class="tech-visual reveal">
-        <img src="assets/tech-axia.webp" width="1623" height="1602" loading="lazy" alt="Le noyau AXIA relié à trois agents IA : votre secrétaire IA, qui répond et planifie ; Marketing IA, qui crée et publie sur Instagram, Facebook, LinkedIn, TikTok, YouTube, X, WhatsApp, Snapchat, Pinterest et Telegram ; Gestion web app, qui modifie et met en ligne votre site sur ordinateur et mobile.">
+        <img src="assets/tech-plateforme-vp.webp" width="1623" height="1602" loading="lazy" alt="Le noyau Vision Plus relié à trois agents IA : votre secrétaire IA, qui répond et planifie ; Marketing IA, qui crée et publie sur Instagram, Facebook, LinkedIn, TikTok, YouTube, X, WhatsApp, Snapchat, Pinterest et Telegram ; Gestion web app, qui modifie et met en ligne votre site sur ordinateur et mobile.">
         <svg class="tv-fx" viewBox="0 0 1082 1068" preserveAspectRatio="none" aria-hidden="true">
           <defs><radialGradient id="tvg"><stop offset="0" stop-color="#87BBF7" stop-opacity=".55"/><stop offset="1" stop-color="#87BBF7" stop-opacity="0"/></radialGradient></defs>
           <circle class="tv-halo" cx="548" cy="415" r="230" fill="url(#tvg)"/>
@@ -398,13 +406,13 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
     </div>
   </section>
 
-  <!-- 3 bis. Qu'est-ce qu'AXIA ? -->
-  <section class="section" id="axia-simple" aria-labelledby="t-simple">
+  <!-- 3 bis. Qu'est-ce que Vision Plus ? -->
+  <section class="section" id="vision-plus-simple" aria-labelledby="t-simple">
     <div class="wrap">
       <div class="simple-intro reveal">
-        <span class="eyebrow">Qu'est-ce qu'AXIA ?</span>
-        <h2 id="t-simple" class="h-l">AXIA, votre entreprise avance. L'IA s'occupe du reste.</h2>
-        <p class="lead">AXIA est une plateforme d'intelligence artificielle qui aide les entreprises à gagner du temps, trouver des clients et automatiser leur quotidien.</p>
+        <span class="eyebrow">Qu'est-ce que Vision Plus ?</span>
+        <h2 id="t-simple" class="h-l">Vision Plus, votre entreprise avance. L'IA s'occupe du reste.</h2>
+        <p class="lead">Vision Plus est une plateforme d'intelligence artificielle qui aide les entreprises à gagner du temps, trouver des clients et automatiser leur quotidien.</p>
         <p class="simple-p">Imaginez une équipe d'assistants intelligents qui travaillent pour vous : ils répondent à vos appels, vous aident à communiquer sur les réseaux sociaux et simplifient la gestion de votre site internet.</p>
         <p class="simple-p strong">Tout cela depuis une seule plateforme, simple à utiliser.</p>
       </div>
@@ -419,7 +427,7 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         <article class="svc reveal">
           <span class="svc-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11v3a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M10 6c4 0 7-2 9-3v18c-2-1-5-3-9-3"/></svg></span>
           <h3><span>Marketing IA</span>Communiquez plus facilement</h3>
-          <p>AXIA vous aide à créer du contenu pour vos réseaux sociaux et à préparer vos publications sur Instagram, Facebook, LinkedIn, TikTok et les autres plateformes compatibles.</p>
+          <p>Vision Plus vous aide à créer du contenu pour vos réseaux sociaux et à préparer vos publications sur Instagram, Facebook, LinkedIn, TikTok et les autres plateformes compatibles.</p>
           <p>Vous gardez le contrôle et validez vos publications avant leur diffusion.</p>
           <p class="svc-gain">Moins de temps passé à communiquer, plus de visibilité pour votre entreprise.</p>
           <img class="svc-social" src="assets/reseaux-sociaux.webp" width="664" height="256" loading="lazy" alt="Réseaux sociaux compatibles : Instagram, Facebook, LinkedIn, TikTok, YouTube, X, WhatsApp, Snapchat, Pinterest et Telegram.">
@@ -428,31 +436,31 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
         <article class="svc reveal">
           <span class="svc-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/></svg></span>
           <h3><span>Gestion web app</span>Votre site évolue avec vous</h3>
-          <p>AXIA vous aide à gérer, modifier et actualiser votre site internet plus facilement.</p>
+          <p>Vision Plus vous aide à gérer, modifier et actualiser votre site internet plus facilement.</p>
           <p>Vous pouvez demander des changements, actualiser des informations et faire évoluer votre présence en ligne sans avoir besoin de connaissances techniques avancées.</p>
           <p class="svc-gain">Un site toujours à jour, sans complications.</p>
           <a class="btn btn-line btn-sm" href="decouvrir.html#gestion">En savoir plus <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </article>
       </div>
       <div class="how reveal">
-        <h3 class="how-t">Comment fonctionne AXIA ?</h3>
+        <h3 class="how-t">Comment fonctionne Vision Plus ?</h3>
         <ol class="how3">
-          <li><span class="how-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><b>Créez votre compte</b><span>Accédez à votre espace AXIA.</span></li>
+          <li><span class="how-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><b>Créez votre compte</b><span>Accédez à votre espace Vision Plus.</span></li>
           <li><span class="how-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><b>Choisissez vos services</b><span>Sélectionnez les outils d'intelligence artificielle adaptés à votre entreprise.</span></li>
-          <li><span class="how-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><b>Laissez AXIA vous accompagner</b><span>Pilotez vos outils, automatisez vos tâches et gardez le contrôle depuis votre espace personnel.</span></li>
+          <li><span class="how-ic"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><b>Laissez Vision Plus vous accompagner</b><span>Pilotez vos outils, automatisez vos tâches et gardez le contrôle depuis votre espace personnel.</span></li>
         </ol>
       </div>
       <div class="simple-cta reveal">
         <p class="cta-q">Et si l'intelligence artificielle travaillait pour votre entreprise ?</p>
-        <p class="lead">Découvrez comment AXIA peut simplifier votre quotidien.</p>
+        <p class="lead">Découvrez comment Vision Plus peut simplifier votre quotidien.</p>
       </div>
     </div>
   </section>
 
-  <!-- 4. Rejoindre AXIA -->
+  <!-- 4. Rejoindre Vision Plus -->
   <section class="section join" id="rejoindre" aria-labelledby="t-join">
     <div class="wrap">
-      <span class="eyebrow reveal">Rejoindre AXIA</span>
+      <span class="eyebrow reveal">Rejoindre Vision Plus</span>
       <h2 id="t-join" class="h-l reveal">Prêt à passer à la nouvelle dimension ?</h2>
       <div class="actions center reveal">
         <a class="btn btn-cyan" href="inscription.html" data-auth="signup">Créer un compte</a>
@@ -462,16 +470,16 @@ html.theme-p1 #technologie,#technologie{background:radial-gradient(60% 50% at 50
   </section>
 </main>
 
-<div data-axia="footer"></div>
+<div data-vp="footer"></div>
 <script src="assets/config.js"></script>
 <script src="assets/data.js"></script>
-<script src="assets/axia.js"></script>
+<script src="assets/site.js"></script>
 <script src="assets/posts.js"></script>
 <script src="assets/assistant/mascot.js" defer></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,esc=A.esc,reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var A=window.VISIONPLUS,esc=A.esc,reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});
 var tabs=[].slice.call(document.querySelectorAll('#service [role="tab"]')),played=false;
 function select(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute("aria-selected",on?"true":"false");x.tabIndex=on?0:-1;document.getElementById(x.getAttribute("aria-controls")).hidden=!on;});
@@ -479,11 +487,11 @@ function select(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute("a
 tabs.forEach(function(t,i){t.addEventListener("click",function(){select(t);});
   t.addEventListener("keydown",function(e){var n=null;if(e.key==="ArrowRight")n=tabs[(i+1)%tabs.length];else if(e.key==="ArrowLeft")n=tabs[(i-1+tabs.length)%tabs.length];else if(e.key==="Home")n=tabs[0];else if(e.key==="End")n=tabs[tabs.length-1];if(n){e.preventDefault();select(n,true);}});});
 var posts=document.getElementById("m-posts"),gen=document.getElementById("m-gen"),mst=document.getElementById("m-status");
-function renderPosts(anim){window.AXIA_POSTS.render(posts,anim);}
+function renderPosts(anim){window.VISIONPLUS_POSTS.render(posts,anim);}
 renderPosts(false);
 if(gen)gen.addEventListener("click",function(){gen.disabled=true;mst.textContent="Rédaction en cours…";mst.classList.add("busy");
   setTimeout(function(){renderPosts(true);mst.textContent="3 publications prêtes à valider";mst.classList.remove("busy");gen.disabled=false;},reduced?0:700);});
-var CALL=[["ai","Agent AXIA","Le Contemporain, bonsoir. Que puis-je faire pour vous ?"],["cl","Client","Bonsoir, je voudrais une table pour quatre vendredi, pour la soirée jazz."],["ai","Agent AXIA","Il reste des places à 20h et à 20h30. Laquelle vous convient ?"],["cl","Client","20h, au nom de Martin. Une personne est végétarienne."],["ai","Agent AXIA","C'est noté : quatre personnes vendredi à 20h, au nom de Martin, dont un menu végétarien. Je vous envoie la confirmation par SMS."],["sys","SMS envoyé","Le Contemporain : table pour 4 confirmée vendredi à 20h, soirée jazz. À vendredi !"]];
+var CALL=[["ai","Agent Vision Plus","Le Contemporain, bonsoir. Que puis-je faire pour vous ?"],["cl","Client","Bonsoir, je voudrais une table pour quatre vendredi, pour la soirée jazz."],["ai","Agent Vision Plus","Il reste des places à 20h et à 20h30. Laquelle vous convient ?"],["cl","Client","20h, au nom de Martin. Une personne est végétarienne."],["ai","Agent Vision Plus","C'est noté : quatre personnes vendredi à 20h, au nom de Martin, dont un menu végétarien. Je vous envoie la confirmation par SMS."],["sys","SMS envoyé","Le Contemporain : table pour 4 confirmée vendredi à 20h, soirée jazz. À vendredi !"]];
 var convo=document.getElementById("t-convo"),call=document.getElementById("t-call"),play=document.getElementById("t-play"),tst=document.getElementById("t-status"),timers=[];
 function li(m,anim){var el=document.createElement("li");el.className="msg "+m[0]+(anim?" new":"");el.innerHTML="<small>"+esc(m[1])+"</small>"+esc(m[2]);convo.appendChild(el);}
 CALL.forEach(function(m){li(m,false);});

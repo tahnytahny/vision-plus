@@ -1,9 +1,9 @@
-/* AXIA — service worker (PWA). Activé seulement en production (https, hors cadre).
+/* Vision Plus — service worker (PWA). Activé seulement en production (https, hors cadre).
    Stratégie : réseau d'abord pour tout (pages et fichiers), avec revalidation auprès du serveur ;
    le cache ne sert qu'en l'absence de connexion. Une nouvelle version du site est donc visible
    dès le chargement suivant (et mobile.js recharge la page quand une nouvelle version prend la main). */
-var V="axia-v8";
-var SHELL=["index.html","decouvrir.html","demo.html","abonnements.html","faq.html","sav.html","connexion.html","inscription.html","assets/axia.css","themes/p1.css","assets/mobile.css","assets/axia.js","assets/mobile.js","assets/config.js","assets/data.js","assets/theme.js","themes/p1.js","assets/logo-t.webp","assets/logo-mark-t.webp","assets/icon-192.png"];
+var V="vp-v9";
+var SHELL=["index.html","decouvrir.html","demo.html","abonnements.html","faq.html","sav.html","connexion.html","inscription.html","assets/site.css","themes/p1.css","assets/mobile.css","assets/site.js","assets/mobile.js","assets/config.js","assets/data.js","assets/theme.js","themes/p1.js","assets/brand/vp-logo.webp","assets/brand/vp-mark.webp","assets/brand/icon-192.png"];
 self.addEventListener("install",function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(SHELL.map(function(u){return new Request(u,{cache:"reload"});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!==V;}).map(function(x){return caches.delete(x);}));}).then(function(){return self.clients.claim();}));});
 self.addEventListener("fetch",function(e){var r=e.request;

@@ -1,27 +1,36 @@
-/* AXIA — socle commun : en-tête, pied de page, compte, données, assistant, cookies.
+/* Vision Plus — socle commun : en-tête, pied de page, compte, données, assistant, cookies.
    En mode "prototype", tout est stocké dans le navigateur du visiteur (localStorage).
-   En production, chaque fonction de AXIA.auth / AXIA.records appelle l'API serveur (voir ARCHITECTURE.md). */
+   En production, chaque fonction de VISIONPLUS.auth / VISIONPLUS.records appelle l'API serveur (voir ARCHITECTURE.md). */
 (function(){
 "use strict";
-var CFG=window.AXIA_CONFIG||{mode:"prototype",security:{},oauth:{}};
-var DATA=window.AXIA_DATA||{};
+var CFG=window.VISIONPLUS_CONFIG||{mode:"prototype",security:{},oauth:{}};
+var DATA=window.VISIONPLUS_DATA||{};
 var SEC=Object.assign({maxLoginAttempts:5,lockMinutes:15,codeMinutes:10,resetLinkMinutes:30,sessionDays:30},CFG.security||{});
 var PROTO=CFG.mode!=="production";
-var A=window.AXIA={config:CFG,data:DATA,proto:PROTO};
-function pageId(){var m=document.querySelector('meta[name="axia-page"]');return (m&&m.content)||(document.body&&document.body.dataset.page)||"";}
+var A=window.VISIONPLUS={config:CFG,data:DATA,proto:PROTO};
+/* anciennes ancres d'avant le changement de nom (5 novembre 2026) : redirigées vers les nouvelles */
+(function(){var OLD={"#axia-simple":"#vision-plus-simple","#resiliation-axia":"#resiliation-prestataire"};
+  if(OLD[location.hash])try{history.replaceState(null,"",location.pathname+location.search+OLD[location.hash]);}catch(e){}})();
+function pageId(){var m=document.querySelector('meta[name="vp-page"]');return (m&&m.content)||(document.body&&document.body.dataset.page)||"";}
 A.page=pageId;
 
 /* ---------- utilitaires ---------- */
+/* données du navigateur : préfixe « vp. ». Les données enregistrées avant le changement de nom du site
+   (5 novembre 2026, ancien préfixe ci-dessous) sont reprises une fois, pour que personne ne perde son compte ni ses choix. */
+var KP="vp.",OLD_KP="axia.";
+(function migrate(){[["localStorage"],["sessionStorage"]].forEach(function(n){try{var s=window[n[0]],keys=[];
+  for(var i=0;i<s.length;i++){var k=s.key(i);if(k&&k.indexOf(OLD_KP)===0)keys.push(k);}
+  keys.forEach(function(k){var nk=KP+k.slice(OLD_KP.length);if(s.getItem(nk)==null)s.setItem(nk,s.getItem(k));s.removeItem(k);});}catch(e){}});})();
 var mem={};
 A.store={
-  get:function(k,d){try{var v=localStorage.getItem("axia."+k);return v==null?(k in mem?mem[k]:d):JSON.parse(v);}catch(e){return k in mem?mem[k]:d;}},
-  set:function(k,v){mem[k]=v;try{localStorage.setItem("axia."+k,JSON.stringify(v));}catch(e){}},
-  del:function(k){delete mem[k];try{localStorage.removeItem("axia."+k);}catch(e){}}
+  get:function(k,d){try{var v=localStorage.getItem(KP+k);return v==null?(k in mem?mem[k]:d):JSON.parse(v);}catch(e){return k in mem?mem[k]:d;}},
+  set:function(k,v){mem[k]=v;try{localStorage.setItem(KP+k,JSON.stringify(v));}catch(e){}},
+  del:function(k){delete mem[k];try{localStorage.removeItem(KP+k);}catch(e){}}
 };
 A.ss={
-  get:function(k){try{return JSON.parse(sessionStorage.getItem("axia."+k));}catch(e){return null;}},
-  set:function(k,v){try{sessionStorage.setItem("axia."+k,JSON.stringify(v));}catch(e){}},
-  del:function(k){try{sessionStorage.removeItem("axia."+k);}catch(e){}}
+  get:function(k){try{return JSON.parse(sessionStorage.getItem(KP+k));}catch(e){return null;}},
+  set:function(k,v){try{sessionStorage.setItem(KP+k,JSON.stringify(v));}catch(e){}},
+  del:function(k){try{sessionStorage.removeItem(KP+k);}catch(e){}}
 };
 A.now=function(){return Date.now();};
 A.uid=function(p){return (p||"id")+"_"+Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4);};
@@ -109,9 +118,9 @@ A.auth={
     if(findUser(function(u){return u.email===email;}))return {error:"Un compte existe déjà avec cette adresse. Connectez-vous ou réinitialisez votre mot de passe."};
     var salt=A.uid("s");var u={id:A.uid("usr"),name:o.name.trim(),email:email,phone:"",salt:salt,pw:await hash(o.password,salt),emailVerified:false,phoneVerified:false,providers:["email"],role:"client",createdAt:A.now(),prefs:{news:false,notifEmail:true,notifSms:false}};
     var l=users();l.push(u);saveUsers(l);var code=issueCode("verify-email",email);
-    A.send("email",email,"Votre code de vérification AXIA : "+code,"Saisissez ce code pour confirmer votre adresse. Il est valable "+SEC.codeMinutes+" minutes.");
+    A.send("email",email,"Votre code de vérification Vision Plus : "+code,"Saisissez ce code pour confirmer votre adresse. Il est valable "+SEC.codeMinutes+" minutes.");
     A.audit("Compte créé",email);return {user:u};},
-  resendEmailCode:function(email){var code=issueCode("verify-email",email);A.send("email",email,"Votre code de vérification AXIA : "+code,"Code valable "+SEC.codeMinutes+" minutes.");},
+  resendEmailCode:function(email){var code=issueCode("verify-email",email);A.send("email",email,"Votre code de vérification Vision Plus : "+code,"Code valable "+SEC.codeMinutes+" minutes.");},
   verifyEmail:function(email,code,remember){var err=checkCode("verify-email",email,code);if(err)return {error:err};
     var l=users(),u=null;l.forEach(function(x){if(x.email===email){x.emailVerified=true;u=x;}});saveUsers(l);if(u)startSession(u,remember);return {user:u};},
   loginEmail:async function(email,pw,remember){email=String(email||"").trim().toLowerCase();var m=locked(email);
@@ -123,19 +132,19 @@ A.auth={
   phoneStart:function(phone){phone=normPhone(phone);if(!/^\+\d{8,15}$/.test(phone))return {error:"Numéro de téléphone invalide."};
     var m=locked(phone);if(m)return {error:"Trop de tentatives. Réessayez dans "+m+" min."};
     var exists=!!findUser(function(u){return u.phone===phone&&u.phoneVerified;});var code=issueCode("phone",phone);
-    A.send("sms",phone,"AXIA : votre code est "+code,"Valable "+SEC.codeMinutes+" minutes. Ne le communiquez à personne.");return {phone:phone,exists:exists};},
+    A.send("sms",phone,"Vision Plus : votre code est "+code,"Valable "+SEC.codeMinutes+" minutes. Ne le communiquez à personne.");return {phone:phone,exists:exists};},
   phoneVerify:function(phone,code,remember,name){phone=normPhone(phone);var err=checkCode("phone",phone,code);if(err){fail(phone);return {error:err};}
     clearFail(phone);var l=users(),u=l.find(function(x){return x.phone===phone;});
-    if(!u){u={id:A.uid("usr"),name:(name||"").trim()||"Client AXIA",email:"",phone:phone,phoneVerified:true,emailVerified:false,providers:["phone"],role:"client",createdAt:A.now(),prefs:{news:false,notifEmail:false,notifSms:true}};l.push(u);A.audit("Compte créé",phone);}
+    if(!u){u={id:A.uid("usr"),name:(name||"").trim()||"Client Vision Plus",email:"",phone:phone,phoneVerified:true,emailVerified:false,providers:["phone"],role:"client",createdAt:A.now(),prefs:{news:false,notifEmail:false,notifSms:true}};l.push(u);A.audit("Compte créé",phone);}
     else{if(u.suspended)return {error:"Ce compte est suspendu. Contactez le SAV."};u.phoneVerified=true;}saveUsers(l);startSession(u,remember);return {user:u};},
-  oauth:function(provider){if(!(CFG.oauth||{})[provider])return {error:"La connexion avec "+(provider==="apple"?"Apple":"Google")+" sera disponible dès que les identifiants auront été configurés sur le serveur AXIA. Utilisez l'e-mail ou le téléphone en attendant."};
+  oauth:function(provider){if(!(CFG.oauth||{})[provider])return {error:"La connexion avec "+(provider==="apple"?"Apple":"Google")+" sera disponible dès que les identifiants auront été configurés sur le serveur Vision Plus. Utilisez l'e-mail ou le téléphone en attendant."};
     location.href=(CFG.apiBase||"")+"/auth/"+provider;return {};},
   logout:function(){A.store.del("session");A.ss.del("session");location.href="index.html";},
   resetRequest:function(channel,target){if(channel==="email"){target=String(target||"").trim().toLowerCase();var u=findUser(function(x){return x.email===target;});
       if(u){var tok=A.uid("rst");var r=A.store.get("resets",{});r[tok]={uid:u.id,exp:A.now()+SEC.resetLinkMinutes*60000};A.store.set("resets",r);
-        A.send("email",target,"Réinitialisation de votre mot de passe AXIA","Lien valable "+SEC.resetLinkMinutes+" minutes : mot-de-passe.html?token="+tok);return {token:PROTO?tok:null};}
+        A.send("email",target,"Réinitialisation de votre mot de passe Vision Plus","Lien valable "+SEC.resetLinkMinutes+" minutes : mot-de-passe.html?token="+tok);return {token:PROTO?tok:null};}
       return {};}
-    target=normPhone(target);var u2=findUser(function(x){return x.phone===target;});if(u2){var code=issueCode("reset",target);A.send("sms",target,"AXIA : code de réinitialisation "+code,"Valable "+SEC.codeMinutes+" minutes.");}return {};},
+    target=normPhone(target);var u2=findUser(function(x){return x.phone===target;});if(u2){var code=issueCode("reset",target);A.send("sms",target,"Vision Plus : code de réinitialisation "+code,"Valable "+SEC.codeMinutes+" minutes.");}return {};},
   resetCheckToken:function(tok){var r=A.store.get("resets",{})[tok];return r&&r.exp>A.now()?r:null;},
   resetConfirm:async function(o){var l=users(),u=null;
     if(o.token){var r=A.store.get("resets",{}),t=r[o.token];if(!t||t.exp<A.now())return {error:"Ce lien a expiré. Faites une nouvelle demande."};u=l.find(function(x){return x.id===t.uid;});delete r[o.token];A.store.set("resets",r);}
@@ -153,7 +162,7 @@ A.auth={
 var STOP="le la les un une des de du d l a au aux et ou en est ce que qui quoi comment je j me mon ma mes vous votre vos pour sur dans avec il y on pas ne se sa son ses peut puis faut faire".split(" ");
 function toks(s){return A.norm(s).split(" ").filter(function(w){return w.length>1&&STOP.indexOf(w)<0;});}
 A.assistant={
-  suggestions:["Qu'est-ce qu'AXIA ?","Comment fonctionne la simulation ?","Quels sont les abonnements ?","J'ai oublié mon mot de passe"],
+  suggestions:["Qu'est-ce que Vision Plus ?","Comment fonctionne la simulation ?","Quels sont les abonnements ?","J'ai oublié mon mot de passe"],
   answer:function(q){var qt=toks(q);if(!qt.length)return {text:"Pouvez-vous préciser votre question ?",found:false};
     var pool=A.content.faq().map(function(f){return {q:f.q,a:f.a,status:f.status,link:f.link,tags:f.tags||""};}).concat(A.content.kb().map(function(k){return {q:k.q,a:k.a,status:"ok",link:k.link,tags:k.tags||""};}));
     var best=null,bs=0;pool.forEach(function(e){var hay=toks(e.q+" "+e.tags),s=0;qt.forEach(function(w){hay.forEach(function(h){if(h===w)s+=2;else if(h.length>3&&w.length>3&&(h.indexOf(w)===0||w.indexOf(h)===0))s+=1;});});s=s/Math.sqrt(hay.length+2);if(s>bs){bs=s;best=e;}});
@@ -169,9 +178,9 @@ A.assistant={
 var CONSENT_V=1,CONSENT_MAX=182*864e5; /* choix redemandé au bout de 6 mois (recommandation CNIL) */
 A.consent={
   get:function(){var c=A.store.get("consent",null);return c&&c.v===CONSENT_V&&(A.now()-c.date)<CONSENT_MAX?c:null;},
-  set:function(o){var c={v:CONSENT_V,necessary:true,analytics:!!o.analytics,marketing:!!o.marketing,date:A.now()};A.store.set("consent",c);A.records.add("consents",{analytics:c.analytics,marketing:c.marketing});hideBanner();document.dispatchEvent(new CustomEvent("axia:consent",{detail:c}));A.toast("Vos préférences de cookies sont enregistrées.");},
+  set:function(o){var c={v:CONSENT_V,necessary:true,analytics:!!o.analytics,marketing:!!o.marketing,date:A.now()};A.store.set("consent",c);A.records.add("consents",{analytics:c.analytics,marketing:c.marketing});hideBanner();document.dispatchEvent(new CustomEvent("vp:consent",{detail:c}));A.toast("Vos préférences de cookies sont enregistrées.");},
   /* Charge un script non essentiel uniquement après consentement. */
-  when:function(cat,fn){var c=A.consent.get();if(c&&c[cat])fn();else document.addEventListener("axia:consent",function(e){if(e.detail[cat])fn();});},
+  when:function(cat,fn){var c=A.consent.get();if(c&&c[cat])fn();else document.addEventListener("vp:consent",function(e){if(e.detail[cat])fn();});},
   open:function(){openPrefs();}
 };
 function hideBanner(){var b=document.querySelector(".cookie");if(b)b.remove();}
@@ -209,18 +218,18 @@ function header(){var page=pageId();var u=A.auth.current();
   if(u){act='<div class="dd dd-left"><button type="button" class="user-btn" aria-expanded="false" aria-haspopup="true" aria-label="Mon espace client"><span class="avatar">'+A.esc(initials(u.name))+'</span><span class="user-n">'+A.esc(u.name.split(" ")[0])+"</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
       ACCOUNT.map(function(a){return '<a href="'+a.h+'">'+A.icon(a.i)+"<span><b>"+a.l+"</b></span></a>";}).join("")+'<hr><button type="button" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button></div></div>";}
   else act='<div class="dd dd-left acct"><button type="button" class="acct-btn" aria-expanded="false" aria-haspopup="true" aria-label="Se connecter ou créer un compte" title="Se connecter ou créer un compte">'+ACCT_ICON+'<span class="acct-l">Compte</span>'+A.icon("chev","chev")+'</button><div class="dd-menu">'+
-      '<p class="acct-h">Votre espace AXIA</p><a href="connexion.html" data-auth="login">'+A.icon("user")+'<span><b>Se connecter</b><small>Accéder à mon espace client</small></span></a>'+
+      '<p class="acct-h">Votre espace Vision Plus</p><a href="connexion.html" data-auth="login">'+A.icon("user")+'<span><b>Se connecter</b><small>Accéder à mon espace client</small></span></a>'+
       '<a href="inscription.html" data-auth="signup">'+A.icon("spark")+'<span><b>Créer un compte</b><small>Apple, Google, téléphone ou e-mail</small></span></a></div></div>';
   var h=document.createElement("header");h.className="top";
-  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="AXIA, accueil"><span class="logo3d"><img class="logo3d-mark" src="assets/logo-mark-t.webp" alt="" width="62" height="54"><span class="logo3d-word" aria-hidden="true">AXIA</span></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav><button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
+  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav><button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
   var group=function(t,list){return '<details class="dgroup"'+(list.some(function(x){return x.id===page;})||(t==="Découvrir"&&page==="decouvrir")?" open":"")+"><summary>"+t+A.icon("chev","chev")+"</summary>"+list.map(function(n){return '<a class="dl sub" href="'+n.href+'"'+(n.id&&n.id===page?' aria-current="page"':"")+">"+n.label+A.icon("arrow")+"</a>";}).join("")+"</details>";};
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
-  dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">AXIA</span><span class="logo3d"><img class="logo3d-mark" src="assets/logo-mark-t.webp" alt="" width="62" height="54"><span class="logo3d-word" aria-hidden="true">AXIA</span></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
+  dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
     '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",DISCOVER)+
     NAV.map(function(n){return '<a class="dl" href="'+n.href+'"'+(n.id===page?' aria-current="page"':"")+">"+n.label+A.icon("arrow")+"</a>";}).join("")+group("Aide",HELP)+
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
-  var slot=document.querySelector('[data-axia="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
+  var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
   var burger=h.querySelector(".burger");
   function openDr(o){if(o){dr.setAttribute("data-open","");dr.removeAttribute("aria-hidden");burger.setAttribute("aria-expanded","true");dr.querySelector(".x").focus();document.documentElement.style.overflow="hidden";}else{dr.removeAttribute("data-open");dr.setAttribute("aria-hidden","true");burger.setAttribute("aria-expanded","false");document.documentElement.style.overflow="";}}
   burger.onclick=function(){openDr(true);};dr.addEventListener("click",function(e){if(e.target===dr||e.target.closest("[data-close]")||e.target.closest("a"))openDr(false);});
@@ -242,7 +251,7 @@ function closeDd(except){document.querySelectorAll(".dd[data-open]").forEach(fun
 
 /* ---------- fenêtre de connexion / inscription ---------- */
 A.authSheet=function(mode){var cfg=CFG.oauth||{};
-  var m=A.modal('<div class="modal-h"><div class="sheet-brand"><img src="assets/logo-mark-t.webp" alt="" width="62" height="54"><div><h2 class="h-m" id="as-t">Bienvenue sur AXIA</h2><p class="mut small">Réservé aux professionnels.</p></div></div><button class="x" data-close aria-label="Fermer">'+A.icon("x")+'</button></div>'+
+  var m=A.modal('<div class="modal-h"><div class="sheet-brand"><img src="assets/brand/vp-mark.webp" alt="" width="279" height="216"><div><h2 class="h-m" id="as-t">Bienvenue sur Vision Plus</h2><p class="mut small">Réservé aux professionnels.</p></div></div><button class="x" data-close aria-label="Fermer">'+A.icon("x")+'</button></div>'+
     '<div class="tabs sheet-tabs" role="tablist" aria-label="Connexion ou inscription"><button class="tab" role="tab" id="as-tl" aria-selected="false" aria-controls="as-pl">Se connecter</button><button class="tab" role="tab" id="as-ts" aria-selected="false" aria-controls="as-ps">Créer un compte</button></div>'+
     '<div class="oauth"><button type="button" class="btn btn-line btn-block oa" data-oa="apple"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.6-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.1-1.2 2.9-2.4.9-1.3 1.3-2.6 1.3-2.7-.1 0-2.4-.9-2.4-4.1zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>Continuer avec Apple</button>'+
     '<button type="button" class="btn btn-line btn-block oa" data-oa="google"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" style="stroke:none"><path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.6 3.8-5.4 3.8-3.2 0-5.9-2.7-5.9-6s2.7-6 5.9-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.3 14.6 2.3 12 2.3 6.6 2.3 2.3 6.6 2.3 12s4.3 9.7 9.7 9.7c5.6 0 9.3-3.9 9.3-9.5 0-.6-.1-1.1-.2-1.6H12z"/></svg>Continuer avec Google</button>'+
@@ -258,7 +267,7 @@ A.authSheet=function(mode){var cfg=CFG.oauth||{};
   m.querySelector(".modal-in").classList.add("sheet");m.querySelector(".modal-in").setAttribute("aria-labelledby","as-t");
   var tl=m.querySelector("#as-tl"),ts=m.querySelector("#as-ts");
   function sel(k){var login=k!=="signup";tl.setAttribute("aria-selected",login);ts.setAttribute("aria-selected",!login);tl.tabIndex=login?0:-1;ts.tabIndex=login?-1:0;
-    m.querySelector("#as-pl").hidden=!login;m.querySelector("#as-ps").hidden=login;m.querySelector("#as-t").textContent=login?"Bon retour sur AXIA":"Créer votre compte AXIA";
+    m.querySelector("#as-pl").hidden=!login;m.querySelector("#as-ps").hidden=login;m.querySelector("#as-t").textContent=login?"Bon retour sur Vision Plus":"Créer votre compte Vision Plus";
     m.querySelector("#as-phone").setAttribute("href",(login?"connexion.html":"inscription.html")+"?tab=telephone");m.querySelector("#as-oaerr").hidden=true;}
   sel(mode);tl.onclick=function(){sel("login");};ts.onclick=function(){sel("signup");};
   [tl,ts].forEach(function(t){t.addEventListener("keydown",function(e){if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();var o=t===tl?ts:tl;sel(o===tl?"login":"signup");o.focus();}});});
@@ -272,12 +281,12 @@ A.authSheet=function(mode){var cfg=CFG.oauth||{};
     location.href="espace-client.html#tableau";});
   return m;};
 function footer(){var f=document.createElement("footer");f.className="foot";
-  f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="AXIA, accueil"><span class="logo3d"><img class="logo3d-mark" src="assets/logo-mark-t.webp" alt="" width="62" height="54"><span class="logo3d-word" aria-hidden="true">AXIA</span></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
+  f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
   '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="abonnements.html">Abonnements</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
   '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">Assistance</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
   legalMenu()+'</div>'+
-  '<div class="foot-bottom"><span>© '+new Date().getFullYear()+' AXIA. Tous droits réservés.</span>'+(PROTO?'<span class="proto-tag">'+A.icon("info")+" Version de présentation : les données restent dans votre navigateur.</span>":"")+"</div></div>";
-  var slot=document.querySelector('[data-axia="footer"]');if(slot)slot.replaceWith(f);else document.body.appendChild(f);
+  '<div class="foot-bottom"><span>© '+new Date().getFullYear()+' Vision Plus, service exploité par AX TECH. Tous droits réservés.</span>'+(PROTO?'<span class="proto-tag">'+A.icon("info")+" Version de présentation : les données restent dans votre navigateur.</span>":"")+"</div></div>";
+  var slot=document.querySelector('[data-vp="footer"]');if(slot)slot.replaceWith(f);else document.body.appendChild(f);
   f.querySelector("[data-consent]").onclick=openPrefs;
   legalMenuInit(f);}
 /* ---------- pied de page : menu « Informations légales » ----------
@@ -285,10 +294,10 @@ function footer(){var f=document.createElement("footer");f.className="foot";
    Clavier : Entrée ou Espace ouvre et ferme, Échap ferme. Écran tactile : s'ouvre au toucher.
    Les PDF (docs/) sont générés par outils/generer-pdf-legaux.sh à partir des pages du site. */
 var LEGAL_DOCS=[
-  ["cgv.html","CGV","AXIA-CGV.pdf","les conditions générales de vente"],
-  ["mentions-legales.html","Mentions légales","AXIA-Mentions-legales.pdf","les mentions légales"],
-  ["confidentialite.html","Politique de confidentialité","AXIA-Politique-de-confidentialite.pdf","la politique de confidentialité"],
-  ["cookies.html","Politique de cookies","AXIA-Politique-cookies.pdf","la politique de cookies"]
+  ["cgv.html","CGV","Vision-Plus-CGV.pdf","les conditions générales de vente"],
+  ["mentions-legales.html","Mentions légales","Vision-Plus-Mentions-legales.pdf","les mentions légales"],
+  ["confidentialite.html","Politique de confidentialité","Vision-Plus-Politique-de-confidentialite.pdf","la politique de confidentialité"],
+  ["cookies.html","Politique de cookies","Vision-Plus-Politique-cookies.pdf","la politique de cookies"]
 ];
 function legalMenu(){
   return '<div class="foot-legal"><h2><button type="button" class="foot-legal-btn" id="foot-legal-btn" aria-expanded="false" aria-controls="foot-legal-panel">Informations légales'+A.icon("chev","chev")+'</button></h2>'+
@@ -316,10 +325,10 @@ function legalMenuInit(f){
 
 /* ---------- chat flottant ---------- */
 A.renderAnswer=function(r){return A.esc(r.text)+(r.link?'\n<a href="'+A.esc(r.link)+'">'+A.esc(r.linkLabel||"En savoir plus")+" →</a>":"");};
-function chat(){if(document.querySelector('meta[name="axia-nochat"]'))return;
+function chat(){if(document.querySelector('meta[name="vp-nochat"]'))return;
   /* bouton flottant : ouvre la zone de question de la FAQ unifiée */
   var fab=document.createElement("a");fab.className="chat-fab";fab.href="faq.html#question";fab.setAttribute("aria-label","Poser une question (FAQ)");fab.innerHTML=A.icon("chat");
-  fab.onclick=function(e){if(pageId()==="faq"&&window.AXIA_FAQ_ASK){e.preventDefault();window.AXIA_FAQ_ASK();}};
+  fab.onclick=function(e){if(pageId()==="faq"&&window.VISIONPLUS_FAQ_ASK){e.preventDefault();window.VISIONPLUS_FAQ_ASK();}};
   document.body.appendChild(fab);}
 
 /* ---------- apparitions ---------- */
@@ -328,6 +337,6 @@ function reveal(){var els=[].slice.call(document.querySelectorAll(".reveal"));if
   els.forEach(function(el){var r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add("pre");io.observe(el);}});}
 
 /* ---------- démarrage ---------- */
-function boot(){header();footer();chat();banner();reveal();document.dispatchEvent(new Event("axia:ready"));}
+function boot(){header();footer();chat();banner();reveal();document.dispatchEvent(new Event("vp:ready"));}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
 })();

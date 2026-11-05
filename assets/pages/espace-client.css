@@ -1,4 +1,4 @@
-/* AXIA — espace client. Complète .app / .side / .app-main du socle. */
+/* Vision Plus — espace client. Complète .app / .side / .app-main du socle. */
 /* Le socle ne fixe pas de colonne sous 960 px : la barre d'onglets défilante élargirait la grille. */
 @media (max-width:959px){.app{grid-template-columns:minmax(0,1fr)}.side{min-width:0}}
 @media (min-width:960px){

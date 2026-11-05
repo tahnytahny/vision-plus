@@ -1,4 +1,4 @@
-/* AXIA — assistant d'accueil (page d'accueil).
+/* Vision Plus — assistant d'accueil (page d'accueil).
    Personnage 3D pré-rendu (mascot-body.webp, mascot-wave.webp : 6 poses du bras). Yeux et bouche dessinés
    par-dessus la visière (positions issues de mascot.json). Au repos, le robot se range dans l'en-tête (.ax-dock) :
    il ne recouvre alors aucun contenu. Le panneau (.axbot) ne s'affiche que pendant la présentation ou sur demande. */

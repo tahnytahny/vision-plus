@@ -1,8 +1,8 @@
-/* AXIA — outils communs aux pages de compte (inscription, connexion, mot de passe oublié).
-   S'appuie uniquement sur l'API publique window.AXIA (assets/axia.js). */
+/* Vision Plus — outils communs aux pages de compte (inscription, connexion, mot de passe oublié).
+   S'appuie uniquement sur l'API publique window.VISIONPLUS (assets/site.js). */
 (function(){
 "use strict";
-var A=window.AXIA;
+var A=window.VISIONPLUS;
 var PAGES="index decouvrir telephone-ia compte demo abonnements faq assistant sav connexion inscription mot-de-passe espace-client cgv mentions-legales confidentialite cookies".split(" ");
 var X=window.AXAUTH={};
 
@@ -22,7 +22,7 @@ X.busy=function(btn,on){btn.classList.add("btn-spin");if(on){btn.setAttribute("a
 var APPLE='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4z"/></svg>';
 var GOOGLE='<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
 
-/* Boutons Apple / Google : appellent AXIA.auth.oauth et affichent l'erreur si non configuré. */
+/* Boutons Apple / Google : appellent VISIONPLUS.auth.oauth et affichent l'erreur si non configuré. */
 X.sso=function(box,msgEl){box.innerHTML='<button type="button" class="btn btn-sso" id="sso-apple">'+APPLE+'Continuer avec Apple</button><button type="button" class="btn btn-sso" id="sso-google">'+GOOGLE+'Continuer avec Google</button>';
   [["apple","#sso-apple"],["google","#sso-google"]].forEach(function(p){box.querySelector(p[1]).onclick=function(){var r=A.auth.oauth(p[0]);if(r&&r.error)X.msg(msgEl,A.esc(r.error));else X.msg(msgEl,"");};});};
 
@@ -39,7 +39,7 @@ X.pwToggle=function(input){var b=document.createElement("button");b.type="button
   function set(show){input.type=show?"text":"password";b.setAttribute("aria-pressed",show?"true":"false");b.setAttribute("aria-label",show?"Masquer le mot de passe":"Afficher le mot de passe");b.innerHTML='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">'+(show?EYE_OFF:EYE)+"</svg>";}
   set(false);b.onclick=function(){set(input.type==="password");};input.parentNode.appendChild(b);};
 
-/* Règles du mot de passe (AXIA.auth.strength) affichées en direct. */
+/* Règles du mot de passe (VISIONPLUS.auth.strength) affichées en direct. */
 var RULES=["10 caractères minimum","une lettre","un chiffre"];
 X.rules=function(input,list){list.innerHTML=RULES.map(function(r,i){return '<li data-r="'+i+'">'+r+"</li>";}).join("");
   function upd(){var miss=A.auth.strength(input.value);list.querySelectorAll("li").forEach(function(li){li.classList.toggle("ok",miss.indexOf(RULES[+li.dataset.r])<0);});}

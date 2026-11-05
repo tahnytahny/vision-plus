@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Compte · AXIA</title>
-<meta name="description" content="Connectez-vous ou créez votre compte AXIA : Apple, Google, SMS ou e-mail.">
-<meta name="axia-page" content="compte">
-<link rel="stylesheet" href="assets/axia.css">
+<title>Compte · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compte · Vision Plus">
+<meta property="og:description" content="Connectez-vous ou créez votre compte Vision Plus : Apple, Google, SMS ou e-mail.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Connectez-vous ou créez votre compte Vision Plus : Apple, Google, SMS ou e-mail.">
+<meta name="vp-page" content="compte">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,8 +23,8 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
 .acc-wrap{max-width:520px;margin:0 auto;display:grid;gap:22px;padding-block:clamp(28px,6vw,72px) 48px}
@@ -37,12 +45,12 @@
 </style>
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <div class="wrap acc-wrap">
     <div class="acc-hero">
       <span class="ring"><i data-ico="user"></i></span>
-      <h1>Votre compte AXIA</h1>
+      <h1>Votre compte Vision Plus</h1>
       <p>Connectez-vous ou créez votre compte. Réservé aux professionnels.</p>
     </div>
     <section class="acc-card" aria-labelledby="t-login">
@@ -55,7 +63,7 @@
       <a class="acc-row" href="mot-de-passe.html"><i data-ico="lock"></i>Mot de passe oublié ?<i data-ico="chev" data-cls="go"></i></a>
     </section>
     <section class="acc-card" aria-labelledby="t-new">
-      <h2 id="t-new">Nouveau sur AXIA ?</h2>
+      <h2 id="t-new">Nouveau sur Vision Plus ?</h2>
       <a class="btn btn-cyan" href="inscription.html"><i data-ico="spark"></i>Créer un compte</a>
       <a class="acc-row" href="inscription.html?tab=telephone"><i data-ico="phone"></i>Créer un compte avec mon numéro<i data-ico="chev" data-cls="go"></i></a>
     </section>
@@ -76,10 +84,10 @@
     <p class="acc-note">Version de présentation : les données restent dans votre navigateur.</p>
   </div>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script>
-(function(){var A=window.AXIA;
+(function(){var A=window.VISIONPLUS;
 if(A.auth.current()){location.replace("espace-client.html#tableau");return;}
 document.querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});
 document.querySelectorAll("[data-oa]").forEach(function(b){b.onclick=function(){var r=A.auth.oauth(b.dataset.oa),e=document.getElementById("acc-err");if(r&&r.error){e.textContent=r.error;e.hidden=false;}};});

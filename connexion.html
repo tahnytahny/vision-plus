@@ -3,11 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Connexion · AXIA</title>
-<meta name="description" content="Connectez-vous à votre espace client AXIA.">
-<meta name="axia-page" content="connexion">
-<meta name="axia-nochat" content="1">
-<link rel="stylesheet" href="assets/axia.css">
+<title>Connexion · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Connexion · Vision Plus">
+<meta property="og:description" content="Connectez-vous à votre espace client Vision Plus.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Connectez-vous à votre espace client Vision Plus.">
+<meta name="vp-page" content="connexion">
+<meta name="vp-nochat" content="1">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -16,18 +24,19 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <link rel="stylesheet" href="assets/pages/auth.css">
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <section class="auth" aria-labelledby="t-auth">
     <div class="auth-in">
       <div id="step-start" class="auth-step">
         <header class="auth-head">
+          <img class="auth-logo" src="assets/brand/vp-logo.webp" alt="Vision Plus" width="639" height="160">
           <span class="eyebrow">Espace client</span>
           <h1 id="t-auth">Se connecter</h1>
           <p>Retrouvez vos projets, simulations et demandes.</p>
@@ -79,13 +88,13 @@
     </div>
   </section>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script src="assets/pages/auth.js"></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,X=window.AXAUTH;
+var A=window.VISIONPLUS,X=window.AXAUTH;
 if(A.auth.current()){location.replace(X.next());return;}
 function $(id){return document.getElementById(id);}
 $("to-signup").href=X.keepNext("inscription.html");

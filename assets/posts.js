@@ -1,4 +1,4 @@
-/* AXIA — publications de la démo Marketing IA (accueil et page Découvrir).
+/* Vision Plus — publications de la démo Marketing IA (accueil et page Découvrir).
    Instagram : KARTEZZI France · Facebook : EcoLED Europe · LinkedIn : HeyZack AI.
    Un clic (ou Entrée) sur une carte ouvre la publication en grand ; × ou Échap la referme. */
 (function(){
@@ -47,7 +47,7 @@ function card(p,anim){
   }
   return '<article class="post sp sp-'+p.k+(anim?" fade":"")+'" tabindex="0" role="button" data-post="'+p.k+'" aria-label="Agrandir la publication '+p.net+' de '+esc(p.name)+'">'+head+body+"</article>";
 }
-function open(p){var A=window.AXIA;if(!A||!A.modal)return;
+function open(p){var A=window.VISIONPLUS;if(!A||!A.modal)return;
   var media='<img src="'+p.img+'" alt="'+esc(p.alt)+'">';
   var cap=
     '<div class="sp-big-cap">'+nl(p.caption)+(p.tags?'<br><span class="tg">'+esc(p.tags)+"</span>":"")+"</div>"+(p.link?'<p><a class="link" href="'+p.link+'" target="_blank" rel="noopener">'+esc(p.linkLabel)+" ↗</a></p>":"");
@@ -58,6 +58,6 @@ function bind(root){
   root.addEventListener("keydown",function(e){if(e.key!=="Enter"&&e.key!==" ")return;var c=e.target.closest("[data-post]");if(!c)return;e.preventDefault();c.click();});
   root.addEventListener("error",function(e){var t=e.target;if(t.tagName==="IMG"&&t.dataset.fallback){var p=POSTS[1];var d=document.createElement("div");d.className="sp-fb-fallback";d.innerHTML="<b>EcoLED Europe</b>"+p.fallback.map(function(x){return "<span>"+esc(x)+"</span>";}).join("");t.replaceWith(d);}},true);
 }
-window.AXIA_POSTS={list:POSTS,render:function(el,anim){addCss();if(!el._sp){bind(el);el._sp=1;}el.innerHTML=POSTS.map(function(p){return card(p,anim);}).join("");
+window.VISIONPLUS_POSTS={list:POSTS,render:function(el,anim){addCss();if(!el._sp){bind(el);el._sp=1;}el.innerHTML=POSTS.map(function(p){return card(p,anim);}).join("");
   if(anim)[].forEach.call(el.children,function(c,i){setTimeout(function(){c.classList.remove("fade");},matchMedia("(prefers-reduced-motion: reduce)").matches?0:120+i*160);});}};
 })();

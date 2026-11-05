@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cookies · AXIA</title>
-<meta name="description" content="Politique cookies d'AXIA : traceurs utilisés, catégories soumises à consentement, durée de votre choix et gestion de vos préférences.">
-<meta name="axia-page" content="legal">
-<link rel="stylesheet" href="assets/axia.css">
+<title>Cookies · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cookies · Vision Plus">
+<meta property="og:description" content="Politique cookies du site Vision Plus : traceurs utilisés, catégories soumises à consentement, durée de votre choix et gestion de vos préférences.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Politique cookies du site Vision Plus : traceurs utilisés, catégories soumises à consentement, durée de votre choix et gestion de vos préférences.">
+<meta name="vp-page" content="legal">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,13 +23,13 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <link rel="stylesheet" href="assets/pages/legal.css">
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu" data-legal="cookies">
   <section class="page-hero legal-hero">
     <div class="wrap">
@@ -46,7 +54,7 @@
           <ul class="consent-state" id="consent-state" aria-live="polite"></ul>
           <div class="actions"><button type="button" class="btn btn-cyan btn-sm" id="btn-prefs" data-open-consent>Gérer mes préférences</button></div>
         </section>
-        <p class="intro">Cette page explique quels traceurs le site AXIA utilise et comment vous gardez la main sur eux. Le responsable de ces traceurs est l'éditeur du site, identifié dans les <a href="mentions-legales.html">mentions légales</a>. Les services AXIA sont réservés aux professionnels, mais ces règles protègent tous les visiteurs, y compris lorsque vous consultez le site dans le cadre de votre activité.</p>
+        <p class="intro">Cette page explique quels traceurs le site Vision Plus utilise et comment vous gardez la main sur eux. Le responsable de ces traceurs est l'éditeur du site, identifié dans les <a href="mentions-legales.html">mentions légales</a>. Les services Vision Plus sont réservés aux professionnels, mais ces règles protègent tous les visiteurs, y compris lorsque vous consultez le site dans le cadre de votre activité.</p>
         <h2 id="definition">Qu'est-ce qu'un traceur ?</h2>
         <p>Un traceur est une information enregistrée ou lue sur votre appareil lorsque vous consultez un site : cookie, stockage local du navigateur (localStorage, sessionStorage), pixel ou identifiant technique. Les règles ci-dessous s'appliquent à tous, et pas seulement aux cookies.</p>
         <p>L'article 82 de la loi « Informatique et Libertés » impose de recueillir votre consentement avant d'utiliser un traceur, sauf s'il est strictement nécessaire au service que vous demandez ou s'il a pour seule finalité de permettre la communication électronique.</p>
@@ -56,13 +64,13 @@
           <table class="tbl">
             <thead><tr><th scope="col">Nom</th><th scope="col">Finalité</th><th scope="col">Stockage</th><th scope="col">Durée</th></tr></thead>
             <tbody>
-              <tr><td data-label="Nom">axia.consent</td><td data-label="Finalité">Mémoriser vos choix de consentement (catégories acceptées ou refusées et date)</td><td data-label="Stockage">Stockage local</td><td data-label="Durée">Votre choix est redemandé au bout de 6 mois ; la donnée reste sur l'appareil jusqu'à un nouveau choix ou à l'effacement des données du navigateur</td></tr>
-              <tr><td data-label="Nom">axia.session</td><td data-label="Finalité">Maintenir votre connexion à votre compte</td><td data-label="Stockage">Stockage de session ; stockage local si vous cochez « Rester connecté »</td><td data-label="Durée">Fermeture de l'onglet (12 h au plus) ; <span data-config="sessionDays">30</span> jours avec « Rester connecté »</td></tr>
-              <tr><td data-label="Nom">axia.lock.*</td><td data-label="Finalité">Sécurité : bloquer temporairement la connexion après plusieurs échecs</td><td data-label="Stockage">Stockage local</td><td data-label="Durée"><span data-config="lockMinutes">15</span> minutes après le blocage</td></tr>
+              <tr><td data-label="Nom">vp.consent</td><td data-label="Finalité">Mémoriser vos choix de consentement (catégories acceptées ou refusées et date)</td><td data-label="Stockage">Stockage local</td><td data-label="Durée">Votre choix est redemandé au bout de 6 mois ; la donnée reste sur l'appareil jusqu'à un nouveau choix ou à l'effacement des données du navigateur</td></tr>
+              <tr><td data-label="Nom">vp.session</td><td data-label="Finalité">Maintenir votre connexion à votre compte</td><td data-label="Stockage">Stockage de session ; stockage local si vous cochez « Rester connecté »</td><td data-label="Durée">Fermeture de l'onglet (12 h au plus) ; <span data-config="sessionDays">30</span> jours avec « Rester connecté »</td></tr>
+              <tr><td data-label="Nom">vp.lock.*</td><td data-label="Finalité">Sécurité : bloquer temporairement la connexion après plusieurs échecs</td><td data-label="Stockage">Stockage local</td><td data-label="Durée"><span data-config="lockMinutes">15</span> minutes après le blocage</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="ref">Version de présentation : le site conserve aussi dans votre navigateur les données de simulation (comptes, projets, demandes, codes de vérification et historique des choix de consentement). En production, ces données sont stockées sur les serveurs d'AXIA et cette liste sera mise à jour.</p>
+        <p class="ref">Version de présentation : le site conserve aussi dans votre navigateur les données de simulation (comptes, projets, demandes, codes de vérification et historique des choix de consentement). En production, ces données sont stockées sur les serveurs d'AX TECH et cette liste sera mise à jour.</p>
         <h2 id="consentement">Traceurs soumis à votre consentement</h2>
         <p>Deux catégories sont prévues. <strong>Aucun outil n'est activé à ce jour</strong> dans l'une ou l'autre : accepter ces catégories ne dépose actuellement aucun traceur supplémentaire.</p>
         <ul>
@@ -109,7 +117,7 @@
     </div>
   </div>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script src="assets/pages/legal.js"></script>
 </body></html>

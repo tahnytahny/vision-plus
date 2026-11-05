@@ -1,5 +1,5 @@
-/* AXIA — assistant d'accueil de la page d'accueil.
-   1. À chaque ouverture du site (pas au retour depuis une autre page du site) : le robot salue et présente AXIA à voix haute (accueil.mp4, voix naturelle
+/* Vision Plus — assistant d'accueil de la page d'accueil.
+   1. À chaque ouverture du site (pas au retour depuis une autre page du site) : le robot salue et présente Vision Plus à voix haute (bienvenue-vision-plus.mp4, voix naturelle
       enregistrée), le texte s'affiche en même temps dans une bulle, puis il propose les raccourcis (services, FAQ).
    2. Si le navigateur bloque le son automatique : animation et texte tout de suite, voix à la première interaction
       (sur mobile : dès que le visiteur touche le robot).
@@ -12,26 +12,26 @@
    Règle : ne présenter que des fonctions réellement disponibles ou clairement configurables. */
 (function(){
 "use strict";
-var A=window.AXIA;if(!A||document.querySelector(".axbot"))return;
+var A=window.VISIONPLUS;if(!A||document.querySelector(".axbot"))return;
 var ST_KEY="assistant.home",st=A.store.get(ST_KEY,{})||{};
 var MQ_M=matchMedia("(max-width:760px)"),MQ_R=matchMedia("(prefers-reduced-motion: reduce)");
 function save(){A.store.set(ST_KEY,{muted:!!st.muted});}
 
-/* ---------- texte lu : début de chaque segment dans accueil.mp4 (secondes), paragraphe, geste ---------- */
+/* ---------- texte lu : début de chaque segment dans bienvenue-vision-plus.mp4 (secondes), paragraphe, geste ---------- */
 var SEG=[
-  {t:0,p:0,s:"Bonjour et bienvenue sur AXIA !",g:"wave"},
-  {t:2.0,p:0,s:"Moi, c'est votre assistant IA.",g:"nod"},
-  {t:3.95,p:1,s:"Ici, vous pouvez créer votre web app et choisir des agents pour vous accompagner au quotidien :"},
-  {t:8.35,p:1,s:"une secrétaire IA,",g:"present"},
-  {t:9.4,p:1,s:"un agent marketing",g:"bounce"},
-  {t:10.42,p:1,s:"et un agent pour gérer votre site.",g:"bounce"},
-  {t:12.3,p:2,s:"Vous choisissez leurs missions",g:"rest"},
-  {t:13.7,p:2,s:"et vous gardez le contrôle.",g:"nod"},
-  {t:15.0,p:3,s:"Je vous fais découvrir ?",g:"hello"}
+  {t:0,p:0,s:"Bonjour et bienvenue sur Vision Plus !",g:"wave"},
+  {t:2.44,p:0,s:"Moi, c'est votre assistant IA.",g:"nod"},
+  {t:4.3,p:1,s:"Ici, vous pouvez créer votre web app et choisir des agents pour vous accompagner au quotidien :"},
+  {t:8.64,p:1,s:"une secrétaire IA,",g:"present"},
+  {t:9.82,p:1,s:"un agent marketing",g:"bounce"},
+  {t:10.92,p:1,s:"et un agent pour gérer votre site.",g:"bounce"},
+  {t:12.56,p:2,s:"Vous choisissez leurs missions",g:"rest"},
+  {t:14.08,p:2,s:"et vous gardez le contrôle.",g:"nod"},
+  {t:15.48,p:3,s:"Je vous fais découvrir ?",g:"hello"}
 ];
-/* volume de la voix toutes les 40 ms (0 à 9), mesuré sur accueil.mp4 : la bouche le suit */
-var ENV="589865679775333208754466654578744545624336543100000699985221533446237633453165421376328642100000000098534233422579537867434677648623876984786631952177542764364575456756654167567464266387577774396334366542000000775434238338766425887753101565775664852383447655741222239965467646653148654554658436644231131000000039743764454255655764345565210000068756654764467545664238643210000003488376962866984311000";
-var AUDIO="assets/assistant/accueil.mp4",IMG="assets/assistant/mascot-body.webp";
+/* volume de la voix toutes les 40 ms (0 à 9), mesuré sur bienvenue-vision-plus.mp4 : la bouche le suit */
+var ENV="589984559874321005974469755679784323424574323436977333210000009999841014343561375323316542105516873100000000079733222210497932847623367545922985994396701830894318733545943864454318637536226479758883396333386421000110048632421722874207733886642000465578464682176224555631111199865367646531199644548476257432201100000111107953372343225654574333455410000002873463268335953356418863310000000045981969629569521100";
+var AUDIO="assets/assistant/bienvenue-vision-plus.mp4",IMG="assets/assistant/mascot-body.webp";
 var SHORT=[["telephone","phone","Votre secrétaire IA"],["marketing","mega","Marketing IA"],["gestion","layers","Gestion de votre web app"],["faq","help","Poser une question dans la FAQ"]];
 var IC={
   minus:'<path d="M6 12h12"/>',
@@ -45,7 +45,7 @@ function fig(withArm){return '<span class="ax-fig" aria-hidden="true"><img alt="
   '<span class="ax-face"><i class="ax-eye l"></i><i class="ax-eye r"></i><i class="ax-smile"></i><i class="ax-talk"></i></span></span>';}
 
 /* ---------- panneau ---------- */
-var root=document.createElement("aside");root.className="axbot";root.id="ax-panel";root.hidden=true;root.setAttribute("aria-label","Assistant AXIA");
+var root=document.createElement("aside");root.className="axbot";root.id="ax-panel";root.hidden=true;root.setAttribute("aria-label","Assistant Vision Plus");
 root.innerHTML=
   '<div class="ax-bubble" role="dialog" aria-labelledby="ax-name">'+
     '<div class="ax-top"><span class="ax-name" id="ax-name">Assistant IA</span><div class="ax-tools">'+
@@ -69,10 +69,10 @@ var txt=root.querySelector(".ax-txt"),more=root.querySelector(".ax-more"),arm=ro
 /* ---------- au repos : pastille dans l'en-tête ---------- */
 var dock=document.createElement("button");dock.type="button";dock.className="ax-dock";
 dock.setAttribute("aria-controls","ax-panel");dock.setAttribute("aria-expanded","false");
-dock.setAttribute("aria-label","Assistant AXIA : services et questions");dock.title="Assistant AXIA";dock.innerHTML=fig(false);
+dock.setAttribute("aria-label","Assistant Vision Plus : services et questions");dock.title="Assistant Vision Plus";dock.innerHTML=fig(false);
 function placeDock(){var top=document.querySelector(".top-in"),auth=document.querySelector(".top-auth");if(!top)return;
   var host=MQ_M.matches||!auth?top:auth;if(dock.parentNode!==host)host.appendChild(dock);
-  dock.setAttribute("aria-label",MQ_M.matches?"Écouter l'assistant AXIA":"Assistant AXIA : services et questions");}
+  dock.setAttribute("aria-label",MQ_M.matches?"Écouter l'assistant Vision Plus":"Assistant Vision Plus : services et questions");}
 
 /* ---------- affichage ---------- */
 var view="";
@@ -158,7 +158,7 @@ function speak(){
   root.classList.add("is-tts");ttsSay(0);}
 function ttsSay(i){
   if(i>=SEG.length){finish();return;}
-  var u=new SpeechSynthesisUtterance(SEG[i].s.replace(/\bAXIA\b/g,"Axia").replace(/\bIA\b/g,"I A")),my=++V.token;
+  var u=new SpeechSynthesisUtterance(SEG[i].s.replace(/\bIA\b/g,"I A")),my=++V.token;
   u.voice=V.voice;u.lang=V.voice.lang;u.rate=1.02;u.pitch=1.04;
   u.onstart=function(){if(my!==V.token)return;clearTimeout(V.timer);if(!playing)onPlay();setSeg(i);};
   u.onend=function(){if(my===V.token)ttsSay(i+1);};
@@ -246,7 +246,7 @@ function fitBanner(){
   root.style.bottom=Math.round(innerHeight-cr.top+10)+"px";
   var head=document.querySelector(".top"),room=cr.top-10-(head?head.getBoundingClientRect().bottom:0)-(MQ_M.matches?root.querySelector(".ax-char").offsetHeight*.7:0)-8;
   bubble.style.maxHeight=Math.max(160,Math.round(room))+"px";}
-document.addEventListener("axia:consent",function(){setTimeout(fitBanner,30);});
+document.addEventListener("vp:consent",function(){setTimeout(fitBanner,30);});
 window.addEventListener("resize",function(){if(!root.hidden)fitBanner();});
 /* retour à l'accueil depuis une autre page du site (lien interne ou bouton Précédent) : pas de nouvelle présentation */
 function fromInside(){

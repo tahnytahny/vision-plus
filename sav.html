@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>SAV / Assistance · AXIA</title>
-<meta name="description" content="Ouvrez une demande d'assistance AXIA et suivez son traitement avec votre numéro de dossier.">
-<meta name="axia-page" content="sav">
-<link rel="stylesheet" href="assets/axia.css">
+<title>SAV / Assistance · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SAV / Assistance · Vision Plus">
+<meta property="og:description" content="Ouvrez une demande d'assistance Vision Plus et suivez son traitement avec votre numéro de dossier.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Ouvrez une demande d'assistance Vision Plus et suivez son traitement avec votre numéro de dossier.">
+<meta name="vp-page" content="sav">
+<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="themes/p1.css">
 <script src="assets/theme.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
@@ -15,8 +23,8 @@
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="AXIA">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
 .view-hero{padding-block:clamp(40px,6vw,80px) clamp(20px,3vw,32px)}
@@ -133,7 +141,7 @@ legend{padding:0;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div data-axia="header"></div>
+<div data-vp="header"></div>
 <main id="contenu">
   <!-- ============ Accueil ============ -->
   <div id="v-home" data-view="home">
@@ -286,12 +294,12 @@ legend{padding:0;margin-bottom:10px}
     </div>
   </div>
 </main>
-<div data-axia="footer"></div>
-<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/axia.js"></script>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script>
 (function(){
 "use strict";
-var A=window.AXIA,esc=A.esc;
+var A=window.VISIONPLUS,esc=A.esc;
 function $(s,r){return (r||document).querySelector(s);}
 function $$(s,r){return [].slice.call((r||document).querySelectorAll(s));}
 /* icônes déclaratives : <span class="x" data-i="nom"> garde son conteneur, <span data-i="nom"> est remplacé par l'icône */
@@ -299,7 +307,7 @@ $$("[data-i]").forEach(function(el){var n=el.dataset.i;if(el.className){el.inner
 var MAX_FILES=5,MAX_SIZE=10*1024*1024;
 var EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 var STATUS_CLASS={"Ouverte":"info","En cours":"info","En attente de votre réponse":"warn","Résolue":"ok","Fermée":""};
-var WHO={client:"Vous",agent:"Équipe AXIA",ia:"Assistant IA"};
+var WHO={client:"Vous",agent:"Équipe Vision Plus",ia:"Assistant IA"};
 function user(){return A.auth.current();}
 function pill(s){return '<span class="pill '+(STATUS_CLASS[s]||"")+'">'+esc(s)+'</span>';}
 function size(n){return n<1024?n+" o":n<1048576?Math.round(n/1024)+" Ko":(n/1048576).toFixed(1).replace(".",",")+" Mo";}
@@ -384,7 +392,7 @@ f2.addEventListener("submit",function(e){e.preventDefault();var ok=true,first=nu
   var msgs=[{from:"client",body:state.description,at:now}];
   if(state.aiTried&&state.aiText)msgs.push({from:"ia",body:state.aiText,at:now});
   var t=A.records.add("tickets",{ref:ref,userId:u?u.id:null,name:n,email:m,type:state.type,subject:state.subject,description:state.description,files:state.files.slice(),status:"Ouverte",messages:msgs,aiTried:!!state.aiTried});
-  A.send("email",m,"Demande "+ref+" bien reçue","Bonjour "+n+",\n\nNous avons bien reçu votre demande « "+state.subject+" ». Votre numéro de dossier : "+ref+".\nVous pouvez suivre son traitement sur la page SAV / Assistance (sav.html#suivi) avec ce numéro et votre adresse e-mail.\n\nL'équipe AXIA");
+  A.send("email",m,"Demande "+ref+" bien reçue","Bonjour "+n+",\n\nNous avons bien reçu votre demande « "+state.subject+" ». Votre numéro de dossier : "+ref+".\nVous pouvez suivre son traitement sur la page SAV / Assistance (sav.html#suivi) avec ce numéro et votre adresse e-mail.\n\nL'équipe Vision Plus");
   if(u)A.notify(u.id,"Demande "+ref+" enregistrée",state.subject,"espace-client.html#assistance");
   A.audit("Demande SAV créée",ref);
   state.last={ref:ref,email:m,id:t.id};
