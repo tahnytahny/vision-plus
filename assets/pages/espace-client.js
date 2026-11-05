@@ -364,6 +364,8 @@ function render(id,keepFocus){try{user();}catch(e){return;}
   renderNav(id);V[id]();document.title=TITLES[id]+" · Espace client · Vision Plus";
   view.classList.remove("view");void view.offsetWidth;view.classList.add("view");}
 function go(focus){var id=current();render(id);if(focus){window.scrollTo(0,0);var h=document.getElementById("view-title");if(h)h.focus({preventScroll:true});}}
+/* changement de langue : la vue est redessinée (dates au format de la langue choisie) */
+document.addEventListener("vp:lang",function(){try{go(false);}catch(e){}});
 window.addEventListener("hashchange",function(){go(true);});
 /* Lien interne vers la même rubrique : re-rendu sans changement d'ancre */
 nav.addEventListener("click",function(e){var a=e.target.closest('a[href^="#"]');if(a&&a.getAttribute("href")==="#"+current()){e.preventDefault();go(true);}});

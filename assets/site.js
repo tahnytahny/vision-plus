@@ -36,9 +36,9 @@ A.now=function(){return Date.now();};
 A.uid=function(p){return (p||"id")+"_"+Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4);};
 A.esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
 A.norm=function(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9@.+ ]/g," ").replace(/\s+/g," ").trim();};
-A.date=function(t,withTime){var d=new Date(t);var o={day:"numeric",month:"short",year:"numeric"};if(withTime){o.hour="2-digit";o.minute="2-digit";}return d.toLocaleDateString("fr-FR",o);};
+A.date=function(t,withTime){var d=new Date(t);var o={day:"numeric",month:"short",year:"numeric"};if(withTime){o.hour="2-digit";o.minute="2-digit";}var lg=document.documentElement.lang||"fr";lg=lg==="fr"?"fr-FR":/^(ar|fa|ur|hi|bn|mr|ne)$/.test(lg)?lg+"-u-nu-latn":lg;try{return d.toLocaleDateString(lg,o);}catch(e){return d.toLocaleDateString("fr-FR",o);}};
 A.qs=function(k){return new URLSearchParams(location.search).get(k);};
-A.icon=function(name,cls){return '<svg class="ico '+(cls||"")+'" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[name]||"")+"</svg>";};
+A.icon=function(name,cls){return '<svg class="ico i-'+name+" "+(cls||"")+'" viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[name]||"")+"</svg>";};
 var ICONS={
   chev:'<path d="m6 9 6 6 6-6"/>',eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',download:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',
   chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/>',
@@ -228,12 +228,15 @@ function vAuth(u){
 /* en-tête sur une seule ligne tant qu'il tient ; sinon (tablette, fenêtre étroite) bouton de menu compact et navigation verticale */
 function vFit(h){var inner=h.querySelector(".top-in"),mob=matchMedia("(max-width:760px)");if(!inner)return;
   /* trois paliers : barre complète avec icônes, barre sans icônes (écrans moyens), puis menu compact */
-  function over(){return inner.scrollWidth>inner.clientWidth+1;}
-  function fit(){var was=h.className;h.classList.remove("v-compact","v-tight");
-    if(!mob.matches&&over()){h.classList.add("v-tight");if(over())h.classList.add("v-compact");}
+  /* débordement mesuré sur la position réelle des éléments (fiable aussi de droite à gauche) */
+  function over(){var cs=getComputedStyle(inner),r=inner.getBoundingClientRect(),l=r.left+(parseFloat(cs.paddingLeft)||0)-1,rt=r.right-(parseFloat(cs.paddingRight)||0)+1,bad=false;
+    [].forEach.call(inner.children,function(c){var b=c.getBoundingClientRect();if(!b.width||getComputedStyle(c).display==="none")return;if(b.left<l||b.right>rt)bad=true;});
+    return bad||inner.scrollWidth>inner.clientWidth+1;}
+  function fit(){var was=h.className;h.classList.remove("v-compact","v-tight","v-tighter");
+    if(!mob.matches&&over()){h.classList.add("v-tight");if(over()){h.classList.add("v-tighter");if(over())h.classList.add("v-compact");}}
     if(h.className!==was)closeDd();}
-  fit();var raf=0;window.addEventListener("resize",function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(fit);});
-  window.addEventListener("load",fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);}
+  fit();var rt=0,later=function(){clearTimeout(rt);rt=setTimeout(fit,50);};window.addEventListener("resize",later);
+  window.addEventListener("load",fit);document.addEventListener("vp:lang",later);new MutationObserver(later).observe(inner,{childList:true,subtree:true});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);}
 /* « Retour » : page précédente du site si le visiteur vient d'une page de ce site, sinon l'accueil */
 function fromSite(){try{if(history.length<2||!document.referrer)return false;var r=new URL(document.referrer),base=location.pathname.replace(/[^\/]*$/,"");
   return r.origin===location.origin&&r.pathname.indexOf(base)===0;}catch(x){return false;}}
