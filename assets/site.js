@@ -212,6 +212,59 @@ var ACCOUNT=[{h:"espace-client.html#tableau",l:"Tableau de bord",i:"home"},{h:"e
 function initials(n){return String(n||"A").trim().split(/\s+/).slice(0,2).map(function(w){return w[0];}).join("").toUpperCase();}
 function ddItems(list,page){return list.map(function(h){return '<a href="'+h.href+'"'+(h.id&&h.id===page?' aria-current="page"':"")+">"+A.icon(h.icon)+"<span><b>"+h.label+"</b><small>"+h.sub+"</small></span></a>";}).join("");}
 function dd(label,list,page,cur){return '<div class="dd'+(cur?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+label+" "+A.icon("chev","chev")+'</button><div class="dd-menu">'+ddItems(list,page)+"</div></div>";}
+/* ---------- ordinateur (761 px et plus) : menu « Menu » en haut à droite et bouton « Retour » ----------
+   Le mobile (760 px et moins) garde sa barre d'onglets et son propre bouton retour (mobile.js) : ces éléments y sont masqués. */
+function vSub(list,page){return list.map(function(h){return '<a class="vm-s" href="'+h.href+'"'+(h.id&&h.id===page?' aria-current="page"':"")+(h.auth?' data-auth="'+h.auth+'"':"")+">"+A.icon(h.icon)+"<span><b>"+h.label+"</b>"+(h.sub?"<small>"+h.sub+"</small>":"")+"</span></a>";}).join("");}
+function vLink(href,label,icon,cur){return '<a class="vm-l" href="'+href+'"'+(cur?' aria-current="page"':"")+'><span class="vm-i">'+A.icon(icon)+'</span><span class="vm-t">'+label+"</span></a>";}
+function vGroup(key,label,icon,inner,cur,note){var id="vm-g-"+key;
+  return '<div class="vm-g'+(cur?" current":"")+'"'+(cur?" data-open":"")+'><button type="button" class="vm-l vm-gb" aria-expanded="'+(cur?"true":"false")+'" aria-controls="'+id+'"><span class="vm-i">'+A.icon(icon)+'</span><span class="vm-t">'+label+(note?'<small class="vm-note">'+note+"</small>":"")+"</span>"+A.icon("chev","chev")+'</button><div class="vm-sub" id="'+id+'"'+(cur?"":" hidden")+">"+inner+"</div></div>";}
+function vMenu(page,u){
+  var acct=u?vSub(ACCOUNT.map(function(a){return {href:a.h,label:a.l,icon:a.i};}),page)+'<button type="button" class="vm-s" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button>"
+    :vSub([{href:"connexion.html",label:"Se connecter",sub:"Accéder à mon espace client",icon:"user",auth:"login"},{href:"inscription.html",label:"Créer un compte",sub:"Apple, Google, téléphone ou e-mail",icon:"spark",auth:"signup"}],page);
+  return '<div class="vmenu"><button type="button" class="vmenu-btn" aria-expanded="false" aria-controls="vmenu-p"><span class="vmenu-ic">'+A.icon("menu")+"</span><span>Menu</span>"+A.icon("chev","chev")+"</button>"+
+    '<nav class="vmenu-p" id="vmenu-p" aria-label="Menu principal"><p class="vm-h" aria-hidden="true">Vision Plus</p>'+
+    vLink("index.html","Accueil","home",page==="home")+
+    vGroup("decouvrir","Découvrir","layers",vSub(DISCOVER,page),page==="decouvrir"||page==="telephone-ia")+
+    NAV.map(function(n){return vLink(n.href,n.label,n.id==="demo"?"play":"card",n.id===page);}).join("")+
+    vGroup("aide","Aide","help",vSub(HELP,page),HELP.some(function(h){return h.id===page;}))+
+    '<div class="vm-sep" aria-hidden="true"></div>'+
+    vGroup("compte","Compte","user",acct,/^(espace-client|connexion|inscription|mot-de-passe|compte)$/.test(page),u?A.esc(String(u.name||"").split(" ")[0]):"")+
+    "</nav></div>";}
+function vMenuInit(h){var w=h.querySelector(".vmenu");if(!w)return;var b=w.querySelector(".vmenu-btn"),p=w.querySelector(".vmenu-p");
+  function isOpen(){return w.hasAttribute("data-open");}
+  function set(o,back){if(o===isOpen())return;if(o){closeDd();w.setAttribute("data-open","");}else w.removeAttribute("data-open");
+    b.setAttribute("aria-expanded",o?"true":"false");h.classList.toggle("vm-open",o);if(!o&&back)b.focus();}
+  function items(){return [].slice.call(p.querySelectorAll("a,button")).filter(function(x){return !x.closest("[hidden]");});}
+  function toggleG(g,o){if(o==null)o=!g.hasAttribute("data-open");if(o)g.setAttribute("data-open","");else g.removeAttribute("data-open");
+    g.querySelector(".vm-gb").setAttribute("aria-expanded",o?"true":"false");g.querySelector(".vm-sub").hidden=!o;}
+  b.addEventListener("click",function(){set(!isOpen());});
+  b.addEventListener("keydown",function(e){if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();set(true);var l=items();(e.key==="ArrowDown"?l[0]:l[l.length-1]).focus();}});
+  p.addEventListener("click",function(e){var g=e.target.closest(".vm-gb");if(g){toggleG(g.parentNode);return;}if(e.target.closest("a,[data-logout]"))set(false);});
+  p.addEventListener("keydown",function(e){var l=items(),a=document.activeElement,i=l.indexOf(a),k=e.key,g=a&&a.closest(".vm-g");
+    if(k==="ArrowDown"){e.preventDefault();(l[i+1]||l[0]).focus();}
+    else if(k==="ArrowUp"){e.preventDefault();(l[i-1]||l[l.length-1]).focus();}
+    else if(k==="Home"){e.preventDefault();l[0].focus();}
+    else if(k==="End"){e.preventDefault();l[l.length-1].focus();}
+    else if(k==="ArrowRight"&&a.classList.contains("vm-gb")){e.preventDefault();toggleG(g,true);var f=g.querySelector(".vm-sub a,.vm-sub button");if(f)f.focus();}
+    else if(k==="ArrowLeft"&&g){e.preventDefault();var gb=g.querySelector(".vm-gb");if(a===gb)toggleG(g,false);else gb.focus();}});
+  w.addEventListener("focusout",function(e){if(e.relatedTarget&&!w.contains(e.relatedTarget))set(false);});
+  document.addEventListener("click",function(e){if(isOpen()&&!w.contains(e.target))set(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.preventDefault();set(false,true);}});
+  var mq=matchMedia("(max-width:760px)");if(mq.addEventListener)mq.addEventListener("change",function(){if(mq.matches)set(false);});}
+/* « Retour » : page précédente du site si le visiteur vient d'une page de ce site, sinon l'accueil */
+function fromSite(){try{if(history.length<2||!document.referrer)return false;var r=new URL(document.referrer),base=location.pathname.replace(/[^\/]*$/,"");
+  return r.origin===location.origin&&r.pathname.indexOf(base)===0;}catch(x){return false;}}
+function vBack(h,page){if(page==="home")return;var host=h.querySelector(".top-auth");if(!host)return;
+  var a=document.createElement("a");a.className="vback";a.href="index.html";a.setAttribute("aria-label","Retour à la page précédente");
+  a.innerHTML=A.icon("arrow")+'<span aria-hidden="true">Retour</span>';
+  a.addEventListener("click",function(e){if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;if(fromSite()){e.preventDefault();history.back();}});
+  host.insertBefore(a,host.firstChild);}
+/* accueil sur ordinateur : ouverture en haut de page (le mobile le fait dans mobile.js) ; sauf lien vers une section (#…) ou retour arrière */
+function homeTop(page){if(page!=="home"||location.hash||matchMedia("(max-width:760px)").matches)return;
+  var nt=((performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{}).type;if(nt==="back_forward")return;
+  var moved=false,stop=function(){moved=true;};["wheel","touchstart","keydown","mousedown"].forEach(function(t){window.addEventListener(t,stop,{once:true,passive:true});});
+  var t0=function(){if(!moved&&window.scrollY)window.scrollTo(0,0);};t0();
+  window.addEventListener("load",function(){t0();requestAnimationFrame(t0);setTimeout(t0,60);});}
 function header(){var page=pageId();var u=A.auth.current();
   var nav=dd("Découvrir",DISCOVER,page,page==="decouvrir"||page==="telephone-ia")+NAV.map(function(n){return '<a href="'+n.href+'"'+(n.id===page?' aria-current="page"':"")+">"+n.label+"</a>";}).join("")+dd("Aide",HELP,page,HELP.some(function(h){return h.id===page;}));
   var act;
@@ -221,7 +274,7 @@ function header(){var page=pageId();var u=A.auth.current();
       '<p class="acct-h">Votre espace Vision Plus</p><a href="connexion.html" data-auth="login">'+A.icon("user")+'<span><b>Se connecter</b><small>Accéder à mon espace client</small></span></a>'+
       '<a href="inscription.html" data-auth="signup">'+A.icon("spark")+'<span><b>Créer un compte</b><small>Apple, Google, téléphone ou e-mail</small></span></a></div></div>';
   var h=document.createElement("header");h.className="top";
-  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav><button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
+  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav>'+vMenu(page,u)+'<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
   var group=function(t,list){return '<details class="dgroup"'+(list.some(function(x){return x.id===page;})||(t==="Découvrir"&&page==="decouvrir")?" open":"")+"><summary>"+t+A.icon("chev","chev")+"</summary>"+list.map(function(n){return '<a class="dl sub" href="'+n.href+'"'+(n.id&&n.id===page?' aria-current="page"':"")+">"+n.label+A.icon("arrow")+"</a>";}).join("")+"</details>";};
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
   dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
@@ -230,6 +283,7 @@ function header(){var page=pageId();var u=A.auth.current();
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
   var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
+  vBack(h,page);vMenuInit(h);homeTop(page);
   var burger=h.querySelector(".burger");
   function openDr(o){if(o){dr.setAttribute("data-open","");dr.removeAttribute("aria-hidden");burger.setAttribute("aria-expanded","true");dr.querySelector(".x").focus();document.documentElement.style.overflow="hidden";}else{dr.removeAttribute("data-open");dr.setAttribute("aria-hidden","true");burger.setAttribute("aria-expanded","false");document.documentElement.style.overflow="";}}
   burger.onclick=function(){openDr(true);};dr.addEventListener("click",function(e){if(e.target===dr||e.target.closest("[data-close]")||e.target.closest("a"))openDr(false);});
