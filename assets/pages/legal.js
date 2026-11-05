@@ -13,7 +13,7 @@ var A=window.VISIONPLUS;if(!A)return;
 var main=document.getElementById("contenu");if(!main)return;
 var docId=main.getAttribute("data-legal")||"";
 var DOCS=[
-  {id:"cgv",href:"cgv.html",t:"Conditions générales de vente",s:"Abonnement, prix, paiement, résiliation"},
+  {id:"cgv",href:"cgv.html",t:"Conditions générales de vente",s:"Offre sur mesure, devis, paiement, résiliation"},
   {id:"mentions-legales",href:"mentions-legales.html",t:"Mentions légales",s:"Éditeur, hébergeur, crédits"},
   {id:"confidentialite",href:"confidentialite.html",t:"Politique de confidentialité",s:"Vos données et vos droits"},
   {id:"cookies",href:"cookies.html",t:"Politique cookies",s:"Traceurs et gestion du consentement"}

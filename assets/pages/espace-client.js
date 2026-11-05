@@ -15,7 +15,7 @@ var NAV=[
   {id:"assistance",l:"Assistance",i:"life"},
   {id:"conversations",l:"Conversations IA",i:"chat"},
   {g:"Facturation"},
-  {id:"abonnement",l:"Abonnement",i:"layers"},
+  {id:"abonnement",l:"Mon offre",i:"layers"},
   {id:"factures",l:"Factures",i:"file"},
   {id:"paiements",l:"Paiements",i:"card"},
   {g:"Mon compte"},
@@ -47,7 +47,7 @@ function safeLink(l){l=String(l||"");return /^(#[a-z]+|[a-z-]+\.html([?#][\w=&%#
 function six(){return String(Math.floor(100000+Math.random()*900000));}
 var TICKET_CLS={"Ouverte":"info","En cours":"info","En attente de votre réponse":"warn","Résolue":"ok","Fermée":""};
 function ticketOpen(t){return t.status!=="Résolue"&&t.status!=="Fermée";}
-function planName(id){var p=(A.content.plans()||[]).find(function(x){return x.id===id;});return p?p.name:(id||"Formule");}
+function planName(id){var p=(A.content.plans()||[]).find(function(x){return x.id===id;});return p?p.name:"Offre sur mesure";}
 function activeSub(){return mine("subscriptions").find(function(s){return s.status==="active"||s.status==="past_due";})||null;}
 var SUB_ST={active:["ok","Actif"],past_due:["warn","Paiement en attente"],cancelled:["","Résilié"]};
 function device(ua){ua=String(ua||"");var b=/Edg\//.test(ua)?"Edge":/Firefox\//.test(ua)?"Firefox":/Chrome\//.test(ua)?"Chrome":/Safari\//.test(ua)?"Safari":"Navigateur";
@@ -77,12 +77,12 @@ V.tableau=function(){var u=me,demos=mineOrEmail("demos"),projects=mine("projects
   var unverified=(u.email&&!u.emailVerified)||(u.phone&&!u.phoneVerified);
   var n;
   if(wait.length)n={t:"L'équipe attend votre réponse",p:"Votre demande "+esc(wait[0].ref||"")+" est en attente de votre retour.",a:'<a class="btn btn-cyan" href="#assistance">Répondre '+ic("arrow","arrow")+"</a>"};
-  else if(ready&&!sub)n={t:"Votre simulation est disponible",p:"Découvrez ce que Vision Plus fera pour votre projet, puis choisissez votre formule.",a:'<a class="btn btn-cyan" href="#demos">Voir ma simulation '+ic("arrow","arrow")+'</a><a class="btn btn-ghost" href="abonnements.html'+(ready.projectId?"?project="+encodeURIComponent(ready.projectId):"")+'">Choisir mon abonnement</a>'};
+  else if(ready&&!sub)n={t:"Votre simulation est disponible",p:"Découvrez ce que Vision Plus fera pour votre projet, puis échangez avec un conseiller pour construire votre offre sur mesure.",a:'<a class="btn btn-cyan" href="#demos">Voir ma simulation '+ic("arrow","arrow")+'</a><a class="btn btn-ghost" href="offre-sur-mesure.html'+(ready.projectId?"?project="+encodeURIComponent(ready.projectId):"")+'#rappel">Demander un devis</a>'};
   else if(pending)n={t:"Votre simulation avance",p:"Statut actuel : "+esc((D.demoStatuses||[])[pending.status]||"")+". Vous serez notifié dès qu'elle sera disponible.",a:'<a class="btn btn-line" href="#demos">Suivre ma demande</a>'};
   else if(!demos.length)n={t:"Découvrez Vision Plus avec votre projet",p:"Présentez votre activité en quelques minutes et recevez une simulation vidéo personnalisée.",a:'<a class="btn btn-cyan" href="demo.html">Demander ma simulation '+ic("arrow","arrow")+"</a>"};
   else if(unverified)n={t:"Vérifiez vos coordonnées",p:"Une adresse ou un numéro vérifié protège votre compte.",a:'<a class="btn btn-line" href="#profil">Vérifier maintenant</a>'};
-  else if(!sub)n={t:"Activez votre abonnement",p:"Choisissez la formule adaptée à votre activité.",a:'<a class="btn btn-cyan" href="abonnements.html">Voir les abonnements '+ic("arrow","arrow")+"</a>"};
-  else n={t:"Tout est en ordre",p:"Votre abonnement est actif. Besoin d'aide ? L'assistant et le SAV sont là.",a:'<a class="btn btn-line" href="faq.html#question">Poser une question</a>'};
+  else if(!sub)n={t:"Construisons votre offre",p:"Un conseiller Vision Plus étudie vos besoins avec vous et vous remet un devis personnalisé. La demande de rappel est sans engagement.",a:'<a class="btn btn-cyan" href="offre-sur-mesure.html#rappel">Parler à un conseiller '+ic("arrow","arrow")+"</a>"};
+  else n={t:"Tout est en ordre",p:"Votre offre est en place. Besoin d'aide ? L'assistant et le SAV sont là.",a:'<a class="btn btn-line" href="faq.html#question">Poser une question</a>'};
   var protoBtn=A.proto?'<button type="button" class="btn btn-ghost btn-sm" id="sample">'+ic("spark")+" Données d'exemple</button>":"";
   view.innerHTML=head("Bonjour "+first(u.name),"Voici l'essentiel de votre compte.",protoBtn)+
     '<div class="kpis">'+
@@ -185,22 +185,27 @@ V.securite=function(){var u=me,hasPw=!!u.pw,oa=(A.config.oauth||{}),provs=u.prov
     if((me.providers||[]).indexOf("email")<0)A.auth.update({providers:(me.providers||[]).concat("email")});
     me=A.auth.current();A.toast(hasPw?"Mot de passe modifié.":"Mot de passe défini.");render("securite");});};
 
-/* Abonnement */
+/* Mon offre : offre sur mesure (étude des besoins, devis personnalisé), demandes de rappel */
 V.abonnement=function(){var subs=mine("subscriptions").sort(function(a,b){return (b.start||b.createdAt||0)-(a.start||a.createdAt||0);}),cur=activeSub();
+  var calls=mineOrEmail("rappels").sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0);});
   function st(s){var x=SUB_ST[s.status]||["",s.status];return pill(x[0],x[1]);}
-  var cyc={monthly:"Mensuel",yearly:"Annuel"};
-  view.innerHTML=head("Abonnement","Votre formule Vision Plus.",'<a class="btn btn-line btn-sm" href="abonnements.html">Voir les abonnements</a>')+
-    '<div class="sec">'+(cur?'<div class="next"><span class="eyebrow">Abonnement actuel</span><h2>'+esc(planName(cur.planId))+"</h2>"+st(cur)+
-      '<dl class="kv"><dt>Facturation</dt><dd>'+esc(cyc[cur.cycle]||cur.cycle||"—")+"</dd><dt>Depuis le</dt><dd>"+(cur.start?esc(A.date(cur.start)):"—")+"</dd><dt>"+(cur.status==="cancelled"?"Fin le":"Prochain renouvellement")+"</dt><dd>"+(cur.renewAt?esc(A.date(cur.renewAt)):"—")+"</dd></dl></div>":
-      empty("layers","Aucun abonnement","Choisissez votre formule, idéalement après avoir découvert votre simulation.",'<a class="btn btn-cyan" href="abonnements.html">Découvrir les abonnements</a>'))+"</div>"+
-    (subs.length?'<div class="sec"><div class="sec-h"><h2>Historique</h2></div><div class="tbl-wrap"><table class="tbl"><caption class="sr">Historique des abonnements</caption><thead><tr><th scope="col">Formule</th><th scope="col">Facturation</th><th scope="col">Début</th><th scope="col">Échéance</th><th scope="col">Statut</th></tr></thead><tbody>'+
-      subs.map(function(s){return "<tr><td>"+esc(planName(s.planId))+"</td><td>"+esc(cyc[s.cycle]||s.cycle||"—")+"</td><td>"+(s.start?esc(A.date(s.start)):"—")+"</td><td>"+(s.renewAt?esc(A.date(s.renewAt)):"—")+"</td><td>"+st(s)+"</td></tr>";}).join("")+"</tbody></table></div></div>":"");};
+  var CTA='<a class="btn btn-cyan" href="offre-sur-mesure.html#rappel">Parler à un conseiller</a>';
+  view.innerHTML=head("Mon offre","Votre offre Vision Plus est construite sur mesure avec un conseiller, puis précisée dans un devis personnalisé.",'<a class="btn btn-line btn-sm" href="offre-sur-mesure.html">Votre offre sur mesure</a>')+
+    '<div class="sec">'+(cur?'<div class="next"><span class="eyebrow">Offre en cours</span><h2>'+esc(planName(cur.planId))+"</h2>"+st(cur)+
+      '<dl class="kv"><dt>Depuis le</dt><dd>'+(cur.start?esc(A.date(cur.start)):"—")+"</dd><dt>"+(cur.status==="cancelled"?"Fin le":"Prochaine échéance")+"</dt><dd>"+(cur.renewAt?esc(A.date(cur.renewAt)):"—")+"</dd></dl>"+
+      '<p class="sec-p">Le périmètre, les tarifs, la durée, le renouvellement et la résiliation de votre offre sont ceux du devis et des documents contractuels que vous avez acceptés.</p></div>':
+      empty("layers","Aucune offre en cours","Un conseiller Vision Plus étudie vos besoins avec vous et vous remet un devis personnalisé. La demande de rappel est sans engagement.",CTA))+"</div>"+
+    '<div class="sec"><div class="sec-h"><h2>Mes demandes de rappel</h2></div>'+(calls.length?'<ul class="rows">'+calls.map(function(c){
+      return '<li><div class="row"><span class="row-main"><span class="ref">'+esc(c.ref||"")+'</span><span class="row-t">'+esc(c.company||"Demande de rappel")+'</span><span class="row-s">'+esc(["Rappel au "+(c.phone||"—"),A.date(c.createdAt)].join(" · "))+'</span></span><span class="row-side">'+pill(c.status==="Traitée"?"ok":"",c.status||"Reçue")+"</span></div></li>";}).join("")+"</ul>":
+      '<p class="sec-p">Aucune demande de rappel pour le moment.</p>')+"</div>"+
+    (subs.length?'<div class="sec"><div class="sec-h"><h2>Historique</h2></div><div class="tbl-wrap"><table class="tbl"><caption class="sr">Historique des offres</caption><thead><tr><th scope="col">Offre</th><th scope="col">Début</th><th scope="col">Échéance</th><th scope="col">Statut</th></tr></thead><tbody>'+
+      subs.map(function(s){return "<tr><td>"+esc(planName(s.planId))+"</td><td>"+(s.start?esc(A.date(s.start)):"—")+"</td><td>"+(s.renewAt?esc(A.date(s.renewAt)):"—")+"</td><td>"+st(s)+"</td></tr>";}).join("")+"</tbody></table></div></div>":"");};
 
 /* Factures */
 V.factures=function(){var l=mine("invoices").sort(function(a,b){return (b.date||0)-(a.date||0);});
-  view.innerHTML=head("Factures","Vos factures Vision Plus.")+'<div class="sec">'+(l.length?'<div class="tbl-wrap"><table class="tbl"><caption class="sr">Factures</caption><thead><tr><th scope="col">Numéro</th><th scope="col">Date</th><th scope="col">Formule</th><th scope="col" style="text-align:right">Montant</th><th scope="col">Statut</th></tr></thead><tbody>'+
+  view.innerHTML=head("Factures","Vos factures Vision Plus.")+'<div class="sec">'+(l.length?'<div class="tbl-wrap"><table class="tbl"><caption class="sr">Factures</caption><thead><tr><th scope="col">Numéro</th><th scope="col">Date</th><th scope="col">Offre</th><th scope="col" style="text-align:right">Montant</th><th scope="col">Statut</th></tr></thead><tbody>'+
     l.map(function(i){return "<tr><td>"+esc(i.number||"—")+"</td><td>"+(i.date?esc(A.date(i.date)):"—")+"</td><td>"+esc(i.planName||"—")+'</td><td class="num">'+money(i.amount,i.currency)+"</td><td>"+(i.status==="paid"?pill("ok","Payée"):i.status==="open"?pill("warn","À régler"):pill("",i.status||"—"))+"</td></tr>";}).join("")+"</tbody></table></div>":
-    empty("file","Aucune facture","Vos factures apparaîtront ici après l'activation de votre abonnement."))+"</div>";};
+    empty("file","Aucune facture","Vos factures apparaîtront ici après l'acceptation de votre devis."))+"</div>";};
 
 /* Paiements */
 V.paiements=function(){var l=mine("payments").sort(function(a,b){return (b.date||0)-(a.date||0);}),inv=A.records.list("invoices");
@@ -220,7 +225,7 @@ function projectModal(id){var p=A.records.get("projects",id);if(!p)return;var de
   modal(esc(p.name||"Projet"),'<dl class="kv">'+row("Type",esc(p.type||""))+row("Secteur",esc(p.sector||""))+row("Créé le",esc(A.date(p.createdAt)))+
     row("Description",esc(p.description||""))+row("Objectifs",esc(p.goals||""))+
     row("Fonctionnalités",(p.features||[]).length?'<div class="chips">'+p.features.map(function(f){return '<span class="chip" style="cursor:default">'+esc(f)+"</span>";}).join("")+"</div>":"")+
-    row("Besoins",esc(p.needs||""))+row("Formule envisagée",esc(p.plan||""))+
+    row("Besoins",esc(p.needs||""))+row("Rappel par un conseiller",p.callback?"Demandé":"—")+
     row("Fichiers",(p.files||[]).length?'<ul class="files">'+p.files.map(function(f){return "<li><span>"+esc(f.name)+'</span><span class="mut">'+(f.size?Math.max(1,Math.round(f.size/1024))+" Ko":"")+"</span></li>";}).join("")+"</ul>":"")+
     row("Simulation",demos.length?demos.map(function(d){return esc(d.ref||"")+" · "+esc((D.demoStatuses||[])[d.status]||"");}).join("<br>"):"")+"</dl>"+
     '<div class="actions">'+(demos.length?'<a class="btn btn-line btn-sm" href="#demos" data-close>Voir la simulation</a>':'<a class="btn btn-line btn-sm" href="demo.html">Demander une simulation</a>')+"</div>",true);}
@@ -231,7 +236,7 @@ V.demos=function(){var l=mineOrEmail("demos"),st=D.demoStatuses||[];
     l.map(function(d){var p=d.projectId?A.records.get("projects",d.projectId):null,s=Math.max(0,Math.min(3,d.status|0)),hist=d.history||[];
       return '<article class="demo" aria-labelledby="dm-'+esc(d.id)+'"><div class="demo-h"><div><span class="ref">'+esc(d.ref||"")+'</span><h2 id="dm-'+esc(d.id)+'">'+esc((p&&p.name)||d.company||"Ma simulation")+'</h2><span class="row-s">Demandée le '+esc(A.date(d.createdAt))+"</span></div>"+pill(s===3?"ok":"info",st[s]||"")+"</div>"+
         '<ol class="steps" aria-label="Avancement">'+st.map(function(label,i){var h=hist.filter(function(x){return x.status===i;}).pop();return '<li class="'+(i<s?"done":i===s?"cur":"")+'"'+(i===s?' aria-current="step"':"")+"><span>"+esc(label)+(h&&h.at?"<small>"+esc(A.date(h.at))+"</small>":"")+"</span></li>";}).join("")+"</ol>"+
-        (s===3&&d.video?'<div class="actions"><button type="button" class="btn btn-cyan" data-play="'+esc(d.id)+'">'+ic("play")+" Voir ma simulation</button>"+'<a class="btn btn-line" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement Vision Plus</a></div>':
+        (s===3&&d.video?'<div class="actions"><button type="button" class="btn btn-cyan" data-play="'+esc(d.id)+'">'+ic("play")+" Voir ma simulation</button>"+'<a class="btn btn-line" href="offre-sur-mesure.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'#rappel">Demander un devis</a></div>':
           s<3?'<p class="sec-p">Vous serez notifié dès que votre simulation sera disponible.</p>':"")+"</article>";}).join("")+"</div>":
     empty("play","Aucune simulation","Présentez votre projet et recevez une vidéo qui montre ce que Vision Plus fera pour vous.",'<a class="btn btn-cyan" href="demo.html">Demander ma simulation</a>'))+"</div>";
   view.querySelectorAll("[data-play]").forEach(function(b){b.onclick=function(){player(b.dataset.play);};});};
@@ -239,7 +244,7 @@ function player(id){var d=A.records.get("demos",id);if(!d||!d.video)return;var v
   var body=url?'<video class="player-v" controls playsinline preload="metadata" src="'+esc(url)+'" aria-label="'+esc(v.title||"Simulation")+'"></video>'+(ch.length?'<ol class="rows" aria-label="Chapitres">'+ch.map(function(c){return '<li style="padding:14px 4px"><b>'+esc(c.title)+'</b><p class="row-s">'+esc(c.text||"")+"</p></li>";}).join("")+"</ol>":""):
     (ch.length?'<div class="reader"><p class="mut small">'+(A.proto?"Mode présentation : la vidéo n'est pas encore en ligne. Voici le déroulé de votre simulation.":"La vidéo sera bientôt en ligne. Voici le déroulé de votre simulation.")+'</p><div class="reader-bar" aria-hidden="true"><i id="rd-bar"></i></div><div class="reader-c" id="rd-c" aria-live="polite"></div><ul class="chap-list" id="rd-list" aria-label="Chapitres"></ul><div class="actions"><button type="button" class="btn btn-line btn-sm" id="rd-prev">Précédent</button><button type="button" class="btn btn-cyan btn-sm" id="rd-next">Suivant</button></div></div>':
       empty("play","Vidéo bientôt disponible","Votre simulation sera visible ici dès sa mise en ligne."));
-  var m=modal(esc(v.title||"Ma simulation"),body+'<div class="actions"><a class="btn btn-ghost" href="abonnements.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'">Choisir mon abonnement Vision Plus '+ic("arrow","arrow")+"</a></div>",true);
+  var m=modal(esc(v.title||"Ma simulation"),body+'<div class="actions"><a class="btn btn-ghost" href="offre-sur-mesure.html'+(d.projectId?"?project="+encodeURIComponent(d.projectId):"")+'#rappel">Demander un devis '+ic("arrow","arrow")+"</a></div>",true);
   if(!url&&ch.length){var i=0,c=m.querySelector("#rd-c"),list=m.querySelector("#rd-list"),pv=m.querySelector("#rd-prev"),nx=m.querySelector("#rd-next");
     list.innerHTML=ch.map(function(x,k){return '<li><button type="button" data-k="'+k+'">'+(k+1)+". "+esc(x.title)+"</button></li>";}).join("");
     function show(k){i=k;c.innerHTML='<span class="ref">Chapitre '+(k+1)+" sur "+ch.length+"</span><h3>"+esc(ch[k].title)+"</h3><p>"+esc(ch[k].text||"")+"</p>";m.querySelector("#rd-bar").style.width=((k+1)/ch.length*100)+"%";
@@ -308,7 +313,7 @@ document.addEventListener("vp:consent",function(){if(current()==="parametres")re
 /* Mes données */
 V.donnees=function(){var u=me,reqs=mine("dataRequests"),pendingDel=reqs.some(function(r){return r.kind==="delete"&&r.status!=="Traitée";});
   view.innerHTML=head("Mes données","Exercez vos droits sur vos données personnelles.",'<a class="link small" href="confidentialite.html">Politique de confidentialité</a>')+
-    '<div class="sec"><div class="sec-h"><h2>Exporter mes données</h2></div><p class="sec-p">Obtenez une copie de vos informations : profil, projets, simulations, demandes, abonnement et notifications.</p>'+
+    '<div class="sec"><div class="sec-h"><h2>Exporter mes données</h2></div><p class="sec-p">Obtenez une copie de vos informations : profil, projets, simulations, demandes (dont les demandes de rappel), offre et notifications.</p>'+
       '<div class="actions"><button type="button" class="btn btn-cyan" id="export">'+ic("db")+" Générer l'export</button></div><div id=\"export-out\"></div></div>"+
     '<div class="sec"><div class="sec-h"><h2>Supprimer mon compte</h2></div><p class="sec-p">La suppression de votre compte et de vos données est traitée par l\'équipe Vision Plus. Certaines informations peuvent devoir être conservées pour des obligations légales.</p>'+
       (pendingDel?'<div class="notice info">'+ic("info")+"<span>Votre demande de suppression a bien été reçue. Elle sera traitée par l'équipe Vision Plus, qui vous tiendra informé.</span></div>":
@@ -318,7 +323,7 @@ V.donnees=function(){var u=me,reqs=mine("dataRequests"),pendingDel=reqs.some(fun
   document.getElementById("export").onclick=function(){
     var safe={};Object.keys(u).forEach(function(k){if(k!=="pw"&&k!=="salt")safe[k]=u[k];});
     var data={exportéLe:new Date().toISOString(),compte:safe,projets:mine("projects"),demonstrations:mineOrEmail("demos"),demandesSav:mineOrEmail("tickets"),
-      abonnements:mine("subscriptions"),factures:mine("invoices"),paiements:mine("payments"),notifications:mine("notifications"),conversationsIa:mine("conversations"),sessions:mine("sessions"),demandesDonnees:mine("dataRequests")};
+      offres:mine("subscriptions"),demandesDeRappel:mineOrEmail("rappels"),factures:mine("invoices"),paiements:mine("payments"),notifications:mine("notifications"),conversationsIa:mine("conversations"),sessions:mine("sessions"),demandesDonnees:mine("dataRequests")};
     A.records.add("dataRequests",{userId:u.id,kind:"export",status:"Reçue"});A.audit("Export de données demandé",u.email||u.phone);
     V.donnees();var out=document.getElementById("export-out");
     out.innerHTML='<div class="field" style="margin-top:6px"><label for="export-json">Vos données (JSON)</label><textarea class="input codebox" id="export-json" readonly spellcheck="false"></textarea></div><div class="actions" style="margin-top:12px"><button type="button" class="btn btn-line btn-sm" id="copy">Copier</button><span id="copy-msg" class="small" aria-live="polite"></span></div>';

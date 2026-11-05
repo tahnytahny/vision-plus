@@ -562,3 +562,5 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.94rem}
 @media (max-width:760px){.top .logo3d .logo3d-full{display:none}.top .logo3d .logo3d-mark{display:block;height:34px}}
 @media (max-width:520px){.top .logo3d .logo3d-mark{height:32px}}
 .auth-logo{display:block;height:46px;width:auto;margin:0 auto 4px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5))}
+/* menu principal : libellés sur une ligne (« Offre sur mesure ») */
+.nav a,.nav .dd>button{white-space:nowrap}

@@ -1,5 +1,5 @@
 /* Vision Plus — application mobile (écrans ≤ 760 px uniquement).
-   6 onglets : Accueil · Services · Simulation · Abonnements · Aide (FAQ, SAV, service client, contact) · Compte.
+   6 onglets : Accueil · Services · Simulation · Votre offre · Aide (FAQ, SAV, service client, contact) · Compte.
    Les informations légales sont dans la rubrique dépliable du pied de page (site.js). Chaque onglet est un écran
    indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte).
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
@@ -8,8 +8,8 @@
 var MQ=matchMedia("(max-width:760px)");
 var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var ACCOUNT_PAGES=["compte","connexion","inscription","mot-de-passe","espace-client"];
-var TOP_TABS={home:1,decouvrir:1,demo:1,abonnements:1,compte:1,"espace-client":1};
-var TITLES={"telephone-ia":"Secrétaire IA",home:"Accueil",decouvrir:"Services",demo:"Simulation",abonnements:"Abonnements",compte:"Compte",faq:"FAQ",assistant:"Assistant IA",sav:"Assistance",connexion:"Se connecter",inscription:"Créer un compte","mot-de-passe":"Mot de passe oublié","espace-client":"Mon espace",legal:"Informations légales"};
+var TOP_TABS={home:1,decouvrir:1,demo:1,offre:1,compte:1,"espace-client":1};
+var TITLES={"telephone-ia":"Secrétaire IA",home:"Accueil",decouvrir:"Services",demo:"Simulation",offre:"Votre offre",compte:"Compte",faq:"FAQ",assistant:"Assistant IA",sav:"Assistance",connexion:"Se connecter",inscription:"Créer un compte","mot-de-passe":"Mot de passe oublié","espace-client":"Mon espace",legal:"Informations légales"};
 /* écrans de la rubrique Services */
 var SVC=[
   {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents"},
@@ -59,7 +59,7 @@ function build(){
 
   /* ---------- barre d'onglets ---------- */
   var acctHref=u?"espace-client.html#tableau":"compte.html";
-  var tabs=[["home","index.html","Accueil","home"],["decouvrir","decouvrir.html","Services","layers"],["demo","demo.html","Simulation","play"],["abonnements","abonnements.html","Abonnements","card"],["compte",acctHref,"Compte","user"]];
+  var tabs=[["home","index.html","Accueil","home"],["decouvrir","decouvrir.html","Services","layers"],["demo","demo.html","Simulation","play"],["offre","offre-sur-mesure.html","Votre offre","card"],["compte",acctHref,"Compte","user"]];
   var cur=ACCOUNT_PAGES.indexOf(page)>=0?"compte":(page==="telephone-ia"?"decouvrir":page);
   var bar=el("nav","m-tabbar");bar.setAttribute("aria-label","Navigation principale");
   var tabHtml=tabs.map(function(t){return '<a href="'+t[1]+'" data-tab="'+t[0]+'"'+(t[0]===cur?' aria-current="page"':"")+'><span class="m-ti">'+A.icon(t[3])+(t[0]==="compte"&&u?'<i class="m-dot" aria-hidden="true"></i>':"")+"</span><span>"+t[2]+"</span></a>";});
@@ -141,7 +141,7 @@ function build(){
       e.preventDefault();root.classList.add("m-leaving");setTimeout(function(){location.href=url.href;},150);});
   }
   /* chaque écran s'ouvre en haut (sauf ancre d'un contenu précis : question de FAQ, article juridique) */
-  function keepAnchor(){var h=location.hash;if(!h)return false;if(page==="decouvrir"||page==="espace-client"||page==="home"||page==="demo"||page==="abonnements")return false;return !!document.getElementById(h.slice(1));}
+  function keepAnchor(){var h=location.hash;if(!h)return false;if(page==="decouvrir"||page==="espace-client"||page==="home"||page==="demo"||page==="offre")return false;return !!document.getElementById(h.slice(1));}
   if(!keepAnchor()&&page!=="decouvrir"){top0();requestAnimationFrame(top0);setTimeout(top0,120);}
   addEventListener("pageshow",function(ev){root.classList.remove("m-leaving");if(ev.persisted&&!keepAnchor())top0();});
 }

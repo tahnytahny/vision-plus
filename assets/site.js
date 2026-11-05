@@ -70,7 +70,7 @@ A.content={
   kb:function(){return A.store.get("kb",DATA.kb||[]);},
   setKb:function(v){A.store.set("kb",v);A.audit("Base de connaissances modifiée");},
   plans:function(){return A.store.get("plans",DATA.plans||[]);},
-  setPlans:function(v){A.store.set("plans",v);A.audit("Abonnements modifiés");},
+  setPlans:function(v){A.store.set("plans",v);A.audit("Formules modifiées");},
   legal:function(id){return A.store.get("legal."+id,null);},
   setLegal:function(id,v){A.store.set("legal."+id,v);A.audit("Document légal modifié : "+id);}
 };
@@ -162,7 +162,7 @@ A.auth={
 var STOP="le la les un une des de du d l a au aux et ou en est ce que qui quoi comment je j me mon ma mes vous votre vos pour sur dans avec il y on pas ne se sa son ses peut puis faut faire".split(" ");
 function toks(s){return A.norm(s).split(" ").filter(function(w){return w.length>1&&STOP.indexOf(w)<0;});}
 A.assistant={
-  suggestions:["Qu'est-ce que Vision Plus ?","Comment fonctionne la simulation ?","Quels sont les abonnements ?","J'ai oublié mon mot de passe"],
+  suggestions:["Qu'est-ce que Vision Plus ?","Comment fonctionne la simulation ?","Comment obtenir une offre sur mesure ?","J'ai oublié mon mot de passe"],
   answer:function(q){var qt=toks(q);if(!qt.length)return {text:"Pouvez-vous préciser votre question ?",found:false};
     var pool=A.content.faq().map(function(f){return {q:f.q,a:f.a,status:f.status,link:f.link,tags:f.tags||""};}).concat(A.content.kb().map(function(k){return {q:k.q,a:k.a,status:"ok",link:k.link,tags:k.tags||""};}));
     var best=null,bs=0;pool.forEach(function(e){var hay=toks(e.q+" "+e.tags),s=0;qt.forEach(function(w){hay.forEach(function(h){if(h===w)s+=2;else if(h.length>3&&w.length>3&&(h.indexOf(w)===0||w.indexOf(h)===0))s+=1;});});s=s/Math.sqrt(hay.length+2);if(s>bs){bs=s;best=e;}});
@@ -205,10 +205,10 @@ A.closeModal=function(m){m.removeAttribute("data-open");setTimeout(function(){m.
 
 /* ---------- en-tête et pied de page ---------- */
 var ACCT_ICON='<svg class="acct-ic" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="acg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9D7FA"/><stop offset=".55" stop-color="#1F77E9"/><stop offset="1" stop-color="#1661DF"/></linearGradient></defs><circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#acg)" stroke-width="1.6"/><circle cx="16" cy="12.5" r="4.6" fill="none" stroke="url(#acg)" stroke-width="1.8"/><path d="M7.6 25.2c1.7-3.6 4.9-5.6 8.4-5.6s6.7 2 8.4 5.6" fill="none" stroke="url(#acg)" stroke-width="1.8" stroke-linecap="round"/><circle cx="25" cy="7" r="4.2" fill="#1F77E9" stroke="#101419" stroke-width="1.4"/><path d="M25 5v4M23 7h4" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>';
-var DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",sub:"Votre web app et trois agents IA",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",sub:"Appels, rendez-vous, devis, e-mails",icon:"phone"},{href:"decouvrir.html#avantages",label:"Avantages",sub:"Ce que vous y gagnez",icon:"spark"},{href:"decouvrir.html#fonctionnement",label:"Fonctionnement",sub:"Comment les agents travaillent ensemble",icon:"chart"},{href:"decouvrir.html#secteurs",label:"Pour qui",sub:"Les métiers accompagnés",icon:"user"},{href:"decouvrir.html#commencer",label:"Commencer",sub:"Compte, simulation, abonnement",icon:"arrow"}];
-var NAV=[{id:"demo",href:"demo.html",label:"Simulation"},{id:"abonnements",href:"abonnements.html",label:"Abonnements"}];
+var DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",sub:"Votre web app et trois agents IA",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",sub:"Appels, rendez-vous, devis, e-mails",icon:"phone"},{href:"decouvrir.html#avantages",label:"Avantages",sub:"Ce que vous y gagnez",icon:"spark"},{href:"decouvrir.html#fonctionnement",label:"Fonctionnement",sub:"Comment les agents travaillent ensemble",icon:"chart"},{href:"decouvrir.html#secteurs",label:"Pour qui",sub:"Les métiers accompagnés",icon:"user"},{href:"decouvrir.html#commencer",label:"Commencer",sub:"Compte, simulation, offre sur mesure",icon:"arrow"}];
+var NAV=[{id:"demo",href:"demo.html",label:"Simulation"},{id:"offre",href:"offre-sur-mesure.html",label:"Offre sur mesure"}];
 var HELP=[{id:"faq",href:"faq.html",label:"FAQ",sub:"Questions et réponses, posez la vôtre",icon:"help"},{id:"sav",href:"sav.html",label:"SAV / Assistance",sub:"Ouvrir et suivre une demande",icon:"life"}];
-var ACCOUNT=[{h:"espace-client.html#tableau",l:"Tableau de bord",i:"home"},{h:"espace-client.html#profil",l:"Mon profil",i:"user"},{h:"espace-client.html#projets",l:"Mes projets",i:"folder"},{h:"espace-client.html#demos",l:"Mes simulations",i:"play"},{h:"espace-client.html#abonnement",l:"Mon abonnement",i:"card"},{h:"espace-client.html#factures",l:"Mes factures",i:"file"},{h:"espace-client.html#assistance",l:"Mon assistance",i:"life"},{h:"espace-client.html#parametres",l:"Paramètres",i:"gear"}];
+var ACCOUNT=[{h:"espace-client.html#tableau",l:"Tableau de bord",i:"home"},{h:"espace-client.html#profil",l:"Mon profil",i:"user"},{h:"espace-client.html#projets",l:"Mes projets",i:"folder"},{h:"espace-client.html#demos",l:"Mes simulations",i:"play"},{h:"espace-client.html#abonnement",l:"Mon offre",i:"card"},{h:"espace-client.html#factures",l:"Mes factures",i:"file"},{h:"espace-client.html#assistance",l:"Mon assistance",i:"life"},{h:"espace-client.html#parametres",l:"Paramètres",i:"gear"}];
 function initials(n){return String(n||"A").trim().split(/\s+/).slice(0,2).map(function(w){return w[0];}).join("").toUpperCase();}
 function ddItems(list,page){return list.map(function(h){return '<a href="'+h.href+'"'+(h.id&&h.id===page?' aria-current="page"':"")+">"+A.icon(h.icon)+"<span><b>"+h.label+"</b><small>"+h.sub+"</small></span></a>";}).join("");}
 function dd(label,list,page,cur){return '<div class="dd'+(cur?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+label+" "+A.icon("chev","chev")+'</button><div class="dd-menu">'+ddItems(list,page)+"</div></div>";}
@@ -282,7 +282,7 @@ A.authSheet=function(mode){var cfg=CFG.oauth||{};
   return m;};
 function footer(){var f=document.createElement("footer");f.className="foot";
   f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
-  '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="abonnements.html">Abonnements</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
+  '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="offre-sur-mesure.html">Votre offre sur mesure</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
   '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">Assistance</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
   legalMenu()+'</div>'+
   '<div class="foot-bottom"><span>© '+new Date().getFullYear()+' Vision Plus, service exploité par AX TECH. Tous droits réservés.</span>'+(PROTO?'<span class="proto-tag">'+A.icon("info")+" Version de présentation : les données restent dans votre navigateur.</span>":"")+"</div></div>";

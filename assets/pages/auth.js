@@ -3,7 +3,7 @@
 (function(){
 "use strict";
 var A=window.VISIONPLUS;
-var PAGES="index decouvrir telephone-ia compte demo abonnements faq assistant sav connexion inscription mot-de-passe espace-client cgv mentions-legales confidentialite cookies".split(" ");
+var PAGES="index decouvrir telephone-ia compte demo abonnements offre-sur-mesure faq assistant sav connexion inscription mot-de-passe espace-client cgv mentions-legales confidentialite cookies".split(" ");
 var X=window.AXAUTH={};
 
 /* Destination après connexion : uniquement une page du site (pas de redirection ouverte). */

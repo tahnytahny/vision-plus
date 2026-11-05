@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Votre offre sur mesure · Vision Plus</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/brand/favicon-96.png">
+<meta property="og:site_name" content="Vision Plus">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Votre offre sur mesure · Vision Plus">
+<meta property="og:description" content="Une solution adaptée à votre entreprise, un tarif adapté à vos besoins : un conseiller Vision Plus vous rappelle, puis vous recevez un devis personnalisé.">
+<meta property="og:image" content="assets/brand/vision-plus-partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Une solution adaptée à votre entreprise, un tarif adapté à vos besoins : un conseiller Vision Plus vous rappelle, puis vous recevez un devis personnalisé.">
+<meta name="vp-page" content="offre">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="themes/p1.css">
+<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/palette.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#101419">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Vision Plus">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
+<script src="assets/mobile.js" defer></script>
+<style>
+.os-note{color:var(--mut);font-size:.92rem;max-width:64ch}
+.os-intro{display:grid;gap:12px;max-width:66ch}
+.os-intro .lead{max-width:none}
+.os-done .h-m{font-size:clamp(1.15rem,1.8vw,1.4rem);line-height:1.35;color:var(--ink)}
+/* étapes */
+.os-steps{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));counter-reset:st}
+.os-steps li{position:relative;display:grid;gap:8px;align-content:start;padding:22px 20px 20px;border:1px solid var(--edge);border-radius:16px;background:var(--glass);counter-increment:st}
+.os-steps li::before{content:counter(st);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;font:600 .95rem/1 var(--f-display);color:#BCD9FB;border:1px solid rgba(120,180,245,.45);background:rgba(31,119,233,.12)}
+.os-steps h3{font:500 1.08rem/1.25 var(--f-display);color:var(--ink);margin:0}
+.os-steps p{color:var(--soft);font-size:.95rem;margin:0}
+/* ce qui détermine le prix */
+.os-price{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.os-price div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:18px;border-radius:14px;border:1px solid var(--edge);background:rgba(16,20,25,.45)}
+.os-price .ico{width:22px;height:22px;color:var(--cyan)}
+.os-price b{display:block;font:500 1rem/1.3 var(--f-display);color:var(--ink)}
+.os-price small{display:block;color:var(--mut);font-size:.88rem;margin-top:3px}
+/* formulaire de rappel */
+.os-form-wrap{display:grid;gap:28px;align-items:start}
+@media (min-width:900px){.os-form-wrap{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px}}
+.os-card{padding:clamp(20px,3vw,32px);border:1px solid var(--edge);border-radius:18px;background:var(--glass)}
+.row2{display:grid;gap:18px}
+@media (min-width:640px){.row2{grid-template-columns:1fr 1fr}}
+.os-done{display:grid;gap:14px}
+.os-done .refbox{display:inline-grid;gap:2px;padding:12px 16px;border-radius:12px;border:1px solid rgba(120,180,245,.4);background:rgba(31,119,233,.08);justify-self:start}
+.os-done .refbox small{color:var(--mut);font-size:.8rem}
+.os-done .refbox b{font:600 1.1rem/1 var(--f-display);letter-spacing:.04em;color:#BCD9FB}
+/* questions */
+.os-faq{display:grid;gap:10px;max-width:820px}
+.os-faq details{border:1px solid var(--edge);border-radius:14px;background:rgba(16,20,25,.45)}
+.os-faq summary{cursor:pointer;list-style:none;padding:16px 18px;font:500 1rem/1.35 var(--f-display);color:var(--ink);display:flex;justify-content:space-between;gap:12px}
+.os-faq summary::-webkit-details-marker{display:none}
+.os-faq summary::after{content:"+";color:var(--cyan);font-size:1.2rem;line-height:1}
+.os-faq details[open] summary::after{content:"–"}
+.os-faq p{padding:0 18px 16px;margin:0;color:var(--soft)}
+</style>
+</head>
+<body>
+<div data-vp="header"></div>
+<main id="contenu">
+  <section class="page-hero" aria-labelledby="t-hero">
+    <div class="wrap">
+      <span class="eyebrow">Votre offre sur mesure</span>
+      <h1 id="t-hero" class="h-xl">Une solution adaptée à votre entreprise. Un tarif adapté à vos besoins.</h1>
+      <div class="os-intro">
+        <p class="lead">Chaque entreprise a ses propres objectifs et ses méthodes de travail. Votre conseiller Vision Plus vous rappelle pour comprendre votre activité, préciser les fonctionnalités de votre web app et identifier les agents IA utiles à votre organisation.</p>
+        <p class="lead">À l'issue de cet échange, vous recevez une proposition commerciale personnalisée, détaillant les services retenus et leur tarif. Vous disposez ainsi d'une vision claire de votre projet avant de vous engager.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-cyan" type="button" data-open-rappel aria-controls="rappel" aria-expanded="false">Être rappelé par un conseiller <i data-ico="arrow" data-cls="arrow"></i></button>
+        <a class="btn btn-line" href="demo.html">Demander une simulation</a>
+      </div>
+      <p class="os-note">La demande de rappel est sans engagement et ne constitue pas une commande. Le tarif est établi avec votre conseiller, selon le périmètre de votre projet, puis soumis à votre accord dans un devis détaillé.</p>
+    </div>
+  </section>
+
+  <section class="section tight" aria-labelledby="t-steps">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:28px"><span class="eyebrow">Votre parcours</span><h2 id="t-steps" class="h-l">Trois étapes jusqu'à votre devis.</h2></div>
+      <ol class="os-steps">
+        <li><h3>Présentez votre projet</h3><p>Indiquez votre activité et les besoins que vous souhaitez couvrir.</p></li>
+        <li><h3>Échangez avec un conseiller</h3><p>Nous précisons ensemble les fonctionnalités, les agents IA et l'accompagnement adaptés.</p></li>
+        <li><h3>Recevez votre devis personnalisé</h3><p>Une proposition détaillée vous est transmise pour validation.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section tight" id="rappel" aria-labelledby="t-form" hidden>
+    <div class="wrap os-form-wrap">
+      <div class="section-head" style="margin:0">
+        <span class="eyebrow">Demande de rappel</span>
+        <h2 id="t-form" class="h-l" tabindex="-1">Être rappelé par un conseiller.</h2>
+        <p class="lead">Un conseiller Vision Plus vous rappelle pour étudier votre projet et préparer votre proposition personnalisée.</p>
+        <p class="notice info small"><i data-ico="info"></i><span>Demande sans engagement : elle ne constitue pas une commande.</span></p>
+      </div>
+      <div class="os-card">
+        <form class="form" id="f-rappel" novalidate>
+          <p class="notice info small" id="from-proj" hidden></p>
+          <div class="row2">
+            <div class="field">
+              <label for="r-name">Nom et prénom <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="r-name" autocomplete="name" maxlength="80" aria-describedby="e-name" required>
+              <span class="msg-err" id="e-name" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="r-company">Entreprise <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="r-company" autocomplete="organization" maxlength="100" aria-describedby="e-company" required>
+              <span class="msg-err" id="e-company" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="r-phone">Numéro de téléphone <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="r-phone" type="tel" autocomplete="tel" maxlength="20" inputmode="tel" aria-describedby="e-phone" required>
+              <span class="msg-err" id="e-phone" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="r-email">E-mail professionnel <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="r-email" type="email" autocomplete="work email" maxlength="120" aria-describedby="e-email" required>
+              <span class="msg-err" id="e-email" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="r-msg">Description du besoin <span class="req" aria-hidden="true">*</span></label>
+            <textarea class="input" id="r-msg" rows="4" maxlength="2000" placeholder="Votre activité, les besoins que vous souhaitez couvrir…" aria-describedby="e-msg" required></textarea>
+            <span class="msg-err" id="e-msg" aria-live="polite"></span>
+          </div>
+          <div class="field">
+            <label for="r-slot">Créneau de rappel souhaité <span class="mut small">(facultatif)</span></label>
+            <select class="input" id="r-slot">
+              <option value="">Pas de préférence</option>
+              <option>Le matin</option>
+              <option>En début d'après-midi</option>
+              <option>En fin d'après-midi</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="check" for="r-consent"><input type="checkbox" id="r-consent" aria-describedby="e-consent"><span>J'ai pris connaissance de l'utilisation de mes informations pour être rappelé et recevoir une proposition personnalisée, décrite dans la <a class="link" href="confidentialite.html#rappel" target="_blank" rel="noopener">politique de confidentialité</a>.</span></label>
+            <span class="msg-err" id="e-consent" aria-live="polite"></span>
+          </div>
+          <p class="msg-err" id="f-sum" role="alert"></p>
+          <div class="actions"><button class="btn btn-cyan" type="submit">Être rappelé par un conseiller</button></div>
+        </form>
+        <div class="os-done" id="done" hidden>
+          <span class="eyebrow">Demande envoyée</span>
+          <p class="h-m" id="t-done" tabindex="-1">Votre demande a bien été transmise. Un conseiller Vision Plus vous recontactera pour étudier votre projet et préparer votre proposition personnalisée.</p>
+          <div class="refbox"><small>Numéro de demande</small><b id="done-ref"></b></div>
+          <p class="mut small" id="done-mail"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight alt" aria-labelledby="t-price">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:28px"><span class="eyebrow">Votre tarif</span><h2 id="t-price" class="h-l">Ce qui détermine votre tarif.</h2><p class="lead">Pas de grille toute faite : le tarif dépend du périmètre de votre projet.</p></div>
+      <div class="os-price">
+        <div><i data-ico="layers"></i><span><b>Les fonctionnalités de votre web app</b><small>Pages, contenus et fonctions utiles à votre activité.</small></span></div>
+        <div><i data-ico="spark"></i><span><b>Les agents IA retenus</b><small>Secrétaire IA, marketing IA, gestion de votre site.</small></span></div>
+        <div><i data-ico="chart"></i><span><b>Les intégrations</b><small>Les liens avec les outils que vous utilisez déjà.</small></span></div>
+        <div><i data-ico="user"></i><span><b>L'accompagnement</b><small>L'accompagnement retenu avec votre conseiller.</small></span></div>
+      </div>
+      <p class="os-note" style="margin-top:22px">Votre devis précise le périmètre des prestations, les tarifs, les éventuels frais récurrents ou liés à la consommation, les délais et les conditions de paiement, ainsi que la durée, le renouvellement et la résiliation. Toute prestation supplémentaire fait l'objet d'un accord préalable sur son contenu et son prix.</p>
+    </div>
+  </section>
+
+  <section class="section tight" aria-labelledby="t-faq">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom:24px"><span class="eyebrow">Questions fréquentes</span><h2 id="t-faq" class="h-l">Votre offre en questions.</h2></div>
+      <div class="os-faq">
+        <details><summary>Combien coûte Vision Plus ?</summary><p>Le tarif est établi avec votre conseiller, selon les fonctionnalités de votre web app, les agents IA, les intégrations et l'accompagnement retenus. Il vous est présenté dans un devis personnalisé.</p></details>
+        <details><summary>La demande de rappel m'engage-t-elle ?</summary><p>Non. La demande de rappel est sans engagement et ne constitue pas une commande.</p></details>
+        <details><summary>À quel moment suis-je engagé ?</summary><p>Lorsque vous acceptez le devis et les conditions générales de vente, selon les modalités d'acceptation qui y sont indiquées.</p></details>
+        <details><summary>Y a-t-il des frais récurrents ?</summary><p>Le devis précise les éventuels frais récurrents ou liés à la consommation, ainsi que la durée, le renouvellement et les conditions de résiliation.</p></details>
+        <details><summary>Et si j'ai besoin d'une prestation en plus ?</summary><p>Toute prestation supplémentaire fait l'objet d'un accord préalable sur son contenu et son prix.</p></details>
+      </div>
+      <div class="actions" style="margin-top:22px"><button class="btn btn-cyan" type="button" data-open-rappel aria-controls="rappel" aria-expanded="false">Être rappelé par un conseiller</button><a class="link" href="cgv.html">Conditions générales de vente</a></div>
+    </div>
+  </section>
+</main>
+<div data-vp="footer"></div>
+<script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
+<script>
+(function(){var A=window.VISIONPLUS,esc=A.esc;
+var $=function(id){return document.getElementById(id);};
+document.querySelectorAll("main [data-ico]").forEach(function(el){el.outerHTML=A.icon(el.dataset.ico,el.dataset.cls||"");});
+/* le bouton « Être rappelé par un conseiller » ouvre le formulaire ; l'ancre #rappel l'ouvre aussi */
+var sec=$("rappel"),openers=document.querySelectorAll("[data-open-rappel]");
+function openForm(focus){sec.hidden=false;openers.forEach(function(b){b.setAttribute("aria-expanded","true");});
+  sec.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+  if(focus)setTimeout(function(){var f=$("f-rappel").hidden?$("t-done"):$("r-name");f.focus({preventScroll:true});},350);}
+openers.forEach(function(b){b.addEventListener("click",function(){openForm(true);});});
+if(location.hash==="#rappel")setTimeout(function(){openForm(false);},60);
+window.addEventListener("hashchange",function(){if(location.hash==="#rappel")openForm(true);});
+/* compte connecté : coordonnées préremplies ; projet issu d'une simulation (?project=) */
+var u=A.auth.current();
+if(u){$("r-name").value=u.name||"";$("r-email").value=u.email||"";$("r-phone").value=u.phone||"";$("r-company").value=u.company||"";}
+var pid=A.qs("project"),project=pid?A.records.get("projects",pid):null;
+if(project){$("from-proj").hidden=false;$("from-proj").innerHTML=A.icon("info")+"<span>Votre demande sera rattachée à votre projet « "+esc(project.name||"")+" ».</span>";
+  if(!$("r-msg").value&&project.description)$("r-msg").value=project.description;}
+var PHONE=/^[+\d][\d\s.()-]{8,}$/,EMAIL=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+function err(id,msg,input){$(id).textContent=msg||"";if(input){if(msg)input.setAttribute("aria-invalid","true");else input.removeAttribute("aria-invalid");}}
+function newRef(){var r,t=0;do{r="RAPPEL-"+String(Math.floor(Math.random()*1e6)).padStart(6,"0");t++;}while(t<50&&A.records.list("rappels",function(x){return x.ref===r;}).length);return r;}
+$("f-rappel").addEventListener("submit",function(e){e.preventDefault();
+  var name=$("r-name").value.trim(),company=$("r-company").value.trim(),phone=$("r-phone").value.trim(),email=$("r-email").value.trim(),msg=$("r-msg").value.trim(),first=null,bad=0;
+  function chk(id,ok,m,input){err(id,ok?"":m,input);if(!ok){bad++;first=first||input;}}
+  chk("e-name",name.length>=2,"Indiquez votre nom et votre prénom.",$("r-name"));
+  chk("e-company",company.length>=2,"Indiquez le nom de votre entreprise.",$("r-company"));
+  chk("e-phone",PHONE.test(phone),"Indiquez un numéro de téléphone valide.",$("r-phone"));
+  chk("e-email",EMAIL.test(email),email?"Adresse e-mail invalide (ex. nom@entreprise.fr).":"Indiquez votre e-mail professionnel.",$("r-email"));
+  chk("e-msg",msg.length>=10,"Décrivez votre besoin en quelques mots.",$("r-msg"));
+  chk("e-consent",$("r-consent").checked,"Cochez la case pour confirmer que vous avez pris connaissance de l'utilisation de vos informations.",$("r-consent"));
+  if(bad){$("f-sum").textContent=bad===1?"Un point à corriger.":bad+" points à corriger.";first.focus();return;}
+  $("f-sum").textContent="";
+  var ref=newRef(),slot=$("r-slot").value;
+  A.records.add("rappels",{ref:ref,userId:u?u.id:null,name:name,company:company,phone:phone,email:email.toLowerCase(),message:msg,availability:slot,interests:[],projectId:project?project.id:null,status:"Reçue"});
+  A.audit("Demande de rappel reçue",ref+" · "+company);
+  A.send("email",email,"Votre demande de rappel "+ref,"Bonjour "+name+",\n\nVotre demande a bien été transmise (n° "+ref+"). Un conseiller Vision Plus vous recontactera au "+phone+(slot?" ("+slot.toLowerCase()+")":"")+" pour étudier votre projet et préparer votre proposition personnalisée.\n\nCette demande est sans engagement et ne constitue pas une commande : le tarif de votre offre vous sera présenté dans un devis détaillé, soumis à votre accord.\n\nL'équipe Vision Plus");
+  if(u)A.notify(u.id,"Demande de rappel transmise","Numéro "+ref+". Un conseiller Vision Plus vous recontactera.","espace-client.html#abonnement");
+  $("f-rappel").hidden=true;$("done").hidden=false;$("done-ref").textContent=ref;
+  $("done-mail").textContent="Un e-mail de confirmation a été "+(A.proto?"simulé (version de présentation)":"envoyé")+" à "+email+".";
+  $("t-done").focus();});
+$("f-rappel").addEventListener("input",function(e){var t=e.target;if(t.getAttribute("aria-invalid")){t.removeAttribute("aria-invalid");var m=$("e-"+t.id.replace("r-",""));if(m)m.textContent="";}});
+})();
+</script>
+</body>
+</html>
