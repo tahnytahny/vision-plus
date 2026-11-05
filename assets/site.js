@@ -48,7 +48,7 @@ var ICONS={
   layers:'<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5"/><path d="m2 17 10 5 10-5"/>',
   help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>',
   life:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>',
-  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',uplus:'<circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 14 0"/><path d="M19 8v6M16 11h6"/>',folder:'<path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',cube:'<path d="M12 2.8 3.8 7.4v9.2L12 21.2l8.2-4.6V7.4z"/><path d="M3.8 7.4 12 12l8.2-4.6M12 12v9.2"/>',headset:'<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.2" height="6.5" rx="1.6"/><rect x="16.8" y="14" width="4.2" height="6.5" rx="1.6"/><path d="M19 20.5c0 1.2-1.2 1.8-2.6 1.8H14"/>',uplus:'<circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 14 0"/><path d="M19 8v6M16 11h6"/>',folder:'<path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
   play:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/>',card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
   file:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
@@ -206,6 +206,11 @@ A.closeModal=function(m){m.removeAttribute("data-open");setTimeout(function(){m.
 /* ---------- en-tête et pied de page ---------- */
 var ACCT_ICON='<svg class="acct-ic" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="acg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9D7FA"/><stop offset=".55" stop-color="#1F77E9"/><stop offset="1" stop-color="#1661DF"/></linearGradient></defs><circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#acg)" stroke-width="1.6"/><circle cx="16" cy="12.5" r="4.6" fill="none" stroke="url(#acg)" stroke-width="1.8"/><path d="M7.6 25.2c1.7-3.6 4.9-5.6 8.4-5.6s6.7 2 8.4 5.6" fill="none" stroke="url(#acg)" stroke-width="1.8" stroke-linecap="round"/><circle cx="25" cy="7" r="4.2" fill="#1F77E9" stroke="#101419" stroke-width="1.4"/><path d="M25 5v4M23 7h4" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>';
 var DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",sub:"Votre web app et trois agents IA",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",sub:"Appels, rendez-vous, devis, e-mails",icon:"phone"},{href:"decouvrir.html#avantages",label:"Avantages",sub:"Ce que vous y gagnez",icon:"spark"},{href:"decouvrir.html#fonctionnement",label:"Fonctionnement",sub:"Comment les agents travaillent ensemble",icon:"chart"},{href:"decouvrir.html#secteurs",label:"Pour qui",sub:"Les métiers accompagnés",icon:"user"},{href:"decouvrir.html#commencer",label:"Commencer",sub:"Compte, simulation, offre sur mesure",icon:"arrow"}];
+/* navigation ordinateur et tablette : « Découvrir » en une seule colonne (ordre demandé ; Marketing IA et Gestion de la web app, déjà présents sur le site, rejoignent les services) */
+var NAV_DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",icon:"phone"},
+  {href:"decouvrir.html#marketing",label:"Marketing IA",icon:"mega"},{href:"decouvrir.html#gestion",label:"Gestion de votre web app",icon:"gear"},
+  {id:"demo",href:"demo.html",label:"Simulation",icon:"play"},{href:"decouvrir.html#avantages",label:"Avantages",icon:"spark"},
+  {href:"decouvrir.html#fonctionnement",label:"Fonctionnement",icon:"chart"},{href:"decouvrir.html#secteurs",label:"Pour qui",icon:"user"},{href:"decouvrir.html#commencer",label:"Commencer",icon:"arrow"}];
 var NAV=[{id:"demo",href:"demo.html",label:"Simulation"},{id:"offre",href:"offre-sur-mesure.html",label:"Offre sur mesure"}];
 var HELP=[{id:"faq",href:"faq.html",label:"FAQ",sub:"Questions et réponses, posez la vôtre",icon:"help"},{id:"sav",href:"sav.html",label:"SAV / Assistance",sub:"Ouvrir et suivre une demande",icon:"life"}];
 var ACCOUNT=[{h:"espace-client.html#tableau",l:"Tableau de bord",i:"home"},{h:"espace-client.html#profil",l:"Mon profil",i:"user"},{h:"espace-client.html#projets",l:"Mes projets",i:"folder"},{h:"espace-client.html#demos",l:"Mes simulations",i:"play"},{h:"espace-client.html#abonnement",l:"Mon offre",i:"card"},{h:"espace-client.html#factures",l:"Mes factures",i:"file"},{h:"espace-client.html#assistance",l:"Mon assistance",i:"life"},{h:"espace-client.html#parametres",l:"Paramètres",i:"gear"}];
@@ -214,56 +219,27 @@ function ddItems(list,page){return list.map(function(h){return '<a href="'+h.hre
 function dd(label,list,page,cur){return '<div class="dd'+(cur?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+label+" "+A.icon("chev","chev")+'</button><div class="dd-menu">'+ddItems(list,page)+"</div></div>";}
 /* ---------- ordinateur (761 px et plus) : menu « Menu » en haut à droite et bouton « Retour » ----------
    Le mobile (760 px et moins) garde sa barre d'onglets et son propre bouton retour (mobile.js) : ces éléments y sont masqués. */
-function vSub(list,page){return list.map(function(h){return '<a class="vm-s" href="'+h.href+'"'+(h.id&&h.id===page?' aria-current="page"':"")+(h.auth?' data-auth="'+h.auth+'"':"")+">"+A.icon(h.icon)+"<span><b>"+h.label+"</b>"+(h.sub?"<small>"+h.sub+"</small>":"")+"</span></a>";}).join("");}
-function vLink(href,label,icon,cur){return '<a class="vm-l" href="'+href+'"'+(cur?' aria-current="page"':"")+">"+A.icon(icon)+"<span>"+label+"</span></a>";}
-function vSec(key,label,inner,cur){return '<div class="vm-sec vm-'+key+(cur?" current":"")+'" role="group" aria-labelledby="vm-k-'+key+'"><p class="vm-k" id="vm-k-'+key+'">'+label+'</p><div class="vm-list">'+inner+"</div></div>";}
-/* menu compact : Navigation (Accueil, Simulation, Offre sur mesure) et Aide à gauche, Découvrir à droite ; le compte est dans l'en-tête (vAuth) */
-function vMenu(page){
-  return '<div class="vmenu"><button type="button" class="vmenu-btn" aria-expanded="false" aria-controls="vmenu-p">'+A.icon("menu")+"<span>Menu</span>"+A.icon("chev","chev")+"</button>"+
-    '<nav class="vmenu-p" id="vmenu-p" aria-label="Menu principal"><div class="vm-grid">'+
-    vSec("nav","Navigation",vLink("index.html","Accueil","home",page==="home")+NAV.map(function(n){return vLink(n.href,n.label,n.id==="demo"?"play":"card",n.id===page);}).join(""),false)+
-    vSec("dec","Découvrir",vSub(DISCOVER,page),page==="decouvrir"||page==="telephone-ia")+
-    vSec("aide","Aide",vSub(HELP,page),HELP.some(function(h){return h.id===page;}))+
-    "</div></nav></div>";}
 /* compte dans l'en-tête, toujours visible : « Connexion » et « Créer un compte » (parcours existants : fenêtre A.authSheet, sinon pages connexion/inscription) ; une fois connecté, menu « Mon espace » */
 function vAuth(u){
   if(u)return '<div class="vauth"><div class="dd dd-right vuser"><button type="button" class="user-btn" aria-expanded="false" aria-haspopup="true" aria-label="Mon espace client"><span class="avatar">'+A.esc(initials(u.name))+'</span><span class="user-n">'+A.esc(String(u.name||"").split(" ")[0])+"</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
     ACCOUNT.map(function(a){return '<a href="'+a.h+'">'+A.icon(a.i)+"<span><b>"+a.l+"</b></span></a>";}).join("")+'<hr><button type="button" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button></div></div></div>";
   return '<div class="vauth"><a class="vbtn vbtn-ghost" href="connexion.html" data-auth="login" title="Connexion">'+A.icon("user")+'<span class="vbtn-l">Connexion</span></a>'+
     '<a class="vbtn vbtn-primary" href="inscription.html" data-auth="signup">'+A.icon("uplus")+'<span class="vbtn-l">Créer un compte</span></a></div>';}
-function vMenuInit(h){var w=h.querySelector(".vmenu");if(!w)return;var b=w.querySelector(".vmenu-btn"),p=w.querySelector(".vmenu-p");
-  var fine=matchMedia("(hover:hover) and (pointer:fine)"),mob=matchMedia("(max-width:760px)"),tOpen=null,tClose=null,openedAt=0,byHover=false;
-  function isOpen(){return w.hasAttribute("data-open");}
-  function set(o,back,hov){clearTimeout(tOpen);clearTimeout(tClose);if(o===isOpen())return;
-    if(o){closeDd();align();p.scrollTop=0;w.setAttribute("data-open","");openedAt=Date.now();byHover=!!hov;}
-    else{var inside=w.contains(document.activeElement)&&document.activeElement!==b;w.removeAttribute("data-open");if(inside)back=true;}
-    b.setAttribute("aria-expanded",o?"true":"false");h.classList.toggle("vm-open",o);if(!o&&back)b.focus();}
-  /* le menu s'aligne sur le bord droit de l'en-tête (sous « Créer un compte ») */
-  function align(){var tr=w.parentNode.getBoundingClientRect(),mr=w.getBoundingClientRect();w.style.setProperty("--vm-shift",Math.min(0,Math.round(mr.right-tr.right))+"px");}
-  window.addEventListener("resize",function(){if(isOpen())align();});
-  function items(){return [].slice.call(p.querySelectorAll("a,button"));}
-  /* survol (souris) : ouverture presque immédiate ; fermeture après un court délai quand la souris quitte le bouton et le menu */
-  w.addEventListener("mouseenter",function(){if(!fine.matches||mob.matches)return;clearTimeout(tClose);if(!isOpen())tOpen=setTimeout(function(){set(true,false,true);},60);});
-  w.addEventListener("mouseleave",function(){if(!fine.matches||mob.matches)return;clearTimeout(tOpen);if(isOpen())tClose=setTimeout(function(){set(false);},320);});
-  /* clic : ouvre ou ferme ; un clic juste après l'ouverture au survol ne referme pas le menu */
-  b.addEventListener("click",function(){if(isOpen()){if(byHover&&Date.now()-openedAt<700){byHover=false;return;}set(false);}else set(true);});
-  b.addEventListener("keydown",function(e){if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();set(true);var l=items();(e.key==="ArrowDown"?l[0]:l[l.length-1]).focus();}});
-  p.addEventListener("click",function(e){if(e.target.closest("a"))set(false);});
-  p.addEventListener("keydown",function(e){var l=items(),i=l.indexOf(document.activeElement),k=e.key;
-    if(k==="ArrowDown"){e.preventDefault();(l[i+1]||l[0]).focus();}
-    else if(k==="ArrowUp"){e.preventDefault();(l[i-1]||l[l.length-1]).focus();}
-    else if(k==="Home"){e.preventDefault();l[0].focus();}
-    else if(k==="End"){e.preventDefault();l[l.length-1].focus();}});
-  w.addEventListener("focusout",function(e){if(e.relatedTarget&&!w.contains(e.relatedTarget))set(false);});
-  document.addEventListener("click",function(e){if(isOpen()&&!w.contains(e.target))set(false);});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.preventDefault();set(false,true);}});
-  if(mob.addEventListener)mob.addEventListener("change",function(){if(mob.matches)set(false);});}
+/* en-tête sur une seule ligne tant qu'il tient ; sinon (tablette, fenêtre étroite) bouton de menu compact et navigation verticale */
+function vFit(h){var inner=h.querySelector(".top-in"),mob=matchMedia("(max-width:760px)");if(!inner)return;
+  /* trois paliers : barre complète avec icônes, barre sans icônes (écrans moyens), puis menu compact */
+  function over(){return inner.scrollWidth>inner.clientWidth+1;}
+  function fit(){var was=h.className;h.classList.remove("v-compact","v-tight");
+    if(!mob.matches&&over()){h.classList.add("v-tight");if(over())h.classList.add("v-compact");}
+    if(h.className!==was)closeDd();}
+  fit();var raf=0;window.addEventListener("resize",function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(fit);});
+  window.addEventListener("load",fit);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);}
 /* « Retour » : page précédente du site si le visiteur vient d'une page de ce site, sinon l'accueil */
 function fromSite(){try{if(history.length<2||!document.referrer)return false;var r=new URL(document.referrer),base=location.pathname.replace(/[^\/]*$/,"");
   return r.origin===location.origin&&r.pathname.indexOf(base)===0;}catch(x){return false;}}
 function vBack(h,page){if(page==="home")return;var host=h.querySelector(".top-auth");if(!host)return;
   var a=document.createElement("a");a.className="vback";a.href="index.html";a.setAttribute("aria-label","Retour à la page précédente");
-  a.innerHTML=A.icon("arrow")+'<span aria-hidden="true">Retour</span>';
+  a.title="Retour";a.innerHTML=A.icon("arrow");
   a.addEventListener("click",function(e){if(e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;if(fromSite()){e.preventDefault();history.back();}});
   host.insertBefore(a,host.firstChild);}
 /* accueil sur ordinateur : ouverture en haut de page (le mobile le fait dans mobile.js) ; sauf lien vers une section (#…) ou retour arrière */
@@ -273,7 +249,11 @@ function homeTop(page){if(page!=="home"||location.hash||matchMedia("(max-width:7
   var t0=function(){if(!moved&&window.scrollY)window.scrollTo(0,0);};t0();
   window.addEventListener("load",function(){t0();requestAnimationFrame(t0);setTimeout(t0,60);});}
 function header(){var page=pageId();var u=A.auth.current();
-  var nav=dd("Découvrir",DISCOVER,page,page==="decouvrir"||page==="telephone-ia")+NAV.map(function(n){return '<a href="'+n.href+'"'+(n.id===page?' aria-current="page"':"")+">"+n.label+"</a>";}).join("")+dd("Aide",HELP,page,HELP.some(function(h){return h.id===page;}));
+  var nl=function(href,label,icon,cur){return '<a href="'+href+'"'+(cur?' aria-current="page"':"")+">"+A.icon(icon)+"<span>"+label+"</span></a>";};
+  var nav=nl("index.html","Accueil","home",page==="home")+
+    '<div class="dd dd-col'+(/^(decouvrir|telephone-ia|demo)$/.test(page)?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+A.icon("layers")+"<span>Découvrir</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
+      NAV_DISCOVER.map(function(d){return '<a href="'+d.href+'"'+(d.id&&d.id===page?' aria-current="page"':"")+">"+A.icon(d.icon)+"<span>"+d.label+"</span></a>";}).join("")+"</div></div>"+
+    nl("offre-sur-mesure.html","Offre sur-mesure","cube",page==="offre")+nl("faq.html","FAQ","help",page==="faq")+nl("sav.html","SAV et Assistant","headset",page==="sav");
   var act;
   if(u){act='<div class="dd dd-left"><button type="button" class="user-btn" aria-expanded="false" aria-haspopup="true" aria-label="Mon espace client"><span class="avatar">'+A.esc(initials(u.name))+'</span><span class="user-n">'+A.esc(u.name.split(" ")[0])+"</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
       ACCOUNT.map(function(a){return '<a href="'+a.h+'">'+A.icon(a.i)+"<span><b>"+a.l+"</b></span></a>";}).join("")+'<hr><button type="button" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button></div></div>";}
@@ -281,16 +261,16 @@ function header(){var page=pageId();var u=A.auth.current();
       '<p class="acct-h">Votre espace Vision Plus</p><a href="connexion.html" data-auth="login">'+A.icon("user")+'<span><b>Se connecter</b><small>Accéder à mon espace client</small></span></a>'+
       '<a href="inscription.html" data-auth="signup">'+A.icon("spark")+'<span><b>Créer un compte</b><small>Apple, Google, téléphone ou e-mail</small></span></a></div></div>';
   var h=document.createElement("header");h.className="top";
-  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav>'+vMenu(page)+vAuth(u)+'<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
+  h.innerHTML='<div class="wrap top-in"><div class="top-auth">'+act+'</div><a class="brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span></a><div class="top-right"><nav class="nav" aria-label="Navigation principale">'+nav+'</nav><span class="vsep" aria-hidden="true"></span>'+vAuth(u)+'<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">'+A.icon("menu")+"</button></div></div>";
   var group=function(t,list){return '<details class="dgroup"'+(list.some(function(x){return x.id===page;})||(t==="Découvrir"&&page==="decouvrir")?" open":"")+"><summary>"+t+A.icon("chev","chev")+"</summary>"+list.map(function(n){return '<a class="dl sub" href="'+n.href+'"'+(n.id&&n.id===page?' aria-current="page"':"")+">"+n.label+A.icon("arrow")+"</a>";}).join("")+"</details>";};
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
   dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="639" height="160"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="279" height="216"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
-    '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",DISCOVER)+
-    NAV.map(function(n){return '<a class="dl" href="'+n.href+'"'+(n.id===page?' aria-current="page"':"")+">"+n.label+A.icon("arrow")+"</a>";}).join("")+group("Aide",HELP)+
+    '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",NAV_DISCOVER)+
+    [["offre-sur-mesure.html","Offre sur-mesure","offre"],["faq.html","FAQ","faq"],["sav.html","SAV et Assistant","sav"]].map(function(n){return '<a class="dl" href="'+n[0]+'"'+(n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
   var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
-  vBack(h,page);vMenuInit(h);homeTop(page);
+  vBack(h,page);vFit(h);homeTop(page);
   var burger=h.querySelector(".burger");
   function openDr(o){if(o){dr.setAttribute("data-open","");dr.removeAttribute("aria-hidden");burger.setAttribute("aria-expanded","true");dr.querySelector(".x").focus();document.documentElement.style.overflow="hidden";}else{dr.removeAttribute("data-open");dr.setAttribute("aria-hidden","true");burger.setAttribute("aria-expanded","false");document.documentElement.style.overflow="";}}
   burger.onclick=function(){openDr(true);};dr.addEventListener("click",function(e){if(e.target===dr||e.target.closest("[data-close]")||e.target.closest("a"))openDr(false);});

@@ -565,85 +565,81 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.94rem}
 /* menu principal : libellés sur une ligne (« Offre sur mesure ») */
 .nav a,.nav .dd>button{white-space:nowrap}
 
-/* ===== Ordinateur (761 px et plus) : en-tête « Retour » · logo · Menu + Connexion + Créer un compte =====
+/* ===== Ordinateur et tablette (761 px et plus) : logo à gauche · Accueil, Découvrir, Offre sur-mesure, FAQ, SAV et Assistant · Connexion, Créer un compte =====
+   Sur une seule ligne tant qu'elle tient ; sinon (classe .v-compact posée par vFit) bouton de menu compact et panneau vertical.
    Rien de ce bloc ne s'affiche en mobile (760 px et moins) : la barre d'onglets mobile reste inchangée. */
-.vmenu,.vback,.vauth{display:none}
-@media (max-width:760px){.vmenu,.vback,.vauth{display:none!important}}
+.vback,.vauth,.vsep{display:none}
+@media (max-width:760px){.vback,.vauth,.vsep{display:none!important}}
 @media (min-width:761px){
-  .top .nav,.top .burger,.top .top-auth>.dd{display:none!important}
-  .vmenu{display:block;position:relative}
+  .top .top-in.wrap{max-width:1720px;padding-left:clamp(20px,3vw,56px);padding-right:clamp(20px,3vw,56px)}
+  .top .top-in{display:flex;align-items:center;gap:12px;height:76px}
+  .top .top-auth{display:flex;align-items:center;gap:8px;flex:none;order:0;justify-self:auto}
+  .top .top-auth>.dd{display:none!important}
+  .top .brand{flex:none;order:0;margin-right:auto;justify-self:auto}
+  .top .top-right{display:flex;align-items:center;gap:2px;flex:none;order:0;margin-left:24px;justify-self:auto}
+  .top .nav{display:flex!important;align-items:center;gap:2px;flex:none;margin:0}
+  .top .burger{display:none!important}
   .vback,.vauth{display:inline-flex}
-  .vauth{align-items:center;gap:8px}
-  .top .top-right{gap:10px}
-  .top.vm-open{z-index:60}
-  /* logo centré quand la place le permet */
-  .top .top-in{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px}
-  .top .top-auth{flex:initial;justify-self:start}
-  .top .brand{order:0;justify-self:center}
-  .top .top-right{order:0;justify-self:end}
+  .vauth{align-items:center;gap:10px}
+  .vsep{display:block;flex:none;width:1px;height:28px;margin:0 14px 0 12px;background:rgba(170,183,199,.22)}
+  /* liens de la barre */
+  .top .nav>a,.top .nav .dd>button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 11px;border-radius:10px;border:1px solid transparent;background:none;color:#DCE5EE;
+    font:500 .95rem/1 var(--f-display);letter-spacing:.005em;white-space:nowrap;box-shadow:none;animation:none;transform:none;transition:color .2s,background-color .2s,border-color .2s,box-shadow .25s}
+  .top .nav .ico{width:19px;height:19px;flex:none;color:#8FBFF5}
+  .top .nav .dd>button .chev{width:14px;height:14px;margin-left:-1px;color:#8FBFF5}
+  .top .nav>a:hover,.top .nav .dd>button:hover{color:#fff;background:rgba(31,119,233,.08);box-shadow:none;animation:none}
+  .top .nav>a[aria-current="page"],.top .nav .dd.current>button{color:#fff;box-shadow:inset 0 -2px 0 #3B8BEB}
+  .top .nav .dd[data-open]>button{color:#fff;border-color:rgba(90,160,245,.6);background:rgba(31,119,233,.1);box-shadow:0 0 14px -6px rgba(31,119,233,.7);animation:none}
+  .top .nav>a:focus-visible,.top .nav .dd>button:focus-visible{outline:2px solid #78B4F5;outline-offset:2px;box-shadow:none}
+  /* menu « Découvrir » : une seule colonne, directement sous le bouton */
+  .top .nav .dd-col .dd-menu{left:0;right:auto;translate:none;top:calc(100% + 10px);min-width:272px;padding:8px;gap:2px;border-radius:14px;
+    background:rgba(13,19,27,.95);border:1px solid rgba(90,160,245,.38);
+    box-shadow:0 22px 48px -18px rgba(0,0,0,.85),0 0 0 1px rgba(0,0,0,.25),0 0 24px -12px rgba(31,119,233,.55);
+    transform:translateY(-6px);transition:opacity .18s ease,transform .22s var(--ease),visibility 0s .22s}
+  .top .nav .dd-col[data-open] .dd-menu{transform:none;transition:opacity .18s ease,transform .22s var(--ease)}
+  .top .nav .dd-col .dd-menu::before{top:-12px;height:12px}
+  .top .nav .dd-col .dd-menu a{position:relative;gap:13px;padding:10px 14px;border-radius:9px;color:#E6EDF5;font:500 .98rem/1.2 var(--f-display);box-shadow:none;animation:none;transform:none}
+  .top .nav .dd-col .dd-menu .ico{width:20px;height:20px;color:#5AA2F5}
+  .top .nav .dd-col .dd-menu a:hover{background:rgba(31,119,233,.14);color:#fff;box-shadow:none;animation:none}
+  .top .nav .dd-col .dd-menu a[aria-current="page"]{background:rgba(31,119,233,.18);color:#fff}
+  .top .nav .dd-col .dd-menu a[aria-current="page"]::before{content:"";position:absolute;left:0;top:9px;bottom:9px;width:2px;border-radius:2px;background:#4A97F0}
+  .top .nav .dd-col .dd-menu a:focus-visible{outline:none;background:rgba(31,119,233,.12);box-shadow:inset 0 0 0 1px rgba(120,180,245,.85)}
+  /* écrans moyens : liens sans icônes pour garder une seule ligne */
+  .top.v-tight .nav>a .ico,.top.v-tight .nav .dd>button .ico:not(.chev){display:none}
+  .top.v-tight .top-right{margin-left:18px}
+  /* version compacte (tablette, fenêtre étroite) : la barre laisse place au bouton de menu */
+  .top.v-compact .nav,.top.v-compact .vsep{display:none!important}
+  .top.v-compact .burger{display:inline-grid!important;place-items:center;width:44px;height:42px;margin-left:8px;border-radius:10px;border:1px solid rgba(170,183,199,.3);background:transparent;color:#DCE5EE}
+  .top.v-compact .burger .ico{width:21px;height:21px;color:#8FBFF5}
+  .top.v-compact .burger:hover{border-color:rgba(90,160,245,.6);background:rgba(31,119,233,.08);box-shadow:none;animation:none}
 }
-/* écrans d'ordinateur plus étroits : logo à gauche, boutons à droite */
-@media (min-width:761px) and (max-width:1179px){
-  .top .top-in{grid-template-columns:auto auto minmax(0,1fr)}
-  .top .brand{justify-self:start}
+/* panneau vertical (tablette) : zones tactiles confortables, page en cours repérée */
+@media (min-width:761px){
+  .drawer a.dl,.drawer .dgroup summary{min-height:52px}
+  .drawer .dgroup a.dl.sub{min-height:48px;padding-top:12px;padding-bottom:12px}
+  .drawer a.dl[aria-current="page"]{color:#78B4F5}
 }
 @media (min-width:761px) and (max-width:959px){
-  .vbtn-ghost{width:40px;padding:0;justify-content:center}
+  .vbtn-ghost{width:42px;padding:0;justify-content:center}
   .vbtn-ghost .vbtn-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
-/* bouton Menu : sobre, contour fin, lueur légère */
-.vmenu-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px 0 13px;border-radius:10px;cursor:pointer;color:var(--ink);font:600 .94rem/1 var(--f-display);letter-spacing:.01em;
-  border:1px solid rgba(170,183,199,.28);background:rgba(170,183,199,.03);transition:border-color .2s,background-color .2s,box-shadow .3s var(--ease)}
-.vmenu-btn .ico{width:18px;height:18px;color:#78B4F5}
-.vmenu-btn .chev{width:14px;height:14px;color:var(--mut);transition:transform .25s var(--ease)}
-.vmenu-btn:hover,.vmenu[data-open] .vmenu-btn{border-color:rgba(120,180,245,.55);background:rgba(31,119,233,.08);box-shadow:0 0 14px -4px rgba(31,119,233,.45)}
-.vmenu[data-open] .vmenu-btn .chev{transform:rotate(180deg);color:#78B4F5}
-.vmenu-btn:focus-visible{outline:2px solid #78B4F5;outline-offset:2px}
-/* passerelle invisible entre le bouton et le menu, pour que la souris ne le referme pas en chemin */
-.vmenu[data-open]::after{content:"";position:absolute;right:var(--vm-shift,0px);top:100%;width:min(560px,calc(100vw - 32px));height:12px}
-/* panneau */
-.vmenu-p{position:absolute;top:calc(100% + 10px);right:var(--vm-shift,0px);width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 100px);max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;
-  padding:14px;border-radius:14px;background:#0F151C linear-gradient(180deg,#161D26,#0E141B);border:1px solid rgba(170,183,199,.16);
-  box-shadow:inset 0 1px 0 rgba(185,215,250,.07),0 0 0 1px rgba(0,0,0,.35),0 24px 56px -18px rgba(0,0,0,.9),0 0 26px -10px rgba(31,119,233,.35);
-  visibility:hidden;opacity:0;clip-path:inset(0 0 100% 0 round 14px);transition:clip-path .28s var(--ease),opacity .16s ease,visibility 0s .28s}
-.vmenu[data-open] .vmenu-p{visibility:visible;opacity:1;clip-path:inset(-30px -60px -80px -60px);transition:clip-path .32s var(--ease),opacity .12s ease}
-.vm-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);grid-template-areas:"nav dec" "aide dec";grid-template-rows:auto 1fr;gap:12px 16px;align-items:start}
-.vm-nav{grid-area:nav}.vm-dec{grid-area:dec}.vm-aide{grid-area:aide;padding-top:10px;border-top:1px solid rgba(170,183,199,.09)}
-.vm-dec{padding-left:16px;border-left:1px solid rgba(170,183,199,.09);align-self:stretch}
-.vm-k{margin:2px 10px 6px;font:600 .66rem/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
-.vm-sec.current .vm-k{color:#78B4F5}
-.vm-list{display:grid;grid-template-columns:minmax(0,1fr);gap:1px}
-.vm-sec{min-width:0}
-.vm-l,.vm-s{position:relative;min-width:0;display:flex;align-items:center;gap:10px;width:100%;border-radius:8px;border:0;background:none;color:var(--ink);text-decoration:none;text-align:left;cursor:pointer;transition:background-color .15s,color .15s}
-.vm-l{min-height:38px;padding:6px 10px;font:600 .94rem/1.2 var(--f-display)}
-.vm-l .ico{width:17px;height:17px;flex:none;color:#78B4F5}
-.vm-s{padding:7px 10px}
-.vm-s .ico{width:16px;height:16px;flex:none;align-self:flex-start;margin-top:2px;color:#78B4F5}
-.vm-s span{min-width:0}
-.vm-s b{display:block;font:600 .9rem/1.25 var(--f-display)}
-.vm-s small{display:block;margin-top:1px;color:var(--mut);font-size:.77rem;line-height:1.3}
-.vm-l:hover,.vm-s:hover{background:rgba(170,183,199,.06)}
-.vm-l:focus-visible,.vm-s:focus-visible{outline:none;box-shadow:inset 0 0 0 1px rgba(120,180,245,.75);background:rgba(31,119,233,.06)}
-.vm-l[aria-current="page"],.vm-s[aria-current="page"]{background:rgba(31,119,233,.11)}
-.vm-l[aria-current="page"]::before,.vm-s[aria-current="page"]::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:#4A97F0}
-.vm-l[aria-current="page"],.vm-s[aria-current="page"] b{color:#9CC6F7}
 /* boutons de compte dans l'en-tête */
-.vbtn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px 0 13px;border-radius:10px;text-decoration:none;font:600 .92rem/1 var(--f-display);letter-spacing:.01em;white-space:nowrap;cursor:pointer;
+.vbtn{display:inline-flex;align-items:center;gap:9px;height:42px;padding:0 16px 0 14px;border-radius:10px;text-decoration:none;font:600 .95rem/1 var(--f-display);letter-spacing:.005em;white-space:nowrap;cursor:pointer;
   transition:border-color .2s,background-color .2s,box-shadow .3s var(--ease),color .2s,filter .2s}
-.vbtn .ico{width:17px;height:17px;flex:none}
-.vbtn-ghost{color:var(--soft);border:1px solid rgba(170,183,199,.28);background:transparent}
-.vbtn-ghost .ico{color:#78B4F5}
-.vbtn-ghost:hover{color:var(--ink);border-color:rgba(170,183,199,.55);background:rgba(170,183,199,.05)}
-.vbtn-primary{color:#fff;border:1px solid rgba(120,180,245,.55);background:linear-gradient(180deg,#2A83EE,#1766DA);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 18px -8px rgba(31,119,233,.7)}
+.vbtn .ico{width:18px;height:18px;flex:none}
+.vbtn-ghost{color:#E6EDF5;border:1px solid rgba(170,183,199,.3);background:rgba(170,183,199,.02)}
+.vbtn-ghost .ico{color:#8FBFF5}
+.vbtn-ghost:hover{color:#fff;border-color:rgba(170,183,199,.55);background:rgba(170,183,199,.06)}
+.vbtn-primary{color:#fff;border:1px solid rgba(120,180,245,.6);background:linear-gradient(180deg,#2A83EE,#1766DA);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 18px -8px rgba(31,119,233,.75)}
 .vbtn-primary .ico{color:#fff}
-.vbtn-primary:hover{filter:brightness(1.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px -8px rgba(31,119,233,.85)}
+.vbtn-primary:hover{filter:brightness(1.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 8px 22px -8px rgba(31,119,233,.9)}
 .vbtn:focus-visible{outline:2px solid #78B4F5;outline-offset:2px}
-.vauth .user-btn{height:40px;padding:3px 10px 3px 4px;border-radius:10px}
-.vauth .avatar{width:30px;height:30px;border-radius:8px}
-/* « Retour » */
-.vback{align-items:center;gap:7px;height:40px;padding:0 14px 0 11px;border-radius:10px;border:1px solid rgba(170,183,199,.22);background:transparent;color:var(--soft);text-decoration:none;font:500 .92rem/1 var(--f-display);transition:color .2s,border-color .2s,background-color .2s}
-.vback .ico{width:16px;height:16px;color:#78B4F5;transform:scaleX(-1);transition:transform .25s var(--ease)}
-.vback:hover{color:var(--ink);border-color:rgba(170,183,199,.5);background:rgba(170,183,199,.05)}
+.vauth .user-btn{height:42px;padding:3px 10px 3px 4px;border-radius:10px}
+.vauth .avatar{width:32px;height:32px;border-radius:8px}
+/* « Retour » discret : flèche seule (nom accessible « Retour à la page précédente ») */
+.vback{align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid rgba(170,183,199,.22);background:transparent;color:var(--soft);text-decoration:none;transition:color .2s,border-color .2s,background-color .2s}
+.vback .ico{width:17px;height:17px;color:#8FBFF5;transform:scaleX(-1);transition:transform .25s var(--ease)}
+.vback:hover{border-color:rgba(170,183,199,.5);background:rgba(170,183,199,.05)}
 .vback:hover .ico{transform:scaleX(-1) translateX(2px)}
 .vback:focus-visible{outline:2px solid #78B4F5;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){.vmenu-p,.vmenu-btn,.vmenu-btn .chev,.vback,.vback .ico,.vbtn{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.top .nav .dd-col .dd-menu,.vback,.vback .ico,.vbtn{transition:none!important}}
