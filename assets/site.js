@@ -215,38 +215,33 @@ function dd(label,list,page,cur){return '<div class="dd'+(cur?" current":"")+'">
 /* ---------- ordinateur (761 px et plus) : menu « Menu » en haut à droite et bouton « Retour » ----------
    Le mobile (760 px et moins) garde sa barre d'onglets et son propre bouton retour (mobile.js) : ces éléments y sont masqués. */
 function vSub(list,page){return list.map(function(h){return '<a class="vm-s" href="'+h.href+'"'+(h.id&&h.id===page?' aria-current="page"':"")+(h.auth?' data-auth="'+h.auth+'"':"")+">"+A.icon(h.icon)+"<span><b>"+h.label+"</b>"+(h.sub?"<small>"+h.sub+"</small>":"")+"</span></a>";}).join("");}
-function vLink(href,label,icon,cur){return '<a class="vm-l" href="'+href+'"'+(cur?' aria-current="page"':"")+'><span class="vm-i">'+A.icon(icon)+'</span><span class="vm-t">'+label+"</span></a>";}
-function vGroup(key,label,icon,inner,cur,note){var id="vm-g-"+key;
-  return '<div class="vm-g'+(cur?" current":"")+'"'+(cur?" data-open":"")+'><button type="button" class="vm-l vm-gb" aria-expanded="'+(cur?"true":"false")+'" aria-controls="'+id+'"><span class="vm-i">'+A.icon(icon)+'</span><span class="vm-t">'+label+(note?'<small class="vm-note">'+note+"</small>":"")+"</span>"+A.icon("chev","chev")+'</button><div class="vm-sub" id="'+id+'"'+(cur?"":" hidden")+">"+inner+"</div></div>";}
+function vLink(href,label,icon,cur,cls){return '<a class="vm-l '+cls+'" href="'+href+'"'+(cur?' aria-current="page"':"")+'><span class="vm-i">'+A.icon(icon)+'</span><span class="vm-t">'+label+"</span></a>";}
+function vSec(key,label,icon,inner,cur,note){return '<div class="vm-sec vm-'+key+(cur?" current":"")+'" role="group" aria-labelledby="vm-k-'+key+'"><p class="vm-k" id="vm-k-'+key+'">'+A.icon(icon)+"<span>"+label+"</span>"+(note?'<small class="vm-note">'+note+"</small>":"")+'</p><div class="vm-list">'+inner+"</div></div>";}
+/* menu entièrement déroulé d'un seul clic : toutes les rubriques et leurs liens sont visibles (ordre au clavier : Accueil, Découvrir, Simulation, Offre sur mesure, Aide, Compte) */
 function vMenu(page,u){
   var acct=u?vSub(ACCOUNT.map(function(a){return {href:a.h,label:a.l,icon:a.i};}),page)+'<button type="button" class="vm-s" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button>"
     :vSub([{href:"connexion.html",label:"Se connecter",sub:"Accéder à mon espace client",icon:"user",auth:"login"},{href:"inscription.html",label:"Créer un compte",sub:"Apple, Google, téléphone ou e-mail",icon:"spark",auth:"signup"}],page);
   return '<div class="vmenu"><button type="button" class="vmenu-btn" aria-expanded="false" aria-controls="vmenu-p"><span class="vmenu-ic">'+A.icon("menu")+"</span><span>Menu</span>"+A.icon("chev","chev")+"</button>"+
-    '<nav class="vmenu-p" id="vmenu-p" aria-label="Menu principal"><p class="vm-h" aria-hidden="true">Vision Plus</p>'+
-    vLink("index.html","Accueil","home",page==="home")+
-    vGroup("decouvrir","Découvrir","layers",vSub(DISCOVER,page),page==="decouvrir"||page==="telephone-ia")+
-    NAV.map(function(n){return vLink(n.href,n.label,n.id==="demo"?"play":"card",n.id===page);}).join("")+
-    vGroup("aide","Aide","help",vSub(HELP,page),HELP.some(function(h){return h.id===page;}))+
-    '<div class="vm-sep" aria-hidden="true"></div>'+
-    vGroup("compte","Compte","user",acct,/^(espace-client|connexion|inscription|mot-de-passe|compte)$/.test(page),u?A.esc(String(u.name||"").split(" ")[0]):"")+
-    "</nav></div>";}
+    '<nav class="vmenu-p" id="vmenu-p" aria-label="Menu principal"><p class="vm-h" aria-hidden="true">Vision Plus</p><div class="vm-grid">'+
+    vLink("index.html","Accueil","home",page==="home","vm-acc")+
+    vSec("dec","Découvrir","layers",vSub(DISCOVER,page),page==="decouvrir"||page==="telephone-ia")+
+    NAV.map(function(n){return vLink(n.href,n.label,n.id==="demo"?"play":"card",n.id===page,n.id==="demo"?"vm-sim":"vm-off");}).join("")+
+    vSec("aide","Aide","help",vSub(HELP,page),HELP.some(function(h){return h.id===page;}))+
+    vSec("cpt","Compte","user",acct,/^(espace-client|connexion|inscription|mot-de-passe|compte)$/.test(page),u?A.esc(String(u.name||"").split(" ")[0]):"")+
+    "</div></nav></div>";}
 function vMenuInit(h){var w=h.querySelector(".vmenu");if(!w)return;var b=w.querySelector(".vmenu-btn"),p=w.querySelector(".vmenu-p");
   function isOpen(){return w.hasAttribute("data-open");}
-  function set(o,back){if(o===isOpen())return;if(o){closeDd();w.setAttribute("data-open","");}else w.removeAttribute("data-open");
+  function set(o,back){if(o===isOpen())return;if(o){closeDd();p.scrollTop=0;w.setAttribute("data-open","");}else w.removeAttribute("data-open");
     b.setAttribute("aria-expanded",o?"true":"false");h.classList.toggle("vm-open",o);if(!o&&back)b.focus();}
-  function items(){return [].slice.call(p.querySelectorAll("a,button")).filter(function(x){return !x.closest("[hidden]");});}
-  function toggleG(g,o){if(o==null)o=!g.hasAttribute("data-open");if(o)g.setAttribute("data-open","");else g.removeAttribute("data-open");
-    g.querySelector(".vm-gb").setAttribute("aria-expanded",o?"true":"false");g.querySelector(".vm-sub").hidden=!o;}
+  function items(){return [].slice.call(p.querySelectorAll("a,button"));}
   b.addEventListener("click",function(){set(!isOpen());});
   b.addEventListener("keydown",function(e){if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();set(true);var l=items();(e.key==="ArrowDown"?l[0]:l[l.length-1]).focus();}});
-  p.addEventListener("click",function(e){var g=e.target.closest(".vm-gb");if(g){toggleG(g.parentNode);return;}if(e.target.closest("a,[data-logout]"))set(false);});
-  p.addEventListener("keydown",function(e){var l=items(),a=document.activeElement,i=l.indexOf(a),k=e.key,g=a&&a.closest(".vm-g");
+  p.addEventListener("click",function(e){if(e.target.closest("a,[data-logout]"))set(false);});
+  p.addEventListener("keydown",function(e){var l=items(),i=l.indexOf(document.activeElement),k=e.key;
     if(k==="ArrowDown"){e.preventDefault();(l[i+1]||l[0]).focus();}
     else if(k==="ArrowUp"){e.preventDefault();(l[i-1]||l[l.length-1]).focus();}
     else if(k==="Home"){e.preventDefault();l[0].focus();}
-    else if(k==="End"){e.preventDefault();l[l.length-1].focus();}
-    else if(k==="ArrowRight"&&a.classList.contains("vm-gb")){e.preventDefault();toggleG(g,true);var f=g.querySelector(".vm-sub a,.vm-sub button");if(f)f.focus();}
-    else if(k==="ArrowLeft"&&g){e.preventDefault();var gb=g.querySelector(".vm-gb");if(a===gb)toggleG(g,false);else gb.focus();}});
+    else if(k==="End"){e.preventDefault();l[l.length-1].focus();}});
   w.addEventListener("focusout",function(e){if(e.relatedTarget&&!w.contains(e.relatedTarget))set(false);});
   document.addEventListener("click",function(e){if(isOpen()&&!w.contains(e.target))set(false);});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.preventDefault();set(false,true);}});
