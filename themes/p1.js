@@ -47,6 +47,10 @@ function home(){
     /* panneau carré flottant en verre noir et bleu nuit, logo Vision Plus centré (même flottement et même parallaxe que les écrans) */
     '<div class="p1-card p1-brand"><div class="p1-brand-in"><img src="assets/brand/vp-logo.webp" alt="" width="1131" height="200" decoding="async"></div></div>';
   stack.insertAdjacentElement("afterend",holo);
+  /* téléphone : le même panneau au logo, sous les écrans, dans le flux de la page (les cartes flottantes y sont masquées) */
+  var bm=document.createElement("div");bm.className="p1-brand-m";bm.setAttribute("aria-hidden","true");
+  bm.innerHTML='<div class="p1-brand-in"><img src="assets/brand/vp-logo.webp" alt="" width="1131" height="200" decoding="async"></div>';
+  scene.appendChild(bm);
 
   /* pause hors écran et onglet masqué */
   var visible=true;
