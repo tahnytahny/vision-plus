@@ -2,7 +2,7 @@
    Stratégie : réseau d'abord pour tout (pages et fichiers), avec revalidation auprès du serveur ;
    le cache ne sert qu'en l'absence de connexion. Une nouvelle version du site est donc visible
    dès le chargement suivant (et mobile.js recharge la page quand une nouvelle version prend la main). */
-var V="vp-v15";
+var V="vp-v16";
 var SHELL=["index.html","decouvrir.html","demo.html","offre-sur-mesure.html","faq.html","sav.html","connexion.html","inscription.html","assets/site.css","themes/p1.css","assets/mobile.css","assets/site.js","assets/mobile.js","assets/config.js","assets/data.js","assets/theme.js","themes/p1.js","assets/brand/vp-logo.webp","assets/brand/vp-mark.webp","assets/brand/icon-192.png"];
 self.addEventListener("install",function(e){e.waitUntil(caches.open(V).then(function(c){return c.addAll(SHELL.map(function(u){return new Request(u,{cache:"reload"});}));}).then(function(){return self.skipWaiting();}));});
 self.addEventListener("activate",function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!==V;}).map(function(x){return caches.delete(x);}));}).then(function(){return self.clients.claim();}));});

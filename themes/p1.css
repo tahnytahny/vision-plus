@@ -186,6 +186,22 @@ html.theme-p1 .p1-posts .p1-in{animation-delay:-2.3s}
 html.theme-p1 .p1-site{right:1%;bottom:46px;width:min(214px,37%);transform:translate3d(calc(var(--px) * 18px),calc(var(--py) * 12px),90px) rotateY(calc(-18deg + var(--px) * 5deg)) rotateX(calc(4deg - var(--py) * 4deg))}
 html.theme-p1 .p1-site .p1-in{animation-delay:-4.6s}
 html.theme-p1 .scene .stack{margin-bottom:120px}
+/* panneau carré au logo Vision Plus, sous les écrans : verre noir et bleu nuit, légère épaisseur, contours cyan lumineux */
+html.theme-p1 .p1-brand{left:calc(50% + 6px);bottom:12px;width:clamp(104px,calc(110% - 532px),166px);aspect-ratio:1.24;transform:translateX(-50%) translate3d(calc(var(--px) * 8px),calc(var(--py) * 6px),110px) rotateX(calc(9deg - var(--py) * 4deg)) rotateY(calc(var(--px) * 6deg))}
+html.theme-p1 .p1-brand-in{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:0 10%;border-radius:13px;
+  background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,0) 36%),radial-gradient(85% 70% at 50% 46%,rgba(31,119,233,.2),transparent 72%),linear-gradient(180deg,#0C1828,#060B13 58%,#03070D);
+  border:1px solid rgba(124,194,255,.8);
+  box-shadow:inset 0 1px 0 rgba(188,217,251,.5),inset 0 0 20px rgba(31,119,233,.35),inset 0 -14px 24px -16px rgba(64,180,255,.55),0 0 0 1px rgba(31,119,233,.35),0 0 20px rgba(40,170,255,.5),
+    0 7px 0 -1px #081729,0 7px 0 0 rgba(96,176,250,.6),0 16px 26px -6px rgba(31,119,233,.55),0 34px 50px -22px rgba(0,0,0,.9);
+  animation:p1-float 7s ease-in-out infinite;animation-delay:-1.2s}
+html.theme-p1 .p1-brand-in::before{content:"";position:absolute;left:14px;right:14px;top:-1px;height:2px;border-radius:2px;background:var(--tube);box-shadow:0 0 10px rgba(31,119,233,.9)}
+html.theme-p1 .p1-brand-in::after{content:"";position:absolute;left:10%;right:10%;bottom:-30px;height:20px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(40,150,255,.55),transparent 72%);filter:blur(3px);pointer-events:none}
+html.theme-p1 .p1-brand img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 7px rgba(31,119,233,.45)) drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+html.theme-p1 .p1-off .p1-brand-in{animation-play-state:paused!important}
+@media (max-width:760px){html.theme-p1 .p1-brand{display:none}}
+/* deux colonnes très serrées (1000 à 1079 px) : pas assez de place entre les écrans, le panneau s'efface */
+@media (min-width:1000px) and (max-width:1079px){html.theme-p1 .p1-brand{display:none}}
+@media (prefers-reduced-motion:reduce){html.theme-p1 .p1-brand-in{animation:none!important}}
 @media (max-width:999px){html.theme-p1 .scene{max-width:720px;margin-inline:auto;width:100%}}
 @media (max-width:640px){
 html.theme-p1 .scene .stack{margin-bottom:300px}

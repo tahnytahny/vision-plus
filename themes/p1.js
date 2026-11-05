@@ -43,7 +43,9 @@ function home(){
       '<div class="p1-big">Site mis à jour</div>'+
       '<div class="p1-bar"><i></i></div>'+
       '<div class="p1-row"><span class="p1-ok">En ligne</span><small>SYNC 100 %</small></div>'+
-    '</div></div>';
+    '</div></div>'+
+    /* panneau carré flottant en verre noir et bleu nuit, logo Vision Plus centré (même flottement et même parallaxe que les écrans) */
+    '<div class="p1-card p1-brand"><div class="p1-brand-in"><img src="assets/brand/vp-logo.webp" alt="" width="1131" height="200" decoding="async"></div></div>';
   stack.insertAdjacentElement("afterend",holo);
 
   /* pause hors écran et onglet masqué */
