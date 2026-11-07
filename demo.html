@@ -238,6 +238,7 @@
         <span><i data-ico="info"></i> Votre brouillon a été restauré.</span>
         <button class="btn-txt" type="button" id="draft-clear">Recommencer</button>
       </div>
+      <p class="notice info" id="sante-note" hidden><i data-ico="info"></i><span>Établissement de santé ou d’esthétique : décrivez votre organisation et vos besoins, sans aucune information médicale concernant vos patients.</span></p>
       <ol class="prog" id="prog" aria-label="Progression"></ol>
       <p class="steplbl" id="steplbl" aria-live="polite"></p>
       <form class="surface wizard" id="demo-form" novalidate style="margin-top:18px">
@@ -366,6 +367,7 @@ var LABELS=["Vous","Votre projet","Vos besoins","Envoi"];
 function buildForm(){
   if(formReady)return;formReady=true;
   $("d-sector").insertAdjacentHTML("beforeend",(D.sectors||[]).map(function(s){return '<option>'+esc(s)+"</option>";}).join(""));
+  if(A.qs("secteur")==="sante"){$("sante-note").hidden=false;var si=(D.sectors||[]).indexOf("Santé, bien-être");if(si>=0&&!$("d-sector").value)$("d-sector").selectedIndex=si+1;}
   $("ptypes").innerHTML=(D.projectTypes||[]).map(function(t,i){return '<label class="chip" for="pt-'+i+'"><input type="radio" name="ptype" id="pt-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
   $("feats").innerHTML=(D.features||[]).map(function(t,i){return '<label class="chip" for="ft-'+i+'"><input type="checkbox" name="feat" id="ft-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
   $("callbacks").innerHTML=CALLBACK.map(function(c){return '<label class="opt" for="cb-'+c[0]+'"><input type="radio" name="callback" id="cb-'+c[0]+'" value="'+c[0]+'"><span><b>'+c[1]+"</b><small>"+c[2]+"</small></span></label>";}).join("");

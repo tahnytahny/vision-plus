@@ -105,6 +105,7 @@
       <div class="os-card">
         <form class="form" id="f-rappel" novalidate>
           <p class="notice info small" id="from-proj" hidden></p>
+          <p class="notice info small" id="from-sante" hidden><i data-ico="info"></i><span>Établissement de santé ou d’esthétique : décrivez votre organisation et vos besoins, sans aucune information médicale concernant vos patients.</span></p>
           <div class="row2">
             <div class="field">
               <label for="r-name">Nom et prénom <span class="req" aria-hidden="true">*</span></label>
@@ -204,6 +205,7 @@ window.addEventListener("hashchange",function(){if(location.hash==="#rappel")ope
 /* compte connecté : coordonnées préremplies ; projet issu d'une simulation (?project=) */
 var u=A.auth.current();
 if(u){$("r-name").value=u.name||"";$("r-email").value=u.email||"";$("r-phone").value=u.phone||"";$("r-company").value=u.company||"";}
+if(A.qs("secteur")==="sante")$("from-sante").hidden=false;
 var pid=A.qs("project"),project=pid?A.records.get("projects",pid):null;
 if(project){$("from-proj").hidden=false;$("from-proj").innerHTML=A.icon("info")+"<span>Votre demande sera rattachée à votre projet « "+esc(project.name||"")+" ».</span>";
   if(!$("r-msg").value&&project.description)$("r-msg").value=project.description;}

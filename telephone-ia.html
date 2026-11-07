@@ -20,6 +20,7 @@
 <script src="assets/i18n.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
 <link rel="stylesheet" href="assets/palette.css">
+<link rel="stylesheet" href="assets/pages/sante.css">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#101419">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -225,6 +226,7 @@
         <h1 id="t-ti" class="h-xl">Votre secrétaire IA, <span>configurée pour votre entreprise.</span></h1>
         <p class="lead">Accueillir vos clients, organiser vos rendez-vous, préparer vos devis, envoyer vos e-mails, suivre vos dossiers et vos expéditions : votre secrétaire IA vous accompagne dans les missions quotidiennes d'un secrétariat. Vous choisissez ses fonctions, ses outils et ses autorisations, selon votre activité et votre organisation.</p>
         <div class="actions"><a class="btn btn-cyan" href="demo.html#formulaire">Personnaliser ma secrétaire IA <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="#missions">Voir les missions <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <p class="ti-med"><a class="link" href="#secretariat-medical">Cabinets, centres de santé et d’esthétique : découvrir le secrétariat médical IA</a></p>
       </div>
       <figure class="ti-art"><img src="assets/3d/av-appels-vp.webp" width="1090" height="720" alt="Casque argenté et panneaux en verre : appel entrant, rendez-vous confirmé." fetchpriority="high"></figure>
     </div>
@@ -480,6 +482,217 @@
         <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Elle accède uniquement aux données nécessaires aux missions que vous lui confiez.</span></li>
       </ul>
       <p class="mut small">Votre secrétaire IA n'invente jamais un prix, une remise, une condition contractuelle, un statut de livraison ou un délai : elle utilise uniquement les informations validées par votre entreprise et celles des outils connectés.</p>
+    </div>
+  </section>
+
+  <!-- Secrétariat médical IA (établissements de santé et d'esthétique) -->
+  <section class="ms" id="secretariat-medical" aria-labelledby="t-ms">
+    <div class="wrap">
+      <div class="ms-hero">
+        <div class="ms-copy">
+          <span class="eyebrow">Secrétariat médical IA</span>
+          <h2 id="t-ms" class="ms-title"><span class="w">L’exigence de votre accueil.</span> <span class="b">L’intelligence en renfort.</span></h2>
+          <p class="lead">Vision Plus accompagne les cabinets et les centres dans l’organisation de leur accueil administratif. Un secrétariat assisté par intelligence artificielle, conçu pour répondre aux demandes courantes, faciliter les rendez-vous et transmettre les informations utiles à votre équipe.</p>
+          <div class="ms-actions">
+            <a class="btn btn-cyan" href="offre-sur-mesure.html?secteur=sante#rappel">Étudier les besoins de mon établissement <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-line" href="#demonstration">Découvrir une démonstration</a>
+          </div>
+        </div>
+        <figure class="ms-visual">
+          <div class="ms-shot"><img src="assets/sante/accueil-3d.webp" width="1672" height="941" loading="lazy" decoding="async" alt="Illustration 3D : bureau d’accueil d’un cabinet, casque et stéthoscope, panneaux en verre pour l’appel, l’agenda et la confirmation."></div>
+        </figure>
+      </div>
+
+      <p class="ms-sign"><span>Vous vous consacrez à vos patients. Votre accueil gagne en disponibilité et en fluidité.</span></p>
+
+      <div class="ms-block">
+        <div class="ms-bh">
+          <span class="ms-kicker">Fonctionnalités</span>
+          <h3>Un secrétariat composé selon votre établissement.</h3>
+          <p>Ces fonctionnalités sont proposées ou configurées selon votre projet, vos outils et vos consignes.</p>
+        </div>
+        <ul class="ms-cards">
+          <li class="ms-card">
+            <div class="ms-card-h"><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><h4>Accueil téléphonique personnalisé</h4></div>
+            <ul class="ms-list">
+              <li>Accueil au nom du cabinet ou du centre.</li>
+              <li>Réponses aux questions administratives validées : horaires, adresse, accès, documents à apporter et modalités de rendez-vous.</li>
+              <li>Adaptation du discours à l’établissement et à ses spécialités.</li>
+              <li>Gestion des appels simultanés selon la solution déployée.</li>
+              <li>Relais vers une personne lorsque la demande le nécessite.</li>
+            </ul>
+          </li>
+          <li class="ms-card">
+            <div class="ms-card-h"><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></svg></span><h4>Gestion des rendez-vous</h4></div>
+            <ul class="ms-list">
+              <li>Demandes de prise, déplacement et annulation de rendez-vous.</li>
+              <li>Prise en compte du praticien, du site, des horaires et des durées définies par l’établissement.</li>
+              <li>Confirmation et rappels selon les canaux autorisés.</li>
+              <li>Gestion des demandes de rappel et des listes d’attente.</li>
+              <li>Connexion aux agendas uniquement lorsque les intégrations sont disponibles et autorisées.</li>
+              <li>Sans connexion à un agenda, enregistrement d’une demande à valider par l’équipe, sans annoncer un créneau confirmé.</li>
+            </ul>
+          </li>
+          <li class="ms-card">
+            <div class="ms-card-h"><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg></span><h4>Transmission à l’équipe</h4></div>
+            <ul class="ms-list">
+              <li>Recueil structuré du motif administratif de la demande.</li>
+              <li>Résumé des échanges et messages à transmettre.</li>
+              <li>Orientation vers le bon service selon les consignes du centre.</li>
+              <li>Demandes de documents ou de renouvellement transmises au professionnel compétent, sans décision automatique.</li>
+            </ul>
+          </li>
+          <li class="ms-card">
+            <div class="ms-card-h"><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1v3l-3.5-3H12"/></svg></span><h4>Accueil multicanal</h4></div>
+            <ul class="ms-list">
+              <li>Téléphone, formulaire du site et messagerie selon les outils disponibles.</li>
+              <li>Réponses cohérentes sur tous les canaux.</li>
+              <li>Accueil multilingue selon les langues effectivement prises en charge.</li>
+              <li>Continuité de l’accueil en dehors des horaires habituels selon la configuration.</li>
+            </ul>
+          </li>
+          <li class="ms-card">
+            <div class="ms-card-h"><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18"/><path d="M6 16v-5M11 16V6M16 16v-8M20 16v-3"/></svg></span><h4>Pilotage de l’activité</h4></div>
+            <ul class="ms-list">
+              <li>Tableau de bord des appels et demandes.</li>
+              <li>Suivi des rendez-vous sollicités, confirmés ou à traiter.</li>
+              <li>Identification des questions fréquentes.</li>
+              <li>Indicateurs utiles pour adapter l’organisation de l’accueil.</li>
+              <li>Accès aux informations selon les rôles et habilitations.</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="ms-block">
+        <aside class="ms-frame" aria-labelledby="t-ms-cadre">
+          <span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></span>
+          <div>
+            <h3 id="t-ms-cadre">Un accueil administratif encadré par votre équipe.</h3>
+            <p>Les réponses reposent sur les informations et les consignes validées par votre établissement.</p>
+            <ul class="ms-limits">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg>L’assistant ne pose pas de diagnostic.</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg>Il ne prescrit pas.</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg>Il n’interprète pas de résultats.</li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></svg>Il ne remplace pas un professionnel de santé.</li>
+            </ul>
+            <p>Les situations urgentes suivent un protocole défini et validé par votre établissement, sans triage clinique autonome.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="ms-block" id="demonstration">
+        <div class="ms-demo">
+          <div class="ms-bh">
+            <span class="ms-badge">Démonstration fictive</span>
+            <h3>De l’appel à la confirmation : une demande de rendez-vous.</h3>
+            <p>L’établissement, le praticien et les horaires présentés sont des exemples.</p>
+          </div>
+          <ol class="ms-steps">
+            <li class="ms-step">
+              <div class="ms-step-h"><span class="ms-n" aria-hidden="true">1</span><b>Appel reçu</b></div>
+              <div class="ms-pane">
+                <div class="ms-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span>Centre médical (exemple)<br><small>Ligne d’accueil</small></span></div>
+                <span class="ms-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <p class="ms-quote">« Bonjour, je souhaite déplacer mon rendez-vous de jeudi. »</p>
+              </div>
+            </li>
+            <li class="ms-step">
+              <div class="ms-step-h"><span class="ms-n" aria-hidden="true">2</span><b>Demande administrative comprise</b></div>
+              <div class="ms-pane">
+                <dl class="ms-kv">
+                  <dt>Motif</dt><dd>Déplacement de rendez-vous</dd>
+                  <dt>Praticien</dt><dd>Dr A. Martin (fictif)</dd>
+                  <dt>Site</dt><dd>Centre-ville</dd>
+                </dl>
+              </div>
+            </li>
+            <li class="ms-step">
+              <div class="ms-step-h"><span class="ms-n" aria-hidden="true">3</span><b>Disponibilité consultée ou demande transmise</b></div>
+              <div class="ms-pane">
+                <div class="ms-branch">
+                  <div class="ms-opt"><b>Agenda connecté</b><div class="ms-slots"><span class="on">Mardi 10 h 30</span><span>Mardi 16 h 00</span></div></div>
+                  <div class="ms-opt"><b>Sans agenda connecté</b><span>Demande transmise à l’équipe, sans créneau annoncé.</span></div>
+                </div>
+              </div>
+            </li>
+            <li class="ms-step">
+              <div class="ms-step-h"><span class="ms-n" aria-hidden="true">4</span><b>Confirmation selon validation</b></div>
+              <div class="ms-pane">
+                <div class="ms-ok"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><span>Rendez-vous de mardi 10 h 30 confirmé selon le parcours prévu.</span></div>
+                <div class="ms-row"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg><span>Confirmation envoyée par le canal autorisé.</span></div>
+              </div>
+            </li>
+          </ol>
+          <p class="ms-demo-note">Démonstration visuelle avec des données fictives. Le fonctionnement réel dépend des outils connectés et des consignes de votre établissement. <a class="link" href="demo.html?secteur=sante#formulaire">Demander une simulation personnalisée</a></p>
+        </div>
+      </div>
+
+      <div class="ms-block">
+        <div class="ms-bh">
+          <span class="ms-kicker">Confidentialité et maîtrise</span>
+          <h3>Des mesures définies avec votre établissement.</h3>
+          <p>Chaque mesure est étudiée selon votre projet et précisée dans votre proposition.</p>
+        </div>
+        <ul class="ms-trust">
+          <li><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="2.8"/><path d="M5 6v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6"/><path d="M5 12v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-6"/></svg></span><b>Données limitées</b><span>Seules les informations nécessaires à l’accueil administratif sont recueillies.</span></li>
+          <li><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><b>Gestion des accès</b><span>Les accès sont attribués selon les rôles et habilitations de votre équipe.</span></li>
+          <li><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></span><b>Durée de conservation</b><span>Une durée est fixée pour chaque type d’information.</span></li>
+          <li><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg></span><b>Traçabilité</b><span>Les échanges et les actions peuvent être suivis par les personnes habilitées.</span></li>
+          <li><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span><b>Hébergement adapté</b><span>Le mode d’hébergement est choisi selon les exigences de votre projet.</span></li>
+        </ul>
+        <p class="ms-small"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Le formulaire de contact de ce site sert uniquement à étudier votre projet : n’y indiquez aucune information médicale concernant vos patients.</span></p>
+      </div>
+
+      <div class="ms-block">
+        <div class="ms-pub">
+          <div>
+            <div class="ms-bh">
+              <span class="ms-kicker">Publics</span>
+              <h3>Les établissements accompagnés.</h3>
+            </div>
+            <div class="ms-groups">
+              <div class="ms-group">
+                <span class="ms-kicker">Activités médicales et paramédicales</span>
+                <ul><li>Cabinets médicaux</li><li>Cabinets dentaires</li><li>Centres de santé</li><li>Centres d’imagerie</li><li>Cabinets paramédicaux</li><li>Centres de médecine esthétique</li></ul>
+              </div>
+              <div class="ms-group alt">
+                <span class="ms-kicker">Prestations esthétiques non médicales</span>
+                <ul><li>Établissements de beauté</li><li>Établissements de bien-être</li></ul>
+              </div>
+            </div>
+            <p class="ms-pub-note">Les activités médicales, dont la médecine esthétique, et les prestations esthétiques non médicales relèvent de règles distinctes : l’accueil est configuré selon chaque activité.</p>
+          </div>
+          <figure class="ms-visual">
+            <div class="ms-shot"><img src="assets/sante/equipe-3d.webp" width="1448" height="1086" loading="lazy" decoding="async" alt="Illustration 3D : une équipe de santé en figurines de porcelaine sous un panneau d’agenda en verre."></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parcours commun : visibilité + accueil (santé et esthétique) -->
+  <section class="mx" aria-labelledby="t-mx">
+    <div class="wrap">
+      <div class="mx-h">
+        <h2 id="t-mx"><span>De la première découverte</span> <span class="b">à un accueil parfaitement organisé.</span></h2>
+        <p>Une présence qui met votre établissement en valeur. Un accueil qui facilite les échanges. Vision Plus associe création de contenus, visibilité et assistance administrative pour construire un parcours cohérent autour de votre équipe.</p>
+      </div>
+      <div class="mx-stage">
+        <ol class="mx-path">
+          <li class="mx-step"><span class="mx-node" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></span><small aria-hidden="true" data-i18n-skip>01</small><b>Découverte</b></li>
+          <li class="mx-step"><span class="mx-node" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18M6.5 6.8h.01M9 6.8h.01"/></svg></span><small aria-hidden="true" data-i18n-skip>02</small><b>Visite du site</b></li>
+          <li class="mx-step"><span class="mx-node" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg></span><small aria-hidden="true" data-i18n-skip>03</small><b>Demande de contact</b></li>
+          <li class="mx-step"><span class="mx-node" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg></span><small aria-hidden="true" data-i18n-skip>04</small><b>Accueil IA</b></li>
+          <li class="mx-step"><span class="mx-node" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></svg></span><small aria-hidden="true" data-i18n-skip>05</small><b>Rendez-vous confirmé par le parcours prévu</b></li>
+        </ol>
+        <div class="mx-floor" aria-hidden="true"></div>
+      </div>
+      <div class="mx-links">
+        <a class="mx-link" href="campagne-ads.html#visibilite-sante"><span><small>Campagne ADS</small><b>Visibilité &amp; communication spécialisée</b></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="mx-link" href="telephone-ia.html#secretariat-medical"><span><small>Votre secrétaire IA</small><b>Secrétariat médical IA</b></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="mx-cta"><a class="btn btn-cyan" href="offre-sur-mesure.html?secteur=sante#rappel">Concevoir la solution de mon établissement <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
   </section>
 
