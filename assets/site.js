@@ -232,8 +232,9 @@ function vFit(h){var inner=h.querySelector(".top-in"),mob=matchMedia("(max-width
   function over(){var cs=getComputedStyle(inner),r=inner.getBoundingClientRect(),l=r.left+(parseFloat(cs.paddingLeft)||0)-1,rt=r.right-(parseFloat(cs.paddingRight)||0)+1,bad=false;
     [].forEach.call(inner.children,function(c){var b=c.getBoundingClientRect();if(!b.width||getComputedStyle(c).display==="none")return;if(b.left<l||b.right>rt)bad=true;});
     return bad||inner.scrollWidth>inner.clientWidth+1;}
-  function fit(){var was=h.className;h.classList.remove("v-compact","v-tight","v-tighter");
-    if(!mob.matches&&over()){h.classList.add("v-tight");if(over()){h.classList.add("v-tighter");if(over())h.classList.add("v-compact");}}
+  var tiers=["v-tight","v-tighter","v-tightest"];
+  function fit(){var was=h.className;h.classList.remove("v-compact","v-tight","v-tighter","v-tightest");
+    if(!mob.matches&&over()){var i=0;for(;i<tiers.length;i++){h.classList.add(tiers[i]);if(!over())break;}if(i===tiers.length)h.classList.add("v-compact");}
     if(h.className!==was)closeDd();}
   fit();var rt=0,later=function(){clearTimeout(rt);rt=setTimeout(fit,50);};window.addEventListener("resize",later);
   window.addEventListener("load",fit);document.addEventListener("vp:lang",later);new MutationObserver(later).observe(inner,{childList:true,subtree:true});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);}
@@ -256,6 +257,7 @@ function header(){var page=pageId();var u=A.auth.current();
   var nav=nl("index.html","Accueil","home",page==="home")+
     '<div class="dd dd-col'+(/^(decouvrir|telephone-ia|demo)$/.test(page)?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+A.icon("layers")+"<span>Découvrir</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
       NAV_DISCOVER.map(function(d){return '<a href="'+d.href+'"'+(d.id&&d.id===page?' aria-current="page"':"")+">"+A.icon(d.icon)+"<span>"+d.label+"</span></a>";}).join("")+"</div></div>"+
+    nl("campagne-ads","Campagne ADS","mega",page==="ads")+
     nl("offre-sur-mesure.html","Offre sur-mesure","cube",page==="offre")+nl("faq.html","FAQ","help",page==="faq")+nl("sav.html","SAV et Assistant","headset",page==="sav");
   var act;
   if(u){act='<div class="dd dd-left"><button type="button" class="user-btn" aria-expanded="false" aria-haspopup="true" aria-label="Mon espace client"><span class="avatar">'+A.esc(initials(u.name))+'</span><span class="user-n">'+A.esc(u.name.split(" ")[0])+"</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
@@ -269,7 +271,7 @@ function header(){var page=pageId();var u=A.auth.current();
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
   dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
     '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",NAV_DISCOVER)+
-    [["offre-sur-mesure.html","Offre sur-mesure","offre"],["faq.html","FAQ","faq"],["sav.html","SAV et Assistant","sav"]].map(function(n){return '<a class="dl" href="'+n[0]+'"'+(n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
+    [["campagne-ads","Campagne ADS","ads"],["offre-sur-mesure.html","Offre sur-mesure","offre"],["faq.html","FAQ","faq"],["sav.html","SAV et Assistant","sav"]].map(function(n){return '<a class="dl" href="'+n[0]+'"'+(n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
   var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);

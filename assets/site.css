@@ -583,14 +583,17 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.94rem}
   .vauth{align-items:center;gap:10px}
   .vsep{display:block;flex:none;width:1px;height:28px;margin:0 14px 0 12px;background:rgba(170,183,199,.22)}
   /* liens de la barre */
-  .top .nav>a,.top .nav .dd>button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 11px;border-radius:10px;border:1px solid transparent;background:none;color:#DCE5EE;
-    font:500 .95rem/1 var(--f-display);letter-spacing:.005em;white-space:nowrap;box-shadow:none;animation:none;transform:none;transition:color .2s,background-color .2s,border-color .2s,box-shadow .25s}
+  .top .nav>a,.top .nav .dd>button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 10px;border-radius:10px;border:1px solid transparent;background:none;color:#DCE5EE;
+    font:500 .93rem/1 var(--f-display);letter-spacing:.005em;white-space:nowrap;box-shadow:none;animation:none;transform:none;transition:color .2s,background-color .2s,border-color .2s,box-shadow .25s}
   .top .nav .ico{width:19px;height:19px;flex:none;color:#8FBFF5}
   .top .nav .dd>button .chev{width:14px;height:14px;margin-left:-1px;color:#8FBFF5}
-  .top .nav>a:hover,.top .nav .dd>button:hover{color:#fff;background:rgba(31,119,233,.08);box-shadow:none;animation:none}
+  /* survol et focus clavier : contour LED bleu électrique (cœur net + halo discret), sans déplacement */
+  .top .nav>a,.top .nav .dd>button{transition:color .25s ease,background-color .25s ease,border-color .25s ease,box-shadow .25s ease}
+  .top .top-right .nav>a:hover,.top .top-right .nav .dd>button:hover,.top .top-right .nav>a:focus-visible,.top .top-right .nav .dd>button:focus-visible{color:#fff;background:rgba(31,119,233,.07);outline:none;animation:none;
+    border-color:rgba(120,195,255,.95);box-shadow:inset 0 0 0 1px rgba(40,150,255,.35),0 0 0 1px rgba(31,140,255,.45),0 0 10px rgba(40,150,255,.55),0 0 22px -4px rgba(30,120,255,.5)}
+  .top .top-right .nav>a[aria-current="page"]:hover,.top .top-right .nav>a[aria-current="page"]:focus-visible{box-shadow:inset 0 -2px 0 #3B8BEB,inset 0 0 0 1px rgba(40,150,255,.35),0 0 0 1px rgba(31,140,255,.45),0 0 10px rgba(40,150,255,.55),0 0 22px -4px rgba(30,120,255,.5)}
   .top .nav>a[aria-current="page"],.top .nav .dd.current>button{color:#fff;box-shadow:inset 0 -2px 0 #3B8BEB}
   .top .nav .dd[data-open]>button{color:#fff;border-color:rgba(90,160,245,.6);background:rgba(31,119,233,.1);box-shadow:0 0 14px -6px rgba(31,119,233,.7);animation:none}
-  .top .nav>a:focus-visible,.top .nav .dd>button:focus-visible{outline:2px solid #78B4F5;outline-offset:2px;box-shadow:none}
   /* menu « Découvrir » : une seule colonne, directement sous le bouton */
   .top .nav .dd-col .dd-menu{left:0;right:auto;translate:none;top:calc(100% + 10px);min-width:272px;padding:8px;gap:2px;border-radius:14px;
     background:rgba(13,19,27,.95);border:1px solid rgba(90,160,245,.38);
@@ -614,6 +617,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.94rem}
   .top.v-tighter .vauth{gap:8px}
   .top.v-tighter:not(.v-compact) .vbtn-ghost{width:42px;padding:0;justify-content:center}
   .top.v-tighter:not(.v-compact) .vbtn-ghost .vbtn-l{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  /* dernier palier avant le menu compact (portables de 1280 à 1366 px) : logo un peu plus petit, liens resserrés */
+  .top.v-tightest:not(.v-compact) .logo3d .logo3d-full{height:30px}
+  .top.v-tightest:not(.v-compact) .nav>a,.top.v-tightest:not(.v-compact) .nav .dd>button{padding:0 7px;font-size:.9rem}
+  .top.v-tightest:not(.v-compact) .top-right{margin-left:12px}
+  .top.v-tightest:not(.v-compact) .vbtn-primary .ico{display:none}
+  .top.v-tightest:not(.v-compact) .vbtn-primary{padding:0 14px}
   /* version compacte (tablette, fenêtre étroite) : la barre laisse place au bouton de menu */
   .top.v-compact .nav,.top.v-compact .vsep{display:none!important}
   .top.v-compact .burger{display:inline-grid!important;place-items:center;width:44px;height:42px;margin-left:8px;border-radius:10px;border:1px solid rgba(170,183,199,.3);background:transparent;color:#DCE5EE}

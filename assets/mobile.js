@@ -9,13 +9,14 @@ var MQ=matchMedia("(max-width:760px)");
 var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var ACCOUNT_PAGES=["compte","connexion","inscription","mot-de-passe","espace-client"];
 var TOP_TABS={home:1,decouvrir:1,demo:1,offre:1,compte:1,"espace-client":1};
-var TITLES={"telephone-ia":"Secrétaire IA",home:"Accueil",decouvrir:"Services",demo:"Simulation",offre:"Votre offre",compte:"Compte",faq:"FAQ",assistant:"Assistant IA",sav:"Assistance",connexion:"Se connecter",inscription:"Créer un compte","mot-de-passe":"Mot de passe oublié","espace-client":"Mon espace",legal:"Informations légales"};
+var TITLES={"telephone-ia":"Secrétaire IA",ads:"Campagne ADS",home:"Accueil",decouvrir:"Services",demo:"Simulation",offre:"Votre offre",compte:"Compte",faq:"FAQ",assistant:"Assistant IA",sav:"Assistance",connexion:"Se connecter",inscription:"Créer un compte","mot-de-passe":"Mot de passe oublié","espace-client":"Mon espace",legal:"Informations légales"};
 /* écrans de la rubrique Services */
 var SVC=[
   {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents"},
   {href:"telephone-ia.html",t:"Secrétariat intelligent",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
   {id:"marketing",t:"Marketing IA",s:"Vos publications prêtes à valider.",i:"mega",tab:"tab-marketing",sec:"agents"},
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
+  {href:"campagne-ads",t:"Campagne ADS",s:"Une seule marque, sur tous les canaux publicitaires.",i:"mega"},
   {g:"Comprendre Vision Plus"},
   {id:"vision-plus-simple",t:"Qu'est-ce que Vision Plus ?",s:"Vision Plus expliqué simplement.",i:"info"},
   {id:"technologie",t:"Notre technologie",s:"Une IA connectée à toute votre activité.",i:"spark"},
