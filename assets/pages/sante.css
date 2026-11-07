@@ -5,12 +5,14 @@
    Secrétariat médical : tableau de bord fictif (.md-*), missions en accordéons (.ms-m), relais humain, niveaux d'automatisation.
    Identité du site (bleu nuit, noir, chrome, verre, LED bleue), en plus sobre : verre clair, filets fins, beaucoup d'air. */
 
-.ms,.mv,.mx{position:relative;isolation:isolate}
-.ms,.mv{padding:clamp(72px,9vw,128px) 0 clamp(52px,6vw,88px);
+section.ms,.mv,.mx{position:relative;isolation:isolate}
+/* la page « Votre secrétaire IA » a aussi des cartes article.ms : on neutralise leurs règles sur la section */
+section.ms{display:block;gap:0;border:0;border-radius:0}
+section.ms,.mv{padding:clamp(72px,9vw,128px) 0 clamp(52px,6vw,88px);
   background:radial-gradient(48% 36% at 82% 8%,rgba(40,120,232,.11),transparent 70%),linear-gradient(180deg,transparent,rgba(9,19,36,.6) 14%,rgba(7,14,27,.6) 86%,transparent)}
-.ms::before,.mv::before,.mx::before{content:"";position:absolute;left:50%;top:0;width:min(1100px,86%);height:1px;transform:translateX(-50%);
+section.ms::before,.mv::before,.mx::before{content:"";position:absolute;left:50%;top:0;width:min(1100px,86%);height:1px;transform:translateX(-50%);
   background:linear-gradient(90deg,transparent,rgba(130,200,255,.7),transparent);box-shadow:0 0 10px rgba(40,150,255,.6)}
-.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
+section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
 
 /* ---------- en-tête de section : texte + visuel 3D ---------- */
 .ms-hero{display:grid;gap:clamp(34px,4.4vw,70px);align-items:center}
@@ -221,9 +223,9 @@
 
 /* ---------- téléphone ---------- */
 @media (max-width:760px){
-  .ms,.mv{padding:56px 0 44px}
-  html body .ms .eyebrow,html body .mv .eyebrow{letter-spacing:.16em;gap:12px}
-  html body .ms .eyebrow::after,html body .mv .eyebrow::after{width:26px}
+  section.ms,.mv{padding:56px 0 44px}
+  html body section.ms .eyebrow,html body .mv .eyebrow{letter-spacing:.16em;gap:12px}
+  html body section.ms .eyebrow::after,html body .mv .eyebrow::after{width:26px}
   .ms-actions{flex-direction:column;align-items:stretch;width:100%}
   .ms-actions .btn,.mx-cta .btn{white-space:normal;text-align:center}
   .mx-cta .btn{width:100%}
@@ -260,7 +262,7 @@ html body .ms-copy .eyebrow{letter-spacing:.16em;line-height:1.45}
    Secrétariat médical IA — développement (rôle, missions, tableau de bord)
    Trois niveaux : a = par l'assistante, c = outils connectés, v = validation humaine
    ===================================================================== */
-.ms{--lv-a:#5DB3FF;--lv-c:#47D3DD;--lv-v:#B9A4FF}
+section.ms{--lv-a:#5DB3FF;--lv-c:#47D3DD;--lv-v:#B9A4FF}
 .lv-a{--lv:var(--lv-a)}.lv-c{--lv:var(--lv-c)}.lv-v{--lv:var(--lv-v)}
 .st-ok{--st:#6FDBA8}.st-wait{--st:#F3C86E}.st-info{--st:#7CC4FF}.st-draft{--st:#A9B6C6}.st-err{--st:#FF8A8A}.st-proof{--st:#5FE0E6}.st-lock{--st:#C3AEFF}
 
@@ -504,3 +506,84 @@ html body .ms-copy .eyebrow{letter-spacing:.16em;line-height:1.45}
   .md-chip,.md-live i{animation:none!important}
   .md-app,.ms-m,.ms-m::before,.ms-chev,.md-w,.ms-relay-l li{transition:none}
 }
+
+/* =====================================================================
+   En-tête « Un accueil attentionné. Une nouvelle dimension. »
+   Scène 3D de l'accueil médical (maquette de l'utilisateur, nettoyée par Codex, logo officiel brodé sur la blouse),
+   textes et boutons en éléments web, quatre cartes posées sur le comptoir.
+   ===================================================================== */
+section.ms.ms-top{padding-top:0}
+section.ms.ms-top::before{z-index:3}
+.mh{position:relative;isolation:isolate;overflow:hidden;background:#060B15}
+.mh-scene{position:relative;overflow:hidden}
+.mh-img{display:block;width:100%;height:auto;background:#060B15}
+.mh-in{position:relative;z-index:2}
+.mh-copy{display:grid;gap:18px;justify-items:start;max-width:480px;min-width:0}
+.mh-title{margin:0;font:600 clamp(2.2rem,3.7vw,4rem)/1.05 var(--f-display);letter-spacing:-.025em;text-wrap:balance}
+.mh-title .w{display:block;color:#fff}
+.mh-title .b{display:block;margin-top:.04em;color:#7DBBFF;text-shadow:0 0 28px rgba(60,150,255,.35)}
+.mh-lead{margin:0;max-width:40ch;color:#DCE5EE;font-size:clamp(1.02rem,1.3vw,1.18rem);line-height:1.6}
+.mh-actions{display:grid;gap:12px;justify-items:start;margin-top:10px}
+.mh-actions .btn-cyan{box-shadow:0 0 0 1px rgba(120,190,255,.5),0 0 22px rgba(30,130,255,.55)}
+.mh-actions .btn-line{background:rgba(6,12,24,.55)}
+.mh-actions .btn-line:hover{border-color:rgba(120,195,255,.95)!important;color:#fff;box-shadow:0 0 0 1px rgba(31,140,255,.35),0 0 18px rgba(40,150,255,.45)}
+.mh-note{display:flex;align-items:center;gap:12px;margin:6px 0 0;color:#C9D6E2;font-size:1rem}
+.mh-note i{width:9px;height:9px;flex:none;border-radius:50%;background:#2FD3FF;box-shadow:0 0 10px #22B8FF}
+.mh-cards{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.mh-cards span{min-width:0}
+.mh-cards a{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 20px;border-radius:14px;text-decoration:none;color:#fff;
+  border:1px solid rgba(150,205,255,.38);background:linear-gradient(180deg,rgba(22,40,70,.74),rgba(6,12,24,.86));
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:inset 0 1px 0 rgba(220,240,255,.18),0 0 18px -8px rgba(40,150,255,.6),0 20px 30px -20px rgba(0,0,0,.9);
+  font:500 1.02rem/1.25 var(--f-display);transition:border-color .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
+.mh-cards a:hover,.mh-cards a:focus-visible{outline:none;transform:translateY(-2px);border-color:rgba(170,222,255,.85);
+  box-shadow:inset 0 1px 0 rgba(220,240,255,.25),0 0 0 1px rgba(60,160,255,.3),0 0 26px -4px rgba(40,150,255,.75),0 20px 30px -20px rgba(0,0,0,.9)}
+.mh-cards svg{width:30px;height:30px;flex:none;fill:none;stroke:#8CC8FF;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(60,170,255,.7))}
+.ms-intro{margin-top:clamp(56px,7vw,100px)}
+.ms-intro .ms-title{font-size:clamp(1.7rem,2.8vw,2.6rem)}
+
+/* ordinateur : la scène occupe toute la largeur, le texte se pose sur sa partie gauche, les cartes sur le comptoir */
+@media (min-width:1000px){
+  .mh{height:clamp(640px,62.5vw,980px)}
+  /* la scène est légèrement décalée vers la droite pour laisser au texte le mur sombre, comme sur la maquette */
+  .mh-scene{position:absolute;top:0;bottom:0;left:4%;right:0;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%);mask-image:linear-gradient(90deg,transparent 0,#000 7%)}
+  .mh-img{height:100%;object-fit:cover;object-position:62% 55%}
+  .mh::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(5,10,19,.9) 0%,rgba(5,10,19,.72) 22%,rgba(5,10,19,.28) 38%,rgba(5,10,19,0) 50%),
+               linear-gradient(180deg,rgba(5,10,19,.55) 0%,rgba(5,10,19,0) 12%,rgba(5,10,19,0) 80%,rgba(5,10,19,.5) 100%)}
+  section.ms .wrap.mh-in{position:absolute;left:0;right:0;top:0;bottom:0;max-width:none;margin:0;display:flex;flex-direction:column;justify-content:space-between;
+    padding:clamp(64px,7.6vw,130px) clamp(24px,4vw,72px) clamp(24px,2.8vw,44px)}
+  .mh-copy{max-width:clamp(330px,25vw,500px)}
+  .mh-lead{font-size:clamp(1rem,1.15vw,1.2rem)}
+  .mh-cards{display:flex;flex-wrap:wrap;gap:12px clamp(14px,2vw,30px)}
+  .mh-cards a{padding:12px clamp(18px,1.8vw,30px);white-space:nowrap}
+}
+@media (min-width:1000px) and (max-width:1199px){
+  .mh-scene{left:10%}
+  .mh-copy{max-width:310px}
+  .mh-lead{font-size:.98rem}
+  .mh-cards a{padding:10px 14px;font-size:.95rem;gap:10px}.mh-cards svg{width:26px;height:26px}
+}
+/* tablette et téléphone : le robot et le comptoir d'abord, puis les textes et les cartes */
+@media (max-width:999px){
+  .mh-scene{height:clamp(320px,74vw,600px)}
+  .mh-img{height:100%;object-fit:cover;object-position:61% 50%}
+  .mh-scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;background:linear-gradient(180deg,rgba(6,11,21,0),#060B15)}
+  .mh-in{margin-top:-28px;padding-bottom:clamp(40px,6vw,64px)}
+  .mh-copy{max-width:640px}
+  .mh-cards{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}
+}
+@media (max-width:760px){
+  .mh-scene{height:min(112vw,480px)}
+  .mh-img{object-position:54% 42%}
+  .mh-title{font-size:clamp(2.05rem,9.4vw,2.6rem)}
+  .mh-actions{width:100%;justify-items:stretch}
+  .mh-actions .btn{justify-content:center;text-align:center;white-space:normal}
+  .mh-cards{gap:10px}
+  .mh-cards a{min-height:58px;padding:10px 12px;gap:10px;font-size:.92rem}
+  .mh-cards svg{width:24px;height:24px}
+}
+@media (prefers-reduced-motion:reduce){.mh-cards a{transition:none}.mh-cards a:hover{transform:none}}
+.mh .eyebrow{white-space:nowrap}
+/* hébreu et arabe : le texte reste sur le mur sombre, à gauche de la scène (l'image n'est pas inversée : elle contient du texte) */
+@media (min-width:1000px){[dir="rtl"] .mh-in .mh-copy{align-self:flex-end}}

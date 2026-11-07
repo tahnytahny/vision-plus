@@ -486,12 +486,37 @@
   </section>
 
   <!-- Secrétariat médical IA (établissements de santé et d'esthétique) -->
-  <section class="ms" id="secretariat-medical" aria-labelledby="t-ms">
-    <div class="wrap">
-      <div class="ms-hero">
-        <div class="ms-copy">
+  <section class="ms ms-top" id="secretariat-medical" aria-labelledby="t-ms">
+    <!-- En-tête : scène 3D de l'accueil médical (d'après la maquette de l'utilisateur, logo officiel sur la blouse) -->
+    <div class="mh">
+      <div class="mh-scene">
+        <img class="mh-img" src="assets/sante/assistante-medicale-1600.webp" srcset="assets/sante/assistante-medicale-960.webp 960w, assets/sante/assistante-medicale-1600.webp 1600w, assets/sante/assistante-medicale-3170.webp 3170w" sizes="(max-width: 999px) 150vw, 100vw" width="3170" height="1984" loading="lazy" decoding="async" alt="Illustration 3D : à l’accueil d’un cabinet médical haut de gamme, une petite assistante robot en blouse blanche brodée du logo Vision Plus, avec micro-casque, accueille le visiteur derrière un comptoir en marbre souligné de LED bleues, entourée des panneaux « Rendez-vous confirmé », « Dossier administratif prêt » et « Appel en cours ».">
+      </div>
+      <div class="wrap mh-in">
+        <div class="mh-copy">
           <span class="eyebrow">Secrétariat médical IA</span>
-          <h2 id="t-ms" class="ms-title"><span class="w">Votre secrétariat médical,</span> <span class="b">augmenté par l’IA.</span></h2>
+          <h2 id="t-ms" class="mh-title"><span class="w">Un accueil attentionné.</span> <span class="b">Une nouvelle dimension.</span></h2>
+          <p class="mh-lead">Votre assistante médicale IA vous accueille, organise vos rendez-vous et prépare vos dossiers administratifs.</p>
+          <div class="mh-actions">
+            <a class="btn btn-cyan" href="#tableau-de-bord">Découvrir mon assistante <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-line" href="#missions-medicales">Explorer ses missions</a>
+          </div>
+          <p class="mh-note"><i aria-hidden="true"></i>Pensée pour votre cabinet</p>
+        </div>
+        <ul class="mh-cards">
+          <li><a href="#mm-accueil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/><path d="M15 3a6 6 0 0 1 6 6M15 7a2 2 0 0 1 2 2"/></svg><span>Accueil &amp; appels</span></a></li>
+          <li><a href="#mm-rdv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01"/></svg><span>Rendez-vous</span></a></li>
+          <li><a href="#mm-dossiers"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Dossiers &amp; documents</span></a></li>
+          <li><a href="#mm-equipe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"/><circle cx="5.5" cy="10" r="2.2"/><circle cx="18.5" cy="10" r="2.2"/><path d="M7 19a5 5 0 0 1 10 0M2 18.5a3.6 3.6 0 0 1 5-3.2M22 18.5a3.6 3.6 0 0 0-5-3.2"/></svg><span>Transmission à l’équipe</span></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <!-- Ancien en-tête de la section, conservé comme introduction -->
+      <div class="ms-hero ms-intro">
+        <div class="ms-copy">
+          <h3 class="ms-title"><span class="w">Votre secrétariat médical,</span> <span class="b">augmenté par l’IA.</span></h3>
           <p class="lead">De l’accueil téléphonique au suivi des dossiers, Vision Plus accompagne votre équipe dans les tâches administratives du quotidien. Une assistante organisée, disponible et encadrée par vos consignes, pour fluidifier les échanges et vous aider à consacrer davantage de temps aux patients.</p>
           <div class="ms-actions">
             <a class="btn btn-cyan" href="offre-sur-mesure.html?secteur=sante#rappel">Étudier les besoins de mon cabinet <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -680,7 +705,7 @@
           <li class="lv-v"><b>Avec validation humaine</b><span>Réservé à une personne habilitée ou soumis à son accord.</span></li>
         </ul>
         <div class="ms-mis">
-          <details class="ms-m" open>
+          <details id="mm-accueil" class="ms-m" open>
             <summary><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><span class="ms-m-t"><b>Accueil et gestion des demandes</b><small>Appels, messages et questions pratiques, après identification.</small></span><span class="ms-m-lv" aria-hidden="true"><i class="a"></i><i class="c"></i></span><svg class="ms-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
             <div class="ms-m-b">
               <div class="ms-g lv-a"><b>Par l’assistante</b><ul>
@@ -701,7 +726,7 @@
             </div>
           </details>
 
-          <details class="ms-m">
+          <details id="mm-rdv" class="ms-m">
             <summary><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9 15 2 2 4-4"/></svg></span><span class="ms-m-t"><b>Rendez-vous et agendas</b><small>Créneaux, listes d’attente, confirmations et rappels.</small></span><span class="ms-m-lv" aria-hidden="true"><i class="a"></i><i class="c"></i></span><svg class="ms-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
             <div class="ms-m-b">
               <div class="ms-g lv-a"><b>Par l’assistante</b><ul>
@@ -720,7 +745,7 @@
             </div>
           </details>
 
-          <details class="ms-m">
+          <details id="mm-dossiers" class="ms-m">
             <summary><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="11" r="2.5"/><path d="M5.5 17a3.5 3.5 0 0 1 7 0M15 10h3M15 14h3"/></svg></span><span class="ms-m-t"><b>Dossier patient administratif</b><small>Une fiche complète, vérifiée et récapitulée avant validation.</small></span><span class="ms-m-lv" aria-hidden="true"><i class="a"></i><i class="c"></i><i class="v"></i></span><svg class="ms-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
             <div class="ms-m-b">
               <div class="ms-g lv-a"><b>Par l’assistante</b><ul>
@@ -844,7 +869,7 @@
             </div>
           </details>
 
-          <details class="ms-m">
+          <details id="mm-equipe" class="ms-m">
             <summary><span class="ms-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/></svg></span><span class="ms-m-t"><b>Coordination avec l’équipe</b><small>Une file de travail claire et une synthèse quotidienne.</small></span><span class="ms-m-lv" aria-hidden="true"><i class="a"></i><i class="c"></i></span><svg class="ms-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
             <div class="ms-m-b ms-m-b2">
               <div class="ms-g lv-a"><b>File de travail</b>
@@ -1033,5 +1058,11 @@
 </main>
 <div data-vp="footer"></div>
 <script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
+<script>
+/* Cartes de l’en-tête du secrétariat médical : ouvrent la mission ciblée (#mm-…) avant d’y descendre. */
+(function(){function ouvre(id){var d=id&&document.getElementById(id);if(d&&d.tagName==="DETAILS")d.open=true}
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="#mm-"]');if(a)ouvre(a.getAttribute("href").slice(1))});
+window.addEventListener("hashchange",function(){ouvre(location.hash.slice(1))});ouvre(location.hash.slice(1));})();
+</script>
 </body>
 </html>
