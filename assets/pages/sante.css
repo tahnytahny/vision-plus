@@ -566,16 +566,21 @@ section.ms.ms-top::before{z-index:3}
 }
 /* tablette et téléphone : le robot et le comptoir d'abord, puis les textes et les cartes */
 @media (max-width:999px){
-  .mh-scene{height:clamp(320px,74vw,600px)}
-  .mh-img{height:100%;object-fit:cover;object-position:61% 50%}
-  .mh-scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;background:linear-gradient(180deg,rgba(6,11,21,0),#060B15)}
+  /* tablette : toute la scène 3D, sans recadrage */
+  .mh-scene{height:auto}
+  .mh-img{height:auto;object-fit:fill}
+  .mh-scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;pointer-events:none;background:linear-gradient(180deg,rgba(6,11,21,0),#060B15)}
   .mh-in{margin-top:-28px;padding-bottom:clamp(40px,6vw,64px)}
   .mh-copy{max-width:640px}
   .mh-cards{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:30px}
 }
 @media (max-width:760px){
-  .mh-scene{height:min(112vw,480px)}
-  .mh-img{object-position:54% 42%}
+  /* téléphone : cadrage qui garde tous les éléments 3D (panneaux, enseigne, robot, plaque, comptoir) ;
+     seul le mur sombre de gauche et un peu de plafond sont retirés : fenêtre x 23,5 %–98,5 %, y 7 %–95 % */
+  .mh-scene{height:auto;aspect-ratio:1.362}
+  .mh-img{width:133.3%;max-width:none;height:auto;margin:-5.84% 0 0 -31.3%}
+  .mh-scene::after{height:12%}
+  .mh-in{margin-top:18px}
   .mh-title{font-size:clamp(2.05rem,9.4vw,2.6rem)}
   .mh-actions{width:100%;justify-items:stretch}
   .mh-actions .btn{justify-content:center;text-align:center;white-space:normal}
