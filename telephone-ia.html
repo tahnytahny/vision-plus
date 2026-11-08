@@ -30,14 +30,50 @@
 <script src="assets/mobile.js" defer></script>
 <style>
 /* Votre secrétaire IA. Graphite, argent, bleu. */
-.ti-hero{position:relative;overflow:hidden;padding-block:clamp(28px,5vw,72px) clamp(28px,4vw,56px);background:radial-gradient(50% 60% at 72% 45%,rgba(40,120,232,.15),transparent 70%)}
-.ti-hero::after{content:"";position:absolute;right:0;top:0;width:min(640px,50%);height:150px;background:url(assets/3d/sav-ruban.webp) right top/contain no-repeat;opacity:.75;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 35%);mask-image:linear-gradient(90deg,transparent,#000 35%)}
-.ti-grid{position:relative;display:grid;gap:clamp(24px,4vw,56px);align-items:center}
-@media (min-width:1000px){.ti-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+/* premier écran : même mise en scène que le secrétariat médical (sante.css, .mh) : scène du bureau en pleine largeur
+   derrière le contenu, robot en grand à droite, texte et boutons à gauche sur un dégradé sombre */
+.ti-hero{position:relative;isolation:isolate;overflow:hidden;background:#060B15}
+.ti-hero::after{display:none}
+.ti-scene{position:relative;overflow:hidden}
+.ti-img{display:block;width:100%;height:auto;background:#060B15}
+.ti-grid{position:relative;z-index:2}
 .ti-txt{display:grid;gap:18px;justify-items:start;min-width:0}
 .ti-txt .h-xl{font-size:clamp(2.1rem,4.2vw,3.4rem)}
 .ti-txt .h-xl span{color:#78B4F5}
-.ti-art{margin:0;min-width:0}.ti-art img{display:block;width:100%;height:auto;border-radius:22px;background:#0A1424;box-shadow:0 0 0 1px rgba(150,205,255,.42),0 0 26px -4px rgba(40,150,255,.45),0 40px 70px -34px rgba(0,0,0,.95);animation:tif 9s ease-in-out infinite}
+@media (min-width:1000px){
+  .ti-hero{height:clamp(640px,62.5vw,980px)}
+  /* scène décalée vers la droite : le robot (à gauche du centre dans l'image) arrive au centre-droit de l'écran ;
+     le décor du bureau se prolonge sous le texte et se fond dans le sombre, sans séparation */
+  .ti-scene{position:absolute;top:6%;bottom:0;left:13%;right:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%),linear-gradient(180deg,transparent 0,#000 8%);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(90deg,transparent 0,#000 9%),linear-gradient(180deg,transparent 0,#000 8%);mask-composite:intersect}
+  .ti-img{height:100%;object-fit:cover;object-position:0% 45%}
+  .ti-hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(5,10,19,.92) 0%,rgba(5,10,19,.78) 24%,rgba(5,10,19,.32) 40%,rgba(5,10,19,0) 52%),
+               linear-gradient(180deg,rgba(5,10,19,.55) 0%,rgba(5,10,19,0) 12%,rgba(5,10,19,0) 80%,rgba(5,10,19,.5) 100%)}
+  .ti-grid{position:absolute;inset:0;max-width:none;margin:0;display:flex;align-items:center;padding:clamp(40px,4.6vw,84px) clamp(24px,4vw,72px)}
+  [dir="rtl"] .ti-grid{justify-content:flex-end}
+  .ti-txt{max-width:clamp(400px,33vw,600px)}
+  .ti-txt .h-xl{font-size:clamp(2.2rem,3.6vw,3.9rem)}
+}
+@media (min-width:1000px) and (max-width:1199px){
+  .ti-scene{left:20%}
+  .ti-txt{max-width:360px}
+  .ti-txt .lead{font-size:.98rem}
+}
+/* tablette : la scène entière, puis le texte */
+@media (max-width:999px){
+  .ti-scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;pointer-events:none;background:linear-gradient(180deg,rgba(6,11,21,0),#060B15)}
+  .ti-grid{margin-top:-28px;padding-bottom:clamp(40px,6vw,64px)}
+  .ti-txt{max-width:640px}
+}
+/* téléphone : cadrage centré sur le robot (casque, visage, t-shirt Vision Plus et main sur le clavier) */
+@media (max-width:760px){
+  .ti-scene{aspect-ratio:1020/941}
+  .ti-img{width:163.92%;max-width:none;margin-left:-27.45%}
+  .ti-scene::after{height:12%}
+  .ti-grid{margin-top:18px}
+}
 @keyframes tif{50%{transform:translateY(-6px)}}
 .ti-cond{display:flex;gap:12px;align-items:flex-start;padding:14px 18px;border-radius:14px;border:1px solid rgba(170,183,199,.25);background:rgba(27,34,44,.6);color:var(--soft);font-size:.92rem;max-width:60ch}
 .ti-cond .ico{color:#78B4F5;margin-top:2px;flex:none}
@@ -140,7 +176,7 @@
 .ti-cta{position:relative;text-align:center;overflow:hidden}
 .ti-cta::before{content:"";position:absolute;left:50%;top:50%;width:min(1000px,130%);height:420px;translate:-50% -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(40,120,232,.18),transparent 70%);pointer-events:none}
 .ti-cta .wrap{position:relative;display:grid;gap:22px;justify-items:center}
-@media (max-width:640px){.gl,.fam-art .gl2{transform:none!important;margin:6px}.blk-art{order:-1}.ti-hero::after{opacity:.4}}
+@media (max-width:640px){.gl,.fam-art .gl2{transform:none!important;margin:6px}.fam-art{grid-template-columns:minmax(0,1fr)}.fam-art .gl{min-width:0}.blk-art{order:-1}.ti-hero::after{opacity:.4}}
 @media (prefers-reduced-motion:reduce){.ti-art img,.blk-art img,.gl{animation:none}}
 
 /* ===== Votre secrétaire IA (refonte) ===== */
@@ -220,6 +256,7 @@
 <div data-vp="header"></div>
 <main id="contenu">
   <section class="ti-hero" aria-labelledby="t-ti">
+    <div class="ti-scene"><img class="ti-img" src="assets/3d/secretaire-ia-scene-1672.webp" srcset="assets/3d/secretaire-ia-scene-960.webp 960w, assets/3d/secretaire-ia-scene-1672.webp 1672w, assets/3d/secretaire-ia-scene-2560.webp 2560w" sizes="(max-width: 760px) 164vw, (max-width: 999px) 100vw, 112vw" width="1672" height="941" fetchpriority="high" decoding="async" alt="Le robot Vision Plus, casque audio sur la tête et t-shirt Vision Plus, répond à un appel à son bureau, la main sur le clavier de son ordinateur."></div>
     <div class="wrap ti-grid">
       <div class="ti-txt">
         <span class="eyebrow">Votre secrétaire IA</span>
@@ -228,7 +265,6 @@
         <div class="actions"><a class="btn btn-cyan" href="demo.html#formulaire">Personnaliser ma secrétaire IA <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-line" href="#missions">Voir les missions <svg class="ico arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         <p class="ti-med"><a class="link" href="#secretariat-medical">Cabinets, centres de santé et d’esthétique : découvrir le secrétariat médical IA</a></p>
       </div>
-      <figure class="ti-art"><img src="assets/3d/secretaire-ia-robot-1320.webp" srcset="assets/3d/secretaire-ia-robot-800.webp 800w, assets/3d/secretaire-ia-robot-1320.webp 1320w" sizes="(min-width: 1000px) 50vw, 100vw" width="1320" height="941" alt="Le robot Vision Plus, casque audio sur la tête et t-shirt Vision Plus, répond à un appel à son bureau, la main sur le clavier de son ordinateur." fetchpriority="high"></figure>
     </div>
   </section>
 
