@@ -725,5 +725,7 @@ html[lang="hi"] *,html[lang="mr"] *,html[lang="ne"] *,html[lang="bn"] *,html[lan
 @media (prefers-reduced-motion:reduce){.dd-menu,.dd[data-open] .dd-menu{transform:none;transition:opacity .15s}}
 /* ---------- pied de page : liens légaux directs ---------- */
 .foot-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(170,183,199,.1);font-size:.86rem}
-.foot-links a,.foot-links button{color:var(--soft);text-decoration:none;background:none;border:0;padding:4px 0;font:inherit;cursor:pointer}
-.foot-links a:hover,.foot-links button:hover,.foot-links a:focus-visible,.foot-links button:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.foot-links a,.foot-links button{display:inline-block;color:var(--soft);text-decoration:none;background:none;border:0;padding:4px 0;font:inherit;cursor:pointer;transition:transform .25s ease,color .25s ease}
+.foot-links a:focus-visible,.foot-links button:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px;transform:translateY(-5px)}
+@media (hover:hover){.foot-links a:hover,.foot-links button:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){.foot-links a,.foot-links button{transition:color .25s ease}.foot-links a:hover,.foot-links button:hover,.foot-links a:focus-visible,.foot-links button:focus-visible{transform:none}}
