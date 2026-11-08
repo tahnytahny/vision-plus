@@ -1,19 +1,19 @@
-/* Vision Plus — page « Offre sur mesure » : lecteur de la vidéo du premier écran.
-   Configuration sans code : assets/video/offre/video.json (vidéo source, miniature, et par langue : vidéo localisée,
-   doublage synchronisé, sous-titres WebVTT, miniature). Le back-office (rubrique « Vidéo de l’offre ») peut la
-   compléter : ses réglages, enregistrés par VISIONPLUS.content.video(), passent avant le fichier.
+/* Vision Plus — lecteur vidéo commun (page « Offre sur mesure » et rubrique « Secrétariat médical IA »).
+   Chaque lecteur : <figure class="vp" data-config="…/video.json"> (voir offre-sur-mesure.html). Configuration sans code :
+   vidéo source, miniature, et par langue : vidéo localisée, doublage synchronisé, sous-titres WebVTT, miniature.
+   data-admin="offre" : les réglages du back-office (rubrique « Vidéo de l’offre », VISIONPLUS.content.video()) passent avant le fichier.
    La langue suit le sélecteur du site (événement vp:lang) : piste audio doublée si elle existe, sinon audio d’origine
    et sous-titres traduits, avec la langue audio indiquée. Changement de langue : même position, même état
    (pause ou lecture). Jamais de lecture automatique. Clavier : espace ou K, flèches, M, C, F. */
 (function(){
 "use strict";
 var A=window.VISIONPLUS||{},D=document;
-var box=D.getElementById("ov-player");if(!box)return;
+[].forEach.call(D.querySelectorAll(".vp[data-config]"),function(box){
 var v=box.querySelector("video"),dub=box.querySelector("audio"),big=box.querySelector(".vp-big"),bar=box.querySelector(".vp-bar");
 var $=function(s){return box.querySelector(s);};
 var bPlay=$(".vp-play"),bMute=$(".vp-mute"),bCc=$(".vp-cc"),bFs=$(".vp-fs"),seek=$(".vp-seek"),vol=$(".vp-vol"),tNow=$(".vp-now"),tDur=$(".vp-dur"),cap=$(".vp-cap"),capT=$(".vp-cap span");
 var RM=window.matchMedia("(prefers-reduced-motion: reduce)");
-var M=null,lang="fr",cues=[],ccOn=false,ccUser=false,vidSrc="",dubOn=false,DUR=57;
+var M=null,lang="fr",cues=[],ccOn=false,ccUser=false,vidSrc="",dubOn=false,DUR=57,hasSubs=true;
 
 /* ---------- configuration ---------- */
 function merge(a,b){if(!b)return a;var o=JSON.parse(JSON.stringify(a));Object.keys(b).forEach(function(k){
@@ -38,6 +38,7 @@ var shown=null;
 function showCue(t){var c=null;if(ccOn)for(var i=0;i<cues.length;i++){if(t>=cues[i].s&&t<cues[i].e){c=cues[i];break;}}
   if(c===shown)return;shown=c;cap.hidden=!c;capT.textContent=c?c.t:"";}
 function loadCues(l){var c=conf(l),u=c.sous_titres,fb=conf("fr").sous_titres;
+  if(!u&&!fb){cues=[];shown=undefined;showCue(0);return Promise.resolve();}
   return fetch(u||fb).then(function(r){if(!r.ok)throw 0;return r.text();}).catch(function(){return u&&fb?fetch(fb).then(function(r){return r.text();}):"";})
     .then(function(t){cues=parseVtt(t||"");shown=undefined;showCue(v.currentTime||0);
       /* piste native (plein écran du système sur iPhone) */
@@ -51,7 +52,7 @@ function langName(code,inLang){try{var n=new Intl.DisplayNames([inLang||curLang(
 function info(audioLang,kind){var ui=curLang();
   $(".vp-a-name").textContent=langName(audioLang,ui);
   [].slice.call(box.querySelectorAll("[data-audio-kind]")).forEach(function(s){s.hidden=s.getAttribute("data-audio-kind")!==kind;});
-  var subs=$(".vp-i-subs");subs.hidden=!ccOn||audioLang===lang&&kind!=="original";
+  var subs=$(".vp-i-subs");subs.hidden=!hasSubs||!ccOn||audioLang===lang&&kind!=="original";
   $(".vp-s-name").textContent=langName(lang,ui);}
 function apply(l,keep){
   lang=l;var c=conf(l),src=M.source||{},t=v.currentTime||0,playing=!v.paused&&!v.ended,started=box.classList.contains("vp-started");
@@ -68,7 +69,7 @@ function apply(l,keep){
   if(dubOn){if(dub.getAttribute("src")!==c.doublage){dub.src=c.doublage;dub.load();}v.muted=true;}
   else{if(dub.getAttribute("src")){dub.pause();dub.removeAttribute("src");dub.load();}v.muted=box.classList.contains("vp-muted");}
   var kind=c.video?"localisee":dubOn?"doublage":"original",audioLang=c.video||dubOn?l:(src.langue_audio||"fr");
-  if(!ccUser)setCc(audioLang!==l||(!c.video&&!(conf(l).sous_titres_incrustes)&&l!==(src.langue_audio||"fr")),false);
+  if(!ccUser)setCc(hasSubs&&(audioLang!==l||(!c.video&&!(conf(l).sous_titres_incrustes)&&l!==(src.langue_audio||"fr"))),false);
   info(audioLang,kind);
   loadCues(l);
   ready.then(function(){syncDub(true);if(keep&&playing){var p=v.play();if(p&&p.catch)p.catch(function(){});}});}
@@ -124,13 +125,17 @@ var idle;function wake(){box.classList.remove("vp-idle");clearTimeout(idle);idle
 var src0=v.querySelector("source");vidSrc=src0?src0.getAttribute("src"):"";
 fetch(box.getAttribute("data-config"),{cache:"no-cache"}).then(function(r){return r.json();}).catch(function(){return null;}).then(function(m){
   var base=m||{source:{video:vidSrc,langue_audio:"fr",miniature:v.getAttribute("poster")},langues:{fr:{sous_titres:"assets/video/offre/sous-titres/fr.vtt",sous_titres_incrustes:true}}};
-  var over=null;try{over=A.content&&A.content.video?A.content.video():null;}catch(e){}
+  var over=null;try{over=box.getAttribute("data-admin")==="offre"&&A.content&&A.content.video?A.content.video():null;}catch(e){}
   M=merge(base,over);DUR=(M.source&&M.source.duree)||DUR;
-  if(M.titre)$(".vp-title").textContent=M.titre;
-  tDur.textContent=fmt(DUR);$(".vp-big-dur").textContent=fmt(DUR);
+  var ti=$(".vp-title");if(M.titre&&ti)ti.textContent=M.titre;
+  /* aucun sous-titre déclaré (vidéo laissée dans sa langue d’origine) : bouton des sous-titres masqué */
+  var anySubs=Object.keys(M.langues||{}).some(function(l){return M.langues[l]&&M.langues[l].sous_titres;});bCc.hidden=!anySubs;hasSubs=anySubs;
+  var bd=$(".vp-big-dur");if(bd)bd.textContent=fmt(DUR);
+  tDur.textContent=fmt(DUR);
   /* les fichiers déclarés mais absents (doublage, vidéo localisée) sont ignorés : jamais de piste inexistante */
   var checks=[];Object.keys(M.langues||{}).forEach(function(l){["doublage","video","miniature"].forEach(function(k){var u=M.langues[l][k];if(u)checks.push(exists(u).then(function(ok){if(!ok)M.langues[l][k]=null;}));});});
   return Promise.all(checks);}).then(function(){apply(curLang(),false);tick();});
 D.addEventListener("vp:lang",function(e){if(M)apply((e.detail&&e.detail.lang)||curLang(),true);});
 setMute(false);box.style.setProperty("--vp-v","100%");
+});
 })();

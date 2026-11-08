@@ -343,3 +343,6 @@
   :root:root details.more>summary{min-height:44px;display:flex;align-items:center}
   :root:root input[type="checkbox"]{width:22px;height:22px}
 }
+
+/* très petits écrans (320 px) : les pastilles de texte passent à la ligne au lieu de déborder — 2026-11-09 */
+@media (max-width:360px){:root:root .pill{white-space:normal;max-width:100%}}

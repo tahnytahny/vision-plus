@@ -1,0 +1,22 @@
+{
+ "_aide": "Vidéo de la rubrique Secrétariat médical IA (telephone-ia.html#video-medicale). Même format que assets/video/offre/video.json : remplacer la vidéo ou la miniature en déposant le fichier ici et en changeant son chemin. Pas de traduction à la demande de l’utilisateur : audio et sous-titres incrustés en français.",
+ "titre": null,
+ "source": {
+  "langue_audio": "fr",
+  "video": "assets/video/medical/medical-fr.mp4",
+  "type": "video/mp4",
+  "miniature": "assets/video/medical/miniature-848.webp",
+  "duree": 58,
+  "largeur": 848,
+  "hauteur": 480
+ },
+ "langues": {
+  "fr": {
+   "sous_titres": null,
+   "sous_titres_incrustes": true,
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  }
+ }
+}

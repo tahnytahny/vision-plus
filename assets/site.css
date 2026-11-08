@@ -735,3 +735,10 @@ html[lang="hi"] *,html[lang="mr"] *,html[lang="ne"] *,html[lang="bn"] *,html[lan
 .chat-fab .chat-fab-head{display:block;width:90%;margin-top:2px;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));transition:transform .3s ease;pointer-events:none}
 @media (hover:hover){.chat-fab:hover .chat-fab-head{transform:scale(1.06)}}
 @media (prefers-reduced-motion:reduce){.chat-fab .chat-fab-head{transition:none}}
+/* ordinateur et tablette : le bouton robot se place en bas du milieu de l’écran, à droite (plus dans le coin) — demande de l’utilisateur du 2026-11-08 */
+@media (min-width:761px){.chat-fab{bottom:calc(28vh + env(safe-area-inset-bottom,0px))}}
+
+/* entrées « Vidéo » rangées sous leur catégorie (Secrétariat médical IA, Artisan OS) — 2026-11-08 */
+.dd-menu a.dd-sub{padding-left:42px;font-size:.93em}
+.dd-menu a.dd-sub .ico{width:16px;height:16px;opacity:.85}
+.drawer a.dl.dl-sub2{padding-left:2.6em;font-size:.95em}
