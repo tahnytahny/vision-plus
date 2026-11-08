@@ -10,14 +10,14 @@
 .ao-scene{position:relative;container-type:inline-size}
 .ao-frame{position:relative}
 .ao-frame picture,.ao-img{display:block;width:100%;height:auto}
-.ao-img{aspect-ratio:1672/853;background:#0A1424}
+.ao-img{aspect-ratio:1672/851;background:#0A1424}
 
 /* zones cliquables sur les boutons peints */
 .ao-hot{position:absolute;z-index:2;display:block;border-radius:2.6% / 16%;text-decoration:none;-webkit-tap-highlight-color:transparent;
   transition:box-shadow .3s ease,background-color .3s ease}
-.ao-hot-dl{left:2.81%;top:61.43%;width:20.22%;height:6.57%}
-.ao-hot-more{left:2.87%;top:70.11%;width:20.27%;height:6.45%}
-.ao-hot-chat{left:93.42%;top:86.99%;width:4.67%;height:9.14%;border-radius:50%}
+.ao-hot-dl{left:1.56%;top:61.94%;width:20.69%;height:6.91%}
+.ao-hot-more{left:1.56%;top:70.92%;width:20.81%;height:6.5%}
+.ao-hot-chat{left:95.31%;top:89.3%;width:4.63%;height:9.1%;border-radius:50%}
 @media (hover:hover){
   .ao-hot:hover{background-color:rgba(190,225,255,.08);box-shadow:0 0 0 1px rgba(190,228,255,.65),0 0 22px rgba(60,160,255,.75)}
 }
@@ -50,9 +50,9 @@ html:not([lang="fr"]) .ao-hot-dl,html:not([lang="fr"]) .ao-hot-more{display:none
 }
 /* grand écran, autres langues : bandeau sombre qui recouvre le texte peint, même composition */
 @media (min-width:1100px){
-  html:not([lang="fr"]) .ao-copy{position:absolute;left:0;top:0;bottom:0;width:26.4%;display:flex;flex-direction:column;justify-content:center;gap:1.25cqw;
-    padding:3cqw 1.2cqw 2cqw 2.9cqw;
-    background:linear-gradient(90deg,#030914 0,#051020 55%,#071423 92%,rgba(7,20,35,0) 100%);
+  html:not([lang="fr"]) .ao-copy{position:absolute;left:0;top:0;bottom:0;width:25.6%;display:flex;flex-direction:column;justify-content:center;gap:1.25cqw;
+    padding:3cqw 1.2cqw 2cqw 1.6cqw;
+    background:linear-gradient(90deg,#030914 0,#051020 55%,#071423 94%,rgba(7,20,35,0) 100%);
     -webkit-mask-image:linear-gradient(180deg,#000 0,#000 89%,transparent 97%);mask-image:linear-gradient(180deg,#000 0,#000 89%,transparent 97%)}
   [dir="rtl"] .ao-copy{text-align:start}
   html:not([lang="fr"]) .ao-kick{font-size:max(10px,.86cqw)}
@@ -87,7 +87,7 @@ html:not([lang="fr"]) .ao-hot-dl,html:not([lang="fr"]) .ao-hot-more{display:none
   .ao-kick{order:1;padding-top:26px}
   .ao-copy h1{order:2;padding-top:12px;padding-bottom:20px;font-size:clamp(1.95rem,8.6vw,2.5rem)}
   .ao-frame{order:3}
-  .ao-img{aspect-ratio:1242/853}
+  .ao-img{aspect-ratio:1242/832}
   .ao-hot{display:none}
   .ao-lead{order:4;padding-top:20px;font-size:1.04rem}
   .ao-actions{order:5;padding-top:20px;max-width:none;width:auto}
