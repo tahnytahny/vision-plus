@@ -377,7 +377,7 @@ function legalMenuInit(f){
 A.renderAnswer=function(r){return A.esc(r.text)+(r.link?'\n<a href="'+A.esc(r.link)+'">'+A.esc(r.linkLabel||"En savoir plus")+" →</a>":"");};
 function chat(){if(document.querySelector('meta[name="vp-nochat"]'))return;
   /* bouton flottant : ouvre la zone de question de la FAQ unifiée */
-  var fab=document.createElement("a");fab.className="chat-fab";fab.href="faq.html#question";fab.setAttribute("aria-label","Poser une question (FAQ)");fab.innerHTML=A.icon("chat");
+  var fab=document.createElement("a");fab.className="chat-fab";fab.href="faq.html#question";fab.setAttribute("aria-label","Poser une question (FAQ)");fab.innerHTML='<img class="chat-fab-head" src="assets/brand/vp-robot-tete.webp" width="168" height="117" alt="" decoding="async">';
   fab.onclick=function(e){if(pageId()==="faq"&&window.VISIONPLUS_FAQ_ASK){e.preventDefault();window.VISIONPLUS_FAQ_ASK();}};
   document.body.appendChild(fab);}
 

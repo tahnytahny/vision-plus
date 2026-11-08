@@ -729,3 +729,9 @@ html[lang="hi"] *,html[lang="mr"] *,html[lang="ne"] *,html[lang="bn"] *,html[lan
 .foot-links a:focus-visible,.foot-links button:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px;transform:translateY(-5px)}
 @media (hover:hover){.foot-links a:hover,.foot-links button:hover{color:#fff;text-decoration:underline;text-underline-offset:3px;transform:translateY(-5px)}}
 @media (prefers-reduced-motion:reduce){.foot-links a,.foot-links button{transition:color .25s ease}.foot-links a:hover,.foot-links button:hover,.foot-links a:focus-visible,.foot-links button:focus-visible{transform:none}}
+
+/* bouton flottant de question : la tête du robot Vision Plus à la place de l'icône de bulle */
+.chat-fab{display:grid;place-items:center;overflow:hidden}
+.chat-fab .chat-fab-head{display:block;width:90%;margin-top:2px;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));transition:transform .3s ease;pointer-events:none}
+@media (hover:hover){.chat-fab:hover .chat-fab-head{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.chat-fab .chat-fab-head{transition:none}}
