@@ -73,7 +73,10 @@ A.content={
   plans:function(){return A.store.get("plans",DATA.plans||[]);},
   setPlans:function(v){A.store.set("plans",v);A.audit("Formules modifiées");},
   legal:function(id){return A.store.get("legal."+id,null);},
-  setLegal:function(id,v){A.store.set("legal."+id,v);A.audit("Document légal modifié : "+id);}
+  setLegal:function(id,v){A.store.set("legal."+id,v);A.audit("Document légal modifié : "+id);},
+  /* vidéo du premier écran de l’offre : réglages du back-office, prioritaires sur assets/video/offre/video.json */
+  video:function(){return A.store.get("video.offre",null);},
+  setVideo:function(v){if(v)A.store.set("video.offre",v);else A.store.del?A.store.del("video.offre"):A.store.set("video.offre",null);A.audit("Vidéo de l’offre modifiée");}
 };
 
 /* ---------- collections (projets, simulations, SAV, factures…) ---------- */

@@ -1,0 +1,118 @@
+{
+ "_aide": "Vidéo du premier écran de offre-sur-mesure.html. Pour changer la vidéo, sa miniature, ses sous-titres ou ajouter un doublage : déposez les fichiers dans assets/video/offre/ et indiquez leur chemin ici (ou depuis le back-office, rubrique « Vidéo de l’offre », qui permet de télécharger ce fichier mis à jour). Aucun code à modifier. Par langue : « video » = vidéo entièrement localisée (son et textes incrustés), « doublage » = piste audio (m4a/mp3) synchronisée avec la vidéo source, « sous_titres » = fichier WebVTT, « miniature » = image d’aperçu localisée. Laisser null quand le fichier n’existe pas : le lecteur utilise alors la vidéo source et les sous-titres traduits.",
+ "titre": "Vos commerces, une nouvelle dimension.",
+ "source": {
+  "langue_audio": "fr",
+  "video": "assets/video/offre/offre-fr.mp4",
+  "type": "video/mp4",
+  "miniature": "assets/video/offre/miniature-1280.webp",
+  "duree": 57,
+  "largeur": 848,
+  "hauteur": 480
+ },
+ "langues": {
+  "fr": {
+   "sous_titres": "assets/video/offre/sous-titres/fr.vtt",
+   "sous_titres_incrustes": true,
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "en": {
+   "sous_titres": "assets/video/offre/sous-titres/en.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "it": {
+   "sous_titres": "assets/video/offre/sous-titres/it.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "he": {
+   "sous_titres": "assets/video/offre/sous-titres/he.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "ar": {
+   "sous_titres": "assets/video/offre/sous-titres/ar.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "es": {
+   "sous_titres": "assets/video/offre/sous-titres/es.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "de": {
+   "sous_titres": "assets/video/offre/sous-titres/de.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "pt": {
+   "sous_titres": "assets/video/offre/sous-titres/pt.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "ru": {
+   "sous_titres": "assets/video/offre/sous-titres/ru.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "zh": {
+   "sous_titres": "assets/video/offre/sous-titres/zh.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "ja": {
+   "sous_titres": "assets/video/offre/sous-titres/ja.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "ko": {
+   "sous_titres": "assets/video/offre/sous-titres/ko.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "tr": {
+   "sous_titres": "assets/video/offre/sous-titres/tr.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "nl": {
+   "sous_titres": "assets/video/offre/sous-titres/nl.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "pl": {
+   "sous_titres": "assets/video/offre/sous-titres/pl.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "el": {
+   "sous_titres": "assets/video/offre/sous-titres/el.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  },
+  "hi": {
+   "sous_titres": "assets/video/offre/sous-titres/hi.vtt",
+   "doublage": null,
+   "video": null,
+   "miniature": null
+  }
+ }
+}

@@ -1,0 +1,160 @@
+/* Vision Plus — page « Offre sur mesure » : premier écran avec la vidéo (visuel fourni par l’utilisateur).
+   Ordinateur (≥ 1000 px) : le décor garde ses proportions (1787 x 800) et la colonne centrale est placée en
+   pourcentage de la largeur (cqw), comme sur le visuel : le robot reste à droite, au bord du cadre vidéo.
+   Tablette et téléphone : composition empilée (titre, vidéo pleine largeur, cartes, boutons), décor du robot en fond.
+   Lecteur : assets/pages/offre-video.js */
+.ov{position:relative;isolation:isolate;overflow:hidden;background:#050B17;container-type:inline-size}
+.ov-bg{position:absolute;z-index:-2;left:0;right:0;top:0}
+.ov-bg img{display:block;width:100%;height:auto;aspect-ratio:1787/800}
+.ov::before{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;
+  background:radial-gradient(42% 30% at 48.5% 13%,rgba(3,9,20,.5),rgba(3,9,20,0) 70%),
+    linear-gradient(180deg,rgba(5,11,23,0) 0,rgba(5,11,23,0) 34cqw,#050B17 44.8cqw)}
+.ov-in{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ov-kick{display:flex;align-items:center;gap:1.1em;margin:0;font:600 .78rem/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:#68D2FF;
+  text-shadow:0 0 12px rgba(60,180,255,.55)}
+.ov-kick::before,.ov-kick::after{content:"";width:3.6em;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(80,200,255,0),#4FC6FF 50%,rgba(80,200,255,0));box-shadow:0 0 8px #2EA8FF}
+.ov .ov-title{margin:0;font:650 clamp(1.9rem,6.4vw,3.3rem)/1.08 var(--f-display);letter-spacing:-.01em;color:#fff;text-wrap:balance;text-shadow:0 2px 24px rgba(0,10,30,.6)}
+.ov .ov-title span{display:block}
+.ov .ov-sub{margin:0;font-weight:400;color:#E4EEF7;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.45;text-shadow:0 1px 12px rgba(0,8,24,.7)}
+
+/* ---------- cartes ---------- */
+.ov-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+.ov-card{overflow-wrap:anywhere;hyphens:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em;height:100%;text-decoration:none;color:#fff;
+  font:600 1.05rem/1.15 var(--f-display);border-radius:14px;border:1.5px solid rgba(140,205,255,.72);
+  background:linear-gradient(180deg,rgba(60,120,190,.34),rgba(12,30,60,.6));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 0 18px rgba(50,160,255,.45),inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 22px rgba(80,170,255,.18);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.ov-card svg{width:2.1em;height:2.1em;fill:none;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(120,200,255,.7))}
+@media (hover:hover){.ov-card:hover{transform:translateY(-3px);border-color:#BFE6FF;box-shadow:0 0 28px rgba(70,175,255,.75),inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 26px rgba(80,170,255,.28)}}
+.ov-card:focus-visible{outline:3px solid #BCE4FF;outline-offset:3px}
+
+/* ---------- boutons et mention ---------- */
+.ov-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 22px}
+.ov-actions .btn{min-height:48px;padding:.8em 1.5em;border-radius:10px;font-size:1.02rem}
+.ov-b1{background:linear-gradient(180deg,#2F8BFF,#155FE0);color:#fff;border-color:rgba(160,210,255,.6);box-shadow:0 0 22px rgba(40,130,255,.7),inset 0 1px 0 rgba(255,255,255,.35)}
+.ov-b1:hover{box-shadow:0 0 32px rgba(60,150,255,.9),inset 0 1px 0 rgba(255,255,255,.4)}
+.ov-b2{background:rgba(6,14,28,.72);color:#fff;border-color:rgba(230,240,255,.75)}
+.ov-b2:hover{background:rgba(20,40,70,.8);border-color:#fff}
+.ov-note{margin:0;color:#E4EEF7;font-size:.95rem;text-shadow:0 1px 10px rgba(0,8,24,.8)}
+.ov-note span+span::before{content:"";display:inline-block;width:.42em;height:.42em;margin:0 .9em;border-radius:50%;background:#2EA8FF;box-shadow:0 0 8px #2EA8FF;vertical-align:.15em}
+
+/* ---------- lecteur vidéo ---------- */
+.vp{margin:0;width:100%;display:grid;gap:8px}
+.vp-frame{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#030812;
+  border:2px solid rgba(150,215,255,.9);box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 0 22px rgba(60,175,255,.75),0 0 60px rgba(40,130,255,.35);container-type:inline-size}
+.vp video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.vp audio{display:none}
+/* image d’aperçu + gros bouton lecture */
+.vp-big{position:absolute;inset:0;z-index:3;display:block;width:100%;height:100%;padding:0;border:0;background:#030812;cursor:pointer;color:#fff;text-align:start}
+.vp-big img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vp-big::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(3,8,18,.86) 0,rgba(3,8,18,.5) 32%,rgba(3,8,18,0) 58%),linear-gradient(0deg,rgba(3,8,18,.45),rgba(3,8,18,0) 35%)}
+.vp-big-t{position:absolute;z-index:1;left:5%;top:7%;width:50%;display:flex;flex-direction:column;justify-content:flex-start;gap:.45em}
+.vp-title{font:650 max(14px,4.1cqw)/1.12 var(--f-display);text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.vp-big-m{font:600 max(11px,2.1cqw)/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase;color:#8FD8FF}
+.vp-big-i{position:absolute;z-index:1;left:50%;top:50%;width:max(56px,15cqw);height:max(56px,15cqw);transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 40%,rgba(30,70,130,.65),rgba(5,15,35,.75));border:3px solid #E8F6FF;
+  box-shadow:0 0 0 6px rgba(70,180,255,.25),0 0 30px rgba(70,180,255,.9),inset 0 0 18px rgba(90,190,255,.45);transition:transform .25s ease,box-shadow .25s ease}
+.vp-big-i svg{width:44%;height:44%;margin-left:8%;fill:#fff;filter:drop-shadow(0 0 6px rgba(140,210,255,.9))}
+.vp-big:hover .vp-big-i,.vp-big:focus-visible .vp-big-i{transform:translate(-50%,-50%) scale(1.07);box-shadow:0 0 0 8px rgba(70,180,255,.3),0 0 40px rgba(90,195,255,1),inset 0 0 18px rgba(90,190,255,.5)}
+.vp-big:focus-visible{outline:3px solid #BCE4FF;outline-offset:-5px}
+.vp.vp-started .vp-big{display:none}
+/* sous-titres du lecteur : posés à l’emplacement des sous-titres incrustés (bas de l’image) */
+.vp-cap{position:absolute;z-index:2;left:50%;bottom:1.2%;transform:translateX(-50%);min-width:62%;max-width:90%;min-height:12.6%;margin:0;padding:.35em .9em;
+  display:flex;align-items:center;justify-content:center;text-align:center;border-radius:8px;background:rgba(9,13,22,.96);
+  color:#fff;font:600 max(12px,2.55cqw)/1.25 var(--f-body);pointer-events:none}
+.vp-cap span{unicode-bidi:plaintext}
+.vp-cap[hidden]{display:none}
+/* commandes visibles : les sous-titres passent au-dessus de la barre */
+.vp.vp-started:not(.vp-idle) .vp-cap{bottom:calc(54px + 1%)}
+.vp-cap{transition:bottom .25s ease}
+.vp:not(.vp-started) .vp-cap{display:none}
+/* barre de commandes */
+.vp-bar{direction:ltr;position:absolute;z-index:4;left:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding:28px 10px 8px;
+  background:linear-gradient(0deg,rgba(2,6,14,.92),rgba(2,6,14,0));opacity:1;transition:opacity .3s ease}
+.vp:not(.vp-started) .vp-bar{display:none}
+.vp.vp-idle .vp-bar{opacity:0}
+.vp.vp-idle .vp-frame{cursor:none}
+.vp-btn{flex:none;display:grid;place-items:center;width:38px;height:38px;padding:0;border:0;border-radius:8px;background:transparent;color:#fff;cursor:pointer}
+.vp-btn svg{width:22px;height:22px;fill:currentColor;stroke:none}
+.vp-btn svg .w,.vp-cc svg rect,.vp-fs svg path{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.vp-btn:hover{background:rgba(255,255,255,.12)}
+.vp-btn:focus-visible,.vp-seek:focus-visible,.vp-vol:focus-visible{outline:2px solid #BCE4FF;outline-offset:1px}
+.vp-play .i-pause,.vp.vp-playing .vp-play .i-play{display:none}
+.vp.vp-playing .vp-play .i-pause{display:block}
+.vp-mute .i-mute,.vp.vp-muted .vp-mute .i-vol{display:none}
+.vp.vp-muted .vp-mute .i-mute{display:block}
+.vp-cc[aria-pressed="true"]{color:#7FD4FF;background:rgba(80,180,255,.16)}
+.vp-time{flex:none;font:600 .82rem/1 var(--f-display);font-variant-numeric:tabular-nums;color:#E6F1FA;padding:0 4px;white-space:nowrap}
+.vp-seek,.vp-vol{-webkit-appearance:none;appearance:none;height:22px;background:transparent;cursor:pointer;margin:0}
+.vp-seek{flex:1;min-width:60px}
+.vp-vol{flex:none;width:76px}
+.vp-seek::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#4FC6FF var(--vp-p,0%),rgba(255,255,255,.28) var(--vp-p,0%))}
+.vp-vol::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(90deg,#fff var(--vp-v,100%),rgba(255,255,255,.28) var(--vp-v,100%))}
+.vp-seek::-moz-range-track,.vp-vol::-moz-range-track{height:4px;border-radius:4px;background:rgba(255,255,255,.28)}
+.vp-seek::-moz-range-progress{height:4px;border-radius:4px;background:#4FC6FF}
+.vp-vol::-moz-range-progress{height:4px;border-radius:4px;background:#fff}
+.vp-seek::-webkit-slider-thumb,.vp-vol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(80,190,255,.9)}
+.vp-seek::-moz-range-thumb,.vp-vol::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#fff}
+.vp-wait-i{position:absolute;z-index:3;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:3px solid rgba(190,228,255,.25);border-top-color:#BCE4FF;
+  opacity:0;pointer-events:none;animation:vp-spin .9s linear infinite}
+.vp.vp-wait .vp-wait-i{opacity:1}
+@keyframes vp-spin{to{transform:rotate(360deg)}}
+/* plein écran du cadre (commandes et sous-titres conservés) */
+.vp-frame:fullscreen{border:0;border-radius:0;aspect-ratio:auto;width:100%;height:100%}
+.vp-frame:-webkit-full-screen{border:0;border-radius:0;width:100%;height:100%}
+.vp-frame:fullscreen .vp-cap{font-size:max(16px,2cqw)}
+/* langue audio et sous-titres */
+.vp-info{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 16px;color:#C9DCEB;font-size:.82rem;line-height:1.35;text-shadow:0 1px 8px rgba(0,8,24,.8)}
+.vp-info b{color:#fff;font-weight:600}
+.vp-info [hidden]{display:none}
+
+/* ---------- ordinateur : composition du visuel ---------- */
+@media (min-width:1000px){
+  .ov-in{width:49cqw;margin-left:22.8cqw;margin-right:auto;padding:1.1cqw 0 2.4cqw;gap:0}
+  .ov-kick{font-size:max(11px,1.02cqw)}
+  .ov .ov-title{font-size:max(30px,2.95cqw);line-height:1.04;margin-top:.6cqw}
+  .ov .ov-sub{font-size:max(15px,1.05cqw);margin-top:.5cqw;max-width:50cqw}
+  .vp{width:38.5cqw;margin-top:1.5cqw;margin-left:-1.6cqw}
+  .ov-cards{gap:1.7cqw;margin-top:1.5cqw}
+  .ov-card{height:5.9cqw;min-height:84px;font-size:max(15px,1.3cqw)}
+  .ov-card svg{width:2.25cqw;height:2.25cqw;min-width:26px;min-height:26px}
+  .ov-actions{margin-top:1.55cqw;gap:1cqw 1.7cqw}
+  .ov-actions .btn{min-height:max(46px,3cqw);font-size:max(14.5px,1.2cqw);padding:0 1.6cqw}
+  .ov-note{margin-top:1.15cqw;font-size:max(13px,1.02cqw)}
+  .vp-info{font-size:max(12px,.82cqw)}
+}
+/* tablette et téléphone : composition empilée */
+@media (max-width:999px){
+  .ov{padding:28px 0 34px}
+  .ov-bg{bottom:0}
+  .ov-bg img{width:100%;height:100%;object-fit:cover;object-position:84% 30%;aspect-ratio:auto}
+  .ov::before{background:linear-gradient(180deg,rgba(5,11,23,.74) 0,rgba(5,11,23,.8) 40%,rgba(5,11,23,.94) 75%,#050B17 100%)}
+  .ov-in{width:min(100%,720px);margin:0 auto;padding:0 max(var(--m-gap,18px),env(safe-area-inset-left,0px));gap:14px}
+  .vp{margin-top:8px}
+  .ov-cards{gap:10px}
+  .ov-card{min-height:92px;padding:12px 6px;font-size:.98rem}
+  .ov-actions{margin-top:4px}
+  .ov .ov-title{font-size:clamp(1.9rem,5vw,2.6rem)}
+}
+@media (max-width:760px){
+  .ov{padding-top:22px}
+  .ov-bg img{object-position:70% 0}
+  .ov-kick{font-size:.7rem;letter-spacing:.16em}
+  .ov-kick::before,.ov-kick::after{width:2em}
+  .ov .ov-title{font-size:clamp(1.75rem,8vw,2.3rem)}
+  .vp-frame{border-radius:12px}
+  .ov-cards{gap:8px}
+  .ov-card{min-height:84px;padding:10px 4px;font-size:.82rem;border-radius:12px}
+  .ov-card svg{width:1.9em;height:1.9em}
+  .ov-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .ov-actions .btn{justify-content:center;white-space:normal}
+  .vp-vol{display:none}
+  .vp-time{font-size:.74rem}
+  .vp-bar{padding:22px 4px 4px;gap:2px}
+  .vp-btn{width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ov-card,.vp-big-i,.vp-bar,.vp-cap{transition:none}
+  .ov-card:hover{transform:none}
+  .vp-wait-i{animation-duration:2.4s}
+}

@@ -49,10 +49,18 @@ var BY={};CATALOG.forEach(function(l){BY[l[0]]=l;});
 
 /* ---------- état ---------- */
 var avail=["fr"],cur="fr",want="fr",dict=null,src=null,cache={},origTitle=null,mo=null,ready=false;
-function store(v){try{if(v==="fr")localStorage.removeItem(KEY);else localStorage.setItem(KEY,v);}catch(e){}}
+/* le choix manuel est toujours mémorisé (français compris) : il passe avant la langue du navigateur */
+function store(v){try{localStorage.setItem(KEY,v);}catch(e){}}
 function stored(){try{return localStorage.getItem(KEY)||"";}catch(e){return "";}}
+/* première visite sans choix enregistré : langues du navigateur, dans l’ordre de préférence */
+var auto=false;
+function browser(ok){var L=[],out=[];try{L=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""]).slice();}catch(e){}
+  L.forEach(function(x){var t=String(x||"").toLowerCase();if(!t)return;
+    if(/^zh-(tw|hk|mo)|^zh-hant/.test(t))t="zh-Hant";else if(t==="iw"||t.indexOf("iw-")===0)t="he";else if(/^(no|nn)(-|$)/.test(t))t="nb";else t=t.split("-")[0];
+    if(ok[t]&&out.indexOf(t)<0)out.push(t);});return out;}
 (function(){var q="";try{q=new URLSearchParams(location.search).get("lang")||"";}catch(e){}
-  want=(q&&BY[q]?q:stored())||"fr";if(!BY[want])want="fr";})();
+  auto=!(q&&BY[q])&&!stored();
+  want=(q&&BY[q]?q:stored())||browser(BY)[0]||"fr";if(!BY[want])want="fr";})();
 /* tant que la langue mémorisée n'est pas appliquée, la page reste masquée (évite d'apercevoir le français) */
 var st=D.createElement("style");st.textContent="html.i18n-wait body{visibility:hidden}";(D.head||H).appendChild(st);
 function setDir(code){H.lang=code==="zh-Hant"?"zh-Hant":code;H.dir=RTL[code]?"rtl":"ltr";}
@@ -241,7 +249,9 @@ function mount(){var top=D.querySelector("header.top .top-in");if(!top||top.quer
 
 /* ---------- démarrage ---------- */
 getJSON(BASE+"index.json").then(function(x){avail=["fr"].concat((x.langs||[]).filter(function(c){return BY[c]&&c!=="fr";}));})
-  .catch(function(){}).then(function(){ready=true;if(want!=="fr"&&avail.indexOf(want)<0){want="fr";store("fr");H.classList.remove("i18n-wait");setDir("fr");}
+  .catch(function(){}).then(function(){ready=true;
+    if(auto){var ok={};avail.forEach(function(c){ok[c]=1;});var b=browser(ok)[0]||"fr";if(b!==want){want=b;if(b==="fr"){H.classList.remove("i18n-wait");setDir("fr");}}}
+    if(want!=="fr"&&avail.indexOf(want)<0){want="fr";if(!auto)store("fr");H.classList.remove("i18n-wait");setDir("fr");}
     if(want!=="fr")setLang(want,false);else{cur="fr";setDir("fr");}updateUI();});
 D.addEventListener("vp:ready",mount);
 domReady().then(function(){setTimeout(mount,0);});
