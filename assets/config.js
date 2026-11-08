@@ -27,5 +27,12 @@ window.VISIONPLUS_CONFIG = {
   sav: {
     email: "contacts.visionplus@gmail.com",
     phone: "01 59 18 04 72"
+  },
+  /* Artisan OS (page artisan-os.html) : liens réels du logiciel, à renseigner.
+     Tant qu’un lien est vide, son bouton n’est pas affiché (aucun téléchargement simulé) et la zone
+     « Télécharger Artisan OS » du visuel mène au bloc « Accès et installation » de la page. */
+  artisanOS: {
+    download: "",   /* lien de téléchargement (application native) ou d’installation (application web installable) */
+    webApp: ""      /* adresse de l’application web Artisan OS */
   }
 };
