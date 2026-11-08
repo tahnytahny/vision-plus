@@ -263,6 +263,9 @@ function fromInside(){
    sur ordinateur comme sur mobile */
 function present(){
   if(fromInside())return;
+  /* téléphone : le grand panneau recouvrirait le titre et les boutons de l’accueil ; le robot de l’en-tête s’illumine
+     quelques instants pour inviter à le toucher (le toucher ouvre la présentation, comme avant) */
+  if(MQ_M.matches){dock.classList.add("ax-invite");setTimeout(function(){dock.classList.remove("ax-invite");},7000);return;}
   if(document.hidden){document.addEventListener("visibilitychange",function v(){if(!document.hidden){document.removeEventListener("visibilitychange",v);setTimeout(present,400);}});return;}
   open("welcome",false);
   if(st.muted){gesture("wave");reveal();tools();return;}

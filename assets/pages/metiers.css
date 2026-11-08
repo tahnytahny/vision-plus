@@ -109,7 +109,7 @@
 /* écrans tactiles (tablette) : étiquettes toujours visibles, un appui met l'univers en valeur */
 @media (hover:none){
   .mt-hint-h{display:none}
-  .mt-tag{opacity:.9;transform:none;font-size:clamp(.66rem,1.5vw,.86rem);padding:.42em .8em .42em .66em}
+  .mt-tag{opacity:.9;transform:none;font-size:clamp(.66rem,1.5vw,.86rem);padding:.62em .9em .62em .76em}
   .mt-tag.is-on{opacity:1;border-color:#BCE4FF;box-shadow:0 0 0 1px rgba(60,160,255,.5),0 0 22px rgba(60,170,255,.85)}
   .mt.is-intro .mt-tag{animation:none}
 }

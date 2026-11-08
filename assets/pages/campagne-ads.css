@@ -347,3 +347,18 @@
   .li-who small,.li-stats{font-size:max(10px,2.8cqw)}.am-search{font-size:max(10px,2.7cqw)}.am-color{font-size:max(10px,3cqw)}
   .gg-tabs{font-size:max(10px,3.2cqw)}.ig-more{font-size:max(10px,3.3cqw)}.ig-add,.tt-in{font-size:max(10px,3.2cqw)}.li-search{font-size:max(10px,3cqw)}
 }
+
+/* téléphone : les cinq maquettes en carrousel horizontal (une par écran, la suivante dépasse au bord),
+   le noyau Vision Plus en dernière diapositive ; même ordre que sur tablette */
+.ads-swipe{display:none;align-items:center;gap:8px;margin:6px 0 0;color:var(--mut);font-size:.78rem}
+.ads-swipe svg{width:16px;height:16px;flex:none;fill:none;stroke:#9FD3FF;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+[dir="rtl"] .ads-swipe svg{transform:scaleX(-1)}
+@media (max-width:760px){
+  .ads-stage{width:auto;flex-direction:row;align-items:flex-start;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;
+    margin-inline:calc(-1 * max(var(--m-gap,18px),env(safe-area-inset-left,0px)));padding:42px max(var(--m-gap,18px),env(safe-area-inset-left,0px)) 16px;
+    scroll-padding-inline:max(var(--m-gap,18px),env(safe-area-inset-left,0px))}
+  .ads-stage::-webkit-scrollbar{display:none}
+  .ad-unit{flex:0 0 84%;max-width:none;scroll-snap-align:center;animation:none}
+  .ads-core{flex:0 0 58%;align-self:center;scroll-snap-align:center;margin:0 6% 0 4%;animation:none}
+  .ads-swipe{display:flex}
+}

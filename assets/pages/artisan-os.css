@@ -78,6 +78,24 @@ html:not([lang="fr"]) .ao-hot-dl,html:not([lang="fr"]) .ao-hot-more{display:none
   .ao-actions{grid-template-columns:1fr}
   .ao-hot-chat{display:none}
 }
+/* téléphone : composition verticale. Titre réel → robot (cadrage centré sur la scène, sans la colonne de texte peint,
+   panneaux, plaque et logos du casque et de la veste conservés) → texte → actions → mentions. Toutes les langues. */
+@media (max-width:760px){
+  .ao-scene{display:flex;flex-direction:column;background:linear-gradient(180deg,#05101F 0,#03070E 100%)}
+  .ao-copy{display:contents}
+  .ao-copy>*{padding-inline:max(var(--m-gap,18px),env(safe-area-inset-left,0px))}
+  .ao-kick{order:1;padding-top:26px}
+  .ao-copy h1{order:2;padding-top:12px;padding-bottom:20px;font-size:clamp(1.95rem,8.6vw,2.5rem)}
+  .ao-frame{order:3}
+  .ao-img{aspect-ratio:1242/853}
+  .ao-hot{display:none}
+  .ao-lead{order:4;padding-top:20px;font-size:1.04rem}
+  .ao-actions{order:5;padding-top:20px;max-width:none;width:auto}
+  .ao-incl{order:6;padding-top:20px}
+  .ao-note{order:7;padding-top:8px;padding-bottom:30px}
+  /* le texte peint n'est pas dans ce cadrage : le texte réel s'affiche aussi en français */
+  html[lang="fr"] .ao-copy .ao-t{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none;white-space:normal}
+}
 
 /* ---------- sections ---------- */
 .ao-sec{position:relative;padding:clamp(64px,8vw,116px) 0 0}

@@ -31,6 +31,7 @@ var ALIAS={agents:"telephone",service:"telephone"};
 /* menu de l'onglet Aide : [adresse, titre, précision, icône] */
 var HELP=[
   ["faq.html","FAQ","Questions et réponses","help"],
+  ["faq.html#question","Poser une question dans la FAQ","Réponse immédiate dans la FAQ.","chat"],
   ["sav.html","SAV","Ouvrir une demande d'assistance","life"],
   ["sav.html#suivi","Service client","Suivre une demande, échanger avec l'équipe","chat"],
   ["sav.html#contact","Contact","E-mail et téléphone","mail"]

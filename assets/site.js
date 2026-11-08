@@ -329,7 +329,7 @@ A.authSheet=function(mode){var cfg=CFG.oauth||{};
     location.href="espace-client.html#tableau";});
   return m;};
 function footer(){var f=document.createElement("footer");f.className="foot";
-  f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240"></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
+  f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200" loading="lazy" decoding="async"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240" loading="lazy" decoding="async"></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
   '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="offre-sur-mesure.html">Votre offre sur mesure</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
   '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">Assistance</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
   legalMenu()+'</div>'+

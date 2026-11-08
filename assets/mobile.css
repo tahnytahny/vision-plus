@@ -100,6 +100,8 @@
 
 /* ---- éléments flottants au-dessus de la barre ---- */
 :root:root .chat-fab{bottom:calc(var(--m-bar) + 22px + env(safe-area-inset-bottom,0px));right:calc(14px + env(safe-area-inset-right,0px));width:46px;height:46px}
+/* le bouton de question flottant recouvrait boutons, textes et visuels : sur téléphone, il est rangé dans le menu « Aide » de la barre */
+:root:root .chat-fab{display:none}
 :root:root .chat-win{bottom:calc(var(--m-bar) + 80px + env(safe-area-inset-bottom,0px));height:min(520px,calc(100vh - 200px))}
 :root:root .cookie{bottom:calc(var(--m-bar) + 20px + env(safe-area-inset-bottom,0px))}
 :root:root .toasts{bottom:calc(var(--m-bar) + 26px + env(safe-area-inset-bottom,0px))}
@@ -303,4 +305,41 @@
 :root:root.m-is-home .top .logo3d .logo3d-mark{display:none}
 :root:root .top .logo3d .logo3d-mark{height:34px}
 :root:root .foot .logo3d .logo3d-full{height:44px}
+}
+
+/* ===== transitions entre les écrans (téléphone) : fondu court, en-tête et barre d'onglets fixes ===== */
+@media (max-width:760px) and (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  :root:root .top{view-transition-name:m-top}
+  :root:root .m-tabbar{view-transition-name:m-tabs}
+  ::view-transition-old(root){animation:m-vt-out .16s ease-out both}
+  ::view-transition-new(root){animation:m-vt-in .3s cubic-bezier(.22,1,.36,1) both}
+  ::view-transition-group(m-top),::view-transition-group(m-tabs){animation-duration:.2s}
+}
+@keyframes m-vt-out{to{opacity:0}}
+@keyframes m-vt-in{from{opacity:0;transform:translateY(10px)}}
+
+/* ===== finitions téléphone (audit du 8 novembre 2026) ===== */
+@media (max-width:760px){
+  /* bandeau cookies compact : trois choix sur une ligne, « Tout refuser » et « Tout accepter » de même poids */
+  :root:root .cookie{left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));width:auto;padding:14px 14px 12px}
+  :root:root .cookie h2{font-size:.98rem;margin:0 0 4px}
+  :root:root .cookie p{font-size:.8rem;line-height:1.45;margin:0 0 10px}
+  :root:root .cookie .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  :root:root .cookie .btn{min-height:44px;padding:.5em .45em;font-size:.8rem;line-height:1.2;white-space:normal;text-align:center}
+  /* FAQ : la barre des rubriques suit la gouttière mobile (plus de débordement de 2 px) */
+  :root:root .cats{margin-left:calc(-1 * max(var(--m-gap),env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(var(--m-gap),env(safe-area-inset-right,0px)))}
+  :root:root .cats ul{padding-left:max(var(--m-gap),env(safe-area-inset-left,0px));padding-right:max(var(--m-gap),env(safe-area-inset-right,0px))}
+  /* un bouton trop long passe sur deux lignes au lieu d'élargir la page */
+  :root:root main .btn{white-space:normal;text-align:center;line-height:1.25}
+  /* libellés de la barre d'onglets un peu plus grands */
+  :root:root .m-tabbar a,:root:root .m-more{font-size:.68rem}
+  /* petites mentions lisibles sans zoom */
+  :root:root :is(.add-f,.scn-kicker,.cfg-ex-t,em.st,.md-fict){font-size:11px}
+  /* cibles tactiles d'au moins 40 px */
+  :root:root footer.foot a,:root:root #foot-legal-btn{display:inline-flex;align-items:center;min-height:40px}
+  :root:root #toc-list a,:root:root a.pv{min-height:44px;display:flex;align-items:center}
+  :root:root main :not(p,li,td,dd,small,label,h1,h2,h3,h4,b,strong,em) > a.link,:root:root #forgot,:root:root #coords a{display:inline-flex;align-items:center;min-height:40px}
+  :root:root details.more>summary{min-height:44px;display:flex;align-items:center}
+  :root:root input[type="checkbox"]{width:22px;height:22px}
 }
