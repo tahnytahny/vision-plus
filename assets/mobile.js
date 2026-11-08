@@ -19,7 +19,6 @@ var SVC=[
   {href:"artisan-os.html",t:"Artisan OS",s:"La gestion intelligente des professionnels du bâtiment.",i:"helmet"},
   {href:"campagne-ads",t:"Campagne ADS",s:"Une seule marque, sur tous les canaux publicitaires.",i:"mega"},
   {href:"telephone-ia.html#secretariat-medical",t:"Secrétariat médical IA",s:"L’accueil administratif des cabinets et des centres.",i:"shield"},
-  {href:"campagne-ads.html#visibilite-sante",t:"Visibilité santé & esthétique",s:"Campagnes et contenus pour votre établissement.",i:"spark"},
   {g:"Comprendre Vision Plus"},
   {id:"vision-plus-simple",t:"Qu'est-ce que Vision Plus ?",s:"Vision Plus expliqué simplement.",i:"info"},
   {id:"technologie",t:"Notre technologie",s:"Une IA connectée à toute votre activité.",i:"spark"},
