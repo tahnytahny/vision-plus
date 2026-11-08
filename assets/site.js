@@ -260,7 +260,7 @@ function header(){var page=pageId();var u=A.auth.current();
       NAV_DISCOVER.map(function(d){return '<a href="'+d.href+'"'+(d.id&&d.id===page?' aria-current="page"':"")+">"+A.icon(d.icon)+"<span>"+d.label+"</span></a>";}).join("")+"</div></div>"+
     nl("artisan-os.html","Artisan OS","helmet",page==="artisan")+
     nl("campagne-ads","Campagne ADS","mega",page==="ads")+
-    nl("offre-sur-mesure.html","Offre sur-mesure","cube",page==="offre")+nl("faq.html","FAQ","help",page==="faq")+nl("sav.html","SAV et Assistant","headset",page==="sav");
+    nl("offre-sur-mesure.html","Offre sur-mesure","cube",page==="offre");
   var act;
   if(u){act='<div class="dd dd-left"><button type="button" class="user-btn" aria-expanded="false" aria-haspopup="true" aria-label="Mon espace client"><span class="avatar">'+A.esc(initials(u.name))+'</span><span class="user-n">'+A.esc(u.name.split(" ")[0])+"</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
       ACCOUNT.map(function(a){return '<a href="'+a.h+'">'+A.icon(a.i)+"<span><b>"+a.l+"</b></span></a>";}).join("")+'<hr><button type="button" data-logout>'+A.icon("out")+"<span><b>Déconnexion</b></span></button></div></div>";}
@@ -273,7 +273,7 @@ function header(){var page=pageId();var u=A.auth.current();
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
   dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
     '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",NAV_DISCOVER)+
-    [["artisan-os.html","Artisan OS","artisan"],["campagne-ads","Campagne ADS","ads"],["offre-sur-mesure.html","Offre sur-mesure","offre"],["faq.html","FAQ","faq"],["sav.html","SAV et Assistant","sav"]].map(function(n){return '<a class="dl" href="'+n[0]+'"'+(n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
+    [["artisan-os.html","Artisan OS","artisan"],["campagne-ads","Campagne ADS","ads"],["offre-sur-mesure.html","Offre sur-mesure","offre"]].map(function(n){return '<a class="dl" href="'+n[0]+'"'+(n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
   var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
@@ -286,7 +286,8 @@ function header(){var page=pageId();var u=A.auth.current();
   h.querySelectorAll(".dd").forEach(function(d){var b=d.querySelector("button"),t=null;
     function open(){closeDd(d);d.setAttribute("data-open","");b.setAttribute("aria-expanded","true");}
     b.addEventListener("click",function(e){e.stopPropagation();if(d.hasAttribute("data-open")&&!d._hov)closeDd();else{open();d._hov=false;}});
-    if(hoverable){d.addEventListener("mouseenter",function(){clearTimeout(t);open();d._hov=true;});d.addEventListener("mouseleave",function(){t=setTimeout(function(){if(d._hov){d._hov=false;closeDd();}},180);});}
+    if(hoverable){d.addEventListener("mouseenter",function(){clearTimeout(t);open();d._hov=true;});d.addEventListener("mouseleave",function(){t=setTimeout(function(){if(d._hov){d._hov=false;closeDd();}},320);});}
+    d.addEventListener("focusout",function(e){if(d.hasAttribute("data-open")&&e.relatedTarget&&!d.contains(e.relatedTarget))closeDd();});
     d.addEventListener("keydown",function(e){var items=[].slice.call(d.querySelectorAll(".dd-menu a,.dd-menu button"));var i=items.indexOf(document.activeElement);
       if(e.key==="ArrowDown"){e.preventDefault();if(!d.hasAttribute("data-open"))open();(items[i+1]||items[0]).focus();}
       else if(e.key==="ArrowUp"){e.preventDefault();(items[i-1]||items[items.length-1]).focus();}});
@@ -331,11 +332,12 @@ A.authSheet=function(mode){var cfg=CFG.oauth||{};
 function footer(){var f=document.createElement("footer");f.className="foot";
   f.innerHTML='<div class="wrap"><div class="foot-grid"><div><a class="brand foot-brand" href="index.html" aria-label="Vision Plus, accueil"><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200" loading="lazy" decoding="async"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240" loading="lazy" decoding="async"></span></a><p>Une web app sur mesure et trois agents IA.<br>Toute votre activité connectée.</p></div>'+
   '<div><h2>Plateforme</h2><ul><li><a href="decouvrir.html#agents">Le service</a></li><li><a href="demo.html">Simulation</a></li><li><a href="offre-sur-mesure.html">Votre offre sur mesure</a></li><li><a href="inscription.html">Créer un compte</a></li></ul></div>'+
-  '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">Assistance</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
+  '<div><h2>Aide</h2><ul><li><a href="faq.html">FAQ</a></li><li><a href="sav.html">SAV et Assistant</a></li><li><a href="sav.html#contact">Contact</a></li></ul></div>'+
   legalMenu()+'</div>'+
+  '<nav class="foot-links" aria-label="Informations légales">'+LEGAL_DOCS.map(function(d){return '<a href="'+d[0]+'">'+d[1]+'</a>';}).join("")+'<button type="button" data-consent>Gestion du consentement</button></nav>'+
   '<div class="foot-bottom"><span>© '+new Date().getFullYear()+' Vision Plus, service exploité par AX TECH. Tous droits réservés.</span>'+(PROTO?'<span class="proto-tag">'+A.icon("info")+" Version de présentation : les données restent dans votre navigateur.</span>":"")+"</div></div>";
   var slot=document.querySelector('[data-vp="footer"]');if(slot)slot.replaceWith(f);else document.body.appendChild(f);
-  f.querySelector("[data-consent]").onclick=openPrefs;
+  f.querySelectorAll("[data-consent]").forEach(function(b){b.onclick=openPrefs;});
   legalMenuInit(f);}
 /* ---------- pied de page : menu « Informations légales » ----------
    Ordinateur : s'ouvre au survol, reste ouvert tant que la souris ou le focus y est ; un clic le garde ouvert.

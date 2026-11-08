@@ -337,7 +337,7 @@
   /* petites mentions lisibles sans zoom */
   :root:root :is(.add-f,.scn-kicker,.cfg-ex-t,em.st,.md-fict){font-size:11px}
   /* cibles tactiles d'au moins 40 px */
-  :root:root footer.foot a,:root:root #foot-legal-btn{display:inline-flex;align-items:center;min-height:40px}
+  :root:root footer.foot a,:root:root #foot-legal-btn,:root:root .foot-links button{display:inline-flex;align-items:center;min-height:40px}
   :root:root #toc-list a,:root:root a.pv{min-height:44px;display:flex;align-items:center}
   :root:root main :not(p,li,td,dd,small,label,h1,h2,h3,h4,b,strong,em) > a.link,:root:root #forgot,:root:root #coords a{display:inline-flex;align-items:center;min-height:40px}
   :root:root details.more>summary{min-height:44px;display:flex;align-items:center}

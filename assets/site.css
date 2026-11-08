@@ -715,3 +715,15 @@ html[lang="hi"] *,html[lang="mr"] *,html[lang="ne"] *,html[lang="bn"] *,html[lan
 
 /* droite-à-gauche : l'assistant d'accueil passe à gauche pour ne pas masquer le titre (ordinateur) */
 @media (min-width:761px){[dir="rtl"] .axbot{right:auto;left:calc(14px + env(safe-area-inset-left,0px));transform-origin:0 100%}}
+
+/* ---------- menus déroulants (ordinateur) : déploiement vers le bas, pont invisible entre la rubrique et ses liens,
+   défilement vertical si le menu dépasse la hauteur de l'écran ---------- */
+.dd-menu{transform-origin:50% 0;transform:translateY(-8px) scaleY(.96)}
+.dd[data-open] .dd-menu{transform:none}
+.dd[data-open]::after{content:"";position:absolute;left:-12px;right:-12px;top:100%;height:16px}
+.top .dd-menu{max-height:calc(100vh - 96px);max-height:calc(100dvh - 96px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(120,180,245,.5) transparent}
+@media (prefers-reduced-motion:reduce){.dd-menu,.dd[data-open] .dd-menu{transform:none;transition:opacity .15s}}
+/* ---------- pied de page : liens légaux directs ---------- */
+.foot-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(170,183,199,.1);font-size:.86rem}
+.foot-links a,.foot-links button{color:var(--soft);text-decoration:none;background:none;border:0;padding:4px 0;font:inherit;cursor:pointer}
+.foot-links a:hover,.foot-links button:hover,.foot-links a:focus-visible,.foot-links button:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px}
