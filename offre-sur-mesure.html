@@ -19,6 +19,7 @@
 <script src="assets/theme.js"></script>
 <script src="assets/i18n.js"></script>
 <link rel="stylesheet" href="assets/mobile.css">
+<link rel="stylesheet" href="assets/pages/offre-hero.css">
 <link rel="stylesheet" href="assets/palette.css">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#101419">
@@ -67,17 +68,42 @@
 <body>
 <div data-vp="header"></div>
 <main id="contenu">
-  <section class="page-hero" aria-labelledby="t-hero">
+  <!-- Premier écran : visuel fourni par l’utilisateur (outils/offre/offre-original.webp), bande du menu retirée.
+       Français : visuel avec textes et boutons peints et zones cliquables ; autres langues et téléphone : version retouchée
+       sans texte peint (outils/offre/nettoyer.py) et texte réel. Styles : assets/pages/offre-hero.css -->
+  <section class="of-hero" aria-labelledby="t-hero">
+    <div class="of-scene">
+      <div class="of-frame">
+        <picture class="of-pic of-pic-fr">
+          <source media="(max-width: 760px)" srcset="assets/offre/offre-mobile-800.webp 800w, assets/offre/offre-mobile-1202.webp 1202w" sizes="100vw" width="1202" height="867">
+          <img class="of-img" src="assets/offre/offre-1672.webp" srcset="assets/offre/offre-960.webp 960w, assets/offre/offre-1672.webp 1672w, assets/offre/offre-2560.webp 2560w" sizes="100vw" width="1672" height="867" fetchpriority="high" decoding="async" alt="Dans un grand showroom futuriste ouvert sur une ville de nuit, le robot Vision Plus, logo sur le torse, présente de ses mains la maquette holographique d’une entreprise entourée des cartes « Web app », « Agents IA » et « Automatisation ».">
+        </picture>
+        <picture class="of-pic of-pic-x">
+          <source media="(max-width: 760px)" srcset="assets/offre/offre-mobile-800.webp 800w, assets/offre/offre-mobile-1202.webp 1202w" sizes="100vw" width="1202" height="867">
+          <img class="of-img" src="assets/offre/offre-propre-1672.webp" srcset="assets/offre/offre-propre-960.webp 960w, assets/offre/offre-propre-1672.webp 1672w, assets/offre/offre-propre-2560.webp 2560w" sizes="100vw" width="1672" height="867" loading="lazy" decoding="async" alt="Dans un grand showroom futuriste ouvert sur une ville de nuit, le robot Vision Plus, logo sur le torse, présente de ses mains la maquette holographique d’une entreprise entourée des cartes « Web app », « Agents IA » et « Automatisation ».">
+        </picture>
+        <button type="button" class="of-hot of-hot-rappel" data-open-rappel aria-controls="rappel" aria-expanded="false"><span class="sr">Être rappelé par un conseiller</span></button>
+        <a class="of-hot of-hot-sim" href="demo.html"><span class="sr">Demander une simulation</span></a>
+      </div>
+      <div class="of-copy">
+        <p class="of-t of-kick">Votre offre sur mesure</p>
+        <h1 class="of-t" id="t-hero"><span class="w">Une solution à votre image.</span> <span class="w">Un tarif adapté à vos besoins.</span></h1>
+        <p class="of-t of-lead">Votre web app et vos agents IA, conçus pour votre entreprise.</p>
+        <div class="of-actions">
+          <button class="btn btn-cyan" type="button" data-open-rappel aria-controls="rappel" aria-expanded="false">Être rappelé par un conseiller <i data-ico="arrow" data-cls="arrow"></i></button>
+          <a class="btn btn-line" href="demo.html">Demander une simulation</a>
+        </div>
+        <p class="of-t of-note"><span>Sans engagement</span> <span>Proposition personnalisée</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Présentation de l’offre (textes de l’ancien premier écran, conservés) -->
+  <section class="section tight of-intro">
     <div class="wrap">
-      <span class="eyebrow">Votre offre sur mesure</span>
-      <h1 id="t-hero" class="h-xl">Une solution adaptée à votre entreprise. Un tarif adapté à vos besoins.</h1>
       <div class="os-intro">
         <p class="lead">Chaque entreprise a ses propres objectifs et ses méthodes de travail. Votre conseiller Vision Plus vous rappelle pour comprendre votre activité, préciser les fonctionnalités de votre web app et identifier les agents IA utiles à votre organisation.</p>
         <p class="lead">À l'issue de cet échange, vous recevez une proposition commerciale personnalisée, détaillant les services retenus et leur tarif. Vous disposez ainsi d'une vision claire de votre projet avant de vous engager.</p>
-      </div>
-      <div class="actions">
-        <button class="btn btn-cyan" type="button" data-open-rappel aria-controls="rappel" aria-expanded="false">Être rappelé par un conseiller <i data-ico="arrow" data-cls="arrow"></i></button>
-        <a class="btn btn-line" href="demo.html">Demander une simulation</a>
       </div>
       <p class="os-note">La demande de rappel est sans engagement et ne constitue pas une commande. Le tarif est établi avec votre conseiller, selon le périmètre de votre projet, puis soumis à votre accord dans un devis détaillé.</p>
     </div>
