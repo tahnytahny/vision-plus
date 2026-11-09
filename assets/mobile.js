@@ -1,7 +1,7 @@
 /* Vision Plus — application mobile (écrans ≤ 760 px uniquement).
    6 onglets : Accueil · Services · Simulation · Votre offre · Aide (FAQ, SAV, service client, contact) · Compte.
    Les informations légales sont dans la rubrique dépliable du pied de page (site.js). Chaque onglet est un écran
-   indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte),
+   indépendant qui s’ouvre toujours en haut. Rien ne s’applique au-delà de 760 px (version ordinateur intacte),
    sauf les équivalents tactiles des effets de survol (touch3d), réservés aux écrans sans souris.
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
 (function(){
@@ -29,7 +29,7 @@ var SVC=[
   {id:"commencer",t:"Commencer",s:"Trois étapes pour démarrer.",i:"arrow"}
 ];
 var ALIAS={agents:"telephone",service:"telephone"};
-/* menu de l'onglet Aide : [adresse, titre, précision, icône] */
+/* menu de l’onglet Aide : [adresse, titre, précision, icône] */
 var HELP=[
   ["faq.html","FAQ","Questions et réponses","help"],
   ["faq.html#question","Poser une question dans la FAQ","Réponse immédiate dans la FAQ.","chat"],
@@ -62,7 +62,7 @@ function build(){
   }
   function setHeader(t,showBack){title.textContent=t;root.classList.toggle("m-inner",page!=="home"||showBack);if(back)back.hidden=!showBack;}
 
-  /* ---------- barre d'onglets ---------- */
+  /* ---------- barre d’onglets ---------- */
   var acctHref=u?"espace-client.html#tableau":"compte.html";
   var tabs=[["home","index.html","Accueil","home"],["decouvrir","decouvrir.html","Services","layers"],["demo","demo.html","Simulation","play"],["offre","offre-sur-mesure.html","Votre offre","card"],["compte",acctHref,"Compte","user"]];
   var cur=ACCOUNT_PAGES.indexOf(page)>=0?"compte":(page==="telephone-ia"?"decouvrir":page);
@@ -74,7 +74,7 @@ function build(){
   bar.innerHTML=tabHtml.join("");
   document.body.appendChild(bar);
   popMenu(bar.querySelector("#m-help-btn"),"m-help","Aide",helpItems(A));
-  /* toucher l'onglet déjà actif : retour au début de l'écran (et à la liste des services) */
+  /* toucher l’onglet déjà actif : retour au début de l’écran (et à la liste des services) */
   bar.addEventListener("click",function(e){var a=e.target.closest("a");if(!a||a.getAttribute("aria-current")!=="page")return;
     if(page==="decouvrir"){e.preventDefault();goSvc("",true);return;}
     if(page==="espace-client"&&location.hash!=="#tableau"){return;}
@@ -112,7 +112,7 @@ function build(){
   }
   function goSvc(id,anim){if(id)location.hash=id;else{history.pushState(null,"",location.pathname);renderSvc(anim);}}
 
-  /* ---------- SIMULATION : choisir d'abord ce que l'on veut simuler ---------- */
+  /* ---------- SIMULATION : choisir d’abord ce que l’on veut simuler ---------- */
   if(page==="demo"){
     var intro=document.getElementById("v-intro"),openBtn=document.getElementById("open-form");
     if(intro&&openBtn){
@@ -145,14 +145,14 @@ function build(){
       var url=new URL(href,location.href);if(url.pathname===location.pathname)return;
       e.preventDefault();root.classList.add("m-leaving");setTimeout(function(){location.href=url.href;},150);});
   }
-  /* chaque écran s'ouvre en haut (sauf ancre d'un contenu précis : question de FAQ, article juridique) */
+  /* chaque écran s’ouvre en haut (sauf ancre d’un contenu précis : question de FAQ, article juridique) */
   function keepAnchor(){var h=location.hash;if(!h)return false;if(page==="decouvrir"||page==="espace-client"||page==="home"||page==="demo"||page==="offre")return false;return !!document.getElementById(h.slice(1));}
   if(!keepAnchor()&&page!=="decouvrir"){top0();requestAnimationFrame(top0);setTimeout(top0,120);}
   addEventListener("pageshow",function(ev){root.classList.remove("m-leaving");if(ev.persisted&&!keepAnchor())top0();});
 }
 
-/* ---------- menu de l'onglet Aide ----------
-   Il s'ouvre au-dessus de la barre, sans voile ni défilement bloqué. */
+/* ---------- menu de l’onglet Aide ----------
+   Il s’ouvre au-dessus de la barre, sans voile ni défilement bloqué. */
 var HERE=location.pathname.split("/").pop()||"index.html";
 function isCur(h){var p=h.split("#");return p[0]===HERE&&(p[1]||"")===(location.hash||"").slice(1);}
 function helpItems(A){
@@ -200,7 +200,7 @@ function pwa(){try{if("serviceWorker" in navigator&&location.protocol==="https:"
   navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(reg){reg.update&&reg.update().catch(function(){});}).catch(function(){});}}catch(e){}}
 
 /* Écrans tactiles (téléphone et tablette) : les effets que la version ordinateur déclenche au survol se déclenchent ici au défilement,
-   quand l'élément traverse la bande centrale de l'écran (classe « is-vue », styles dans mobile.css et les feuilles des pages) ;
+   quand l’élément traverse la bande centrale de l’écran (classe « is-vue », styles dans mobile.css et les feuilles des pages) ;
    le sol 3D de Campagne ADS suit le glissement du carrousel (--ads-x). */
 var VUE=".md-stage,.ms-step,.mx-step,.mv-path,.vs-frame,.vs-card,.circuit li,.benefit,.card,.plan,.tile";
 function touch3d(){
@@ -216,8 +216,8 @@ function touch3d(){
   if(st&&gr){var r=0;st.addEventListener("scroll",function(){if(!r)r=requestAnimationFrame(function(){r=0;gr.style.setProperty("--ads-x",Math.round(st.scrollLeft));});},{passive:true});}
 }
 
-/* Téléphone : les robots des en-têtes « Votre secrétaire IA » et « Secrétariat médical IA » s'allument et la caméra avance
-   vers eux à l'arrivée sur la section (une fois), puis ils flottent ; animations en pause hors écran (styles : sante.css). */
+/* Téléphone : les robots des en-têtes « Votre secrétaire IA » et « Secrétariat médical IA » s’allument et la caméra avance
+   vers eux à l’arrivée sur la section (une fois), puis ils flottent ; animations en pause hors écran (styles : sante.css). */
 function robots(){
   var sc=document.querySelectorAll(".ti-scene,.mh-scene");
   if(!sc.length||reduced||!("IntersectionObserver" in window))return;
@@ -228,8 +228,8 @@ function robots(){
   [].forEach.call(sc,function(n){io.observe(n);});
 }
 
-/* les robots passent avant l'application mobile (et quelle que soit la largeur au chargement, leurs styles ne s'appliquent
-   qu'à ≤ 760 px) : ils s'animent même si l'on passe en vue téléphone sans recharger, ou si la construction échoue */
+/* les robots passent avant l’application mobile (et quelle que soit la largeur au chargement, leurs styles ne s’appliquent
+   qu’à ≤ 760 px) : ils s’animent même si l’on passe en vue téléphone sans recharger, ou si la construction échoue */
 function start(){try{robots();}catch(e){}if(MQ.matches)build();touch3d();pwa();}
 if(window.VISIONPLUS&&document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

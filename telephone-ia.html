@@ -28,6 +28,7 @@
 <meta name="apple-mobile-web-app-title" content="Vision Plus">
 <link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <link rel="stylesheet" href="assets/pages/lecteur-video.css">
+<link rel="stylesheet" href="assets/pages/robot-sections.css">
 <script src="assets/mobile.js" defer></script>
 <style>
 /* Votre secrétaire IA. Graphite, argent, bleu. */
@@ -258,6 +259,11 @@
 <main id="contenu">
   <section class="ti-hero" aria-labelledby="t-ti">
     <div class="ti-scene"><img class="ti-img" src="assets/3d/secretaire-ia-scene-1672.webp" srcset="assets/3d/secretaire-ia-scene-960.webp 960w, assets/3d/secretaire-ia-scene-1672.webp 1672w, assets/3d/secretaire-ia-scene-2560.webp 2560w" sizes="(max-width: 760px) 164vw, (max-width: 999px) 100vw, 112vw" width="1672" height="941" fetchpriority="high" decoding="async" alt="Le robot Vision Plus, casque audio sur la tête et t-shirt Vision Plus, répond à un appel à son bureau, la main sur le clavier de son ordinateur."></div>
+    <!-- robot de l’accueil (téléphone uniquement) : apparaît, salue et parle à l’arrivée sur la section ; un appui le fait parler (assets/pages/robot-sections.js) -->
+    <div class="sbot">
+      <button type="button" class="sbot-char" aria-label="Écouter l'assistant Vision Plus"><span class="sbot-glow"></span><span class="sbot-float"><span class="sbot-tilt"><span class="sbot-fig"><img src="assets/assistant/mascot-body.webp" alt="" width="316" height="379" decoding="async" loading="lazy"><span class="sbot-arm"></span><span class="sbot-face"><i class="sbot-eye l"></i><i class="sbot-eye r"></i><i class="sbot-smile"></i><i class="sbot-talk"></i></span></span></span></span></button>
+      <p class="sbot-bubble"><span class="sbot-say">Bonjour ! Je suis votre secrétaire IA.</span><span class="sbot-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Touchez le robot pour l'écouter</span></p>
+    </div>
     <div class="wrap ti-grid">
       <div class="ti-txt">
         <span class="eyebrow">Votre secrétaire IA</span>
@@ -528,6 +534,11 @@
     <div class="mh">
       <div class="mh-scene">
         <img class="mh-img" src="assets/sante/assistante-medicale-1600.webp" srcset="assets/sante/assistante-medicale-960.webp 960w, assets/sante/assistante-medicale-1600.webp 1600w, assets/sante/assistante-medicale-3170.webp 3170w" sizes="(max-width: 999px) 150vw, 100vw" width="3170" height="1984" loading="lazy" decoding="async" alt="Illustration 3D : à l’accueil d’un cabinet médical haut de gamme, une petite assistante robot en blouse blanche brodée du logo Vision Plus, avec micro-casque, accueille le visiteur derrière un comptoir en marbre souligné de LED bleues, entourée des panneaux « Rendez-vous confirmé », « Dossier administratif prêt » et « Appel en cours ».">
+      </div>
+      <!-- robot de l’accueil (téléphone uniquement) : apparaît, salue et parle à l’arrivée sur la section ; un appui le fait parler (assets/pages/robot-sections.js) -->
+      <div class="sbot">
+        <button type="button" class="sbot-char" aria-label="Écouter l'assistant Vision Plus"><span class="sbot-glow"></span><span class="sbot-float"><span class="sbot-tilt"><span class="sbot-fig"><img src="assets/assistant/mascot-body.webp" alt="" width="316" height="379" decoding="async" loading="lazy"><span class="sbot-arm"></span><span class="sbot-face"><i class="sbot-eye l"></i><i class="sbot-eye r"></i><i class="sbot-smile"></i><i class="sbot-talk"></i></span></span></span></span></button>
+        <p class="sbot-bubble"><span class="sbot-say">Bonjour ! Je suis votre assistante médicale IA.</span><span class="sbot-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>Touchez le robot pour l'écouter</span></p>
       </div>
       <div class="wrap mh-in">
         <div class="mh-copy">
@@ -1132,6 +1143,7 @@
 <div data-vp="footer"></div>
 <script src="assets/config.js"></script><script src="assets/data.js"></script><script src="assets/site.js"></script>
 <script src="assets/pages/lecteur-video.js" defer></script>
+<script src="assets/pages/robot-sections.js" defer></script>
 <script>
 /* Cartes de l’en-tête du secrétariat médical : ouvrent la mission ciblée (#mm-…) avant d’y descendre. */
 (function(){function ouvre(id){var d=id&&document.getElementById(id);if(d&&d.tagName==="DETAILS")d.open=true}

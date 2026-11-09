@@ -1,0 +1,70 @@
+/* Vision Plus — robot de l'accueil (assistant 3D) dans les en-têtes « Votre secrétaire IA » et « Secrétariat médical IA »
+   de telephone-ia.html, sur téléphone uniquement (≤ 760 px ; rien ne change sur ordinateur et tablette).
+   Même personnage et mêmes gestes que sur la page d'accueil (assets/assistant : corps, 6 poses du bras, yeux et bouche dessinés
+   par-dessus la visière). Il se pose au pied de la scène, avec sa bulle, entre l'image et le texte : il ne recouvre ni le texte
+   ni les boutons. À l'arrivée sur la section : il apparaît, salue de la main et « parle » pendant que sa bulle s'affiche ;
+   ensuite il flotte et cligne des yeux. Un appui le fait parler (voix du navigateur). Script : robot-sections.js */
+.sbot{display:none}
+@media (max-width:760px){
+  .sbot{--w:94px;display:flex;align-items:flex-end;gap:10px;position:relative;z-index:3;
+    margin:-62px max(var(--m-gap,18px),env(safe-area-inset-left,0px)) 0;pointer-events:none}
+  .sbot-char{flex:none;position:relative;width:var(--w);height:calc(var(--w)*1.2);margin:0;padding:0;border:0;background:none;
+    pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:50% 50% 40% 40%}
+  .sbot-char:focus-visible{outline:2px solid #BCE4FF;outline-offset:4px}
+  .sbot-glow{position:absolute;left:12%;right:12%;bottom:-4%;height:14%;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(40,140,255,.6),rgba(40,120,232,0));animation:sb-shadow 3.8s ease-in-out infinite alternate}
+  .sbot-float{position:absolute;inset:0;animation:sb-float 3.8s ease-in-out infinite alternate}
+  .sbot-tilt{position:absolute;inset:0;transform-origin:50% 85%;transition:transform .35s ease}
+  .sbot-fig{position:absolute;left:0;top:0;width:var(--w);height:calc(var(--w)*1.2);filter:drop-shadow(0 6px 10px rgba(0,0,0,.55)) drop-shadow(0 0 12px rgba(40,140,255,.35))}
+  .sbot-fig img{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-select:none;user-select:none}
+  .sbot-arm{position:absolute;left:.32%;top:49.87%;width:33.54%;height:45.91%;background:url(../assistant/mascot-wave.webp) 0 0/600% 100% no-repeat}
+  .sbot-face{position:absolute;inset:0;transform:translate(-1.6%,-.6%) rotate(-3deg);transform-origin:42.4% 36.3%;filter:drop-shadow(0 0 calc(var(--w)*.025) #3D8BFF)}
+  .sbot-eye{position:absolute;width:calc(var(--w)*.052);height:calc(var(--w)*.078);margin:calc(var(--w)*-.039) 0 0 calc(var(--w)*-.026);border-radius:50%;background:#C4E2FF;animation:sb-blink 5.6s infinite}
+  .sbot-eye.l{left:29.36%;top:34.22%}
+  .sbot-eye.r{left:56.55%;top:33.01%;animation-delay:.04s}
+  .sbot-smile,.sbot-talk{position:absolute;left:43.38%;top:44.19%;width:calc(var(--w)*.078);margin-left:calc(var(--w)*-.039)}
+  .sbot-smile{height:calc(var(--w)*.034);margin-top:calc(var(--w)*-.022);border:calc(var(--w)*.012) solid #C4E2FF;border-top:0;border-radius:0 0 50% 50%/0 0 100% 100%;transition:opacity .12s}
+  .sbot-talk{height:calc(var(--w)*.052);margin-top:calc(var(--w)*-.03);border-radius:42%;background:#C4E2FF;opacity:0;transform:scaleY(.3)}
+  .sbot.is-talking .sbot-smile{opacity:0}
+  .sbot.is-talking .sbot-talk{opacity:1;animation:sb-talk .24s ease-in-out infinite alternate}
+  .sbot.is-nod .sbot-tilt{transform:rotate(-4deg) translateY(-1px)}
+
+  /* bulle : verre sombre et liseré lumineux, pointe vers le robot */
+  .sbot-bubble{position:relative;flex:1;min-width:0;margin:0 0 calc(var(--w)*.42);padding:10px 13px 11px;border-radius:14px;
+    border:1px solid rgba(150,210,255,.6);background:linear-gradient(160deg,rgba(30,58,100,.92),rgba(7,14,28,.94));
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    box-shadow:inset 0 1px 0 rgba(225,242,255,.28),0 0 20px -4px rgba(40,150,255,.6),0 18px 28px -18px rgba(0,0,0,.9);
+    color:#fff;font:600 .9rem/1.35 var(--f-display);display:grid;gap:5px}
+  .sbot-bubble::before{content:"";position:absolute;left:-7px;bottom:16px;width:12px;height:12px;transform:rotate(45deg);
+    border-left:1px solid rgba(150,210,255,.6);border-bottom:1px solid rgba(150,210,255,.6);background:#11223D}
+  [dir="rtl"] .sbot-bubble::before{left:auto;right:-7px;transform:rotate(-135deg)}
+  .sbot-hint{display:flex;align-items:center;gap:6px;color:#9FD3FF;font:500 .74rem/1.3 var(--f-body,inherit)}
+  .sbot-hint svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .sbot.is-talking .sbot-hint{color:#C4E2FF}
+
+  /* à la scène qui suit : un peu d'air sous le robot */
+  .ti-hero .sbot+.ti-grid{margin-top:14px}
+  .mh .sbot+.mh-in{margin-top:14px}
+}
+
+/* apparition à l'arrivée sur la section (classes posées par robot-sections.js ; sans script, le robot est simplement affiché) */
+@media (max-width:760px) and (prefers-reduced-motion:no-preference){
+  .sbot-js .sbot .sbot-char{opacity:0;transform:translateY(26px) scale(.86);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.9,.3,1.25)}
+  .sbot-js .sbot .sbot-bubble{opacity:0;transform:translateX(-10px) scale(.96);transform-origin:0 100%;transition:opacity .45s ease .45s,transform .55s cubic-bezier(.2,.9,.3,1.2) .45s}
+  [dir="rtl"] .sbot-js .sbot .sbot-bubble{transform:translateX(10px) scale(.96);transform-origin:100% 100%}
+  .sbot-js .sbot.is-in .sbot-char,.sbot-js .sbot.is-in .sbot-bubble{opacity:1;transform:none}
+  /* le texte de la bulle se dévoile pendant que la bouche bouge */
+  .sbot-js .sbot .sbot-say{-webkit-clip-path:inset(0 100% 0 0);clip-path:inset(0 100% 0 0);transition:-webkit-clip-path 1.5s steps(24,end) .7s,clip-path 1.5s steps(24,end) .7s}
+  [dir="rtl"] .sbot-js .sbot .sbot-say{-webkit-clip-path:inset(0 0 0 100%);clip-path:inset(0 0 0 100%)}
+  .sbot-js .sbot.is-in .sbot-say{-webkit-clip-path:inset(0 -2% 0 0);clip-path:inset(0 -2% 0 0)}
+  [dir="rtl"] .sbot-js .sbot.is-in .sbot-say{-webkit-clip-path:inset(0 0 0 -2%);clip-path:inset(0 0 0 -2%)}
+  .sbot:not(.is-run) .sbot-float,.sbot:not(.is-run) .sbot-glow,.sbot:not(.is-run) .sbot-eye{animation-play-state:paused}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .sbot-float,.sbot-glow,.sbot-eye,.sbot.is-talking .sbot-talk{animation:none}
+  .sbot.is-talking .sbot-talk{transform:scaleY(.6)}
+}
+@keyframes sb-float{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+@keyframes sb-shadow{from{transform:scale(1);opacity:1}to{transform:scale(.86);opacity:.65}}
+@keyframes sb-blink{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.12)}}
+@keyframes sb-talk{from{transform:scaleY(.25)}to{transform:scaleY(1)}}

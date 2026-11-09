@@ -1,6 +1,6 @@
 /* Vision Plus — PROPOSITION 1 « Vision Plus NEON BLUE »
-   Ajoute sur l'accueil : sol en grille lumineuse et interfaces flottantes (agents en action) dans le héros,
-   avec une parallaxe douce à la souris (au défilement et au toucher sur téléphone et tablette). Rien n'est retiré ni modifié dans le contenu existant. */
+   Ajoute sur l’accueil : sol en grille lumineuse et interfaces flottantes (agents en action) dans le héros,
+   avec une parallaxe douce à la souris (au défilement et au toucher sur téléphone et tablette). Rien n’est retiré ni modifié dans le contenu existant. */
 (function(){
 "use strict";
 var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
