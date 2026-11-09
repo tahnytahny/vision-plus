@@ -306,10 +306,44 @@ function ticketModal(id){var t=A.records.get("tickets",id);if(!t)return;
     setMsg(m.querySelector("#tk-msg"),"Message envoyé à l'équipe Vision Plus.",true);V.assistance();renderNav("assistance");});}
 
 /* Conversations IA */
-V.conversations=function(){var l=mine("conversations").slice(0,60);
-  view.innerHTML=head("Conversations IA","Vos échanges avec l'assistant Vision Plus.",'<a class="btn btn-line btn-sm" href="faq.html#question">Poser une question</a>')+'<div class="sec">'+(l.length?'<ul class="rows">'+
-    l.map(function(c){return '<li class="notif" style="display:block"><div class="row-main"><span class="row-s">'+esc(A.date(c.createdAt,true))+'</span><span class="row-t">'+esc(c.q)+'</span><p class="row-s clip3">'+esc(c.a)+'</p><div class="notif-act">'+(c.found?pill("ok","Réponse trouvée"):pill("warn","Orienté vers le SAV"))+"</div></div></li>";}).join("")+"</ul>":
-    empty("chat","Aucune conversation","Posez vos questions à l'assistant : vos échanges seront conservés ici.",'<a class="btn btn-cyan" href="faq.html#question">Poser une question</a>'))+"</div>";};
+/* Conversations IA : messagerie avec l’assistant (comme une conversation sur téléphone). Les réponses viennent de la base
+   de connaissances validée (A.assistant.answer, qui enregistre aussi chaque échange). Fil vide : message d’accueil et court
+   exemple d’échange, signalé comme tel et retiré dès le premier vrai message. Téléphone : plein écran, flèche de retour. */
+var CV_AV="assets/brand/vp-robot-tete.webp",cvPrev="tableau";
+function cvTime(ts){try{return new Date(ts).toLocaleTimeString(document.documentElement.lang||"fr",{hour:"2-digit",minute:"2-digit"});}catch(e){return "";}}
+function cvDay(ts){var d=new Date(ts),t=new Date(),y=new Date(t.getTime()-864e5);
+  if(d.toDateString()===t.toDateString())return "Aujourd’hui";if(d.toDateString()===y.toDateString())return "Hier";return A.date(ts);}
+var CV_CHK='<svg class="cv-chk" viewBox="0 0 24 24" aria-hidden="true"><path d="m2 13 4 4 8-9M10 16l1 1 9-10"/></svg>';
+function cvMsg(from,text,ts,extra){return '<div class="cv-m cv-'+from+'"><p>'+esc(text)+"</p>"+(extra||"")+'<span class="cv-t">'+esc(cvTime(ts))+(from==="moi"?CV_CHK:"")+"</span></div>";}
+V.conversations=function(){
+  var hist=mine("conversations").slice().sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0);}),now=Date.now(),t0=hist.length?hist[0].createdAt:now,last="",html="";
+  function day(ts){var k=cvDay(ts);if(k!==last){last=k;html+='<div class="cv-day"><span>'+esc(k)+"</span></div>";}}
+  day(t0);html+=cvMsg("bot","Bonjour, je suis l’assistant Vision Plus. Comment puis-je vous aider aujourd’hui ?",t0);
+  if(!hist.length)html+='<div class="cv-ex" data-ex><span>Exemple d’échange</span></div>'+
+    cvMsg("moi","Où retrouver mes simulations ?",now).replace('class="cv-m','data-ex class="cv-m')+
+    cvMsg("bot","Ouvrez la rubrique Simulations dans votre espace Vision Plus. Vous y retrouverez vos simulations enregistrées.",now).replace('class="cv-m','data-ex class="cv-m');
+  hist.forEach(function(c){day(c.createdAt);html+=cvMsg("moi",c.q,c.createdAt)+cvMsg("bot",c.a,c.createdAt);});
+  view.innerHTML='<section class="cv" aria-labelledby="view-title">'+
+    '<header class="cv-h"><button type="button" class="cv-back" id="cv-back" aria-label="Retour"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>'+
+      '<span class="cv-av"><img src="'+CV_AV+'" alt="" width="168" height="117" decoding="async"></span>'+
+      '<div class="cv-who"><h1 id="view-title" tabindex="-1">Assistant Vision Plus</h1><p>Assistant IA</p></div></header>'+
+    '<div class="cv-fil" id="cv-fil" role="log" aria-live="polite" aria-label="Conversation avec l’assistant Vision Plus">'+html+"</div>"+
+    '<form class="cv-f" id="cv-f" novalidate><label class="sr" for="cv-in">Votre message</label>'+
+      '<input class="cv-in" id="cv-in" type="text" autocomplete="off" maxlength="500" enterkeyhint="send" placeholder="Écrivez votre message…">'+
+      '<button class="cv-send" type="submit" aria-label="Envoyer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg></button></form></section>';
+  document.documentElement.classList.add("cv-open");
+  var fil=document.getElementById("cv-fil"),inp=document.getElementById("cv-in");
+  function down(){fil.scrollTop=fil.scrollHeight;}
+  down();setTimeout(down,60);
+  document.getElementById("cv-back").onclick=function(){location.hash="#"+(cvPrev&&cvPrev!=="conversations"?cvPrev:"tableau");};
+  document.getElementById("cv-f").addEventListener("submit",function(e){e.preventDefault();var q=inp.value.trim();if(!q)return;inp.value="";
+    fil.querySelectorAll("[data-ex]").forEach(function(x){x.remove();});
+    var ts=Date.now(),k=cvDay(ts);if(k!==last){last=k;fil.insertAdjacentHTML("beforeend",'<div class="cv-day"><span>'+esc(k)+"</span></div>");}
+    fil.insertAdjacentHTML("beforeend",cvMsg("moi",q,ts));
+    fil.insertAdjacentHTML("beforeend",'<div class="cv-m cv-bot cv-typing" aria-label="L’assistant écrit…"><i></i><i></i><i></i></div>');down();
+    setTimeout(function(){var r=A.assistant.answer(q),link=safeLink(r.link),tp=fil.querySelector(".cv-typing");if(tp)tp.remove();
+      fil.insertAdjacentHTML("beforeend",cvMsg("bot",r.text,Date.now(),link?'<a class="cv-lien" href="'+esc(link)+'">'+esc(r.linkLabel||"En savoir plus")+"</a>":""));down();},650);});
+};
 
 /* Notifications */
 V.notifications=function(){var u=me,l=A.records.list("notifications",function(n){return n.userId===u.id;}).sort(byDate),unread=l.filter(function(n){return !n.read;}).length;
@@ -388,6 +422,7 @@ function sampleData(){var u=me,now=A.now(),day=864e5;
 var TITLES={};NAV.forEach(function(n){if(n.id)TITLES[n.id]=n.l;});
 function current(){var h=location.hash.replace(/^#/,"");return V[h]?h:"tableau";}
 function render(id,keepFocus){try{user();}catch(e){return;}
+  document.documentElement.classList.remove("cv-open");if(id==="conversations"&&render.last&&render.last!=="conversations")cvPrev=render.last;render.last=id;
   renderNav(id);V[id]();document.title=TITLES[id]+" · Espace client · Vision Plus";
   view.classList.remove("view");void view.offsetWidth;view.classList.add("view");}
 function go(focus){var id=current();render(id);if(focus){window.scrollTo(0,0);var h=document.getElementById("view-title");if(h)h.focus({preventScroll:true});}}
