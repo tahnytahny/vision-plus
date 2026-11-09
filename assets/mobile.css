@@ -133,10 +133,32 @@
 :root:root .hero .m-scene{order:4;margin:2px calc(-1 * var(--m-gap)) 0;width:calc(100% + 2 * var(--m-gap));max-width:none}
 :root:root .hero .lead{font-size:.98rem}
 :root:root .hero-text::after{font-size:.64rem!important;letter-spacing:.12em!important}
-:root:root .p1-holo,:root:root .p1-card{display:none!important}
 :root:root .scene{margin-top:4px}
 :root:root .scene .stack{margin-bottom:0!important}
 :root:root .hero .p1-floor{height:22%}
+/* écrans flottants de la version ordinateur, recadrés sous l'image : même relief, même flottement et mêmes animations ;
+   la parallaxe suit le défilement et le toucher (themes/p1.js) */
+:root:root .p1-holo{position:relative;inset:auto;display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,1fr);gap:12px 14px;align-items:center;margin:-16px 3% 0}
+:root:root .p1-card{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto}
+:root:root .p1-in{padding:9px 10px 10px;gap:6px;border-radius:8px}
+:root:root .p1-h{font-size:.5rem;letter-spacing:.12em;gap:6px}
+:root:root .p1-h svg{width:18px;height:18px}
+:root:root .p1-big{font-size:.84rem}
+:root:root .p1-live{font-size:0;gap:0}
+:root:root .p1-wave{height:20px}
+:root:root .p1-tl{gap:4px}
+:root:root .p1-tl li{font-size:.7rem;gap:6px}
+:root:root .p1-tl li b{font-size:.68rem}
+:root:root .p1-thumbs{gap:5px}
+:root:root .p1-ok{font-size:.66rem}
+:root:root .p1-site .p1-row small{display:none}
+:root:root .p1-call{grid-column:1;grid-row:1/3;
+  transform:translate3d(calc(var(--px) * -10px),calc(var(--py) * -8px),40px) rotateY(calc(13deg + var(--px) * 5deg)) rotateX(calc(4deg - var(--py) * 4deg))}
+:root:root .p1-posts{grid-column:2;grid-row:1;
+  transform:translate3d(calc(var(--px) * 9px),calc(var(--py) * 7px),28px) rotateY(calc(-12deg + var(--px) * 5deg)) rotateX(calc(5deg - var(--py) * 4deg))}
+:root:root .p1-site{grid-column:2;grid-row:2;
+  transform:translate3d(calc(var(--px) * 12px),calc(var(--py) * 9px),50px) rotateY(calc(-14deg + var(--px) * 5deg)) rotateX(calc(4deg - var(--py) * 4deg))}
+:root:root .p1-brand-m{margin-top:22px}
 :root:root .scene figcaption{display:none}
 :root:root .m-quick{order:99;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-top:4px}
 :root:root .m-quick a{display:grid;justify-items:center;gap:8px;padding:12px 2px;border-radius:18px;text-decoration:none;color:var(--soft);font:500 .7rem/1.15 var(--f-display);text-align:center;border:1px solid rgba(170,183,199,.2);background:rgba(31,119,233,.04)}
@@ -346,3 +368,9 @@
 
 /* très petits écrans (320 px) : les pastilles de texte passent à la ligne au lieu de déborder — 2026-11-09 */
 @media (max-width:360px){:root:root .pill{white-space:normal;max-width:100%}}
+
+/* appui sur téléphone : les cartes cliquables s'enfoncent légèrement, comme les boutons (équivalent tactile du survol) */
+@media (max-width:760px) and (hover:none){
+:root:root a.card:active,:root:root .ov-card:active,:root:root .mx-link:active,:root:root .pf-cap:active,:root:root .mt-card:active,:root:root .dr-shot>button:active,:root:root .mv-path a:active{transform:scale(.97);transition-duration:.08s}
+:root:root .vp-big:active .vp-big-i{transform:translate(-50%,-50%) scale(.93)}
+}

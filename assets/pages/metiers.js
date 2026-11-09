@@ -72,7 +72,7 @@
   var vis = false, sraf = 0;
   function tick() {
     sraf = 0;
-    if (reduce.matches || phone.matches) { stage.style.setProperty("--sy", "0"); return; }
+    if (reduce.matches) { stage.style.setProperty("--sy", "0"); return; }
     var r = root.getBoundingClientRect(), vh = window.innerHeight;
     var p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
     stage.style.setProperty("--sy", Math.max(-1, Math.min(1, p)).toFixed(4));
@@ -112,6 +112,14 @@
     }, { root: cards, threshold: [0.6] });
     var list = cards.querySelectorAll(".mt-card");
     for (var i = 0; i < list.length; i++) cio.observe(list[i]);
+    /* glisser le carrousel fait pivoter la vue d’ensemble, comme la souris sur ordinateur */
+    var fromCards = function () {
+      if (!phone.matches || reduce.matches) return;
+      var max = cards.scrollWidth - cards.clientWidth;
+      if (max > 0) { tx = (Math.abs(cards.scrollLeft) / max) * 2 - 1; if (getComputedStyle(cards).direction === "rtl") tx = -tx; ty = 0; kick(); }
+    };
+    cards.addEventListener("scroll", fromCards, { passive: true });
+    fromCards();
   }
   function mode() { pinned = null; set(null); tx = ty = 0; kick(); onScroll(); }
   if (phone.addEventListener) phone.addEventListener("change", mode);

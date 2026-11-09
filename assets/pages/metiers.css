@@ -120,8 +120,10 @@
   .mt-dim{background:rgba(2,7,18,.52)}
   .mt-view{-webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent),linear-gradient(180deg,transparent,#000 4%,#000 93%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent),linear-gradient(180deg,transparent,#000 4%,#000 93%,transparent)}
-  .mt-stage{transform:scale(1.02)}
-  .mt-tags,.mt-dust,.mt-hint-h{display:none}
+  /* la scène pivote au défilement et suit le carrousel (assets/pages/metiers.js) ; marge de recadrage pour ne jamais montrer les bords */
+  .mt-stage{transform:translate3d(calc(var(--mx,0) * -7px),calc(var(--sy,0) * -10px),0) rotateX(calc(var(--sy,0) * -3deg)) rotateY(calc(var(--mx,0) * -1.6deg)) scale(1.07)}
+  .mt-dust{transform:translate3d(calc(var(--mx,0) * 12px),0,0)}
+  .mt-tags,.mt-hint-h{display:none}
   .mt-ln{stroke-width:4}.mt-flow g.is-on .mt-ln{stroke-width:6}
   .mt-pg{stroke-width:22}.mt-pc{stroke-width:7}
   .mt-hint-s{display:flex;margin-top:10px;font-size:.78rem}

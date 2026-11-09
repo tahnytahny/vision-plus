@@ -110,7 +110,7 @@ section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
   border:1px solid rgba(160,212,255,.4);background:linear-gradient(160deg,rgba(34,58,96,.6),rgba(8,16,30,.88));
   box-shadow:inset 0 1px 0 rgba(225,242,255,.22),0 0 18px -6px rgba(40,150,255,.5),0 26px 36px -24px rgba(0,0,0,.9);
   transform:rotateX(9deg) translateZ(0);transform-origin:50% 100%;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
-.ms-step:hover .ms-pane{transform:rotateX(0) translateY(-4px);box-shadow:inset 0 1px 0 rgba(225,242,255,.3),0 0 26px -4px rgba(60,170,255,.7),0 30px 40px -24px rgba(0,0,0,.9)}
+.ms-step:hover .ms-pane,.ms-step.is-vue .ms-pane{transform:rotateX(0) translateY(-4px);box-shadow:inset 0 1px 0 rgba(225,242,255,.3),0 0 26px -4px rgba(60,170,255,.7),0 30px 40px -24px rgba(0,0,0,.9)}
 .ms-row{display:flex;align-items:center;gap:10px;min-width:0;color:#E8F0F8;font-size:.9rem;line-height:1.35}
 .ms-row small{color:var(--mut);font-size:.8rem}
 .ms-row svg{width:18px;height:18px;flex:none;fill:none;stroke:#9FD3FF;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -167,7 +167,7 @@ section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
 @media (min-width:860px){.mv-paths{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .mv-path{display:grid;grid-template-rows:auto 1fr;border-radius:20px;overflow:hidden;border:1px solid rgba(150,200,250,.28);background:linear-gradient(180deg,rgba(18,36,64,.6),rgba(7,14,27,.9));
   box-shadow:inset 0 1px 0 rgba(220,240,255,.12),0 30px 50px -34px rgba(0,0,0,.95);transition:border-color .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
-.mv-path:hover{transform:translateY(-3px);border-color:rgba(160,212,255,.6);box-shadow:inset 0 1px 0 rgba(220,240,255,.18),0 0 28px -8px rgba(40,150,255,.65),0 30px 50px -34px rgba(0,0,0,.95)}
+.mv-path:hover,.mv-path.is-vue{transform:translateY(-3px);border-color:rgba(160,212,255,.6);box-shadow:inset 0 1px 0 rgba(220,240,255,.18),0 0 28px -8px rgba(40,150,255,.65),0 30px 50px -34px rgba(0,0,0,.95)}
 .mv-path img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#04080F}
 .mv-path div{display:grid;gap:10px;align-content:start;padding:22px 24px 26px}
 .mv-path h4{margin:0;font:600 1.3rem/1.25 var(--f-display);color:#fff}
@@ -188,7 +188,7 @@ section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
   border:1px solid rgba(160,212,255,.36);background:linear-gradient(170deg,rgba(32,56,94,.62),rgba(7,14,27,.9));
   box-shadow:inset 0 1px 0 rgba(225,242,255,.2),0 0 22px -10px rgba(40,150,255,.6),0 30px 40px -28px rgba(0,0,0,.95);
   transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease)}
-.mx-step:hover{border-color:rgba(190,228,255,.75);box-shadow:inset 0 1px 0 rgba(225,242,255,.28),0 0 30px -6px rgba(60,170,255,.75),0 30px 40px -28px rgba(0,0,0,.95)}
+.mx-step:hover,.mx-step.is-vue{border-color:rgba(190,228,255,.75);box-shadow:inset 0 1px 0 rgba(225,242,255,.28),0 0 30px -6px rgba(60,170,255,.75),0 30px 40px -28px rgba(0,0,0,.95)}
 .mx-node{position:relative;display:grid;place-items:center;width:60px;height:60px;border-radius:50%;
   background:radial-gradient(circle at 35% 28%,rgba(140,200,255,.45),transparent 55%),linear-gradient(160deg,#C9D4E0,#5A6878 30%,#141C28 60%,#7C8899);
   box-shadow:0 0 0 2px rgba(10,20,36,.9),0 0 0 3px rgba(160,212,255,.7),0 0 20px rgba(40,150,255,.65),0 12px 18px -8px rgba(0,0,0,.9)}
@@ -203,7 +203,7 @@ section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
   .mx-path::before{content:"";position:absolute;left:8%;right:8%;top:52px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(90,180,255,.15),#4FA8FF 20%,#4FA8FF 80%,rgba(90,180,255,.15));box-shadow:0 0 12px rgba(40,150,255,.8)}
   .mx-path::after{content:"";position:absolute;top:49px;left:8%;width:8px;height:8px;border-radius:50%;background:#E8F6FF;box-shadow:0 0 12px 3px rgba(80,180,255,.95);animation:mx-run 6s linear infinite}
   .mx-step:nth-child(odd){transform:translateZ(14px)}
-  .mx-step:hover{transform:translateY(-6px) translateZ(24px)}
+  .mx-step:hover,.mx-step.is-vue{transform:translateY(-6px) translateZ(24px)}
 }
 @keyframes mx-run{0%{left:8%;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:calc(92% - 8px);opacity:0}}
 @media (max-width:999px){
@@ -232,7 +232,7 @@ section.ms .wrap,.mv .wrap,.mx .wrap{max-width:1240px}
   .ms-shot{border-radius:16px}
   .ms-sign{display:block}.ms-sign::before,.ms-sign::after{display:none}
   .ms-card{padding:22px 20px}
-  .ms-pane{transform:none;min-height:0}
+  .ms-pane{min-height:0}
   .ms-frame{padding:22px 20px}
 }
 
@@ -256,7 +256,12 @@ html body .ms-copy .eyebrow{letter-spacing:.16em;line-height:1.45}
   .mx-step small{align-self:end}.mx-step b{align-self:start}
   .mx-path::before{left:43px;transform:none}
   [dir="rtl"] .mx-path::before{left:auto;right:43px}
+  /* l'impulsion lumineuse parcourt le filet vertical, comme sur le parcours horizontal de la version ordinateur */
+  .mx-path::after{content:"";position:absolute;z-index:1;left:40px;top:18px;width:8px;height:8px;border-radius:50%;background:#E8F6FF;
+    box-shadow:0 0 12px 3px rgba(80,180,255,.95);animation:mx-run-v 6s linear infinite;pointer-events:none}
+  [dir="rtl"] .mx-path::after{left:auto;right:40px}
 }
+@keyframes mx-run-v{0%{top:18px;opacity:0}6%{opacity:1}94%{opacity:1}100%{top:calc(100% - 26px);opacity:0}}
 
 /* =====================================================================
    Secrétariat médical IA — développement (rôle, missions, tableau de bord)
@@ -272,7 +277,7 @@ section.ms{--lv-a:#5DB3FF;--lv-c:#47D3DD;--lv-v:#B9A4FF}
   background:linear-gradient(145deg,#E6EDF5 0,#8794A5 14%,#1B2431 36%,#0C121C 60%,#7F8C9D 84%,#DCE5EF 100%);
   box-shadow:0 0 0 1px rgba(160,215,255,.5),0 0 26px rgba(40,150,255,.4),0 0 80px -18px rgba(30,120,255,.5),0 50px 80px -40px rgba(0,0,0,.95);
   transform:rotateX(8deg) scale(.985);transform-origin:50% 100%;transition:transform .9s var(--ease),box-shadow .5s var(--ease)}
-.md-stage:hover .md-app{transform:rotateX(1.5deg) scale(1);box-shadow:0 0 0 1px rgba(170,222,255,.8),0 0 34px rgba(60,170,255,.55),0 0 90px -14px rgba(30,120,255,.6),0 50px 80px -40px rgba(0,0,0,.95)}
+.md-stage:hover .md-app,.md-stage.is-vue .md-app{transform:rotateX(1.5deg) scale(1);box-shadow:0 0 0 1px rgba(170,222,255,.8),0 0 34px rgba(60,170,255,.55),0 0 90px -14px rgba(30,120,255,.6),0 50px 80px -40px rgba(0,0,0,.95)}
 .md-screen{position:relative;border-radius:19px;overflow:hidden;
   background:radial-gradient(60% 50% at 82% 0%,rgba(40,120,232,.2),transparent 70%),linear-gradient(180deg,#0B1628,#060C17);
   box-shadow:inset 0 0 0 1px rgba(140,205,255,.6),inset 0 0 22px rgba(40,150,255,.22)}
@@ -356,7 +361,6 @@ section.ms{--lv-a:#5DB3FF;--lv-c:#47D3DD;--lv-v:#B9A4FF}
 .md-floor{position:absolute;z-index:0;left:6%;right:6%;bottom:0;height:80px;border-radius:50%;pointer-events:none;
   background:radial-gradient(50% 50% at 50% 50%,rgba(40,140,255,.38),rgba(20,90,220,.12) 55%,transparent 72%);filter:blur(14px)}
 @media (max-width:1199px){.md-body{grid-template-columns:178px minmax(0,1fr)}.md-nav li{padding:7px 8px;font-size:.76rem}}
-@media (max-width:1099px){.md-chip{display:none}}
 @media (max-width:999px){
   .md-body{grid-template-columns:1fr}.md-nav{display:none}
   .md-kpis{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}
@@ -475,8 +479,17 @@ section.ms{--lv-a:#5DB3FF;--lv-c:#47D3DD;--lv-v:#B9A4FF}
   .ms-m-b{grid-template-columns:1fr}
 }
 @media (max-width:760px){
-  .md-stage{padding:4px 0 30px;perspective:none}
-  .md-app,.md-stage:hover .md-app{transform:none;padding:4px;border-radius:16px}
+  /* le tableau de bord garde l'inclinaison de la version ordinateur et se redresse en passant au centre de l'écran (assets/mobile.js) */
+  .md-stage{padding:30px 0 30px;perspective:1400px}
+  .md-app{padding:4px;border-radius:16px;transform:rotateX(7deg) scale(.985)}
+  .md-stage:hover .md-app,.md-stage.is-vue .md-app{transform:rotateX(0) scale(1)}
+  /* étiquettes flottantes, en plus compact */
+  .md-chip{padding:7px 10px;gap:8px;border-radius:12px}
+  .md-chip svg{width:18px;height:18px}
+  .md-chip b{font-size:.74rem}
+  .md-chip small{font-size:.66rem}
+  .md-chip-a{inset-inline-end:-4px;top:2px}
+  .md-chip-b{inset-inline-start:-6px;bottom:10px}
   .md-screen{border-radius:13px}
   .md-top{padding:10px 12px}
   .md-dots{display:none}

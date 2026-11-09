@@ -1,6 +1,6 @@
 /* Vision Plus — PROPOSITION 1 « Vision Plus NEON BLUE »
    Ajoute sur l'accueil : sol en grille lumineuse et interfaces flottantes (agents en action) dans le héros,
-   avec une parallaxe douce à la souris. Rien n'est retiré ni modifié dans le contenu existant. */
+   avec une parallaxe douce à la souris (au défilement et au toucher sur téléphone et tablette). Rien n'est retiré ni modifié dans le contenu existant. */
 (function(){
 "use strict";
 var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -58,15 +58,37 @@ function home(){
   if("IntersectionObserver" in window){new IntersectionObserver(function(es){visible=es[0].isIntersecting;sync();}).observe(hero);}
   document.addEventListener("visibilitychange",sync);
 
-  /* parallaxe douce : souris uniquement, jamais en mouvement réduit */
-  if(reduced||!fine)return;
+  /* parallaxe douce : à la souris sur ordinateur ; sur écran tactile, au défilement et au toucher ; jamais en mouvement réduit */
+  if(reduced)return;
   var tx=0,ty=0,raf=0;
   function apply(){raf=0;scene.style.setProperty("--px",tx.toFixed(3));scene.style.setProperty("--py",ty.toFixed(3));}
   function queue(){if(!raf)raf=requestAnimationFrame(apply);}
-  hero.addEventListener("pointermove",function(e){if(e.pointerType&&e.pointerType!=="mouse")return;
-    var r=hero.getBoundingClientRect();
-    tx=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1));ty=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));queue();});
-  hero.addEventListener("pointerleave",function(){tx=0;ty=0;queue();});
+  if(fine){
+    hero.addEventListener("pointermove",function(e){if(e.pointerType&&e.pointerType!=="mouse")return;
+      var r=hero.getBoundingClientRect();
+      tx=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1));ty=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));queue();});
+    hero.addEventListener("pointerleave",function(){tx=0;ty=0;queue();});
+    return;
+  }
+  /* téléphone et tablette : les écrans pivotent pendant le défilement (comme la souris qui balaie le héros),
+     un appui sur la scène les oriente vers le doigt, puis ils reviennent doucement */
+  var held=0,hx=0,hy=0,back=0;
+  function follow(){
+    if(held){tx=hx;ty=hy;}
+    else{var r=scene.getBoundingClientRect(),vh=window.innerHeight||1;
+      var p=Math.max(-1,Math.min(1,(r.top+r.height/2-vh/2)/(vh/2+r.height/2)));
+      ty=p*0.9;tx=-p*0.55;}
+    queue();
+  }
+  function onScroll(){if(visible)follow();}
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll);
+  scene.addEventListener("pointerdown",function(e){if(e.pointerType==="mouse")return;
+    var r=scene.getBoundingClientRect();clearTimeout(back);
+    hx=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1));hy=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));held=1;follow();});
+  function release(){if(!held)return;clearTimeout(back);back=setTimeout(function(){held=0;follow();},650);}
+  scene.addEventListener("pointerup",release);scene.addEventListener("pointercancel",release);
+  follow();
 }
 
 function start(){if(document.querySelector('meta[name="vp-page"][content="home"]'))home();}

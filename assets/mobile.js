@@ -1,7 +1,8 @@
 /* Vision Plus — application mobile (écrans ≤ 760 px uniquement).
    6 onglets : Accueil · Services · Simulation · Votre offre · Aide (FAQ, SAV, service client, contact) · Compte.
    Les informations légales sont dans la rubrique dépliable du pied de page (site.js). Chaque onglet est un écran
-   indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte).
+   indépendant qui s'ouvre toujours en haut. Rien ne s'applique au-delà de 760 px (version ordinateur intacte),
+   sauf les équivalents tactiles des effets de survol (touch3d), réservés aux écrans sans souris.
    Matrice des écrans et règles de connexion : voir MOBILE.md. */
 (function(){
 "use strict";
@@ -198,6 +199,23 @@ function pwa(){try{if("serviceWorker" in navigator&&location.protocol==="https:"
     done=true;location.reload();});
   navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(reg){reg.update&&reg.update().catch(function(){});}).catch(function(){});}}catch(e){}}
 
-function start(){if(MQ.matches)build();pwa();}
+/* Écrans tactiles (téléphone et tablette) : les effets que la version ordinateur déclenche au survol se déclenchent ici au défilement,
+   quand l'élément traverse la bande centrale de l'écran (classe « is-vue », styles dans mobile.css et les feuilles des pages) ;
+   le sol 3D de Campagne ADS suit le glissement du carrousel (--ads-x). */
+var VUE=".md-stage,.ms-step,.mx-step,.mv-path,.vs-frame,.vs-card,.circuit li,.benefit,.card,.plan,.tile";
+function touch3d(){
+  if(!matchMedia("(hover:none)").matches)return;
+  if(!reduced&&"IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("is-vue",e.isIntersecting);});},{rootMargin:"-38% 0px -38% 0px"});
+    var seen=typeof WeakSet==="function"?new WeakSet():null,t=0;
+    var scan=function(){t=0;[].forEach.call(document.querySelectorAll(VUE),function(n){if(seen){if(seen.has(n))return;seen.add(n);}io.observe(n);});};
+    scan();
+    if("MutationObserver" in window)new MutationObserver(function(){if(!t)t=setTimeout(scan,400);}).observe(document.body,{childList:true,subtree:true});
+  }
+  var st=document.querySelector(".ads-stage"),gr=st&&st.parentNode;
+  if(st&&gr){var r=0;st.addEventListener("scroll",function(){if(!r)r=requestAnimationFrame(function(){r=0;gr.style.setProperty("--ads-x",Math.round(st.scrollLeft));});},{passive:true});}
+}
+
+function start(){if(MQ.matches)build();touch3d();pwa();}
 if(window.VISIONPLUS&&document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

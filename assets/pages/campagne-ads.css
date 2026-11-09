@@ -190,7 +190,8 @@
   clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);filter:blur(2px);animation:ads-beam 3.6s ease-in-out infinite}
 .ads-base .disc{position:absolute;left:0;right:0;bottom:4%;height:58%;border-radius:50%;
   background:radial-gradient(50% 50% at 50% 46%,#BFE6FF 0,#3EA2FF 22%,rgba(30,110,240,.55) 46%,rgba(20,60,140,.25) 70%,transparent 72%),linear-gradient(180deg,#C7D2DE,#4B5765 60%,#20262E);
-  box-shadow:0 0 0 2px rgba(150,210,255,.75),0 0 30px rgba(40,150,255,.8),0 14px 30px -6px rgba(0,0,0,.9),inset 0 -6px 10px rgba(0,0,0,.5)}
+  /* lueur par filtre et non par ombre portée : Safari (WebKit) dessinait l'ombre du disque en rectangle */
+  filter:drop-shadow(0 0 1.5px rgba(150,210,255,.95)) drop-shadow(0 0 14px rgba(40,150,255,.8)) drop-shadow(0 12px 14px rgba(0,0,0,.85))}
 @keyframes ads-beam{0%,100%{opacity:.75}50%{opacity:1}}
 
 /* ---------- création vidéo & marketing ---------- */
@@ -223,8 +224,8 @@
 .vs-main{z-index:1;animation:vs-float 9s ease-in-out infinite}
 .vs-side{position:absolute;z-index:2;left:0;bottom:0;width:47%;padding:4px;border-radius:16px;animation:vs-float 9s ease-in-out -4.5s infinite}
 .vs-side::before{inset:3px;border-radius:13px}.vs-side::after{inset:4px;border-radius:12px}.vs-side img{border-radius:12px}
-.vs-frame:hover{box-shadow:0 0 0 1px rgba(170,222,255,.8),0 0 32px rgba(60,170,255,.65),0 0 90px -14px rgba(30,120,255,.65),0 40px 60px -30px rgba(0,0,0,.95)}
-.vs-frame:hover img{transform:scale(1.035)}
+.vs-frame:hover,.vs-frame.is-vue{box-shadow:0 0 0 1px rgba(170,222,255,.8),0 0 32px rgba(60,170,255,.65),0 0 90px -14px rgba(30,120,255,.65),0 40px 60px -30px rgba(0,0,0,.95)}
+.vs-frame:hover img,.vs-frame.is-vue img{transform:scale(1.035)}
 .vs-glow{position:absolute;z-index:0;left:16%;right:2%;bottom:6%;height:22%;border-radius:50%;pointer-events:none;
   background:radial-gradient(50% 50% at 50% 50%,rgba(40,140,255,.42),rgba(20,90,220,.14) 55%,transparent 72%);filter:blur(14px)}
 @keyframes vs-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -238,9 +239,9 @@
   transition:border-color .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
 .vs-card::before{content:"";position:absolute;left:26px;right:26px;top:-1px;height:2px;border-radius:2px;
   background:linear-gradient(90deg,transparent,#7CCBFF,transparent);box-shadow:0 0 10px rgba(60,170,255,.85);opacity:.6;transition:opacity .3s}
-.vs-card:hover{transform:translateY(-3px);border-color:rgba(150,210,255,.7);
+.vs-card:hover,.vs-card.is-vue{transform:translateY(-3px);border-color:rgba(150,210,255,.7);
   box-shadow:inset 0 1px 0 rgba(200,230,255,.2),0 0 0 1px rgba(60,160,255,.25),0 0 28px -8px rgba(40,150,255,.75),0 30px 46px -30px rgba(0,0,0,.95)}
-.vs-card:hover::before{opacity:1}
+.vs-card:hover::before,.vs-card.is-vue::before{opacity:1}
 .vs-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
 .vs-ic{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;
   background:radial-gradient(80% 80% at 30% 20%,rgba(90,170,255,.3),transparent 60%),linear-gradient(180deg,#132845,#060D19);
@@ -358,7 +359,29 @@
     margin-inline:calc(-1 * max(var(--m-gap,18px),env(safe-area-inset-left,0px)));padding:42px max(var(--m-gap,18px),env(safe-area-inset-left,0px)) 16px;
     scroll-padding-inline:max(var(--m-gap,18px),env(safe-area-inset-left,0px))}
   .ads-stage::-webkit-scrollbar{display:none}
-  .ad-unit{flex:0 0 84%;max-width:none;scroll-snap-align:center;animation:none}
-  .ads-core{flex:0 0 58%;align-self:center;scroll-snap-align:center;margin:0 6% 0 4%;animation:none}
+  .ad-unit{flex:0 0 84%;max-width:none;scroll-snap-align:center}
+  .ads-core{flex:0 0 54%;align-self:flex-end;scroll-snap-align:center;margin:0 6% 25% 4%}
   .ads-swipe{display:flex}
 }
+/* téléphone : le relief de la version ordinateur dans le carrousel. Les panneaux et le noyau flottent, posés sur un sol lumineux
+   en perspective qui glisse avec le carrousel ; un flux lumineux court à leur pied vers le noyau, qui flotte au-dessus de son socle.
+   Sol et flux sont dessinés par la consigne « Faites glisser… », juste sous le carrousel (assets/mobile.js règle --ads-x). */
+@media (max-width:760px){
+  .ads-hero{overflow-x:hidden;overflow-x:clip}
+  .ads-stage{align-items:flex-end;padding-bottom:62px}
+  .ads-base{display:block;position:relative;left:auto;top:auto;flex:0 0 70%;width:auto;order:7;align-self:flex-end;
+    margin:0 -2% -2% calc(-68% - 14px)}
+  .ads-swipe{position:relative;margin-top:calc(6px - clamp(30px,3vw,48px))}
+  .ads-swipe::before{content:"";position:absolute;z-index:0;left:-35%;right:-35%;bottom:100%;height:300px;margin-bottom:-6px;pointer-events:none;
+    background:linear-gradient(rgba(40,140,255,.55) 2px,transparent 2px) 0 0/48px 48px,
+      linear-gradient(90deg,rgba(40,140,255,.55) 2px,transparent 2px) calc(var(--ads-x,0) * -1px) 0/48px 48px;
+    transform-origin:50% 0;transform:perspective(320px) translateY(100%) rotateX(74deg) translateY(-100%);
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 60%);mask-image:linear-gradient(180deg,transparent,#000 60%)}
+  .ads-swipe::after{content:"";position:absolute;z-index:1;left:calc(-1 * var(--m-gap,18px));right:calc(-1 * var(--m-gap,18px));bottom:calc(100% + 56px);height:3px;border-radius:3px;pointer-events:none;
+    background:linear-gradient(90deg,rgba(232,246,255,0) 40%,#E8F6FF 50%,rgba(232,246,255,0) 60%) 0 0/120px 100% repeat-x,
+      linear-gradient(90deg,rgba(79,168,255,0),#4FA8FF 12%,#BCE4FF 50%,#4FA8FF 88%,rgba(79,168,255,0));
+    box-shadow:0 0 10px rgba(40,150,255,.85),0 0 26px 2px rgba(30,120,255,.4);animation:ads-flow-m 2.8s linear infinite}
+  [dir="rtl"] .ads-swipe::after{animation-direction:reverse}
+  @keyframes ads-flow-m{to{background-position:120px 0,0 0}}
+}
+@media (max-width:760px) and (prefers-reduced-motion:reduce){.ads-swipe::after{animation:none}}
