@@ -3,8 +3,9 @@
       enregistrée), le texte s'affiche en même temps dans une bulle, puis il propose les raccourcis (services, FAQ).
    2. Si le navigateur bloque le son automatique : animation et texte tout de suite, voix à la première interaction
       (sur mobile : dès que le visiteur touche le robot).
-   2 bis. Mobile : toucher le robot (dans l'en-tête ou dans la carte) lance directement sa voix, sans bouton « Écouter » ;
-      jamais deux lectures en même temps.
+   2 bis. À chaque arrivée sur l’accueil, ordinateur comme téléphone, la bulle s’ouvre et le robot parle tout seul.
+      Si le navigateur bloque le son (Safari sur iPhone, Chrome à la première visite), la voix démarre au premier appui ou clic
+      n’importe où sur la page, sans viser le robot. Toucher le robot relance sa voix ; jamais deux lectures en même temps.
    3. Bouche calée sur le volume de l'enregistrement (ENV) ; surlignage et gestes calés sur ses segments (SEG).
    4. Commandes discrètes : couper le son (choix mémorisé et respecté), arrêter la présentation, réduire le robot
       dans l'en-tête, où il ne recouvre aucun contenu.
@@ -93,8 +94,9 @@ function open(v,byUser){
   root.hidden=false;dock.setAttribute("aria-expanded","true");tools();fitBanner();y0=v==="menu"?(window.scrollY||0):null;
   setTimeout(function(){root.classList.add("is-in");},20);
   if(byUser){var f=root.querySelector(".ax-more:not([hidden]) .ax-sc")||root.querySelector(".ax-tools button");if(f)f.focus({preventScroll:true});}}
-function close(){
-  halt();unlisten();var had=root.contains(document.activeElement);
+function close(byUser){
+  halt();if(byUser||!pend){pend=false;unlisten();}else{waiting=false;root.classList.remove("is-waiting");}
+  var had=root.contains(document.activeElement);
   root.classList.remove("is-in");dock.setAttribute("aria-expanded","false");
   setTimeout(function(){if(!root.classList.contains("is-in"))root.hidden=true;},MQ_R.matches?0:320);
   if(!MQ_R.matches){dock.classList.remove("is-pop");void dock.offsetWidth;dock.classList.add("is-pop");}
@@ -143,7 +145,7 @@ function setSeg(i){seg=i;
   if(now&&bubble.scrollHeight>bubble.clientHeight+4){var y=now.offsetTop,h=now.offsetHeight;
     if(y<bubble.scrollTop+40||y+h>bubble.scrollTop+bubble.clientHeight-12)bubble.scrollTo({top:Math.max(0,y-56),behavior:MQ_R.matches?"auto":"smooth"});}
   if(i>=0&&SEG[i].g)gesture(SEG[i].g);}
-function onPlay(){playing=true;waiting=false;unlisten();more.hidden=true;root.classList.add("is-playing","is-talking");tools();
+function onPlay(){playing=true;waiting=false;pend=false;unlisten();more.hidden=true;root.classList.add("is-playing","is-talking");tools();
   if(useAudio){cancelAnimationFrame(raf);raf=requestAnimationFrame(sync);}}
 /* calage sur l'enregistrement : segment en cours, gestes, ouverture de la bouche */
 function sync(){
@@ -156,7 +158,7 @@ function speak(){
   stopSpeech();seg=-1;
   if(useAudio&&isFr()){au.muted=!!st.muted;try{au.currentTime=0;}catch(e){}
     var p=au.play();
-    if(p&&p.then)p.then(onPlay,function(e){if(e&&e.name==="NotAllowedError")listen();else{useAudio=false;speak();}});else onPlay();
+    if(p&&p.then)p.then(onPlay,function(e){if(e&&e.name==="NotAllowedError")listen();else if(e&&e.name==="AbortError"){/* lecture relancée entre-temps : rien à faire */}else{useAudio=false;speak();}});else onPlay();
     return;}
   if(!V.ok||!V.voice){reveal();return;}
   root.classList.add("is-tts");ttsSay(0);}
@@ -181,19 +183,29 @@ function finish(){
 function halt(){if(playing)finish();}
 
 /* ---------- son bloqué : la voix démarre à la première interaction ---------- */
-var EVTS=["pointerdown","keydown","touchend","click"];
+/* son bloqué : le premier appui, clic ou touche n’importe où sur la page lance la voix (sur téléphone, le simple défilement
+   ne compte pas pour le navigateur) ; la présentation reste en attente même si la bulle s’est rangée pendant le défilement */
+var EVTS=["pointerdown","keydown","touchend","click"],EVTS_M=["touchend","click","keydown"],EVTS_ALL=["pointerdown","keydown","touchend","click"],pend=false;
 function listen(){
-  waiting=true;reveal();tools();markScroll();
-  if(seg<0&&!MQ_R.matches)gesture("wave");
-  if(MQ_M.matches){root.classList.add("is-waiting");return;}   /* mobile : la voix démarre dès que le visiteur touche le robot */
-  if(!listen.on){listen.on=true;EVTS.forEach(function(t){document.addEventListener(t,onFirst,true);});}}
-function unlisten(){waiting=false;root.classList.remove("is-waiting");if(listen.on){listen.on=false;EVTS.forEach(function(t){document.removeEventListener(t,onFirst,true);});}}
+  waiting=true;pend=true;reveal();tools();markScroll();
+  if(seg<0&&!MQ_R.matches&&isOpen())gesture("wave");
+  if(MQ_M.matches)root.classList.add("is-waiting");
+  if(!listen.on){listen.on=true;(MQ_M.matches?EVTS_M:EVTS).forEach(function(t){document.addEventListener(t,onFirst,true);});}}
+function unlisten(){waiting=false;root.classList.remove("is-waiting");if(listen.on){listen.on=false;EVTS_ALL.forEach(function(t){document.removeEventListener(t,onFirst,true);});}}
+var fired=0;
 function onFirst(e){
-  if(!waiting||playing)return;
-  if(!isOpen()||st.muted){unlisten();tools();return;}
+  if(!pend||playing)return;
+  if(Date.now()-fired<1200)return;          /* un appui déclenche plusieurs évènements (touchend puis click) : une seule lecture */
+  if(st.muted){pend=false;unlisten();tools();return;}
   if(e.type==="keydown"&&e.key==="Escape")return;
-  if(e.target&&e.target.closest&&e.target.closest(".ax-tools,.ax-dock,.ax-more"))return;
-  speak();}
+  if(e.target&&e.target.closest&&e.target.closest(".ax-tools,.ax-dock,.ax-more,.ax-char"))return;
+  fired=Date.now();
+  if(isOpen()){speak();return;}
+  /* bulle rangée : elle ne se rouvre que si le son démarre vraiment (un défilement ne la rouvre jamais) */
+  if(useAudio&&isFr()){au.muted=false;try{au.currentTime=0;}catch(err){}
+    var p=au.play();
+    if(p&&p.then){p.then(function(){au.pause();open("welcome",false);speak();},function(){});return;}}
+  open("welcome",false);speak();}
 
 /* ---------- raccourcis : onglet de la section « service » de l'accueil, sinon page dédiée ---------- */
 var PAGES={telephone:"telephone-ia.html",marketing:"decouvrir.html#marketing",gestion:"decouvrir.html#gestion"};
@@ -214,7 +226,7 @@ function playFromTouch(){
 /* ---------- événements ---------- */
 dock.addEventListener("click",function(){
   if(MQ_M.matches){playFromTouch();return;}
-  if(isOpen())close();else open("menu",true);});
+  if(isOpen())close(true);else open("menu",true);});
 root.querySelector(".ax-char").addEventListener("click",function(){if(MQ_M.matches)playFromTouch();});
 root.addEventListener("click",function(e){
   var g=e.target.closest("[data-go]");if(g){go(g.getAttribute("data-go"));return;}
@@ -225,10 +237,10 @@ root.addEventListener("click",function(e){
       else if(au)au.muted=false;
       tools();break;
     case "stop":unlisten();halt();tools();break;
-    case "min":close();break;
+    case "min":close(true);break;
     case "replay":if(view!=="welcome")renderWelcome();if(st.muted){st.muted=false;save();}speak();break;}});
 root.addEventListener("submit",function(e){var q=root.querySelector("#ax-q");if(!q.value.trim()){e.preventDefault();q.focus();return;}halt();});
-root.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.stopPropagation();close();}});
+root.addEventListener("keydown",function(e){if(e.key==="Escape"&&isOpen()){e.stopPropagation();close(true);}});
 document.addEventListener("visibilitychange",function(){
   root.classList.toggle("ax-paused",document.hidden);dock.classList.toggle("ax-paused",document.hidden);
   if(document.hidden){if(playing&&useAudio&&!au.paused){au.pause();resumeOnShow=true;}else if(playing)finish();}
@@ -253,19 +265,9 @@ function fitBanner(){
   bubble.style.maxHeight=Math.max(160,Math.round(room))+"px";}
 document.addEventListener("vp:consent",function(){setTimeout(fitBanner,30);});
 window.addEventListener("resize",function(){if(!root.hidden)fitBanner();});
-/* retour à l'accueil depuis une autre page du site (lien interne ou bouton Précédent) : pas de nouvelle présentation */
-function fromInside(){
-  var nav=(performance.getEntriesByType&&performance.getEntriesByType("navigation")[0])||{};
-  if(nav.type==="reload")return false;
-  if(nav.type==="back_forward")return true;
-  try{return !!document.referrer&&new URL(document.referrer).origin===location.origin;}catch(e){return false;}}
-/* présentation automatique à chaque ouverture du site (nouvel onglet, lien extérieur, rechargement),
-   sur ordinateur comme sur mobile */
+/* présentation automatique à chaque arrivée sur l’accueil (ouverture du site, lien, onglet « Accueil », rechargement),
+   sur ordinateur comme sur téléphone : la bulle s’ouvre et le robot parle (si le son est bloqué : voir listen()) */
 function present(){
-  if(fromInside())return;
-  /* téléphone : le grand panneau recouvrirait le titre et les boutons de l’accueil ; le robot de l’en-tête s’illumine
-     quelques instants pour inviter à le toucher (le toucher ouvre la présentation, comme avant) */
-  if(MQ_M.matches){dock.classList.add("ax-invite");setTimeout(function(){dock.classList.remove("ax-invite");},7000);return;}
   if(document.hidden){document.addEventListener("visibilitychange",function v(){if(!document.hidden){document.removeEventListener("visibilitychange",v);setTimeout(present,400);}});return;}
   open("welcome",false);
   if(st.muted){gesture("wave");reveal();tools();return;}
