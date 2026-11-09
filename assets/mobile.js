@@ -18,6 +18,7 @@ var SVC=[
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
   {href:"artisan-os.html",t:"Artisan OS",s:"La gestion intelligente des professionnels du bâtiment.",i:"helmet"},
   {href:"artisan-os.html#video",t:"Vidéo",s:"Artisan OS",i:"play"},
+  {href:"artisan-os.html#dressing-metiers",t:"Le dressing des métiers",s:"Artisan OS",i:"user"},
   {href:"campagne-ads",t:"Campagne ADS",s:"Une seule marque, sur tous les canaux publicitaires.",i:"mega"},
   {href:"telephone-ia.html#secretariat-medical",t:"Secrétariat médical IA",s:"L’accueil administratif des cabinets et des centres.",i:"shield"},
   {href:"telephone-ia.html#video-medicale",t:"Vidéo",s:"Secrétariat médical IA",i:"play"},

@@ -115,7 +115,10 @@ function filter(){
   if(toks.length){res.sort(function(a,b){return b[0]-a[0]||a[1]-b[1];});res.forEach(function(r){list.appendChild(r[2]);});}
   else ORDER.forEach(function(li){list.appendChild(li);});
   count(n);$("dr-none").hidden=n>0;}
-var qt;q.addEventListener("input",function(){clearTimeout(qt);qt=setTimeout(filter,60);});
+/* famille ouverte par défaut (pas choisie par le visiteur) : une recherche porte sur tous les métiers */
+var qt;q.addEventListener("input",function(){
+  if(state.famAuto&&q.value.trim()){state.famAuto=false;state.fam="";chips.forEach(function(c){c.setAttribute("aria-pressed",c.dataset.fam===""?"true":"false");});}
+  clearTimeout(qt);qt=setTimeout(filter,60);});
 q.addEventListener("keydown",function(e){
   if(e.key==="ArrowDown"){var v=visible();if(v[0]){e.preventDefault();v[0].focus();}}
   else if(e.key==="Enter"){var w=visible();if(w[0]){e.preventDefault();select(w[0].dataset.id,{from:"search"});}}
@@ -133,7 +136,7 @@ list.addEventListener("keydown",function(e){
 /* ---------- familles : boutons et niches du mur ---------- */
 function famName(f){return f&&DATA&&DATA.familles[f]?DATA.familles[f].nom:"";}
 function setFam(f,opts){
-  state.fam=f||"";
+  state.fam=f||"";state.famAuto=false;
   chips.forEach(function(c){c.setAttribute("aria-pressed",c.dataset.fam===state.fam?"true":"false");});
   filter();
   if(state.fam){niches.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.fam===state.fam?"true":"false");});wear(state.fam);
@@ -202,6 +205,9 @@ var MODE={
   cours:{nom:"Réservation de cours",besoins:["Recevoir des réservations de cours","Présenter votre planning","Présenter vos formules"],rep:"Place proposée"},
   session:{nom:"Réservation de séances",besoins:["Recevoir des réservations de séances","Présenter vos activités","Tenir à jour vos informations pratiques"],rep:"Créneau proposé"}};
 var SANS_PAIEMENT={nom:"Sans paiement en ligne",court:"Sans paiement",desc:"Le rendez-vous est enregistré sans paiement en ligne ; le règlement se fait sur place."};
+/* bouton de rappel : formulaire de la page s’il existe, sinon celui de la page « Offre sur mesure » (métier transmis par l’adresse) */
+function cta(id,label){return D.getElementById("rappel")?'<button class="btn btn-cyan" type="button" data-open-rappel data-metier aria-controls="rappel" aria-expanded="false">'+label+' '+I.arrow+'</button>'
+  :'<a class="btn btn-cyan" href="offre-sur-mesure.html?metier='+encodeURIComponent(id)+'#rappel">'+label+' '+I.arrow+'</a>';}
 function li(icon,html){return "<li>"+icon+"<span>"+html+"</span></li>";}
 function render(m){
   var F=DATA.familles[m.fam],mode=MODE[m.mode]||MODE.rdv,sante=m.fam==="sante";
@@ -240,7 +246,7 @@ function render(m){
   if(sante)h+='<div class="dr-health" role="note">'+I.info+'<div><b>Santé : un cadre strict</b>'+
     '<p>Pas d’avis clients, pas de paiement en ligne, pas de publicité. L’assistant ne donne aucun conseil médical : il s’en tient à l’organisation des rendez-vous et aux informations pratiques. En cas d’urgence, le site rappelle d’appeler le 15 (SAMU) ou le 112.</p>'+
     '<p>Les données de rendez-vous doivent être confiées à un hébergeur certifié HDS : point à prévoir avec votre conseiller.</p></div></div>';
-  h+='<div class="dr-cta"><button class="btn btn-cyan" type="button" data-open-rappel data-metier aria-controls="rappel" aria-expanded="false">Construire ma solution '+I.arrow+'</button>'+
+  h+='<div class="dr-cta">'+cta(m.id,"Construire ma solution")+
     '<a class="btn btn-line" href="#modeles">Voir les modèles</a><a class="link" href="demo.html'+(m.fam==="artisan"?"?secteur=batiment":"")+'">Découvrir une démo</a></div>';
   show(h,m.fam);}
 function renderAutre(){
@@ -253,7 +259,7 @@ function renderAutre(){
     '</ul></section><section class="dr-blk"><h3>Pour commencer</h3><ul>'+
     li(I.need,"Décrivez votre activité, vos clients et ce que vous souhaitez simplifier.")+li(I.need,"Votre conseiller vous rappelle et vous recevez un devis personnalisé.")+
     '</ul></section></div>'+
-    '<div class="dr-cta"><button class="btn btn-cyan" type="button" data-open-rappel data-metier aria-controls="rappel" aria-expanded="false">Présenter mon activité '+I.arrow+'</button>'+
+    '<div class="dr-cta">'+cta("autre","Présenter mon activité")+
     '<a class="btn btn-line" href="#modeles">Voir les modèles</a></div>';
   show(h,"");}
 function show(h,fam){var c=$("dr-card"),h0=$("dr-pres-empty").querySelector("h2");if(h0)h0.removeAttribute("id");c.innerHTML=h;c.hidden=false;c.dataset.fam=fam;$("dr-pres-empty").hidden=true;
@@ -293,7 +299,7 @@ fetch("assets/metiers/metiers.json").then(function(r){if(!r.ok)throw new Error(r
   if(id==="autre")$("dr-autre").click();
   else if(id&&BY[id])select(id,{from:"load"});
   else if(sect==="sante")setFam("sante");
-  else models("",null);
+  else{var hero=set.closest("[data-famille]"),df=hero&&hero.getAttribute("data-famille");if(df&&DATA.familles[df]){setFam(df);state.famAuto=true;models(df,null);}else models("",null);}
   filter();
   /* préchargement discret des tenues les plus probables quand la page est au repos (connexion rapide seulement) */
   var c=navigator.connection;if(!(c&&(c.saveData||/2g/.test(c.effectiveType||"")))){

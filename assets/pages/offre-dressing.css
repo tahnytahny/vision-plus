@@ -292,3 +292,6 @@ html[dir="rtl"] .dr-journey li::before{left:auto;right:14px}
   .dr-niche,.dr-tag,.dr-chip,.dr-item,.dr-shot>button{transition:none}
   .dr-shot>button:hover{transform:none}
 }
+
+/* dans la page Artisan OS (déplacé depuis « Offre sur mesure » le 2026-11-09) : espacement avec les sections voisines */
+.ao-dressing{margin-top:clamp(56px,7vw,104px)}
