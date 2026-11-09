@@ -38,6 +38,9 @@
 .d-hero-txt .actions{margin-top:2px;max-width:100%;justify-content:center}
 @media (max-width:520px){.d-hero-txt .actions,#open-form{width:100%}#open-form{white-space:normal;line-height:1.25;text-align:center}}
 .resume{font-size:.92rem}
+#g-feat .feat-other{margin:14px 0 0}
+#g-feat .feat-other textarea{min-height:64px}
+.group .pt-hint{margin-inline-start:6px;color:var(--mut);font-size:.84rem;font-weight:400}
 .sim-visual{order:10;position:relative;width:100%;margin:clamp(10px,2vw,26px) 0 0;isolation:isolate}
 .sim-visual::before{content:"";position:absolute;z-index:-1;left:6%;right:6%;top:8%;bottom:-6%;border-radius:50%;pointer-events:none;
   background:radial-gradient(50% 50% at 50% 50%,rgba(30,120,255,.34),rgba(20,80,200,.12) 55%,transparent 72%);filter:blur(28px)}
@@ -284,14 +287,14 @@
         <fieldset class="step" data-step="2" hidden>
           <legend tabindex="-1">Votre projet</legend>
           <div class="field"><label for="d-pname">Nom du projet <span class="req-m" aria-hidden="true">*</span></label><input class="input" id="d-pname" required aria-describedby="e-pname" placeholder="Ex. : Site et réservations du salon"><p class="msg-err" id="e-pname"></p></div>
-          <fieldset class="group" id="g-ptype" aria-describedby="e-ptype"><legend>Type de projet <span class="req-m" aria-hidden="true">*</span></legend><div class="chips" id="ptypes"></div><p class="msg-err" id="e-ptype"></p></fieldset>
+          <fieldset class="group" id="g-ptype" aria-describedby="e-ptype"><legend>Type de projet <span class="req-m" aria-hidden="true">*</span> <small class="pt-hint">Plusieurs choix possibles</small></legend><div class="chips" id="ptypes"></div><p class="msg-err" id="e-ptype"></p></fieldset>
           <div class="field"><label for="d-desc">Description détaillée <span class="req-m" aria-hidden="true">*</span></label><textarea class="input" id="d-desc" required aria-describedby="d-desc-h e-desc" rows="6"></textarea><small id="d-desc-h">Votre activité, vos clients, ce que vous souhaitez améliorer.</small><p class="msg-err" id="e-desc"></p></div>
         </fieldset>
         <!-- Étape 3 -->
         <fieldset class="step" data-step="3" hidden>
           <legend tabindex="-1">Vos besoins</legend>
           <div class="field"><label for="d-goals">Vos objectifs <span class="req-m" aria-hidden="true">*</span></label><textarea class="input" id="d-goals" rows="3" required aria-describedby="e-goals" placeholder="Ex. : ne plus manquer d'appels, gagner en visibilité…"></textarea><p class="msg-err" id="e-goals"></p></div>
-          <fieldset class="group" id="g-feat" aria-describedby="e-feat"><legend>Fonctionnalités souhaitées <span class="req-m" aria-hidden="true">*</span></legend><div class="chips" id="feats"></div><p class="msg-err" id="e-feat"></p></fieldset>
+          <fieldset class="group" id="g-feat" aria-describedby="e-feat"><legend>Fonctionnalités souhaitées <span class="req-m" aria-hidden="true">*</span> <small class="pt-hint">Plusieurs choix possibles</small></legend><div class="chips" id="feats"></div><div class="field feat-other"><label for="d-other">Une autre fonctionnalité ? Décrivez-la avec vos mots <span class="opt-l">(facultatif)</span></label><textarea class="input" id="d-other" rows="2" maxlength="400" placeholder="Ex. : un rappel automatique la veille de chaque rendez-vous"></textarea></div><p class="msg-err" id="e-feat"></p></fieldset>
           <div class="field"><label for="d-needs">Besoins spécifiques <span class="opt-l">(facultatif)</span></label><textarea class="input" id="d-needs" rows="3"></textarea></div>
           <div class="field">
             <span id="files-l">Fichiers utiles <span class="opt-l">(facultatif)</span></span>
@@ -404,7 +407,7 @@ function buildForm(){
   $("d-sector").insertAdjacentHTML("beforeend",(D.sectors||[]).map(function(s){return '<option>'+esc(s)+"</option>";}).join(""));
   if(A.qs("secteur")==="sante"){$("sante-note").hidden=false;var si=(D.sectors||[]).indexOf("Santé, bien-être");if(si>=0&&!$("d-sector").value)$("d-sector").selectedIndex=si+1;}
   if(A.qs("secteur")==="batiment"){var bi=(D.sectors||[]).indexOf("Artisan, bâtiment");if(bi>=0&&!$("d-sector").value)$("d-sector").selectedIndex=bi+1;}
-  $("ptypes").innerHTML=(D.projectTypes||[]).map(function(t,i){return '<label class="chip" for="pt-'+i+'"><input type="radio" name="ptype" id="pt-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
+  $("ptypes").innerHTML=(D.projectTypes||[]).map(function(t,i){return '<label class="chip" for="pt-'+i+'"><input type="checkbox" name="ptype" id="pt-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
   $("feats").innerHTML=(D.features||[]).map(function(t,i){return '<label class="chip" for="ft-'+i+'"><input type="checkbox" name="feat" id="ft-'+i+'" value="'+esc(t)+'">'+esc(t)+"</label>";}).join("");
   $("callbacks").innerHTML=CALLBACK.map(function(c){return '<label class="opt" for="cb-'+c[0]+'"><input type="radio" name="callback" id="cb-'+c[0]+'" value="'+c[0]+'"><span><b>'+c[1]+"</b><small>"+c[2]+"</small></span></label>";}).join("");
   $("prog").innerHTML=LABELS.map(function(l,i){return '<li data-i="'+(i+1)+'"><span><b>'+(i+1)+"</b>"+l+"</span></li>";}).join("");
@@ -447,7 +450,7 @@ function val(id){return $(id).value.trim();}
 function radio(name){var r=form.querySelector('input[name="'+name+'"]:checked');return r?r.value:"";}
 function checks(name){return [].map.call(form.querySelectorAll('input[name="'+name+'"]:checked'),function(x){return x.value;});}
 function data(){return {name:val("d-name"),company:val("d-company"),email:val("d-email").toLowerCase(),phone:val("d-phone"),sector:$("d-sector").value,
-  pname:val("d-pname"),ptype:radio("ptype"),desc:val("d-desc"),goals:val("d-goals"),features:checks("feat"),needs:val("d-needs"),callback:radio("callback"),files:files.slice()};}
+  pname:val("d-pname"),ptypes:checks("ptype"),ptype:checks("ptype").join(", "),desc:val("d-desc"),goals:val("d-goals"),features:checks("feat"),other:val("d-other"),needs:val("d-needs"),callback:radio("callback"),files:files.slice()};}
 /* validation */
 function setErr(key,ctl,msg){var e=$("e-"+key);e.textContent=msg||"";if(ctl){if(msg)ctl.setAttribute("aria-invalid","true");else ctl.removeAttribute("aria-invalid");}return msg?1:0;}
 function validate(n){
@@ -461,11 +464,11 @@ function validate(n){
     chk("sector","d-sector",!!d.sector,"Choisissez votre secteur d'activité.");
   }else if(n===2){
     chk("pname","d-pname",d.pname.length>=2,"Donnez un nom à votre projet.");
-    chk("ptype",null,!!d.ptype,"Choisissez le type de projet.",'input[name="ptype"]');
+    chk("ptype",null,d.ptypes.length>0,"Choisissez au moins un type de projet.",'input[name="ptype"]');
     chk("desc","d-desc",d.desc.length>=30,"Décrivez votre projet en quelques phrases (30 caractères minimum, "+d.desc.length+" actuellement).");
   }else if(n===3){
     chk("goals","d-goals",d.goals.length>=5,"Indiquez au moins un objectif.");
-    chk("feat",null,d.features.length>0,"Choisissez au moins une fonctionnalité.",'input[name="feat"]');
+    chk("feat",null,d.features.length>0||d.other.length>=3,"Choisissez au moins une fonctionnalité ou décrivez la vôtre.",'input[name="feat"]');
   }else if(n===4){
     if(!d.callback)chk("callback",null,false,"Indiquez si vous souhaitez être rappelé par un conseiller.",'input[name="callback"]');
     else chk("callback",null,!(d.callback==="yes"&&!d.phone),"Indiquez votre numéro de téléphone à l'étape 1 pour être rappelé.",'input[name="callback"]');
@@ -476,7 +479,7 @@ function validate(n){
 }
 /* effacer l'erreur dès correction */
 form.addEventListener("input",function(e){var t=e.target;if(t.getAttribute("aria-invalid")==="true"){t.removeAttribute("aria-invalid");var k=(t.getAttribute("aria-describedby")||"").split(" ").filter(function(x){return x.indexOf("e-")===0;})[0];if(k)$(k).textContent="";}});
-form.addEventListener("change",function(e){var t=e.target;if(t.name==="ptype")$("e-ptype").textContent="";if(t.name==="feat")$("e-feat").textContent="";if(t.name==="callback")$("e-callback").textContent="";if(t.id==="d-consent"&&t.checked){$("e-consent").textContent="";t.removeAttribute("aria-invalid");}});
+form.addEventListener("change",function(e){var t=e.target;if(t.name==="ptype")$("e-ptype").textContent="";if(t.name==="feat"||t.id==="d-other")$("e-feat").textContent="";if(t.name==="callback")$("e-callback").textContent="";if(t.id==="d-consent"&&t.checked){$("e-consent").textContent="";t.removeAttribute("aria-invalid");}});
 /* fichiers (prototype : métadonnées seulement) */
 var MAXF=10;
 function fsize(b){return b<1024?b+" o":b<1048576?Math.round(b/1024)+" Ko":(b/1048576).toFixed(1).replace(".",",")+" Mo";}
@@ -497,20 +500,21 @@ function renderRecap(){var d=data();
   $("recap").innerHTML=
     sec("Vous",1,row("Nom",d.name)+row("Entreprise",d.company)+row("E-mail",d.email)+row("Téléphone",d.phone)+row("Secteur",d.sector)+row("Rappel par un conseiller",d.callback==="yes"?"Oui":d.callback==="later"?"Plus tard":""))+
     sec("Projet",2,row("Nom",d.pname)+row("Type",d.ptype)+row("Description",d.desc.length>160?d.desc.slice(0,160)+"…":d.desc))+
-    sec("Besoins",3,row("Objectifs",d.goals)+row("Fonctionnalités",d.features.join(", "))+row("Besoins",d.needs)+row("Fichiers",files.length?files.length+" fichier"+(files.length>1?"s":"")+" : "+files.map(function(f){return f.name;}).join(", "):""));
+    sec("Besoins",3,row("Objectifs",d.goals)+row("Fonctionnalités",d.features.join(", "))+(d.other?row("Autre fonctionnalité",d.other):"")+row("Besoins",d.needs)+row("Fichiers",files.length?files.length+" fichier"+(files.length>1?"s":"")+" : "+files.map(function(f){return f.name;}).join(", "):""));
 }
 $("recap").addEventListener("click",function(e){var b=e.target.closest("[data-goto]");if(b)setStep(+b.dataset.goto,true);});
 /* brouillon */
 var dt=null;
 function draftSoon(){clearTimeout(dt);dt=setTimeout(saveDraft,250);}
 function saveDraft(){if(!formReady||!form.dataset.loaded)return;var d=data();
-  var empty=!d.name&&!d.company&&!d.pname&&!d.desc&&!d.goals&&!d.needs&&!d.features.length&&!d.ptype&&!files.length&&!d.sector&&step===1;
+  var empty=!d.name&&!d.company&&!d.pname&&!d.desc&&!d.goals&&!d.needs&&!d.features.length&&!d.other&&!d.ptype&&!files.length&&!d.sector&&step===1;
   if(empty){A.store.del(DRAFT);return;}
   d.step=step;A.store.set(DRAFT,d);}
 function restoreDraft(d){
-  ["name","company","email","phone","pname","desc","goals","needs"].forEach(function(k){if(d[k]!=null)$("d-"+k).value=d[k];});
+  ["name","company","email","phone","pname","desc","goals","other","needs"].forEach(function(k){if(d[k]!=null)$("d-"+k).value=d[k];});
   if(d.sector)$("d-sector").value=d.sector;
-  form.querySelectorAll('input[name="ptype"]').forEach(function(x){x.checked=x.value===d.ptype;});
+  var pts=d.ptypes||(d.ptype?String(d.ptype).split(", "):[]);   /* anciens brouillons : un seul type */
+  form.querySelectorAll('input[name="ptype"]').forEach(function(x){x.checked=pts.indexOf(x.value)>=0;});
   form.querySelectorAll('input[name="feat"]').forEach(function(x){x.checked=(d.features||[]).indexOf(x.value)>=0;});
   if(d.callback)form.querySelectorAll('input[name="callback"]').forEach(function(x){x.checked=x.value===d.callback;});
   files=(d.files||[]).slice();renderFiles();
@@ -526,7 +530,7 @@ function newRef(){var ref,tries=0;do{ref="DEMO-"+String(Math.floor(Math.random()
   while(tries<50&&A.records.list("demos",function(x){return x.ref===ref;}).length);return ref;}
 function submit(){
   var d=data(),u=A.auth.current(),btn=$("f-next");btn.disabled=true;
-  var project=A.records.add("projects",{userId:u?u.id:null,name:d.pname,type:d.ptype,sector:d.sector,description:d.desc,goals:d.goals,features:d.features,needs:d.needs,callback:d.callback==="yes",files:d.files});
+  var project=A.records.add("projects",{userId:u?u.id:null,name:d.pname,type:d.ptype,types:d.ptypes,sector:d.sector,description:d.desc,goals:d.goals,features:d.features.concat(d.other?["Autre : "+d.other]:[]),featuresOther:d.other,needs:d.needs,callback:d.callback==="yes",files:d.files});
   var ref=newRef(),now=A.now();
   A.records.add("demos",{ref:ref,userId:u?u.id:null,name:d.name,email:d.email,phone:A.auth.normPhone(d.phone),company:d.company,projectId:project.id,status:0,history:[{status:0,at:now,note:"Demande envoyée depuis le site"}],analysis:null,video:null});
   var link="demo.html?ref="+ref+"&email="+encodeURIComponent(d.email);

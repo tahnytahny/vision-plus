@@ -156,6 +156,9 @@ A.auth={
     if(!u)return {error:"Compte introuvable."};u.salt=A.uid("s");u.pw=await hash(o.password,u.salt);if(!u.providers.includes("email")&&u.email)u.providers.push("email");
     saveUsers(l);clearFail(u.email||u.phone);A.audit("Mot de passe réinitialisé",u.email||u.phone);return {user:u};},
   update:function(patch){var cur=A.auth.current();if(!cur)return null;var l=users(),u=null;l.forEach(function(x){if(x.id===cur.id){Object.assign(x,patch);u=x;}});saveUsers(l);return u;},
+  checkPassword:async function(pw){var cur=A.auth.current();if(!cur||!cur.pw)return {ok:false};var id=cur.email||cur.phone,m=locked(id);
+    if(m)return {error:"Trop de tentatives. Réessayez dans "+m+" min ou réinitialisez votre mot de passe."};
+    if(cur.pw===await hash(pw,cur.salt)){clearFail(id);return {ok:true};}fail(id);return {ok:false};},
   changePassword:async function(oldPw,newPw){var cur=A.auth.current();if(cur.pw&&cur.pw!==await hash(oldPw,cur.salt))return {error:"Mot de passe actuel incorrect."};
     var salt=A.uid("s");A.auth.update({salt:salt,pw:await hash(newPw,salt)});A.audit("Mot de passe modifié",cur.email||cur.phone);return {};},
   require:function(){var u=A.auth.current();if(!u){location.replace("connexion.html?next="+encodeURIComponent(location.pathname.split("/").pop()+location.hash));return null;}return u;},

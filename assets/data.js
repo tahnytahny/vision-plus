@@ -71,7 +71,9 @@ window.VISIONPLUS_DATA = {
   savTypes: ["Problème de connexion","Mon compte","Offre, devis ou facturation","Simulation","Fonctionnalité de la plateforme","Signaler un bug","Autre demande"],
   sectors: ["Restaurant, bar","Commerce","Santé, bien-être","Beauté, coiffure","Artisan, bâtiment","Hôtellerie, tourisme","Services aux entreprises","Autre"],
   projectTypes: ["Création d'une web app","Refonte d'un site existant","Secrétaire IA","Marketing sur les réseaux","Gestion de contenu","Projet combiné"],
-  features: ["Web app sur mesure","Agent marketing IA","Secrétaire IA","Gestion de la web app par IA","Réservation ou prise de rendez-vous","Paiement en ligne"],
+  features: ["Web app sur mesure","Agent marketing IA","Secrétaire IA","Gestion de la web app par IA","Réservation ou prise de rendez-vous","Paiement en ligne",
+    /* idées tirées des services présentés sur le site (secrétaire IA, Campagne ADS, simulation, secrétariat médical, Artisan OS) */
+    "Publications sur les réseaux sociaux","Campagnes publicitaires (Google, Instagram, TikTok…)","Vidéo publicitaire","Visibilité sur Google","Préparation des devis","Envoi d'e-mails","Suivi des dossiers et des expéditions","Accueil en plusieurs langues","Secrétariat médical IA","Artisan OS (métiers du bâtiment)"],
   demoStatuses: ["Demande reçue","Analyse en cours","Simulation en préparation","Simulation disponible"],
   savStatuses: ["Ouverte","En cours","En attente de votre réponse","Résolue","Fermée"],
   /* Anciennes formules standard : plus utilisées depuis l'offre sur mesure (5 novembre 2026). Structure conservée :

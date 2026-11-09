@@ -155,12 +155,14 @@ function verifyFlow(kind,target){var em=kind==="email",prev={phone:me.phone,phon
 V.securite=function(){var u=me,hasPw=!!u.pw,oa=(A.config.oauth||{}),provs=u.providers||[];
   var sessions=mine("sessions").slice(0,8);
   function method(icon,label,state){return "<li><span>"+ic(icon)+esc(label)+"</span>"+state+"</li>";}
+  /* mot de passe existant : un seul bouton ; on confirme d’abord le mot de passe actuel, puis on saisit le nouveau.
+     Mot de passe actuel erroné : lien « Mot de passe oublié ? ». Sans mot de passe (compte SMS) : formulaire pour en définir un. */
   var pwForm=(!hasPw&&!u.email)?'<div class="notice info">'+ic("info")+'<span>Ajoutez d\'abord une adresse e-mail dans votre <a class="link" href="#profil">profil</a> pour pouvoir vous connecter avec un mot de passe.</span></div>':
+    hasPw?'<div id="pw-zone"><div class="actions"><button class="btn btn-cyan" type="button" id="pw-start">Modifier le mot de passe</button></div></div>':
     '<form class="form narrow-form" id="f-pw" novalidate>'+
-    (hasPw?'<div class="field"><label for="pw-old">Mot de passe actuel</label><input class="input" id="pw-old" type="password" autocomplete="current-password" required></div>':"")+
     '<div class="field"><label for="pw-new">Nouveau mot de passe</label><input class="input" id="pw-new" type="password" autocomplete="new-password" aria-describedby="pw-help" required><small id="pw-help">10 caractères minimum, avec au moins une lettre et un chiffre.</small></div>'+
     '<div class="field"><label for="pw-new2">Confirmation</label><input class="input" id="pw-new2" type="password" autocomplete="new-password" required></div>'+
-    '<p id="pw-msg" class="small" aria-live="polite"></p><div class="actions"><button class="btn btn-cyan" type="submit">'+(hasPw?"Modifier le mot de passe":"Définir un mot de passe")+"</button></div></form>";
+    '<p id="pw-msg" class="small" aria-live="polite"></p><div class="actions"><button class="btn btn-cyan" type="submit">Définir un mot de passe</button></div></form>';
   view.innerHTML=head("Sécurité","Mot de passe, méthodes de connexion et sessions.")+
     '<div class="sec"><div class="sec-h"><h2>'+(hasPw?"Mot de passe":"Définir un mot de passe")+"</h2>"+(hasPw?"":"<p>Votre compte utilise aujourd'hui le code SMS.</p>")+"</div>"+pwForm+"</div>"+
     '<div class="sec"><div class="sec-h"><h2>Méthodes de connexion</h2></div><ul class="methods">'+
@@ -175,15 +177,40 @@ V.securite=function(){var u=me,hasPw=!!u.pw,oa=(A.config.oauth||{}),provs=u.prov
         empty("lock","Aucune session enregistrée",""))+
       '<div class="actions"><button type="button" class="btn btn-line" id="logout">'+ic("out")+" Se déconnecter</button></div></div>";
   document.getElementById("logout").onclick=A.auth.logout;
-  var f=document.getElementById("f-pw");if(f)f.addEventListener("submit",async function(e){e.preventDefault();var msg=document.getElementById("pw-msg"),o=document.getElementById("pw-old"),n1=document.getElementById("pw-new"),n2=document.getElementById("pw-new2");
-    [o,n1,n2].forEach(function(x){if(x)x.removeAttribute("aria-invalid");});
-    if(o&&!o.value){setMsg(msg,"Saisissez votre mot de passe actuel.");o.setAttribute("aria-invalid","true");o.focus();return;}
-    var miss=A.auth.strength(n1.value);if(miss.length){setMsg(msg,"Le nouveau mot de passe doit contenir : "+miss.join(", ")+".");n1.setAttribute("aria-invalid","true");n1.focus();return;}
-    if(n1.value!==n2.value){setMsg(msg,"Les deux mots de passe ne correspondent pas.");n2.setAttribute("aria-invalid","true");n2.focus();return;}
-    var r=await A.auth.changePassword(o?o.value:"",n1.value);
-    if(r.error){setMsg(msg,r.error);o.setAttribute("aria-invalid","true");o.select();return;}
-    if((me.providers||[]).indexOf("email")<0)A.auth.update({providers:(me.providers||[]).concat("email")});
-    me=A.auth.current();A.toast(hasPw?"Mot de passe modifié.":"Mot de passe défini.");render("securite");});};
+  /* nouveau mot de passe (étape 2, ou définition d’un premier mot de passe) */
+  function newPwForm(oldPw){
+    var f=document.getElementById("f-pw");if(!f)return;
+    f.addEventListener("submit",async function(e){e.preventDefault();var msg=document.getElementById("pw-msg"),n1=document.getElementById("pw-new"),n2=document.getElementById("pw-new2");
+      [n1,n2].forEach(function(x){x.removeAttribute("aria-invalid");});
+      var miss=A.auth.strength(n1.value);if(miss.length){setMsg(msg,"Le nouveau mot de passe doit contenir : "+miss.join(", ")+".");n1.setAttribute("aria-invalid","true");n1.focus();return;}
+      if(n1.value!==n2.value){setMsg(msg,"Les deux mots de passe ne correspondent pas.");n2.setAttribute("aria-invalid","true");n2.focus();return;}
+      var r=await A.auth.changePassword(oldPw||"",n1.value);
+      if(r.error){setMsg(msg,r.error);return;}
+      if((me.providers||[]).indexOf("email")<0)A.auth.update({providers:(me.providers||[]).concat("email")});
+      me=A.auth.current();A.toast(hasPw?"Mot de passe modifié.":"Mot de passe défini.");render("securite");});}
+  newPwForm("");
+  var zone=document.getElementById("pw-zone"),start=document.getElementById("pw-start");
+  function cancelBtn(){return '<button class="btn btn-line" type="button" data-pw-cancel>Annuler</button>';}
+  if(zone)zone.addEventListener("click",function(e){if(e.target.closest("[data-pw-cancel]"))render("securite");});
+  if(start)start.addEventListener("click",function(){
+    /* étape 1 : confirmer le mot de passe actuel */
+    zone.innerHTML='<form class="form narrow-form" id="f-pw-check" novalidate><p class="small mut">Confirmez d’abord votre mot de passe actuel.</p>'+
+      '<div class="field"><label for="pw-old">Mot de passe actuel</label><input class="input" id="pw-old" type="password" autocomplete="current-password" required></div>'+
+      '<p id="pw-msg" class="small" aria-live="polite"></p><div class="actions"><button class="btn btn-cyan" type="submit">Valider</button>'+cancelBtn()+"</div></form>";
+    var o=document.getElementById("pw-old");o.focus();
+    document.getElementById("f-pw-check").addEventListener("submit",async function(e){e.preventDefault();var msg=document.getElementById("pw-msg");o.removeAttribute("aria-invalid");
+      if(!o.value){setMsg(msg,"Saisissez votre mot de passe actuel.");o.setAttribute("aria-invalid","true");o.focus();return;}
+      var r=await A.auth.checkPassword(o.value);
+      if(!r.ok){var forgot="mot-de-passe.html"+(me.email?"?email="+encodeURIComponent(me.email):"");
+        msg.className="small msg-err";msg.innerHTML=esc(r.error||"Mot de passe actuel incorrect.")+' <a class="link" href="'+esc(forgot)+'">Mot de passe oublié ?</a>';
+        o.setAttribute("aria-invalid","true");o.select();return;}
+      /* étape 2 : bon mot de passe, on choisit le nouveau */
+      var old=o.value;
+      zone.innerHTML='<form class="form narrow-form" id="f-pw" novalidate>'+
+        '<div class="field"><label for="pw-new">Nouveau mot de passe</label><input class="input" id="pw-new" type="password" autocomplete="new-password" aria-describedby="pw-help" required><small id="pw-help">10 caractères minimum, avec au moins une lettre et un chiffre.</small></div>'+
+        '<div class="field"><label for="pw-new2">Confirmation</label><input class="input" id="pw-new2" type="password" autocomplete="new-password" required></div>'+
+        '<p id="pw-msg" class="small" aria-live="polite"></p><div class="actions"><button class="btn btn-cyan" type="submit">Enregistrer</button>'+cancelBtn()+"</div></form>";
+      newPwForm(old);document.getElementById("pw-new").focus();});});};
 
 /* Mon offre : offre sur mesure (étude des besoins, devis personnalisé), demandes de rappel */
 V.abonnement=function(){var subs=mine("subscriptions").sort(function(a,b){return (b.start||b.createdAt||0)-(a.start||a.createdAt||0);}),cur=activeSub();
