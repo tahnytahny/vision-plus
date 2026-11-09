@@ -28,27 +28,51 @@
 <link rel="apple-touch-icon" href="assets/brand/icon-180.png">
 <script src="assets/mobile.js" defer></script>
 <style>
-/* ---------- vue présentation ---------- */
-.d-hero .wrap{grid-template-columns:minmax(0,1fr);align-items:center;gap:clamp(36px,5vw,64px)}
-@media (min-width:1000px){.d-hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-.d-hero-txt{display:grid;gap:22px;justify-items:start;min-width:0}
-.d-hero-txt .actions{margin-top:6px;max-width:100%}
+/* ---------- vue présentation : « Votre activité, vue de l’intérieur » ----------
+   Visuel 3D de la simulation (assets/demo/simulation-3d-*.webp, original dans outils/simulation) à la place de l’ancien lecteur vidéo.
+   Ordinateur : titre, texte et bouton centrés au-dessus, visuel en pleine largeur de la section, cadrage complet.
+   Téléphone : visuel juste après le titre, sur toute la largeur de l’écran, puis « Agrandir le visuel » (plein écran) et le texte. */
+.d-hero .wrap{display:block}
+.d-hero-txt{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;min-width:0}
+.d-hero-txt .lead{max-width:62ch;margin:0}
+.d-hero-txt .actions{margin-top:2px;max-width:100%;justify-content:center}
 @media (max-width:520px){.d-hero-txt .actions,#open-form{width:100%}#open-form{white-space:normal;line-height:1.25;text-align:center}}
-.honest{display:flex;gap:10px;align-items:flex-start;color:var(--mut);font-size:.9rem;max-width:46ch}
-.honest .ico{color:var(--cyan);margin-top:.25em}
 .resume{font-size:.92rem}
-.screen{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--edge);aspect-ratio:16/10;background:#11161D;box-shadow:0 50px 90px -40px rgba(0,0,0,.95);min-width:0}
-.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:saturate(.8)}
-.screen::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,20,25,.05),rgba(16,20,25,.88))}
-.screen .play{position:absolute;left:50%;top:44%;translate:-50% -50%;z-index:1;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(25,116,232,.14);border:1px solid rgba(25,116,232,.6);color:var(--cyan);box-shadow:0 0 40px -6px var(--glow);animation:ring 3s ease-in-out infinite}
-.screen .play svg{width:28px;height:28px;fill:currentColor}
-.screen-meta{position:absolute;left:22px;right:22px;bottom:18px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
-.screen-meta b{display:block;font:600 1.1rem/1.2 var(--f-display)}
-.screen-meta small{color:var(--soft);font-size:.84rem}
-.screen-bar{position:absolute;left:22px;right:22px;bottom:8px;height:2px;border-radius:2px;background:rgba(242,244,247,.15);z-index:1;overflow:hidden}
-.screen-bar i{display:block;height:100%;width:38%;background:var(--cyan);box-shadow:0 0 10px var(--glow);animation:load 6s var(--ease) infinite}
-@keyframes ring{50%{box-shadow:0 0 60px 4px var(--glow)}}
-@keyframes load{0%{width:0}80%,100%{width:100%}}
+.sim-visual{order:10;position:relative;width:100%;margin:clamp(10px,2vw,26px) 0 0;isolation:isolate}
+.sim-visual::before{content:"";position:absolute;z-index:-1;left:6%;right:6%;top:8%;bottom:-6%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(30,120,255,.34),rgba(20,80,200,.12) 55%,transparent 72%);filter:blur(28px)}
+.sim-frame{position:relative;border-radius:22px;overflow:hidden;background:#050B17;
+  border:1px solid rgba(130,195,255,.42);
+  box-shadow:inset 0 1px 0 rgba(200,230,255,.25),0 0 0 1px rgba(31,119,233,.18),0 0 34px rgba(40,140,255,.32),0 50px 90px -40px rgba(0,0,0,.95)}
+.sim-frame::before{content:"";position:absolute;z-index:1;left:12%;right:12%;top:-1px;height:2px;border-radius:2px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(80,180,255,0),#6CC6FF 50%,rgba(80,180,255,0));box-shadow:0 0 12px rgba(40,150,255,.9)}
+.sim-frame img{display:block;width:100%;height:auto;aspect-ratio:3/2;background:#050B17}
+.sim-cap{display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;margin-top:10px;color:var(--mut);font-size:.84rem;font-style:italic}
+.sim-zoom{display:none}
+/* plein écran : l’image occupe toute la hauteur, on la parcourt du doigt pour lire les détails */
+.sim-lb{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#02060D;color:#fff;overflow:hidden}
+.sim-lb::backdrop{background:#02060D}
+.sim-lb[open]{display:flex;flex-direction:column}
+.sim-lb-bar{display:flex;justify-content:flex-end;align-items:center;padding:calc(8px + env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));flex:none}
+.sim-lb-x{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;
+  border:1px solid rgba(150,210,255,.55);background:rgba(10,24,44,.9);box-shadow:0 0 16px rgba(40,140,255,.45)}
+.sim-lb-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.sim-lb-x:focus-visible{outline:2px solid #BCE4FF;outline-offset:3px}
+.sim-lb-in{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;align-items:center;padding:0 0 calc(10px + env(safe-area-inset-bottom,0px))}
+.sim-lb-in img{display:block;height:100%;width:auto;max-width:none;max-height:1024px;margin:0 auto;flex:none}
+@media (orientation:landscape){.sim-lb-in img{height:auto;width:100%;max-width:1536px;max-height:none}}
+@media (max-width:760px){
+  .d-hero-txt{align-items:stretch;text-align:start}
+  .d-hero-txt .actions{justify-content:flex-start}
+  .sim-visual{order:0;margin:2px calc(-1 * var(--m-gap,18px)) 0;width:calc(100% + 2 * var(--m-gap,18px))}
+  .sim-visual::before{left:0;right:0;top:4%;bottom:-2%;filter:blur(20px)}
+  .sim-frame{border-radius:0;border-left:0;border-right:0}
+  .sim-cap{justify-content:space-between;margin:8px var(--m-gap,18px) 0}
+  .sim-zoom{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;
+    color:#9FD3FF;font:600 .95rem/1.2 var(--f-display);font-style:normal;text-decoration:underline;text-underline-offset:4px}
+  .sim-zoom svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .sim-zoom:focus-visible{outline:2px solid #BCE4FF;outline-offset:2px;border-radius:6px}
+}
 .path{list-style:none;margin:0;padding:0;display:grid;gap:36px;position:relative}
 @media (min-width:820px){.path{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px}
   .path::before{content:"";position:absolute;top:31px;left:calc(16.66% + 32px);right:calc(16.66% + 32px);height:1px;background:linear-gradient(90deg,transparent,var(--edge-strong) 10%,var(--edge-strong) 90%,transparent)}
@@ -184,19 +208,16 @@
       <div class="wrap">
         <div class="d-hero-txt">
           <span class="eyebrow">Simulation</span>
-          <h1 id="t-intro" class="h-xl" tabindex="-1">Découvrez ce que Vision Plus peut réaliser pour votre projet</h1>
-          <p class="lead">Présentez votre activité. Recevez une vidéo qui montre Vision Plus appliqué à votre projet.</p>
+          <h1 id="t-intro" class="h-xl" tabindex="-1">Votre activité, vue de l’intérieur</h1>
+          <figure class="sim-visual">
+            <div class="sim-frame"><img src="assets/demo/simulation-3d-1536.webp" srcset="assets/demo/simulation-3d-768.webp 768w, assets/demo/simulation-3d-1152.webp 1152w, assets/demo/simulation-3d-1536.webp 1536w" sizes="(max-width: 760px) 100vw, min(1200px, 100vw)" width="1536" height="1024" fetchpriority="high" decoding="async" alt="Simulation Vision Plus en 3D : autour de l’emblème Vision Plus, une publicité Instagram, une fiche Google, un agenda, un e-mail envoyé, un colis en livraison et le robot au casque du secrétariat téléphonique."></div>
+            <figcaption class="sim-cap"><span>Démonstration illustrative</span><button type="button" class="sim-zoom" id="sim-zoom" aria-haspopup="dialog" aria-controls="sim-lb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Agrandir le visuel</button></figcaption>
+          </figure>
+          <p class="lead">Présentez votre activité. Recevez une simulation qui montre Vision Plus appliqué à votre projet.</p>
           <div class="actions">
             <button class="btn btn-cyan" type="button" id="open-form" aria-controls="v-form">Demander ma simulation personnalisée <i data-ico="arrow" data-cls="arrow"></i></button>
           </div>
           <p class="resume" id="resume" hidden>Une demande est en cours de saisie. <button class="btn-txt" type="button" id="resume-btn">Reprendre mon brouillon</button></p>
-          <p class="honest"><i data-ico="info"></i><span>La vidéo est préparée par l'équipe Vision Plus à partir des fonctionnalités réellement disponibles.</span></p>
-        </div>
-        <div class="screen" aria-hidden="true">
-          <img src="assets/hero-scene-vp.webp" alt="" width="1048" height="618">
-          <span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="screen-meta"><span><b>Votre simulation</b><small>Préparée à partir de votre projet</small></span><span class="pill info">Personnalisée</span></span>
-          <span class="screen-bar"><i></i></span>
         </div>
       </div>
     </section>
@@ -227,6 +248,10 @@
       </div>
     </section>
   </div>
+  <dialog class="sim-lb" id="sim-lb" aria-label="Visuel de la simulation">
+    <div class="sim-lb-bar"><button type="button" class="sim-lb-x" id="sim-lb-x" aria-label="Fermer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="sim-lb-in" id="sim-lb-in"><img src="assets/demo/simulation-3d-1536.webp" width="1536" height="1024" alt="" decoding="async" loading="lazy"></div>
+  </dialog>
   <!-- ===== Vue formulaire ===== -->
   <section class="section tight" id="v-form" aria-labelledby="t-form" hidden>
     <div class="wrap narrow">
@@ -343,6 +368,16 @@ function showIntro(){
 }
 function goForm(){if(location.hash!=="#formulaire"||A.qs("ref"))history.pushState({v:"form"},"",location.pathname+"#formulaire");openForm();}
 $("open-form").addEventListener("click",goForm);
+/* « Agrandir le visuel » (téléphone) : le visuel de la simulation en plein écran ; on le parcourt du doigt pour lire les détails */
+(function(){var lb=$("sim-lb"),z=$("sim-zoom"),x=$("sim-lb-x"),inn=$("sim-lb-in");if(!lb||!z||!x||!inn)return;
+  function show(){if(typeof lb.showModal==="function")lb.showModal();else lb.setAttribute("open","");
+    document.documentElement.style.overflow="hidden";
+    requestAnimationFrame(function(){inn.scrollLeft=Math.max(0,(inn.scrollWidth-inn.clientWidth)/2);inn.scrollTop=Math.max(0,(inn.scrollHeight-inn.clientHeight)/2);});
+    x.focus();}
+  function hide(){if(lb.open&&typeof lb.close==="function")lb.close();else{lb.removeAttribute("open");done();}}
+  function done(){document.documentElement.style.overflow="";z.focus({preventScroll:true});}
+  z.addEventListener("click",show);x.addEventListener("click",hide);lb.addEventListener("close",done);
+})();
 $("resume-btn").addEventListener("click",goForm);
 $("form-back").addEventListener("click",function(){
   saveDraft();
