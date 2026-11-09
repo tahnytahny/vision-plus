@@ -308,7 +308,7 @@ function ticketModal(id){var t=A.records.get("tickets",id);if(!t)return;
 /* Conversations IA */
 /* Conversations IA : messagerie avec l’assistant (comme une conversation sur téléphone). Les réponses viennent de la base
    de connaissances validée (A.assistant.answer, qui enregistre aussi chaque échange). Fil vide : message d’accueil et court
-   exemple d’échange, signalé comme tel et retiré dès le premier vrai message. Téléphone : plein écran, flèche de retour. */
+   exemple d’échange (maquette de l’utilisateur), retiré dès le premier vrai message. Téléphone : plein écran, flèche de retour. */
 var CV_AV="assets/brand/vp-robot-tete.webp",cvPrev="tableau";
 function cvTime(ts){try{return new Date(ts).toLocaleTimeString(document.documentElement.lang||"fr",{hour:"2-digit",minute:"2-digit"});}catch(e){return "";}}
 function cvDay(ts){var d=new Date(ts),t=new Date(),y=new Date(t.getTime()-864e5);
@@ -319,7 +319,7 @@ V.conversations=function(){
   var hist=mine("conversations").slice().sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0);}),now=Date.now(),t0=hist.length?hist[0].createdAt:now,last="",html="";
   function day(ts){var k=cvDay(ts);if(k!==last){last=k;html+='<div class="cv-day"><span>'+esc(k)+"</span></div>";}}
   day(t0);html+=cvMsg("bot","Bonjour, je suis l’assistant Vision Plus. Comment puis-je vous aider aujourd’hui ?",t0);
-  if(!hist.length)html+='<div class="cv-ex" data-ex><span>Exemple d’échange</span></div>'+
+  if(!hist.length)html+=
     cvMsg("moi","Où retrouver mes simulations ?",now).replace('class="cv-m','data-ex class="cv-m')+
     cvMsg("bot","Ouvrez la rubrique Simulations dans votre espace Vision Plus. Vous y retrouverez vos simulations enregistrées.",now).replace('class="cv-m','data-ex class="cv-m');
   hist.forEach(function(c){day(c.createdAt);html+=cvMsg("moi",c.q,c.createdAt)+cvMsg("bot",c.a,c.createdAt);});

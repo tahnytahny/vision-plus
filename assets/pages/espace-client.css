@@ -172,8 +172,15 @@ html.cv-open .chat-fab{display:none!important}
 .cv-ex span{padding:3px 12px;border-radius:999px;border:1px dashed rgba(170,183,199,.35)}
 .cv-m{position:relative;max-width:min(80%,560px);padding:10px 14px 6px;border-radius:18px;font-size:1rem;line-height:1.45;overflow-wrap:anywhere}
 .cv-m p{margin:0}
-.cv-bot{align-self:flex-start;background:#1C2738;border:1px solid rgba(170,183,199,.14);border-bottom-left-radius:6px;color:#EEF3F8}
-.cv-moi{align-self:flex-end;background:linear-gradient(180deg,#2F7DFF,#195FE2);color:#fff;border-bottom-right-radius:6px;box-shadow:0 8px 20px -10px rgba(30,110,255,.8)}
+.cv-bot{align-self:flex-start;background:#1C2738;border:1px solid rgba(170,183,199,.14);border-bottom-left-radius:6px;color:#EEF3F8;margin-inline-start:8px}
+/* petite pointe de bulle, comme dans une messagerie */
+.cv-m::after{content:"";position:absolute;bottom:-1px;width:14px;height:14px;pointer-events:none}
+.cv-bot::after{left:-8px;background:#1C2738;clip-path:path("M14 0V14H0C6 13 10 8 14 0Z")}
+.cv-moi::after{right:-8px;background:#1A61E3;clip-path:path("M0 0V14H14C8 13 4 8 0 0Z")}
+[dir="rtl"] .cv-bot::after{left:auto;right:-8px;clip-path:path("M0 0V14H14C8 13 4 8 0 0Z")}
+[dir="rtl"] .cv-moi::after{right:auto;left:-8px;clip-path:path("M14 0V14H0C6 13 10 8 14 0Z")}
+.cv-typing::after{display:none}
+.cv-moi{align-self:flex-end;margin-inline-end:8px;background:linear-gradient(180deg,#2F7DFF,#195FE2);color:#fff;border-bottom-right-radius:6px;box-shadow:0 8px 20px -10px rgba(30,110,255,.8)}
 [dir="rtl"] .cv-bot{border-bottom-left-radius:18px;border-bottom-right-radius:6px}
 [dir="rtl"] .cv-moi{border-bottom-right-radius:18px;border-bottom-left-radius:6px}
 .cv-t{display:flex;justify-content:flex-end;align-items:center;gap:4px;margin-top:2px;font-size:.72rem;color:rgba(222,232,244,.62)}
