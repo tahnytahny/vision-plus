@@ -13,7 +13,7 @@ var TOP_TABS={home:1,decouvrir:1,demo:1,offre:1,compte:1,"espace-client":1};
 var TITLES={"telephone-ia":"Secrétaire IA",artisan:"Artisan OS",ads:"Campagne ADS",home:"Accueil",decouvrir:"Services",demo:"Simulation",offre:"Votre offre",compte:"Compte",faq:"FAQ",assistant:"Assistant IA",sav:"Assistance",connexion:"Se connecter",inscription:"Créer un compte","mot-de-passe":"Mot de passe oublié","espace-client":"Mon espace",legal:"Informations légales"};
 /* écrans de la rubrique Services */
 var SVC=[
-  {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents"},
+  {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents",hide:1},   /* retiré de la liste (doublon), écran gardé pour les liens #telephone */
   {href:"telephone-ia.html",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
   {id:"marketing",t:"Marketing IA",s:"Vos publications prêtes à valider.",i:"mega",tab:"tab-marketing",sec:"agents"},
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
@@ -93,7 +93,7 @@ function build(){
     root.classList.add("m-svc");
     var main=document.querySelector("main");var hero=main.querySelector(".page-hero");
     var list=el("section","m-svc-list");list.setAttribute("aria-label","Nos services");
-    list.innerHTML='<div class="wrap">'+SVC.map(function(s){if(s.g)return '<p class="m-svc-g">'+s.g+"</p>";
+    list.innerHTML='<div class="wrap">'+SVC.map(function(s){if(s.hide)return "";if(s.g)return '<p class="m-svc-g">'+s.g+"</p>";
       return '<a class="m-svc-card" href="'+(s.href||"#"+s.id)+'"><span class="m-svc-ic">'+A.icon(s.i)+'</span><span class="m-svc-t"><b>'+s.t+"</b><small>"+s.s+"</small></span>"+A.icon("chev","go")+"</a>";}).join("")+"</div>";
     hero.parentNode.insertBefore(list,hero.nextSibling);
     window.addEventListener("hashchange",function(){renderSvc(true);});
