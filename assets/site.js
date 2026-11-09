@@ -211,8 +211,7 @@ A.closeModal=function(m){m.removeAttribute("data-open");setTimeout(function(){m.
 var ACCT_ICON='<svg class="acct-ic" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="acg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9D7FA"/><stop offset=".55" stop-color="#1F77E9"/><stop offset="1" stop-color="#1661DF"/></linearGradient></defs><circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#acg)" stroke-width="1.6"/><circle cx="16" cy="12.5" r="4.6" fill="none" stroke="url(#acg)" stroke-width="1.8"/><path d="M7.6 25.2c1.7-3.6 4.9-5.6 8.4-5.6s6.7 2 8.4 5.6" fill="none" stroke="url(#acg)" stroke-width="1.8" stroke-linecap="round"/><circle cx="25" cy="7" r="4.2" fill="#1F77E9" stroke="#101419" stroke-width="1.4"/><path d="M25 5v4M23 7h4" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>';
 var DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",sub:"Votre web app et trois agents IA",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",sub:"Appels, rendez-vous, devis, e-mails",icon:"phone"},{href:"decouvrir.html#avantages",label:"Avantages",sub:"Ce que vous y gagnez",icon:"spark"},{href:"decouvrir.html#fonctionnement",label:"Fonctionnement",sub:"Comment les agents travaillent ensemble",icon:"chart"},{href:"decouvrir.html#secteurs",label:"Pour qui",sub:"Les métiers accompagnés",icon:"user"},{href:"decouvrir.html#commencer",label:"Commencer",sub:"Compte, simulation, offre sur mesure",icon:"arrow"}];
 /* navigation ordinateur et tablette : « Découvrir » en une seule colonne (ordre demandé ; Marketing IA et Gestion de la web app, déjà présents sur le site, rejoignent les services) */
-/* rubriques avec vidéo : l’entrée « Vidéo » est rangée sous sa catégorie (sub) */
-var NAV_ARTISAN=[{id:"artisan",href:"artisan-os.html",label:"Artisan OS",icon:"helmet"},{href:"artisan-os.html#dressing-metiers",label:"Le dressing des métiers",icon:"user",sub:1}];
+/* sous-entrées rangées sous leur catégorie (sub) : vidéo du secrétariat médical IA */
 var NAV_DISCOVER=[{href:"decouvrir.html#agents",label:"Le service",icon:"layers"},{id:"telephone-ia",href:"telephone-ia.html",label:"Votre secrétaire IA",icon:"phone"},{href:"telephone-ia.html#secretariat-medical",label:"Secrétariat médical IA",icon:"shield"},{href:"telephone-ia.html#video-medicale",label:"Vidéo",icon:"play",sub:1},
   {href:"decouvrir.html#marketing",label:"Marketing IA",icon:"mega"},{href:"decouvrir.html#gestion",label:"Gestion de votre web app",icon:"gear"},
   {id:"demo",href:"demo.html",label:"Simulation",icon:"play"},{href:"decouvrir.html#avantages",label:"Avantages",icon:"spark"},
@@ -264,8 +263,7 @@ function header(){var page=pageId();var u=A.auth.current();
   var nav=nl("index.html","Accueil","home",page==="home")+
     '<div class="dd dd-col'+(/^(decouvrir|telephone-ia|demo)$/.test(page)?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+A.icon("layers")+"<span>Découvrir</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
       NAV_DISCOVER.map(ddItem).join("")+"</div></div>"+
-    '<div class="dd dd-col'+(page==="artisan"?" current":"")+'"><button type="button" aria-expanded="false" aria-haspopup="true">'+A.icon("helmet")+"<span>Artisan OS</span>"+A.icon("chev","chev")+'</button><div class="dd-menu">'+
-      NAV_ARTISAN.map(ddItem).join("")+"</div></div>"+
+    nl("artisan-os.html","Artisan OS","helmet",page==="artisan")+
     nl("campagne-ads","Campagne ADS","mega",page==="ads")+
     nl("offre-sur-mesure.html","Offre sur-mesure","cube",page==="offre");
   var act;
@@ -280,7 +278,7 @@ function header(){var page=pageId();var u=A.auth.current();
   var dr=document.createElement("div");dr.className="drawer";dr.setAttribute("aria-hidden","true");
   dr.innerHTML='<div class="drawer-in" role="dialog" aria-modal="true" aria-label="Menu"><div class="drawer-h"><span class="sr">Vision Plus</span><span class="logo3d"><img class="logo3d-full" src="assets/brand/vp-logo.webp" alt="" width="1131" height="200"><img class="logo3d-mark" src="assets/brand/vp-mark.webp" alt="" width="207" height="240"></span><button class="x" type="button" data-close aria-label="Fermer le menu">'+A.icon("x")+"</button></div>"+
     '<a class="dl" href="index.html"'+(page==="home"?' aria-current="page"':"")+">Accueil"+A.icon("arrow")+"</a>"+group("Découvrir",NAV_DISCOVER)+
-    [["artisan-os.html","Artisan OS","artisan"],["artisan-os.html#dressing-metiers","Le dressing des métiers","",1],["campagne-ads","Campagne ADS","ads"],["offre-sur-mesure.html","Offre sur-mesure","offre"]].map(function(n){return '<a class="dl'+(n[3]?" sub dl-sub2":"")+'" href="'+n[0]+'"'+(n[2]&&n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
+    [["artisan-os.html","Artisan OS","artisan"],["campagne-ads","Campagne ADS","ads"],["offre-sur-mesure.html","Offre sur-mesure","offre"]].map(function(n){return '<a class="dl'+(n[3]?" sub dl-sub2":"")+'" href="'+n[0]+'"'+(n[2]&&n[2]===page?' aria-current="page"':"")+">"+n[1]+A.icon("arrow")+"</a>";}).join("")+
     (u?group("Mon espace",ACCOUNT.map(function(a){return {href:a.h,label:a.l};}))+'<div class="actions"><button class="btn btn-line" data-logout>Déconnexion</button></div>'
       :'<details class="dgroup dacct" open><summary><span class="dacct-s">'+ACCT_ICON+'Compte</span>'+A.icon("chev","chev")+'</summary><a class="dl sub" href="connexion.html" data-auth="login">Se connecter'+A.icon("arrow")+'</a><a class="dl sub" href="inscription.html" data-auth="signup">Créer un compte'+A.icon("arrow")+'</a></details>')+"</div>";
   var slot=document.querySelector('[data-vp="header"]');if(slot)slot.replaceWith(h);else document.body.prepend(h);document.body.appendChild(dr);
