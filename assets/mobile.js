@@ -216,6 +216,18 @@ function touch3d(){
   if(st&&gr){var r=0;st.addEventListener("scroll",function(){if(!r)r=requestAnimationFrame(function(){r=0;gr.style.setProperty("--ads-x",Math.round(st.scrollLeft));});},{passive:true});}
 }
 
-function start(){if(MQ.matches)build();touch3d();pwa();}
+/* Téléphone : les robots des en-têtes « Votre secrétaire IA » et « Secrétariat médical IA » s'allument et la caméra avance
+   vers eux à l'arrivée sur la section (une fois), puis ils flottent ; animations en pause hors écran (styles : sante.css). */
+function robots(){
+  var sc=document.querySelectorAll(".ti-scene,.mh-scene");
+  if(!sc.length||reduced||!("IntersectionObserver" in window))return;
+  document.documentElement.classList.add("rb-js");
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting&&e.intersectionRatio>=0.35)e.target.classList.add("rb-on");
+    e.target.classList.toggle("rb-run",e.isIntersecting);});},{threshold:[0,0.35]});
+  [].forEach.call(sc,function(n){io.observe(n);});
+}
+
+function start(){if(MQ.matches){build();robots();}touch3d();pwa();}
 if(window.VISIONPLUS&&document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

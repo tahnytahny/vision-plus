@@ -605,3 +605,41 @@ section.ms.ms-top::before{z-index:3}
 .mh .eyebrow{white-space:nowrap}
 /* hébreu et arabe : le texte reste sur le mur sombre, à gauche de la scène (l'image n'est pas inversée : elle contient du texte) */
 @media (min-width:1000px){[dir="rtl"] .mh-in .mh-copy{align-self:flex-end}}
+
+/* =====================================================================
+   Téléphone : les robots des deux en-têtes de telephone-ia.html (« Votre secrétaire IA » .ti-scene et
+   « Secrétariat médical IA » .mh-scene) s'allument et la caméra avance vers eux quand on arrive sur la section,
+   puis ils flottent doucement, regard et casque lumineux. Classes posées par assets/mobile.js (robots) :
+   html.rb-js, .rb-on (arrivée, une fois), .rb-run (à l'écran). Le texte et les boutons sont sous la scène : rien n'est masqué.
+   Le calque lumineux (::before) a exactement la boîte de l'image et les mêmes mouvements, il suit donc le robot.
+   ===================================================================== */
+@media (max-width:760px){
+  .ti-scene::before,.mh-scene::before{content:"";position:absolute;pointer-events:none;mix-blend-mode:screen;opacity:0}
+  .ti-scene::before{top:0;left:-27.45%;width:163.92%;height:100%;transform-origin:45.5% 40%;
+    background:radial-gradient(2.6% 3.6% at 42% 25.6%,rgba(160,242,255,.95),rgba(60,200,255,0)),
+      radial-gradient(2.6% 3.6% at 48.9% 22.3%,rgba(160,242,255,.95),rgba(60,200,255,0)),
+      radial-gradient(2.4% 2.4% at 46.7% 30.6%,rgba(140,235,255,.7),rgba(60,200,255,0)),
+      radial-gradient(14% 18% at 45.5% 25%,rgba(60,170,255,.34),rgba(60,170,255,0))}
+  .mh-scene::before{top:-7.95%;left:-31.3%;width:133.3%;height:113.6%;transform-origin:58% 40%;
+    background:radial-gradient(2.4% 3.6% at 55.3% 33.7%,rgba(160,242,255,.95),rgba(60,200,255,0)),
+      radial-gradient(2.4% 3.6% at 62.6% 31.3%,rgba(160,242,255,.95),rgba(60,200,255,0)),
+      radial-gradient(2.2% 2.4% at 59.6% 37.1%,rgba(140,235,255,.7),rgba(60,200,255,0)),
+      radial-gradient(13% 19% at 59% 31%,rgba(60,170,255,.34),rgba(60,170,255,0))}
+  .ti-img{transform-origin:45.5% 40%}
+  .mh-img{transform-origin:58% 40%}
+}
+@media (max-width:760px) and (prefers-reduced-motion:no-preference){
+  /* avant l'arrivée : scène plus sombre, caméra en retrait */
+  .rb-js .ti-img,.rb-js .mh-img{scale:1;filter:brightness(.5) saturate(.75);transition:scale 2.6s cubic-bezier(.22,1,.36,1),filter 1.3s ease}
+  .rb-js .ti-scene::before,.rb-js .mh-scene::before{scale:1;transition:scale 2.6s cubic-bezier(.22,1,.36,1),opacity 1.2s ease .9s}
+  /* arrivée : lumière, travelling avant vers le robot (plus marqué pour l'assistante médicale, plus petite dans sa scène) */
+  .ti-scene.rb-on .ti-img,.ti-scene.rb-on::before{scale:1.1}
+  .mh-scene.rb-on .mh-img,.mh-scene.rb-on::before{scale:1.25}
+  .rb-on .ti-img,.rb-on .mh-img{filter:none}
+  /* puis flottement et regard lumineux qui pulse */
+  .rb-on .ti-img,.rb-on .mh-img{animation:rb-float 6.5s ease-in-out 2.6s infinite}
+  .ti-scene.rb-on::before,.mh-scene.rb-on::before{opacity:1;animation:rb-float 6.5s ease-in-out 2.6s infinite,rb-glow 3.4s ease-in-out 2.1s infinite}
+  .rb-on:not(.rb-run) .ti-img,.rb-on:not(.rb-run) .mh-img,.rb-on:not(.rb-run)::before{animation-play-state:paused}
+}
+@keyframes rb-float{0%,100%{translate:0 0}50%{translate:0 -1.3%}}
+@keyframes rb-glow{0%,100%{opacity:1}50%{opacity:.4}}
