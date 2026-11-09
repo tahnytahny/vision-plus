@@ -15,11 +15,11 @@ var TITLES={"telephone-ia":"Secrétaire IA",artisan:"Artisan OS",ads:"Campagne A
 var SVC=[
   {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents",hide:1},   /* retiré de la liste (doublon), écran gardé pour les liens #telephone */
   {href:"telephone-ia.html",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
+  {href:"telephone-ia.html#secretariat-medical",t:"Votre secrétaire IA médical",s:"L’accueil administratif des cabinets et des centres.",i:"shield"},
   {id:"marketing",t:"Marketing IA",s:"Vos publications prêtes à valider.",i:"mega",tab:"tab-marketing",sec:"agents"},
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
   {href:"artisan-os.html",t:"Artisan OS",s:"La gestion intelligente des professionnels du bâtiment.",i:"helmet"},
   {href:"campagne-ads",t:"Campagne ADS",s:"Une seule marque, sur tous les canaux publicitaires.",i:"mega"},
-  {href:"telephone-ia.html#secretariat-medical",t:"Secrétariat médical IA",s:"L’accueil administratif des cabinets et des centres.",i:"shield"},
   {g:"Comprendre Vision Plus"},
   {id:"vision-plus-simple",t:"Qu'est-ce que Vision Plus ?",s:"Vision Plus expliqué simplement.",i:"info"},
   {id:"technologie",t:"Notre technologie",s:"Une IA connectée à toute votre activité.",i:"spark"},
