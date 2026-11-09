@@ -14,7 +14,7 @@ var TITLES={"telephone-ia":"Secrétaire IA",artisan:"Artisan OS",ads:"Campagne A
 /* écrans de la rubrique Services */
 var SVC=[
   {id:"telephone",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails : les missions que vous choisissez.",i:"phone",tab:"tab-telephone",sec:"agents"},
-  {href:"telephone-ia.html",t:"Secrétariat intelligent",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
+  {href:"telephone-ia.html",t:"Votre secrétaire IA",s:"Appels, rendez-vous, devis, e-mails et dossiers.",i:"file"},
   {id:"marketing",t:"Marketing IA",s:"Vos publications prêtes à valider.",i:"mega",tab:"tab-marketing",sec:"agents"},
   {id:"gestion",t:"Gestion web app",s:"Votre site modifié en une phrase.",i:"layers",tab:"tab-gestion",sec:"agents"},
   {href:"artisan-os.html",t:"Artisan OS",s:"La gestion intelligente des professionnels du bâtiment.",i:"helmet"},
