@@ -91,7 +91,15 @@ A.audit=function(action,detail){var u=A.auth&&A.auth.current();A.records.add("au
 A.notify=function(userId,title,body,link){if(!userId)return;A.records.add("notifications",{userId:userId,title:title,body:body||"",link:link||"",read:false});};
 /* E-mails et SMS : en prototype, ils sont déposés dans la boîte d'envoi visible dans le back-office. */
 A.send=function(channel,to,subject,body){A.records.add("outbox",{channel:channel,to:to,subject:subject,body:body});
-  if(PROTO)A.toast("<b>Mode présentation</b> · "+(channel==="sms"?"SMS":"E-mail")+" à "+A.esc(to)+" : "+A.esc(subject),{proto:true});};
+  if(PROTO){A.toast("<b>Mode présentation</b> · "+(channel==="sms"?"SMS":"E-mail")+" à "+A.esc(to)+" : "+A.esc(subject),{proto:true});protoCode(subject+" "+(body||""));}};
+/* mode présentation : aucun e-mail ni SMS n’est envoyé. Le code reçu reste affiché sous chaque champ de code (le message
+   en bas de l’écran disparaît au bout de quelques secondes), avec un bouton qui le remplit. */
+function protoCode(txt){var m=/\b(\d{6})\b/.exec(txt);if(!m)return;var code=m[1];
+  setTimeout(function(){[].forEach.call(document.querySelectorAll('input[autocomplete="one-time-code"]'),function(inp){
+    var host=inp.closest(".field")||inp,box=host.nextElementSibling;
+    if(!box||!box.classList.contains("proto-code")){box=document.createElement("p");box.className="proto-code";host.parentNode.insertBefore(box,host.nextSibling);}
+    box.innerHTML='<span>Mode présentation : aucun message n’est réellement envoyé. Votre code :</span> <b>'+code+'</b> <button type="button" class="btn-txt">Utiliser ce code</button>';
+    box.querySelector("button").onclick=function(){inp.value=code;inp.dispatchEvent(new Event("input",{bubbles:true}));inp.focus();};});},30);}
 
 /* ---------- comptes ---------- */
 function users(){return A.store.get("users",[]);}
