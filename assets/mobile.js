@@ -228,6 +228,8 @@ function robots(){
   [].forEach.call(sc,function(n){io.observe(n);});
 }
 
-function start(){if(MQ.matches){build();robots();}touch3d();pwa();}
+/* les robots passent avant l'application mobile (et quelle que soit la largeur au chargement, leurs styles ne s'appliquent
+   qu'à ≤ 760 px) : ils s'animent même si l'on passe en vue téléphone sans recharger, ou si la construction échoue */
+function start(){try{robots();}catch(e){}if(MQ.matches)build();touch3d();pwa();}
 if(window.VISIONPLUS&&document.querySelector(".top"))start();else document.addEventListener("vp:ready",start);
 })();

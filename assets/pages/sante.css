@@ -641,5 +641,12 @@ section.ms.ms-top::before{z-index:3}
   .ti-scene.rb-on::before,.mh-scene.rb-on::before{opacity:1;animation:rb-float 6.5s ease-in-out 2.6s infinite,rb-glow 3.4s ease-in-out 2.1s infinite}
   .rb-on:not(.rb-run) .ti-img,.rb-on:not(.rb-run) .mh-img,.rb-on:not(.rb-run)::before{animation-play-state:paused}
 }
+/* mouvement réduit (réglage « Réduire les animations » du téléphone) : pas de mouvement, mais le même cadrage rapproché
+   sur le robot et son regard lumineux, fixe */
+@media (max-width:760px) and (prefers-reduced-motion:reduce){
+  .ti-img,.ti-scene::before{scale:1.1}
+  .mh-img,.mh-scene::before{scale:1.25}
+  .ti-scene::before,.mh-scene::before{opacity:.75}
+}
 @keyframes rb-float{0%,100%{translate:0 0}50%{translate:0 -1.3%}}
 @keyframes rb-glow{0%,100%{opacity:1}50%{opacity:.4}}
